@@ -1,5 +1,7 @@
-import 'package:contendance_app/splashscreen.dart';
+import 'package:contendance_app/class.dart';
 import 'package:flutter/material.dart';
+
+import 'package:contendance_app/presensi_berhasil.dart';
 
 void main(){
   runApp(const MyApp());
