@@ -9,9 +9,14 @@ import 'dart:math' as math;
 
 void main() => runApp(const SearchClass());
 
-class SearchClass extends StatelessWidget {
+class SearchClass extends StatefulWidget {
   const SearchClass({Key? key}) : super(key: key);
 
+  @override
+  State<SearchClass> createState() => _SearchClassState();
+}
+
+class _SearchClassState extends State<SearchClass> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
