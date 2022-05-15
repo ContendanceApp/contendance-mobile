@@ -120,7 +120,6 @@ class _HomeState extends State<Home> {
                   const SizedBox(height: 12),
                   InkWell(
                     child: Container(
-                      margin: const EdgeInsets.only(bottom: 24),
                       width: double.infinity,
                       height: 136,
                       padding: const EdgeInsets.all(16),
