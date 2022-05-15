@@ -1,22 +1,18 @@
 import 'dart:async';
-import 'dart:io' show Platform;
-import 'package:contendance_app/screens/home.dart';
-import 'package:contendance_app/screens/ripple_animation/ripple_animation.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
+import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
 
-import 'package:flutter_beacon/flutter_beacon.dart';
-
-void main() => runApp(const SearchClass());
-
-class SearchClass extends StatefulWidget {
-  const SearchClass({Key? key}) : super(key: key);
+class Beacon extends StatefulWidget {
+  const Beacon({Key? key}) : super(key: key);
 
   @override
-  State<SearchClass> createState() => _SearchClassState();
+  State<Beacon> createState() => _BeaconState();
 }
 
-class _SearchClassState extends State<SearchClass> {
+class _BeaconState extends State<Beacon> {
   List beacons = [];
 
   final regions = <Region>[];
@@ -31,20 +27,7 @@ class _SearchClassState extends State<SearchClass> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      // ignore: prefer_const_constructors
-      home: RipplesAnimation(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Home(),
-          ),
-        ),
-        key: null,
-        child: Container(),
-      ),
-    );
+    return Container();
   }
 
   initializeBeacon() async {

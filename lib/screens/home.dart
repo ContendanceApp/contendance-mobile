@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
+import 'package:permission_handler/permission_handler.dart'
+    as permissionHandler;
+import 'package:location/location.dart';
+import 'dart:async';
+import 'package:flutter_beacon/flutter_beacon.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/services.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,9 +23,29 @@ class _HomeState extends State<Home> {
   get blurRadius => null;
   get decoration => null;
 
+  Location location = Location();
+
+  late bool _serviceEnabled;
+  late PermissionStatus _permissionGranted;
+  late LocationData _locationData;
+
+  List beacons = [];
+  final regions = <Region>[];
+  StreamSubscription<RangingResult>? _streamRanging;
+
   static const name = 'Muqorroba Lada Sattar';
   static const nrp = '3120600005';
   static const kelas = '2 D4 IT A';
+
+  @override
+  void initState() {
+    super.initState;
+
+    getLocation();
+    initializeBeacon();
+    rangingBeacon();
+    // locationPermission();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -498,5 +525,78 @@ class _HomeState extends State<Home> {
         );
       },
     );
+  }
+
+  getLocation() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      print("location disabled");
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+  }
+
+  locationPermission() async {
+    var status = await permissionHandler.Permission.location.status;
+    if (status.isGranted) {
+      print("LOCATION GRANTED");
+    } else if (status.isDenied) {
+      print("LOCATION NOT GRANTED");
+      Map<permissionHandler.Permission, permissionHandler.PermissionStatus>
+          status = await [permissionHandler.Permission.location].request();
+    }
+
+    if (await permissionHandler.Permission.location.isPermanentlyDenied) {
+      print("LOCATION PERMANENTLY DENIED");
+      permissionHandler.openAppSettings();
+    }
+  }
+
+  initializeBeacon() async {
+    try {
+      // if you want to manage manual checking about the required permissions
+      await flutterBeacon.initializeScanning;
+
+      // or if you want to include automatic checking permission
+      await flutterBeacon.initializeAndCheckScanning;
+    } on PlatformException catch (e) {
+      print(e.message);
+      // library failed to initialize, check code and message
+    }
+  }
+
+  rangingBeacon() {
+    if (Platform.isIOS) {
+      // iOS platform, at least set identifier and proximityUUID for region scanning
+      regions.add(Region(
+          identifier: 'Apple Airlocate',
+          proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
+    } else {
+      // android platform, it can ranging out of beacon that filter all of Proximity UUID
+      regions.add(Region(identifier: 'com.beacon'));
+    }
+
+    // to start ranging beacons
+    _streamRanging =
+        flutterBeacon.ranging(regions).listen((RangingResult result) {
+      print("result $result");
+      setState(() {
+        beacons = result.beacons;
+      });
+      // result contains a region and list of beacons found
+      // list can be empty if no matching beacons were found in range
+    });
   }
 }
