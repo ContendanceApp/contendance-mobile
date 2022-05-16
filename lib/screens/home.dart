@@ -1,11 +1,12 @@
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
 import 'package:permission_handler/permission_handler.dart'
-    as permissionHandler;
+    as permission_handler;
 import 'package:location/location.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
@@ -20,6 +21,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  static AndroidInitializationSettings initializationSettingsAndroid =
+      const AndroidInitializationSettings('app_icon');
+  var initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
   get blurRadius => null;
   get decoration => null;
 
@@ -40,6 +48,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState;
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
 
     getLocation();
     initializeBeacon();
@@ -375,6 +386,13 @@ class _HomeState extends State<Home> {
           ),
         ),
         onPressed: () {
+          _showNotification('Beacon Detected', beacons[0].proximityUUID,
+              'This is the payload');
+          // NotificationAPI.showNotification(
+          //     id: 1,
+          //     title: 'Test Notification',
+          //     body: 'Ini body notification',
+          //     payload: 'test.abs');
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -549,18 +567,18 @@ class _HomeState extends State<Home> {
   }
 
   locationPermission() async {
-    var status = await permissionHandler.Permission.location.status;
+    var status = await permission_handler.Permission.location.status;
     if (status.isGranted) {
       print("LOCATION GRANTED");
     } else if (status.isDenied) {
       print("LOCATION NOT GRANTED");
-      Map<permissionHandler.Permission, permissionHandler.PermissionStatus>
-          status = await [permissionHandler.Permission.location].request();
+      Map<permission_handler.Permission, permission_handler.PermissionStatus>
+          status = await [permission_handler.Permission.location].request();
     }
 
-    if (await permissionHandler.Permission.location.isPermanentlyDenied) {
+    if (await permission_handler.Permission.location.isPermanentlyDenied) {
       print("LOCATION PERMANENTLY DENIED");
-      permissionHandler.openAppSettings();
+      permission_handler.openAppSettings();
     }
   }
 
@@ -591,12 +609,42 @@ class _HomeState extends State<Home> {
     // to start ranging beacons
     _streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) {
-      print("result $result");
-      setState(() {
-        beacons = result.beacons;
-      });
+      print("result ${result.beacons}");
+      if (result.beacons.isNotEmpty) {
+        setState(() {
+          beacons = result.beacons;
+        });
+        _streamRanging?.cancel();
+      }
       // result contains a region and list of beacons found
       // list can be empty if no matching beacons were found in range
     });
+  }
+
+  void _showNotification(String? title, String? body, String? payload) async {
+    const androidChannelPlatformSpecifics = AndroidNotificationDetails(
+        'channelId', 'channelName',
+        channelDescription: 'channelDescription',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'test ticker');
+
+    const platformChannelSpecifics =
+        NotificationDetails(android: androidChannelPlatformSpecifics);
+
+    await flutterLocalNotificationsPlugin
+        .show(0, title, body, platformChannelSpecifics, payload: payload);
+  }
+
+  Future onSelectNotification(String? payload) async {
+    if (payload != null) {
+      debugPrint("Notification Payload = $payload");
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SearchClass(),
+      ),
+    );
   }
 }
