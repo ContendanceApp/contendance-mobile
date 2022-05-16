@@ -6,8 +6,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
-import 'package:permission_handler/permission_handler.dart'
-    as permission_handler;
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'dart:io' show Platform;
@@ -51,7 +49,6 @@ class _HomeState extends State<Home> {
     locationService.getLocation();
     initializeBeacon();
     rangingBeacon();
-    // locationPermission();
   }
 
   @override
@@ -539,22 +536,6 @@ class _HomeState extends State<Home> {
         );
       },
     );
-  }
-
-  locationPermission() async {
-    var status = await permission_handler.Permission.location.status;
-    if (status.isGranted) {
-      print("LOCATION GRANTED");
-    } else if (status.isDenied) {
-      print("LOCATION NOT GRANTED");
-      Map<permission_handler.Permission, permission_handler.PermissionStatus>
-          status = await [permission_handler.Permission.location].request();
-    }
-
-    if (await permission_handler.Permission.location.isPermanentlyDenied) {
-      print("LOCATION PERMANENTLY DENIED");
-      permission_handler.openAppSettings();
-    }
   }
 
   initializeBeacon() async {
