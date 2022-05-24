@@ -34,8 +34,6 @@ class _DaftarRuanganState extends State<DaftarRuangan> {
               height: 150,
               child: const SizedBox(
                 width: double.infinity,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.end,
                 child: Padding(
                   padding: EdgeInsets.only(top: 50.0),
                   child: Text(
@@ -65,30 +63,24 @@ class _DaftarRuanganState extends State<DaftarRuangan> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 12),
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GridView.count(
+                      clipBehavior: Clip.none,
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      childAspectRatio: 2.0,
-                      children: [
-                        InkWell(
+                      childAspectRatio: 2.2,
+                      children: List.generate(
+                        10,
+                        (index) => InkWell(
                           child: Container(
-                            //width: 150,
                             padding: const EdgeInsets.all(18),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
                                 Text(
                                   "C 102",
                                   textAlign: TextAlign.center,
@@ -110,620 +102,28 @@ class _DaftarRuanganState extends State<DaftarRuangan> {
                               ],
                             ),
                             decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
+                              color: const Color(0xFFFFFFFF),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(15)),
+                              border: Border.all(
+                                color: const Color(0xFFF4F4F4),
+                                width: 1.0,
+                                style: BorderStyle.solid,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                )
                               ],
                             ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
                           ),
                           onTap: () {
                             showModalBottom();
                           },
                         ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                        InkWell(
-                          child: Container(
-                            //width: 150,
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                // Icon(
-                                //   IconlyLight.calendar,
-                                //   color: cPrimaryBlue,
-                                //   size: 35,
-                                // ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFFFFFFF),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(15)),
-                                border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    spreadRadius: 2,
-                                    blurRadius: 10,
-                                  )
-                                ]),
-                          ),
-                          onTap: () {
-                            showModalBottom();
-                          },
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 )
@@ -742,14 +142,15 @@ class _DaftarRuanganState extends State<DaftarRuangan> {
       builder: (builder) {
         return Container(
           height: 250.0,
-          color: Colors.transparent, //could change this to Color(0xFF737373),
-          //so you don't have to change MaterialApp canvasColor
+          color: Colors.transparent,
           child: Container(
             decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(cRounded),
-                    topRight: Radius.circular(cRounded))),
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(cRounded),
+                topRight: Radius.circular(cRounded),
+              ),
+            ),
             child: Center(
               child: Stack(
                 children: [
@@ -783,7 +184,6 @@ class _DaftarRuanganState extends State<DaftarRuangan> {
                           Text(
                             "Digunakan untuk Pertemua Orang Tua",
                             style: cInter.copyWith(
-                              //fontWeight: bold,
                               fontSize: 14.0,
                               color: cSubText,
                             ),
@@ -810,7 +210,6 @@ class _DaftarRuanganState extends State<DaftarRuangan> {
                         ),
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            //minimumSize: const Size.fromHeight(0),
                             fixedSize: const Size.fromWidth(150),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 45, vertical: 12),
