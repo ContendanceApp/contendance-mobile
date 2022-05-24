@@ -5,8 +5,8 @@ import 'package:contendance_app/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-class KelasSelesai extends StatelessWidget {
-  const KelasSelesai({Key? key}) : super(key: key);
+class ClassFinished extends StatelessWidget {
+  const ClassFinished({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +48,10 @@ class KelasSelesai extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  Icon(IconlyLight.logout,
-                      size: 100,
-                      color: Color(0xFFFFFFFF),
+                  Icon(
+                    IconlyLight.logout,
+                    size: 100,
+                    color: Color(0xFFFFFFFF),
                   ),
                   const SizedBox(height: 70),
                   Text(
@@ -69,10 +70,9 @@ class KelasSelesai extends StatelessWidget {
                     shape: BadgeShape.square,
                     elevation: 0,
                     badgeColor: Colors.white,
-
                     borderRadius: BorderRadius.circular(150),
                     padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
                       '11:20',
                       style: cInter.copyWith(
