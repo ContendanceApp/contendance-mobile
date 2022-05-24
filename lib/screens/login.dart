@@ -73,9 +73,9 @@ class _LoginState extends State<Login> {
                 border: const OutlineInputBorder(),
                 suffixIcon: InkWell(
                   onTap: _togglePasswordView,
-                  child: const Icon(
-                    Icons.visibility,
-                  ),
+                  child: ishiddenPassword
+                      ? const Icon(Icons.visibility_off_outlined)
+                      : const Icon(Icons.visibility_outlined),
                 ),
               ),
             ),
