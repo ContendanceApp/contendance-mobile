@@ -1,27 +1,19 @@
-import 'package:badges/badges.dart';
 import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter/material.dart';
 
 class OpenPresence extends StatelessWidget {
-  // const OpenPresence({Key? key, required this.presence}) : super(key: key);
   const OpenPresence({Key? key}) : super(key: key);
-
-  // final Presence presence;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: IconButton( //menu icon button at start left of appbar
-          onPressed: (){
-            //code to execute when this button is pressed
-          },
-          icon: Icon(IconlyLight.arrow_left),
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(IconlyLight.arrow_left),
           color: Colors.black87,
           iconSize: 24,
         ),
@@ -34,13 +26,10 @@ class OpenPresence extends StatelessWidget {
             letterSpacing: 1,
           ),
         ),
-
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-
-
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
@@ -62,21 +51,20 @@ class OpenPresence extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 25),
-              Container(
-                child: ClipRRect(
-                borderRadius: BorderRadius.circular(40),
-                  child: Image.asset(
-                    'assets/images/lab.jpeg',
-                    height: 200,
-                    width: 200,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(35),
+                    child: Image.asset(
+                      'assets/images/lab-pens.jpg',
+                      height: 135,
+                      width: 135,
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
-                ),
-              ),
                   const SizedBox(height: 22),
-                  Text(
+                  const Text(
                     "Ruangan C-102",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -87,20 +75,6 @@ class OpenPresence extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    children: const <Widget>[
-                      //Icon(Icons.assignment_return),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
             Positioned(
               bottom: 274,
               child: Column(
@@ -158,106 +132,80 @@ class OpenPresence extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Positioned(
-              bottom: 48,
-              left: 250,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Stack(
-
-                  children: <Widget>[
-                    Positioned.fill(
+            Align(
+              alignment: AlignmentDirectional.bottomCenter,
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
                       child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0xff145ae3),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(color: cPrimaryBlue),
+                        ),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            primary: cPrimaryBlue,
+                            textStyle: cInter.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text("Batal"),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 24,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          gradient: const LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
                               Color(0xff15aeef),
+                              Color(0xff145ae3),
                             ],
+                          ),
+                        ),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            primary: Colors.white,
+                            textStyle: cInter.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          onPressed: () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                            ),
+                          ),
+                          child: const Text(
+                            "Buka Presensi",
+                            softWrap: false,
                           ),
                         ),
                       ),
                     ),
-
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 12),
-                        primary: Colors.white,
-                        textStyle: cInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Home(),
-                        ),
-                      ),
-
-                      child: const Text('Buka Presensi'),
-
-                    ),
-
                   ],
                 ),
               ),
             ),
-            Positioned(
-              bottom: 48,
-              right: 250,
-                child: Stack(
-
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: const Color(0xFFFFFFFF),
-                            borderRadius:
-                            const BorderRadius.all(Radius.circular(100)),
-                            border: Border.all(
-                                color: const Color(0xFF145AE3),
-                                width: 1.0,
-                                style: BorderStyle.solid),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                              )
-                            ]),
-                      ),
-                    ),
-
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 65, vertical: 12),
-                        primary: Color(0xff145AE3),
-                        textStyle: cInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Home(),
-                        ),
-                      ),
-
-                      child: const Text('Batal'),
-
-                    ),
-
-                  ],
-                ),
-              ),
           ],
         ),
       ),
     );
   }
 }
-
