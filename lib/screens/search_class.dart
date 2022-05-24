@@ -4,7 +4,7 @@ import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/ripple_animation/ripple_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 
 void main() => runApp(const SearchClass());
@@ -21,6 +21,13 @@ class _SearchClassState extends State<SearchClass> {
 
   final regions = <Region>[];
   StreamSubscription<RangingResult>? _streamRanging;
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  static AndroidInitializationSettings initializationSettingsAndroid =
+      const AndroidInitializationSettings('app_icon');
+  var initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
 
   @override
   void initState() {
@@ -72,14 +79,54 @@ class _SearchClassState extends State<SearchClass> {
     }
 
     // to start ranging beacons
-    _streamRanging =
-        flutterBeacon.ranging(regions).listen((RangingResult result) {
-      print("result $result");
-      setState(() {
-        beacons = result.beacons;
-      });
-      // result contains a region and list of beacons found
-      // list can be empty if no matching beacons were found in range
-    });
+    _streamRanging = flutterBeacon.ranging(regions).listen(
+      (RangingResult result) {
+        // print("result $result");
+        setState(() {
+          beacons = result.beacons;
+        });
+        // result contains a region and list of beacons found
+        // list can be empty if no matching beacons were found in range
+        if (beacons.isNotEmpty) {
+          beacons.asMap().forEach(
+            (index, beacon) {
+              print('beacon: $beacon');
+              _showNotification(index, "Beacon Detected", beacon.proximityUUID,
+                  "This is payload");
+            },
+          );
+
+          _streamRanging?.cancel();
+        }
+      },
+    );
+  }
+
+  void _showNotification(
+      int id, String? title, String? body, String? payload) async {
+    const androidChannelPlatformSpecifics = AndroidNotificationDetails(
+        'channelId', 'channelName',
+        channelDescription: 'channelDescription',
+        importance: Importance.max,
+        priority: Priority.high,
+        ticker: 'test ticker');
+
+    const platformChannelSpecifics =
+        NotificationDetails(android: androidChannelPlatformSpecifics);
+
+    await flutterLocalNotificationsPlugin
+        .show(id, title, body, platformChannelSpecifics, payload: payload);
+  }
+
+  Future onSelectNotification(String? payload) async {
+    if (payload != null) {
+      debugPrint("Notification Payload = $payload");
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SearchClass(),
+      ),
+    );
   }
 }
