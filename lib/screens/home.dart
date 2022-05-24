@@ -1,15 +1,11 @@
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/screens/search_class.dart';
-import 'package:contendance_app/services/beacon_service.dart';
 import 'package:contendance_app/services/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
-import 'package:permission_handler/permission_handler.dart'
-    as permission_handler;
-import 'package:location/location.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +19,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  LocationService locationService = LocationService();
+
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static AndroidInitializationSettings initializationSettingsAndroid =
@@ -58,10 +56,9 @@ class _HomeState extends State<Home> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
 
-    getLocation();
+    locationService.getLocation();
     initializeBeacon();
     rangingBeacon();
-    print("beacons: $beacons");
   }
 
   @override
@@ -549,43 +546,6 @@ class _HomeState extends State<Home> {
         );
       },
     );
-  }
-
-  getLocation() async {
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      print("location disabled");
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-
-    _locationData = await location.getLocation();
-  }
-
-  locationPermission() async {
-    var status = await permission_handler.Permission.location.status;
-    if (status.isGranted) {
-      print("LOCATION GRANTED");
-    } else if (status.isDenied) {
-      print("LOCATION NOT GRANTED");
-      Map<permission_handler.Permission, permission_handler.PermissionStatus>
-          status = await [permission_handler.Permission.location].request();
-    }
-
-    if (await permission_handler.Permission.location.isPermanentlyDenied) {
-      print("LOCATION PERMANENTLY DENIED");
-      permission_handler.openAppSettings();
-    }
   }
 
   initializeBeacon() async {
