@@ -1,4 +1,5 @@
 import 'package:contendance_app/constant/theme.dart';
+import 'package:contendance_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -128,7 +129,12 @@ class _LoginState extends State<Login> {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const Home()),
+              );
+            },
             style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(0.0)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
