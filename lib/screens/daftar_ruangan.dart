@@ -66,8 +66,8 @@ class _DaftarRuanganState extends State<DaftarRuangan> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    clipBehavior: Clip.none,
                     child: GridView.count(
+                      clipBehavior: Clip.none,
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
