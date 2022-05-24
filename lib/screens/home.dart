@@ -35,16 +35,6 @@ class _HomeState extends State<Home> {
   final regions = <Region>[];
   late StreamSubscription<RangingResult>? _streamRanging;
 
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  static AndroidInitializationSettings initializationSettingsAndroid =
-      const AndroidInitializationSettings('app_icon');
-  var initializationSettings =
-      InitializationSettings(android: initializationSettingsAndroid);
-
-  get blurRadius => null;
-  get decoration => null;
-
   static const name = 'Muqorroba Lada Sattar';
   static const nrp = '3120600005';
   static const kelas = '2 D4 IT A';
