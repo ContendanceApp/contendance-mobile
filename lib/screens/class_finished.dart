@@ -1,6 +1,5 @@
 import 'package:badges/badges.dart';
 import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -23,45 +22,47 @@ class ClassFinished extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        backgroundColor: Color(0xFF6C7A95),
+        backgroundColor: const Color(0xFF6C7A95),
         elevation: 0,
       ),
-      // backgroundColor: Colors.blueGrey,
-      backgroundColor: Color(0xFF6C7A95),
+      backgroundColor: const Color(0xFF6C7A95),
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: 100,
+              top: 125,
               child: Column(
                 children: [
-                  const Text(
+                  Text(
                     "Kelas Selesai!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFFFFF),
+                      fontWeight: bold,
+                      color: cWhite,
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  Icon(
-                    IconlyLight.logout,
-                    size: 100,
-                    color: Color(0xFFFFFFFF),
+                  const SizedBox(height: 20),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: Icon(
+                      IconlyLight.logout,
+                      size: 75,
+                      color: cSubWhite,
+                    ),
                   ),
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 16),
                   Text(
                     "Ruangan C-201",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFFFFF),
+                      color: cSubWhite,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -76,23 +77,10 @@ class ClassFinished extends StatelessWidget {
                     badgeContent: Text(
                       '11:20',
                       style: cInter.copyWith(
-                        color: const Color(0xFF457DF5).withOpacity(0.9),
-                        fontWeight: FontWeight.w600,
+                        color: cPrimaryBlue,
+                        fontWeight: semibold,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Column(
-                    children: const <Widget>[
-                      //Icon(Icons.assignment_return),
-                    ],
                   ),
                 ],
               ),
@@ -101,55 +89,51 @@ class ClassFinished extends StatelessWidget {
               bottom: 150,
               child: Column(
                 children: <Widget>[
-                  const SizedBox(
-                    width: 200,
+                  SizedBox(
+                    width: 250,
                     child: Text(
                       "Workshop Pemrograman Perangkat Lunak",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: "Inter",
                         fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFFFFFFFF),
+                        fontWeight: semibold,
+                        color: cSubWhite,
                         height: 1.5,
                       ),
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     "08:00 - 13:00",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFFFFFFFF),
+                      fontWeight: semibold,
+                      color: cWhite,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Column(
-                    children: const [
-                      SizedBox(
-                        width: 50,
-                        child: Divider(
-                          color: Color(0xFFF4F4F4),
-                          height: 10,
-                          thickness: 2,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        "Andhik Ampuh Yunanto",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: "Inter",
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFFEBEBEF),
-                        ),
-                      ),
-                    ],
-                  )
+                  const SizedBox(
+                    width: 50,
+                    child: Divider(
+                      color: Color(0xFFF4F4F4),
+                      height: 10,
+                      thickness: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    "Andhik Ampuh Yunanto",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 16.0,
+                      fontWeight: semibold,
+                      color: cSubWhite,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -175,7 +159,7 @@ class ClassFinished extends StatelessWidget {
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 45, vertical: 12),
-                        primary: Colors.blueAccent,
+                        primary: cPrimaryBlue,
                         textStyle: cInter.copyWith(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -187,7 +171,7 @@ class ClassFinished extends StatelessWidget {
                           builder: (context) => const Home(),
                         ),
                       ),
-                      child: const Text('OKE'),
+                      child: const Text('OKE!'),
                     ),
                   ],
                 ),
