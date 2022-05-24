@@ -1,4 +1,5 @@
 import 'package:contendance_app/constant/theme.dart';
+import 'package:contendance_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -56,9 +57,33 @@ class _LoginState extends State<Login> {
           Container(
             margin: const EdgeInsets.only(top: 40),
             child: TextField(
+              textInputAction: TextInputAction.next,
               controller: emailController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFFE0E0E0),
+                    width: 1,
+                  ),
+                ),
+                labelStyle: TextStyle(
+                  fontWeight: semibold,
+                  color: cSubText,
+                ),
+                focusColor: cPrimaryBlue,
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFF1482E9),
+                  ),
+                ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFFD10404),
+                  ),
+                ),
                 labelText: 'Email',
               ),
             ),
@@ -66,22 +91,56 @@ class _LoginState extends State<Login> {
           Container(
             margin: const EdgeInsets.only(top: 16, bottom: 48),
             child: TextField(
+              textInputAction: TextInputAction.go,
               obscureText: ishiddenPassword,
               controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Password',
-                border: const OutlineInputBorder(),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFFE0E0E0),
+                    width: 1,
+                  ),
+                ),
+                labelStyle: TextStyle(
+                  fontWeight: semibold,
+                  color: cSubText,
+                ),
+                focusColor: cPrimaryBlue,
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFF1482E9),
+                  ),
+                ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFFD10404),
+                  ),
+                ),
                 suffixIcon: InkWell(
                   onTap: _togglePasswordView,
-                  child: const Icon(
-                    Icons.visibility,
-                  ),
+                  child: ishiddenPassword
+                      ? const Icon(
+                          Icons.visibility_off_outlined,
+                          color: Color(0xFF1482E9),
+                        )
+                      : const Icon(
+                          Icons.visibility_outlined,
+                          color: Color(0xFF1482E9),
+                        ),
                 ),
               ),
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const Home()),
+              );
+            },
             style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(0.0)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
