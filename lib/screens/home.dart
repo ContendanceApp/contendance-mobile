@@ -1,5 +1,7 @@
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/screens/search_class.dart';
+import 'package:contendance_app/services/beacon_service.dart';
+import 'package:contendance_app/services/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,8 +11,8 @@ import 'package:permission_handler/permission_handler.dart'
 import 'package:location/location.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
-import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
+import 'dart:io' show Platform;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -20,18 +22,22 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  get blurRadius => null;
-  get decoration => null;
-
-  Location location = Location();
-
-  late bool _serviceEnabled;
-  late PermissionStatus _permissionGranted;
-  late LocationData _locationData;
+  LocationService locationService = LocationService();
+  BeaconService beaconService = BeaconService();
 
   List beacons = [];
   final regions = <Region>[];
-  StreamSubscription<RangingResult>? _streamRanging;
+  late StreamSubscription<RangingResult>? _streamRanging;
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  static AndroidInitializationSettings initializationSettingsAndroid =
+      const AndroidInitializationSettings('app_icon');
+  var initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  get blurRadius => null;
+  get decoration => null;
 
   static const name = 'Muqorroba Lada Sattar';
   static const nrp = '3120600005';
@@ -44,7 +50,7 @@ class _HomeState extends State<Home> {
     getLocation();
     initializeBeacon();
     rangingBeacon();
-    // locationPermission();
+    print("beacons: $beacons");
   }
 
   @override
@@ -375,6 +381,13 @@ class _HomeState extends State<Home> {
           ),
         ),
         onPressed: () {
+          // _showNotification('Beacon Detected', beacons[0].proximityUUID,
+          //     'This is the payload');
+          // NotificationAPI.showNotification(
+          //     id: 1,
+          //     title: 'Test Notification',
+          //     body: 'Ini body notification',
+          //     payload: 'test.abs');
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -572,6 +585,7 @@ class _HomeState extends State<Home> {
       // or if you want to include automatic checking permission
       await flutterBeacon.initializeAndCheckScanning;
     } on PlatformException catch (e) {
+      // ignore: avoid_print
       print(e.message);
       // library failed to initialize, check code and message
     }
@@ -584,19 +598,22 @@ class _HomeState extends State<Home> {
           identifier: 'Apple Airlocate',
           proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
     } else {
-      // android platform, it can ranging out of beacon that filter all of Proximity UUID
       regions.add(Region(identifier: 'com.beacon'));
     }
 
-    // to start ranging beacons
     _streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) {
-      print("result $result");
-      setState(() {
-        beacons = result.beacons;
-      });
-      // result contains a region and list of beacons found
-      // list can be empty if no matching beacons were found in range
+      if (result.beacons.isNotEmpty) {
+        setState(() {
+          beacons = result.beacons;
+        });
+        for (var beacon in beacons) {
+          print("beacon: $beacon");
+        }
+        _showNotification(
+            'Beacon Detected', beacons[0].proximityUUID, 'This is the payload');
+        // _streamRanging?.cancel();
+      }
     });
   }
 }
