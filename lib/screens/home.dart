@@ -225,10 +225,9 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Icon(
-                                  IconlyLight.calendar,
-                                  color: cPrimaryBlue,
-                                  size: 35,
+                                SvgPicture.asset(
+                                  "assets/images/calendar.svg",
+                                  width: 35,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
@@ -268,10 +267,9 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Icon(
-                                  IconlyLight.category,
-                                  color: cPrimaryBlue,
-                                  size: 35,
+                                SvgPicture.asset(
+                                  "assets/images/category.svg",
+                                  width: 35,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
@@ -311,10 +309,9 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Icon(
-                                  IconlyLight.bookmark,
-                                  color: cPrimaryBlue,
-                                  size: 35,
+                                SvgPicture.asset(
+                                  "assets/images/bookmark-minus.svg",
+                                  width: 35,
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
