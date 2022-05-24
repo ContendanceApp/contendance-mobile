@@ -56,9 +56,33 @@ class _LoginState extends State<Login> {
           Container(
             margin: const EdgeInsets.only(top: 40),
             child: TextField(
+              textInputAction: TextInputAction.next,
               controller: emailController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFFE0E0E0),
+                    width: 1,
+                  ),
+                ),
+                labelStyle: TextStyle(
+                  fontWeight: semibold,
+                  color: cSubText,
+                ),
+                focusColor: cPrimaryBlue,
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFF1482E9),
+                  ),
+                ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFFD10404),
+                  ),
+                ),
                 labelText: 'Email',
               ),
             ),
@@ -66,11 +90,34 @@ class _LoginState extends State<Login> {
           Container(
             margin: const EdgeInsets.only(top: 16, bottom: 48),
             child: TextField(
+              textInputAction: TextInputAction.go,
               obscureText: ishiddenPassword,
               controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Password',
-                border: const OutlineInputBorder(),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xFFE0E0E0),
+                    width: 1,
+                  ),
+                ),
+                labelStyle: TextStyle(
+                  fontWeight: semibold,
+                  color: cSubText,
+                ),
+                focusColor: cPrimaryBlue,
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFF1482E9),
+                  ),
+                ),
+                errorBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 2,
+                    color: Color(0xFFD10404),
+                  ),
+                ),
                 suffixIcon: InkWell(
                   onTap: _togglePasswordView,
                   child: ishiddenPassword
