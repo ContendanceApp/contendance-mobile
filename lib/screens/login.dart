@@ -136,10 +136,7 @@ class _LoginState extends State<Login> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const Home()),
-              );
+              Navigator.pushReplacementNamed(context, "/home");
             },
             style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(0.0)),

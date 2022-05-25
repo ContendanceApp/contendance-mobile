@@ -1,3 +1,4 @@
+import 'package:contendance_app/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,10 +21,7 @@ class _SplashScreen extends State<SplashScreen> {
   splashscreenStart() async {
     var duration = const Duration(seconds: 3);
     return Timer(duration, () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
+      Navigator.pushReplacementNamed(context, "/login");
     });
   }
 

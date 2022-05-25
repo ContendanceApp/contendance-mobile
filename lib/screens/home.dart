@@ -300,7 +300,7 @@ class _HomeState extends State<Home> {
                                 ]),
                           ),
                           onTap: () {
-                            showModalBottom();
+                            Navigator.pushNamed(context, "/room-list");
                           },
                         ),
                         InkWell(

@@ -1,4 +1,10 @@
+import 'package:contendance_app/screens/home.dart';
+import 'package:contendance_app/screens/login.dart';
+import 'package:contendance_app/screens/no_connection.dart';
+import 'package:contendance_app/screens/room_list.dart';
+import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/screens/splash_screen.dart';
+import 'package:contendance_app/screens/success_presence.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +21,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: "Inter",
       ),
-      home: const SplashScreen(),
+      initialRoute: "/",
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/home': (context) => const Home(),
+        '/login': (context) => const Login(),
+        '/room-list': (context) => const RoomList(),
+        '/search-class': (context) => const SearchClass(),
+        '/no-connection': (context) => const NoConnection(),
+      },
     );
   }
 }
