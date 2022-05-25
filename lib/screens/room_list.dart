@@ -2,14 +2,14 @@ import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
-class DaftarRuangan extends StatefulWidget {
-  const DaftarRuangan({Key? key}) : super(key: key);
+class RoomList extends StatefulWidget {
+  const RoomList({Key? key}) : super(key: key);
 
   @override
-  State<DaftarRuangan> createState() => _DaftarRuanganState();
+  State<RoomList> createState() => _RoomListState();
 }
 
-class _DaftarRuanganState extends State<DaftarRuangan> {
+class _RoomListState extends State<RoomList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
