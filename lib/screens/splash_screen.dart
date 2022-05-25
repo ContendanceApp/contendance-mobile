@@ -41,7 +41,7 @@ class _SplashScreen extends State<SplashScreen> {
           Center(
             child: SvgPicture.asset(
               "assets/images/logo-white.svg",
-              height: 170,
+              height: 175,
             ),
           ),
           Positioned.fill(
