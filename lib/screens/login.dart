@@ -13,6 +13,8 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool ishiddenPassword = true;
+  bool _validateEmail = false;
+  bool _validatePassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +73,7 @@ class _LoginState extends State<Login> {
                   fontWeight: semibold,
                   color: cSubText,
                 ),
+                errorText: _validateEmail ? null : "Email tidak boleh kosong!",
                 focusColor: cPrimaryBlue,
                 focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
@@ -106,6 +109,8 @@ class _LoginState extends State<Login> {
                   fontWeight: semibold,
                   color: cSubText,
                 ),
+                errorText:
+                    _validatePassword ? null : "Password tidak boleh kosong!",
                 focusColor: cPrimaryBlue,
                 focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
@@ -136,7 +141,16 @@ class _LoginState extends State<Login> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, "/home");
+              emailController.text.isEmpty
+                  ? _validateEmail = false
+                  : _validateEmail = true;
+              passwordController.text.isEmpty
+                  ? _validatePassword = false
+                  : _validatePassword = true;
+
+              if (_validateEmail == true && _validatePassword == true) {
+                Navigator.pushReplacementNamed(context, "/home");
+              }
             },
             style: ButtonStyle(
               padding: MaterialStateProperty.all(const EdgeInsets.all(0.0)),
