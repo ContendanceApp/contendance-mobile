@@ -10,6 +10,7 @@ import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -47,8 +48,15 @@ class _HomeState extends State<Home> {
         onSelectNotification: onSelectNotification);
 
     locationService.getLocation();
+    getToken();
     initializeBeacon();
     rangingBeacon();
+  }
+
+  Future<void> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    if (token == "") Navigator.pushReplacementNamed(context, "/login");
   }
 
   @override
