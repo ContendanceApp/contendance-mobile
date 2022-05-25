@@ -593,6 +593,10 @@ class _HomeState extends State<Home> {
           beacons = result.beacons;
         });
         _streamRanging?.cancel();
+        _showNotification(
+            "Beacon Detected",
+            "UUID: ${beacons[0].proximityUUID} | Jarak: ${beacons[0].accuracy}",
+            "This is the payload");
       }
       // result contains a region and list of beacons found
       // list can be empty if no matching beacons were found in range
