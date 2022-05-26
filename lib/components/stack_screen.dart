@@ -1,0 +1,107 @@
+import 'package:contendance_app/components/presence_history_card.dart';
+import 'package:contendance_app/constant/string.dart';
+import 'package:contendance_app/constant/theme.dart';
+import 'package:contendance_app/data/models/presence_history.dart';
+import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+
+class StackScreen extends StatelessWidget {
+  const StackScreen({Key? key, required this.title, required this.child})
+      : super(key: key);
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBody: true,
+      body: SingleChildScrollView(
+        child: Stack(
+          // alignment: AlignmentDirectional.center,
+          clipBehavior: Clip.none,
+          children: <Widget>[
+            Align(
+              alignment: AlignmentDirectional.topCenter,
+              child: Container(
+                height: 140,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Color(0xff145ae3),
+                      Color(0xff15aeef),
+                    ],
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: InkWell(
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 19.25),
+                          child: const Icon(
+                            IconlyLight.arrow_left,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                title,
+                                //textAlign: TextAlign.center,
+                                style: cInter.copyWith(
+                                  fontWeight: bold,
+                                  fontSize: 16,
+                                  color: cWhite,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height,
+                minWidth: MediaQuery.of(context).size.width,
+              ),
+              margin: const EdgeInsets.only(top: 120),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                child: child,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
