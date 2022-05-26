@@ -266,7 +266,7 @@ class _HomeState extends State<Home> {
                                 ]),
                           ),
                           onTap: () {
-                            showModalBottom();
+                            Navigator.pushNamed(context, "/subject-schedule");
                           },
                         ),
                         InkWell(
