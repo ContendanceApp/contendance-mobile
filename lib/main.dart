@@ -1,3 +1,4 @@
+//import 'package:contendance_app/screens/history_presence.dart';
 import 'package:contendance_app/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Inter",
       ),
       home: const SplashScreen(),
+      //home: const HistoryPresence(), //untuk tes history_presence
     );
   }
 }
