@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-class HistoryPresence extends StatefulWidget {
-  const HistoryPresence({Key? key}) : super(key: key);
+class PresenceHistoryScreen extends StatefulWidget {
+  const PresenceHistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<HistoryPresence> createState() => _HistoryPresenceState();
+  State<PresenceHistoryScreen> createState() => _PresenceHistoryStateScreen();
 }
 
-class _HistoryPresenceState extends State<HistoryPresence> {
+class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   String? selectedDay;
   String? selectedMonth;
   String? selectedYear;

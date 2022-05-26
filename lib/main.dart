@@ -1,3 +1,4 @@
+import 'package:contendance_app/screens/history_presence.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/login.dart';
 import 'package:contendance_app/screens/no_connection.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         '/room-list': (context) => const RoomList(),
         '/search-class': (context) => const SearchClass(),
         '/no-connection': (context) => const NoConnection(),
+        '/presence-history': (context) => const PresenceHistoryScreen(),
       },
     );
   }
