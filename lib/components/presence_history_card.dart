@@ -3,8 +3,10 @@ import 'package:contendance_app/data/models/presence_history.dart';
 import 'package:flutter/material.dart';
 
 class PresenceHistoryCard extends StatelessWidget {
-  const PresenceHistoryCard({Key? key, required this.history})
-      : super(key: key);
+  const PresenceHistoryCard({
+    Key? key,
+    required this.history,
+  }) : super(key: key);
 
   final PresenceHistory history;
 
