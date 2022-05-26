@@ -1,5 +1,6 @@
 import 'package:contendance_app/components/stack_screen.dart';
 import 'package:contendance_app/components/subject_schedule_list.dart';
+import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 
 class SubjectSchedule extends StatefulWidget {
@@ -19,32 +20,37 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
       title: "Jadwal Matkul",
       child: Column(
         children: [
-          SizedBox(
-            height: 100,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
                   'Buka Semua',
                   style: TextStyle(
-                      fontFamily: 'inter',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.blue),
+                    fontFamily: 'inter',
+                    fontSize: 14,
+                    fontWeight: bold,
+                    color: cPrimaryBlue,
+                  ),
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
+              ),
+              const SizedBox(
+                width: 25,
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
                   'Tutup Semua',
                   style: TextStyle(
-                      fontFamily: 'inter',
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.blue),
+                    fontFamily: 'inter',
+                    fontSize: 14,
+                    fontWeight: bold,
+                    color: cPrimaryBlue.withOpacity(0.5),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           SubjectScheduleList(
             isVisible: _isVisible ? true : false,

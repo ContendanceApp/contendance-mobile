@@ -47,7 +47,7 @@ class _SubjectScheduleListState extends State<SubjectScheduleList> {
       child: AnimatedSize(
         duration: const Duration(milliseconds: 500),
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+          margin: const EdgeInsets.symmetric(vertical: 20),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
