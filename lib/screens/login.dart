@@ -199,29 +199,37 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             onPressed: () async {
-              setState(() {
-                isClicked = true;
-              });
               emailController.text.isEmpty
-                  ? _validateEmail = false
-                  : _validateEmail = true;
+                  ? setState(() {
+                      _validateEmail = false;
+                    })
+                  : setState(() {
+                      _validateEmail = true;
+                    });
               passwordController.text.isEmpty
-                  ? _validatePassword = false
-                  : _validatePassword = true;
+                  ? setState(() {
+                      _validatePassword = false;
+                    })
+                  : setState(() {
+                      _validatePassword = true;
+                    });
 
-              // if (_validateEmail == true && _validatePassword == true) {
-              _formKey.currentState!.save();
-              Map<String, String> body = {
-                'email': emailController.text,
-                'password': passwordController.text,
-              };
+              if (_validateEmail == true && _validatePassword == true) {
+                setState(() {
+                  isClicked = true;
+                });
+                _formKey.currentState!.save();
+                Map<String, String> body = {
+                  'email': emailController.text,
+                  'password': passwordController.text,
+                };
 
-              await login.authLogin(body).then(
-                    (value) => {
-                      _setToken(value),
-                    },
-                  );
-              // }
+                await login.authLogin(body).then(
+                      (value) => {
+                        _setToken(value),
+                      },
+                    );
+              }
             },
           ),
         ],
