@@ -25,6 +25,22 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isClicked = false;
 
   @override
+  void initState() {
+    super.initState;
+    getToken();
+  }
+
+  Future<void> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    if (token == "") {
+      Navigator.pushReplacementNamed(context, "/login");
+    } else {
+      Navigator.pushReplacementNamed(context, "/home");
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
