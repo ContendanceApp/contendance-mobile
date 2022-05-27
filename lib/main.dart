@@ -5,6 +5,7 @@ import 'package:contendance_app/screens/presence_history.dart';
 import 'package:contendance_app/screens/room_list.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/screens/splash_screen.dart';
+import 'package:contendance_app/screens/subject_schedule.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/search-class': (context) => const SearchClass(),
         '/no-connection': (context) => const NoConnection(),
         '/presence-history': (context) => const PresenceHistoryScreen(),
+        '/subject-schedule': (context) => const SubjectSchedule(),
       },
     );
   }
