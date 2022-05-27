@@ -111,13 +111,13 @@ class PresenceHistoryCard extends StatelessWidget {
               color: const Color(0xFFF4F4F4),
               width: 1.0,
               style: BorderStyle.solid),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              spreadRadius: 2,
-              blurRadius: 10,
-            )
-          ],
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.black.withOpacity(0.05),
+          //     spreadRadius: 2,
+          //     blurRadius: 10,
+          //   )
+          // ],
         ),
       ),
     );
