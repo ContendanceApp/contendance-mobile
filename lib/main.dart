@@ -1,7 +1,7 @@
-import 'package:contendance_app/screens/history_presence.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/login.dart';
 import 'package:contendance_app/screens/no_connection.dart';
+import 'package:contendance_app/screens/presence_history.dart';
 import 'package:contendance_app/screens/room_list.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/screens/splash_screen.dart';
