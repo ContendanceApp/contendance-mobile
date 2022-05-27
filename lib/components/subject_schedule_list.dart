@@ -26,18 +26,21 @@ class _SubjectScheduleListState extends State<SubjectScheduleList> {
       acronym: "WPPL",
       lab: "Lab C-120",
       presenceTime: "11.02",
+      isExpanded: false,
     ),
     PresenceHistory(
       subject: "Workshop Pemrograman Perangkat Bergerak",
       acronym: "WPPB",
       lab: "Lab C-120",
       presenceTime: "11.02",
+      isExpanded: false,
     ),
     PresenceHistory(
       subject: "Workshop Administrasi dan Manajemen Jaringan",
       acronym: "WPPL",
       lab: "Lab C-120",
       presenceTime: "11.02",
+      isExpanded: false,
     ),
   ];
 

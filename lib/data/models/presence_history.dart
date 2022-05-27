@@ -12,12 +12,14 @@ class PresenceHistory {
     required this.acronym,
     required this.lab,
     required this.presenceTime,
+    this.isExpanded = false,
   });
 
   String subject;
   String acronym;
   String lab;
   String presenceTime;
+  bool isExpanded;
 
   factory PresenceHistory.fromJson(Map<String, dynamic> json) =>
       PresenceHistory(
@@ -25,6 +27,7 @@ class PresenceHistory {
         acronym: json["acronym"],
         lab: json["lab"],
         presenceTime: json["presenceTime"],
+        isExpanded: json["isExpanded"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -32,5 +35,6 @@ class PresenceHistory {
         "acronym": acronym,
         "lab": lab,
         "presenceTime": presenceTime,
+        "isExpanded": isExpanded,
       };
 }
