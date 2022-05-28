@@ -33,9 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    if (token == "") {
-      Navigator.pushReplacementNamed(context, "/login");
-    } else {
+    if (token != null) {
       Navigator.pushReplacementNamed(context, "/home");
     }
   }

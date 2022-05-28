@@ -1,7 +1,9 @@
 import 'package:contendance_app/components/user_menu.dart';
 import 'package:contendance_app/constant/theme.dart';
+import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/services/location_service.dart';
+import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:iconly/iconly.dart';
@@ -37,9 +39,26 @@ class _HomeState extends State<Home> {
   final regions = <Region>[];
   late StreamSubscription<RangingResult>? _streamRanging;
 
-  static const name = 'Muqorroba Lada Sattar';
-  static const nrp = '3120600005';
-  static const kelas = '2 D4 IT A';
+  LoginService login = LoginService();
+  String? _token;
+  UserInfo userInfo = UserInfo(
+    userId: 0,
+    fullname: "",
+    email: "",
+    emailVerifiedAt: DateTime.now(),
+    sidEid: 0,
+    gender: "",
+    roleId: 0,
+    studyGroupId: 0,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    studyGroup: StudyGroup(
+      studyGroupId: 0,
+      name: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+  );
 
   @override
   void initState() {
@@ -52,12 +71,24 @@ class _HomeState extends State<Home> {
     getToken();
     initializeBeacon();
     rangingBeacon();
+    print("user info  = $userInfo");
   }
 
   Future<void> getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    if (token == "") Navigator.pushReplacementNamed(context, "/login");
+    setState(() {
+      _token = token;
+    });
+    if (token == null) Navigator.pushReplacementNamed(context, "/login");
+    if (token != null) getUserInfo();
+  }
+
+  getUserInfo() async {
+    UserInfo res = await login.loggedUser(_token!).then((value) => value);
+    setState(() {
+      userInfo = res;
+    });
   }
 
   @override
@@ -95,7 +126,7 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'Hi, $name',
+                          userInfo.fullname != "" ? userInfo.fullname : "-",
                           style: cInter.copyWith(
                             fontWeight: bold,
                             fontSize: 20,
@@ -107,7 +138,9 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              nrp,
+                              userInfo.sidEid != 0
+                                  ? userInfo.sidEid.toString()
+                                  : "-",
                               style: cInter.copyWith(
                                 fontWeight: medium,
                                 fontSize: 14,
@@ -121,7 +154,11 @@ class _HomeState extends State<Home> {
                               badgeColor: cWhite,
                               borderRadius: BorderRadius.circular(50),
                               badgeContent: Text(
-                                kelas,
+                                userInfo.studyGroup?.name != ""
+                                    ? userInfo.studyGroup != null
+                                        ? userInfo.studyGroup!.name
+                                        : "Dosen"
+                                    : "-",
                                 style: cInter.copyWith(
                                   color: cPrimaryBlue,
                                   fontWeight: semibold,
@@ -222,7 +259,9 @@ class _HomeState extends State<Home> {
                           ));
                     },
                   ),
-                  const Expanded(child: UserMenu(role: "dosen"))
+                  Expanded(
+                      child: UserMenu(
+                          role: userInfo.roleId == 1 ? "mahasiswa" : "dosen"))
                 ],
               ),
             ),
