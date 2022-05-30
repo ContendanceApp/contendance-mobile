@@ -32,7 +32,9 @@ class BottomAppBarComp extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/home');
+                          },
                           icon: const Icon(IconlyLight.home),
                           iconSize: 26,
                           color: Colors.white,
@@ -58,7 +60,8 @@ class BottomAppBarComp extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, "/account");
+                              Navigator.pushReplacementNamed(
+                                  context, "/account");
                             },
                             icon: const Icon(IconlyLight.profile),
                             iconSize: 26,
