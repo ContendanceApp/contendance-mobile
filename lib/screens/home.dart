@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:contendance_app/components/bottom_app_bar/bottom_app_bar.dart';
+import 'package:contendance_app/components/bottom_app_bar/floating_action_button.dart';
 import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/skeleton_user_menu.dart';
 import 'package:contendance_app/components/user_menu.dart';
@@ -387,136 +389,9 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          width: 60,
-          height: 60,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xff145ae3),
-                Color(0xff15aeef),
-              ],
-            ),
-          ),
-          child: SvgPicture.asset(
-            "assets/images/search-class.svg",
-            height: 20,
-          ),
-        ),
-        onPressed: () {
-          _showNotification('Beacon Detected', beacons[0].proximityUUID,
-              'This is the payload');
-          // NotificationAPI.showNotification(
-          //     id: 1,
-          //     title: 'Test Notification',
-          //     body: 'Ini body notification',
-          //     payload: 'test.abs');
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const SearchClass(),
-            ),
-          );
-        },
-      ),
+      floatingActionButton: const FloatingActionButtonComp(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: const Color(0xFF1482E9),
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8,
-        clipBehavior: Clip.none,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            bottom: 16,
-            top: 8,
-          ),
-          child: Stack(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                child: Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  runSpacing: 20,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.only(left: 50),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(IconlyLight.home),
-                            iconSize: 26,
-                            color: Colors.white,
-                          ),
-                          Text(
-                            "Beranda",
-                            textAlign: TextAlign.center,
-                            style: cInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: semibold,
-                              color: const Color(0xFFFFFFFF),
-                              height: 0.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 50),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(IconlyLight.profile),
-                              iconSize: 26,
-                              color: Colors.white),
-                          Text(
-                            "Akun",
-                            textAlign: TextAlign.center,
-                            style: cInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: semibold,
-                              color: const Color(0xFFFFFFFF),
-                              height: 0.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned.directional(
-                textDirection: TextDirection.ltr,
-                bottom: -3,
-                start: 0,
-                width: MediaQuery.of(context).size.width,
-                child: Align(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  child: Text(
-                    "Cari Kelas",
-                    textAlign: TextAlign.center,
-                    style: cInter.copyWith(
-                      fontSize: 14,
-                      fontWeight: semibold,
-                      color: const Color(0xFFFFFFFF),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: const BottomAppBarComp(),
     );
   }
 
