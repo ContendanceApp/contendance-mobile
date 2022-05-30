@@ -44,6 +44,7 @@ dependencies:
   flutter_local_notifications: ^9.5.3+1
   shared_preferences: ^2.0.15
   dropdown_button2: ^1.5.2
+  skeleton_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

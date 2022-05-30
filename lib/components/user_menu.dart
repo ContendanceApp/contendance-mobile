@@ -10,6 +10,11 @@ class UserMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
+      controller: ScrollController(
+        keepScrollOffset: false,
+      ),
+      clipBehavior: Clip.none,
+      shrinkWrap: true,
       crossAxisCount: role == "dosen" ? 2 : 3,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,

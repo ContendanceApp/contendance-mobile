@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:contendance_app/components/skeleton_user_menu.dart';
 import 'package:contendance_app/components/user_menu.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
@@ -16,6 +16,7 @@ import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -139,46 +140,98 @@ class _HomeState extends State<Home> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          userInfo.fullname != "" ? userInfo.fullname : "-",
-                          style: cInter.copyWith(
-                            fontWeight: bold,
-                            fontSize: 20,
-                            color: cWhite,
-                          ),
-                        ),
+                        userInfo.fullname != ""
+                            ? Text(
+                                userInfo.fullname,
+                                style: cInter.copyWith(
+                                  fontWeight: bold,
+                                  fontSize: 20,
+                                  color: cWhite,
+                                ),
+                              )
+                            : SkeletonAnimation(
+                                borderRadius: BorderRadius.circular(8.0),
+                                shimmerColor: Colors.white54,
+                                child: Container(
+                                  height: 25,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.white.withOpacity(0.5),
+                                  ),
+                                ),
+                              ),
                         const SizedBox(height: 2),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              userInfo.sidEid != 0
-                                  ? userInfo.sidEid.toString()
-                                  : "-",
-                              style: cInter.copyWith(
-                                fontWeight: medium,
-                                fontSize: 14,
-                                color: cSubWhite,
-                              ),
-                            ),
-                            Badge(
-                              toAnimate: false,
-                              shape: BadgeShape.square,
-                              elevation: 0,
-                              badgeColor: cWhite,
-                              borderRadius: BorderRadius.circular(50),
-                              badgeContent: Text(
-                                userInfo.studyGroup?.name != ""
-                                    ? userInfo.studyGroup != null
-                                        ? userInfo.studyGroup!.name
-                                        : "Dosen"
-                                    : "-",
-                                style: cInter.copyWith(
-                                  color: cPrimaryBlue,
-                                  fontWeight: semibold,
-                                ),
-                              ),
-                            ),
+                            userInfo.sidEid != 0
+                                ? Text(
+                                    userInfo.sidEid.toString(),
+                                    style: cInter.copyWith(
+                                      fontWeight: medium,
+                                      fontSize: 14,
+                                      color: cSubWhite,
+                                    ),
+                                  )
+                                : SkeletonAnimation(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    shimmerColor: Colors.white54,
+                                    child: Container(
+                                      height: 15,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        color: Colors.white.withOpacity(0.25),
+                                      ),
+                                    ),
+                                  ),
+                            userInfo.studyGroup?.name != ""
+                                ? userInfo.studyGroup != null
+                                    ? Badge(
+                                        toAnimate: false,
+                                        shape: BadgeShape.square,
+                                        elevation: 0,
+                                        badgeColor: cWhite,
+                                        borderRadius: BorderRadius.circular(50),
+                                        badgeContent: Text(
+                                          userInfo.studyGroup!.name,
+                                          style: cInter.copyWith(
+                                            color: cPrimaryBlue,
+                                            fontWeight: semibold,
+                                          ),
+                                        ),
+                                      )
+                                    : Badge(
+                                        toAnimate: false,
+                                        shape: BadgeShape.square,
+                                        elevation: 0,
+                                        badgeColor: cWhite,
+                                        borderRadius: BorderRadius.circular(50),
+                                        badgeContent: Text(
+                                          "Dosen",
+                                          style: cInter.copyWith(
+                                            color: cPrimaryBlue,
+                                            fontWeight: semibold,
+                                          ),
+                                        ),
+                                      )
+                                : SkeletonAnimation(
+                                    borderRadius: BorderRadius.circular(50.0),
+                                    shimmerColor: Colors.white54,
+                                    child: Container(
+                                      height: 25,
+                                      width: 75,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        color: Colors.white.withOpacity(0.25),
+                                      ),
+                                    ),
+                                  ),
                           ],
                         ),
                       ],
@@ -274,8 +327,11 @@ class _HomeState extends State<Home> {
                     },
                   ),
                   Expanded(
-                      child: UserMenu(
-                          role: userInfo.roleId == 1 ? "mahasiswa" : "dosen"))
+                    child: userInfo.roleId == 0
+                        ? const SkeletonUserMenu()
+                        : UserMenu(
+                            role: userInfo.roleId == 1 ? "mahasiswa" : "dosen"),
+                  ),
                 ],
               ),
             ),
