@@ -62,6 +62,7 @@ class _SearchClassState extends State<SearchClass> {
       // or if you want to include automatic checking permission
       await flutterBeacon.initializeAndCheckScanning;
     } on PlatformException catch (e) {
+      // ignore: avoid_print
       print(e.message);
       // library failed to initialize, check code and message
     }
@@ -74,32 +75,31 @@ class _SearchClassState extends State<SearchClass> {
           identifier: 'Apple Airlocate',
           proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
     } else {
-      // android platform, it can ranging out of beacon that filter all of Proximity UUID
       regions.add(Region(identifier: 'com.beacon'));
     }
 
-    // to start ranging beacons
-    _streamRanging = flutterBeacon.ranging(regions).listen(
-      (RangingResult result) {
-        // print("result $result");
+    _streamRanging =
+        flutterBeacon.ranging(regions).listen((RangingResult result) {
+      print("result ${result.beacons}");
+      if (result.beacons.isNotEmpty) {
         setState(() {
           beacons = result.beacons;
         });
-        // result contains a region and list of beacons found
-        // list can be empty if no matching beacons were found in range
-        if (beacons.isNotEmpty) {
-          beacons.asMap().forEach(
-            (index, beacon) {
-              print('beacon: $beacon');
-              _showNotification(index, "Beacon Detected", beacon.proximityUUID,
-                  "This is payload");
-            },
-          );
-
-          _streamRanging?.cancel();
+        _streamRanging?.cancel();
+        int index = 0;
+        for (var beacon in beacons) {
+          print("keluar $index");
+          _showNotification(
+              index,
+              "Beacon Detected",
+              "UUID: ${beacons[index].proximityUUID} | Jarak: ${beacons[index].accuracy}",
+              "This is the payload");
+          index++;
         }
-      },
-    );
+      }
+      // result contains a region and list of beacons found
+      // list can be empty if no matching beacons were found in range
+    });
   }
 
   void _showNotification(

@@ -501,17 +501,24 @@ class _HomeState extends State<Home> {
           beacons = result.beacons;
         });
         _streamRanging?.cancel();
-        _showNotification(
-            "Beacon Detected",
-            "UUID: ${beacons[0].proximityUUID} | Jarak: ${beacons[0].accuracy}",
-            "This is the payload");
+        int index = 0;
+        for (var beacon in beacons) {
+          print("keluar $index");
+          _showNotification(
+              index,
+              "Beacon Detected",
+              "UUID: ${beacons[index].proximityUUID} | Jarak: ${beacons[index].accuracy}",
+              "This is the payload");
+          index++;
+        }
       }
       // result contains a region and list of beacons found
       // list can be empty if no matching beacons were found in range
     });
   }
 
-  void _showNotification(String? title, String? body, String? payload) async {
+  void _showNotification(
+      int id, String? title, String? body, String? payload) async {
     const androidChannelPlatformSpecifics = AndroidNotificationDetails(
         'channelId', 'channelName',
         channelDescription: 'channelDescription',
@@ -523,7 +530,7 @@ class _HomeState extends State<Home> {
         NotificationDetails(android: androidChannelPlatformSpecifics);
 
     await flutterLocalNotificationsPlugin
-        .show(0, title, body, platformChannelSpecifics, payload: payload);
+        .show(id, title, body, platformChannelSpecifics, payload: payload);
   }
 
   Future onSelectNotification(String? payload) async {
