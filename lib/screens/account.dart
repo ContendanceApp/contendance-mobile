@@ -8,6 +8,7 @@ import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skeleton_text/skeleton_text.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -145,25 +146,52 @@ class _AccountState extends State<Account> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        userInfo.fullname,
-                        style: cInter.copyWith(
-                          fontWeight: bold,
-                          fontSize: 18,
-                          color: cPrimaryBlack,
-                        ),
-                      ),
+                      userInfo.fullname != ""
+                          ? Text(
+                              userInfo.fullname,
+                              style: cInter.copyWith(
+                                fontWeight: bold,
+                                fontSize: 18,
+                                color: cPrimaryBlack,
+                              ),
+                            )
+                          : SkeletonAnimation(
+                              borderRadius: BorderRadius.circular(8.0),
+                              shimmerColor: Colors.grey[100]!,
+                              child: Container(
+                                height: 25,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Colors.grey[200],
+                                ),
+                              ),
+                            ),
                       const SizedBox(
                         height: 2,
                       ),
-                      Text(
-                        userInfo.email,
-                        style: cInter.copyWith(
-                          fontWeight: medium,
-                          fontSize: 16,
-                          color: cSubText,
-                        ),
-                      ),
+                      userInfo.email != ""
+                          ? Text(
+                              userInfo.email,
+                              style: cInter.copyWith(
+                                fontWeight: medium,
+                                fontSize: 16,
+                                color: cSubText,
+                              ),
+                            )
+                          : SkeletonAnimation(
+                              borderRadius: BorderRadius.circular(8.0),
+                              shimmerColor: Colors.grey[100]!,
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 5),
+                                height: 15,
+                                width: MediaQuery.of(context).size.width * 0.25,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Colors.grey[200],
+                                ),
+                              ),
+                            ),
                       const SizedBox(
                         height: 100,
                       ),
