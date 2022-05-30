@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contendance_app/components/user_menu.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
@@ -71,7 +73,6 @@ class _HomeState extends State<Home> {
     getToken();
     initializeBeacon();
     rangingBeacon();
-    print("user info  = $userInfo");
   }
 
   Future<void> getToken() async {
@@ -80,15 +81,28 @@ class _HomeState extends State<Home> {
     setState(() {
       _token = token;
     });
-    if (token == null) Navigator.pushReplacementNamed(context, "/login");
-    if (token != null) getUserInfo();
+    if (token == null) {
+      Navigator.pushReplacementNamed(context, "/login");
+    } else {
+      getUserInfo();
+    }
   }
 
   getUserInfo() async {
-    UserInfo res = await login.loggedUser(_token!).then((value) => value);
-    setState(() {
-      userInfo = res;
-    });
+    var res = await login.loggedUser(_token!).then((value) => value);
+
+    if (res.statusCode == 200) {
+      UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
+      setState(() {
+        userInfo = resBody;
+      });
+    } else {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      setState(() {
+        preferences.remove("token");
+      });
+      Navigator.pushReplacementNamed(context, "/login");
+    }
   }
 
   @override
