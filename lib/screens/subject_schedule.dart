@@ -39,6 +39,29 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
       presenceTime: "11.02",
       isExpanded: false,
     ),
+    PresenceHistory(
+      subject: "Workshop Administrasi dan Manajemen Jaringan",
+      acronym: "WPPL",
+      lab: "Lab C-120",
+      presenceTime: "11.02",
+      isExpanded: false,
+    ),
+    PresenceHistory(
+      subject: "Workshop Administrasi dan Manajemen Jaringan",
+      acronym: "WPPL",
+      lab: "Lab C-120",
+      presenceTime: "11.02",
+      isExpanded: false,
+    ),
+  ];
+
+  List days = [
+    'Senin',
+    'Selasa',
+    'Rabu',
+    'Kamis',
+    'Jumat',
+    'Sabtu',
   ];
 
   @override
@@ -96,7 +119,7 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Selasa",
+                            days[1],
                             style: cInter.copyWith(
                               color: cPrimaryBlack,
                               fontWeight: bold,
