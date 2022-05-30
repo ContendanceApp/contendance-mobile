@@ -57,7 +57,9 @@ class BottomAppBarComp extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/account");
+                            },
                             icon: const Icon(IconlyLight.profile),
                             iconSize: 26,
                             color: Colors.white),
