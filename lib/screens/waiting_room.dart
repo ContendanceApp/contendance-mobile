@@ -1,16 +1,15 @@
 import 'package:contendance_app/components/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 
-class RuangTunggu extends StatefulWidget {
-  const RuangTunggu({Key? key}) : super(key: key);
+class WaitingRoom extends StatefulWidget {
+  const WaitingRoom({Key? key}) : super(key: key);
 
   @override
-  State<RuangTunggu> createState() => _RuangTungguState();
+  State<WaitingRoom> createState() => _WaitingRoomState();
 }
 
-class _RuangTungguState extends State<RuangTunggu> {
+class _WaitingRoomState extends State<WaitingRoom> {
   @override
   Widget build(BuildContext context) {
     return StackScreen(
