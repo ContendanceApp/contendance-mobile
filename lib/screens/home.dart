@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/skeleton_user_menu.dart';
 import 'package:contendance_app/components/user_menu.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
+import 'package:contendance_app/data/models/presence_history.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/services/location_service.dart';
 import 'package:contendance_app/services/login_service.dart';
@@ -63,6 +65,30 @@ class _HomeState extends State<Home> {
     ),
   );
 
+  List histories = [
+    PresenceHistory(
+      subject: "Workshop Pemrograman Perangkat Lunak",
+      acronym: "WPPL",
+      lab: "Lab C-120",
+      presenceTime: "11.02",
+      isExpanded: false,
+    ),
+    PresenceHistory(
+      subject: "Workshop Pemrograman Perangkat Bergerak",
+      acronym: "WPPB",
+      lab: "Lab C-120",
+      presenceTime: "11.02",
+      isExpanded: false,
+    ),
+    PresenceHistory(
+      subject: "Workshop Administrasi dan Manajemen Jaringan",
+      acronym: "WPPL",
+      lab: "Lab C-120",
+      presenceTime: "11.02",
+      isExpanded: false,
+    ),
+  ];
+
   @override
   void initState() {
     super.initState;
@@ -110,233 +136,256 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: Stack(
-        alignment: AlignmentDirectional.center,
-        clipBehavior: Clip.none,
-        children: <Widget>[
-          Align(
-            alignment: AlignmentDirectional.topCenter,
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Color(0xff145ae3),
-                    Color(0xff15aeef),
-                  ],
-                ),
-              ),
-              height: 225,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 40, horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        userInfo.fullname != ""
-                            ? Text(
-                                userInfo.fullname,
-                                style: cInter.copyWith(
-                                  fontWeight: bold,
-                                  fontSize: 20,
-                                  color: cWhite,
-                                ),
-                              )
-                            : SkeletonAnimation(
-                                borderRadius: BorderRadius.circular(8.0),
-                                shimmerColor: Colors.white54,
-                                child: Container(
-                                  height: 25,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    color: Colors.white.withOpacity(0.5),
-                                  ),
-                                ),
-                              ),
-                        const SizedBox(height: 2),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            userInfo.sidEid != 0
-                                ? Text(
-                                    userInfo.sidEid.toString(),
-                                    style: cInter.copyWith(
-                                      fontWeight: medium,
-                                      fontSize: 14,
-                                      color: cSubWhite,
-                                    ),
-                                  )
-                                : SkeletonAnimation(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    shimmerColor: Colors.white54,
-                                    child: Container(
-                                      height: 15,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.25,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        color: Colors.white.withOpacity(0.25),
-                                      ),
-                                    ),
-                                  ),
-                            userInfo.studyGroup?.name != ""
-                                ? userInfo.studyGroup != null
-                                    ? Badge(
-                                        toAnimate: false,
-                                        shape: BadgeShape.square,
-                                        elevation: 0,
-                                        badgeColor: cWhite,
-                                        borderRadius: BorderRadius.circular(50),
-                                        badgeContent: Text(
-                                          userInfo.studyGroup!.name,
-                                          style: cInter.copyWith(
-                                            color: cPrimaryBlue,
-                                            fontWeight: semibold,
-                                          ),
-                                        ),
-                                      )
-                                    : Badge(
-                                        toAnimate: false,
-                                        shape: BadgeShape.square,
-                                        elevation: 0,
-                                        badgeColor: cWhite,
-                                        borderRadius: BorderRadius.circular(50),
-                                        badgeContent: Text(
-                                          "Dosen",
-                                          style: cInter.copyWith(
-                                            color: cPrimaryBlue,
-                                            fontWeight: semibold,
-                                          ),
-                                        ),
-                                      )
-                                : SkeletonAnimation(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    shimmerColor: Colors.white54,
-                                    child: Container(
-                                      height: 25,
-                                      width: 75,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(50.0),
-                                        color: Colors.white.withOpacity(0.25),
-                                      ),
-                                    ),
-                                  ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 200),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Kelas Berlangsung",
-                    textAlign: TextAlign.left,
-                    style: cInter.copyWith(
-                      fontSize: 14,
-                      fontWeight: bold,
-                      color: cPrimaryBlack,
-                    ),
+      body: SingleChildScrollView(
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: <Widget>[
+            Align(
+              alignment: AlignmentDirectional.topCenter,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      Color(0xff145ae3),
+                      Color(0xff15aeef),
+                    ],
                   ),
-                  const SizedBox(height: 12),
-                  InkWell(
-                    child: Container(
-                      width: double.infinity,
-                      height: 136,
-                      padding: const EdgeInsets.all(16),
+                ),
+                height: 225,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 40, horizontal: 16),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 5),
-                            child: const Icon(
-                              IconlyLight.login,
-                              color: Color(0xFF64749F),
-                              size: 35,
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 15),
-                            child: Text(
-                              "Belum memasuki kelas",
-                              textAlign: TextAlign.center,
-                              style: cInter.copyWith(
-                                fontSize: 16,
-                                fontWeight: bold,
-                                color: cSubText,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "Cari Kelas",
-                            textAlign: TextAlign.center,
-                            style: cInter.copyWith(
-                              fontWeight: medium,
-                              fontSize: 14,
-                              color: cPrimaryBlue,
-                            ),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          userInfo.fullname != ""
+                              ? Text(
+                                  userInfo.fullname,
+                                  style: cInter.copyWith(
+                                    fontWeight: bold,
+                                    fontSize: 20,
+                                    color: cWhite,
+                                  ),
+                                )
+                              : SkeletonAnimation(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  shimmerColor: Colors.white54,
+                                  child: Container(
+                                    height: 25,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      color: Colors.white.withOpacity(0.5),
+                                    ),
+                                  ),
+                                ),
+                          const SizedBox(height: 2),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              userInfo.sidEid != 0
+                                  ? Text(
+                                      userInfo.sidEid.toString(),
+                                      style: cInter.copyWith(
+                                        fontWeight: medium,
+                                        fontSize: 14,
+                                        color: cSubWhite,
+                                      ),
+                                    )
+                                  : SkeletonAnimation(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      shimmerColor: Colors.white54,
+                                      child: Container(
+                                        height: 15,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.25,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          color: Colors.white.withOpacity(0.25),
+                                        ),
+                                      ),
+                                    ),
+                              userInfo.studyGroup?.name != ""
+                                  ? userInfo.studyGroup != null
+                                      ? Badge(
+                                          toAnimate: false,
+                                          shape: BadgeShape.square,
+                                          elevation: 0,
+                                          badgeColor: cWhite,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          badgeContent: Text(
+                                            userInfo.studyGroup!.name,
+                                            style: cInter.copyWith(
+                                              color: cPrimaryBlue,
+                                              fontWeight: semibold,
+                                            ),
+                                          ),
+                                        )
+                                      : Badge(
+                                          toAnimate: false,
+                                          shape: BadgeShape.square,
+                                          elevation: 0,
+                                          badgeColor: cWhite,
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          badgeContent: Text(
+                                            "Dosen",
+                                            style: cInter.copyWith(
+                                              color: cPrimaryBlue,
+                                              fontWeight: semibold,
+                                            ),
+                                          ),
+                                        )
+                                  : SkeletonAnimation(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      shimmerColor: Colors.white54,
+                                      child: Container(
+                                        height: 25,
+                                        width: 75,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50.0),
+                                          color: Colors.white.withOpacity(0.25),
+                                        ),
+                                      ),
+                                    ),
+                            ],
                           ),
                         ],
                       ),
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFFFFFFF),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15)),
-                          border: Border.all(
-                              color: const Color(0xFFF4F4F4),
-                              width: 1.0,
-                              style: BorderStyle.solid),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                            )
-                          ]),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SearchClass(),
-                          ));
-                    },
-                  ),
-                  Expanded(
-                    child: userInfo.roleId == 0
-                        ? const SkeletonUserMenu()
-                        : UserMenu(
-                            role: userInfo.roleId == 1 ? "mahasiswa" : "dosen"),
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+            Container(
+              margin: const EdgeInsets.only(top: 200),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Kelas berlangsung",
+                      textAlign: TextAlign.left,
+                      style: cInter.copyWith(
+                        fontSize: 14,
+                        fontWeight: bold,
+                        color: cPrimaryBlack,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    InkWell(
+                      child: Container(
+                        width: double.infinity,
+                        height: 136,
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 5),
+                              child: const Icon(
+                                IconlyLight.login,
+                                color: Color(0xFF64749F),
+                                size: 35,
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 15),
+                              child: Text(
+                                "Belum memasuki kelas",
+                                textAlign: TextAlign.center,
+                                style: cInter.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: bold,
+                                  color: cSubText,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Cari Kelas",
+                              textAlign: TextAlign.center,
+                              style: cInter.copyWith(
+                                fontWeight: medium,
+                                fontSize: 14,
+                                color: cPrimaryBlue,
+                              ),
+                            ),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFFFFFFF),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(15)),
+                            border: Border.all(
+                                color: const Color(0xFFF4F4F4),
+                                width: 1.0,
+                                style: BorderStyle.solid),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                              )
+                            ]),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SearchClass(),
+                            ));
+                      },
+                    ),
+                    Container(
+                      child: userInfo.roleId == 0
+                          ? const SkeletonUserMenu()
+                          : UserMenu(
+                              role:
+                                  userInfo.roleId == 1 ? "mahasiswa" : "dosen"),
+                    ),
+                    Text(
+                      "Mata kuliah hari ini",
+                      textAlign: TextAlign.left,
+                      style: cInter.copyWith(
+                        fontSize: 14,
+                        fontWeight: bold,
+                        color: cPrimaryBlack,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Column(
+                      children: histories
+                          .map((history) =>
+                              PresenceHistoryCard(history: history))
+                          .toList(),
+                    ),
+                    const SizedBox(height: 120),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Container(
