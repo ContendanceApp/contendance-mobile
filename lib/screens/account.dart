@@ -172,8 +172,9 @@ class _AccountState extends State<Account> {
                           logOut();
                         },
                         child: Text(
-                          "Logout",
+                          "KELUAR",
                           style: cInter.copyWith(
+                            fontWeight: semibold,
                             color: const Color(0xFFE3145F),
                           ),
                         ),
@@ -183,8 +184,12 @@ class _AccountState extends State<Account> {
                           elevation: MaterialStateProperty.all(0),
                           side: MaterialStateProperty.all(
                             const BorderSide(
+                              width: 1.5,
                               color: Color(0xFFE3145F),
                             ),
+                          ),
+                          minimumSize: MaterialStateProperty.all(
+                            Size.fromHeight(50),
                           ),
                         ),
                       ),
