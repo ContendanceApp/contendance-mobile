@@ -1,4 +1,5 @@
 import 'package:contendance_app/screens/account.dart';
+import 'package:contendance_app/screens/detail_class.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/login.dart';
 import 'package:contendance_app/screens/no_connection.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/no-connection': (context) => const NoConnection(),
         '/presence-history': (context) => const PresenceHistoryScreen(),
         '/subject-schedule': (context) => const SubjectSchedule(),
+        '/detail-class': (context) => const DetailClass(),
       },
     );
   }

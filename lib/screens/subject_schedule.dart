@@ -112,7 +112,7 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
               children: histories.map<ExpansionPanel>(
                 (dynamic item) {
                   return ExpansionPanel(
-                    hasIcon: false,
+                    // hasIcon: false,
                     canTapOnHeader: true,
                     headerBuilder: (BuildContext context, bool isExpanded) {
                       return Row(
