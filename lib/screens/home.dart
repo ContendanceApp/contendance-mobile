@@ -13,7 +13,6 @@ import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:iconly/iconly.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
@@ -48,6 +47,7 @@ class _HomeState extends State<Home> {
 
   LoginService login = LoginService();
   String? _token;
+
   UserInfo userInfo = UserInfo(
     userId: 0,
     fullname: "",
@@ -98,39 +98,38 @@ class _HomeState extends State<Home> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
 
+    checkAuth();
     locationService.getLocation();
-    getToken();
     initializeBeacon();
     rangingBeacon();
   }
 
-  Future<void> getToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
-    setState(() {
-      _token = token;
-    });
-    if (token == null) {
-      Navigator.pushReplacementNamed(context, "/login");
-    } else {
+  Future<void> checkAuth() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('token') != null) {
+      setState(() {
+        _token = prefs.getString("token");
+      });
       getUserInfo();
+    } else {
+      Navigator.pushReplacementNamed(context, "/login");
     }
   }
 
   getUserInfo() async {
-    var res = await login.loggedUser(_token!).then((value) => value);
-
+    var res = await login.loggedUser(_token.toString()).then((value) => value);
     if (res.statusCode == 200) {
       UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
       setState(() {
         userInfo = resBody;
       });
     } else {
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      setState(() {
-        preferences.remove("token");
-      });
-      Navigator.pushReplacementNamed(context, "/login");
+      final prefs = await SharedPreferences.getInstance();
+      final success = await prefs.remove('token');
+      if (success) {
+        Navigator.pushReplacementNamed(context, "/login");
+      }
     }
   }
 
@@ -495,7 +494,6 @@ class _HomeState extends State<Home> {
 
     _streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) {
-      print("result ${result.beacons}");
       if (result.beacons.isNotEmpty) {
         setState(() {
           beacons = result.beacons;
@@ -503,11 +501,10 @@ class _HomeState extends State<Home> {
         _streamRanging?.cancel();
         int index = 0;
         for (var beacon in beacons) {
-          print("keluar $index");
           _showNotification(
               index,
               "Beacon Detected",
-              "UUID: ${beacons[index].proximityUUID} | Jarak: ${beacons[index].accuracy}",
+              "UUID: ${beacon.proximityUUID} | Jarak: ${beacon.accuracy}",
               "This is the payload");
           index++;
         }

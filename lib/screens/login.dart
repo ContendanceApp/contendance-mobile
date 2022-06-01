@@ -23,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String email = "sattar@it.student.pens.ac.id";
   String password = "12345678";
   bool isClicked = false;
+  late Future<String> _token;
 
   @override
   void initState() {
@@ -31,9 +32,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> getToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
-    if (token != null) {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('token') != null) {
       Navigator.pushReplacementNamed(context, "/home");
     }
   }
@@ -240,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 await login.authLogin(body).then(
                       (value) => {
-                        _setToken(value),
+                        _setAccessToken(value),
                       },
                     );
               }
@@ -266,6 +267,26 @@ class _LoginScreenState extends State<LoginScreen> {
       });
     });
     if (response.accessToken != null) {
+      Navigator.pushReplacementNamed(context, "/home");
+    } else {
+      setState(() {
+        isClicked = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(response.message!),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  Future<void> _setAccessToken(Login response) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', response.accessToken ?? "");
+
+    if (prefs.getString('token') != "") {
       Navigator.pushReplacementNamed(context, "/home");
     } else {
       setState(() {
