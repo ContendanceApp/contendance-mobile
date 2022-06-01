@@ -57,7 +57,7 @@ class SubjectCard extends StatelessWidget {
                       history.subject,
                       style: cInter.copyWith(
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: medium,
                         color: cSubText,
                       ),
                     ),
@@ -70,18 +70,18 @@ class SubjectCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '08:00 - 101:00',
+                              '08:00 - 10:00',
                               style: cInter.copyWith(
                                 color: cPrimaryBlack,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: bold,
                               ),
                             ),
                             Text(
                               history.lab,
                               style: cInter.copyWith(
                                 fontSize: 14,
-                                fontWeight: FontWeight.w700,
+                                fontWeight: bold,
                                 color: cPrimaryBlue,
                               ),
                             ),
@@ -182,12 +182,12 @@ class SubjectCard extends StatelessWidget {
                                   Text(
                                     history.subject,
                                     style: cInter.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: cSubText,
+                                      fontSize: 18,
+                                      fontWeight: bold,
+                                      color: cPrimaryBlue,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
+                                  const SizedBox(height: cPadding2),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -199,18 +199,43 @@ class SubjectCard extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
+                                            'Waktu Pelaksanaan',
+                                            style: cInter.copyWith(
+                                              color: cSubText,
+                                              fontSize: 16,
+                                              fontWeight: medium,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          Text(
                                             '08:00 - 10:00',
                                             style: cInter.copyWith(
                                               color: cPrimaryBlack,
                                               fontSize: 16,
-                                              fontWeight: FontWeight.w700,
+                                              fontWeight: semibold,
                                             ),
+                                          ),
+                                          const SizedBox(
+                                            height: cPadding1,
+                                          ),
+                                          Text(
+                                            'Tempat Pelaksanaan',
+                                            style: cInter.copyWith(
+                                              color: cSubText,
+                                              fontSize: 16,
+                                              fontWeight: medium,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
                                           ),
                                           Text(
                                             history.lab,
                                             style: cInter.copyWith(
                                               fontSize: 16,
-                                              fontWeight: FontWeight.w700,
+                                              fontWeight: bold,
                                               color: cPrimaryBlue,
                                             ),
                                           ),
@@ -219,7 +244,7 @@ class SubjectCard extends StatelessWidget {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: cPadding2,
+                                    height: cPadding1,
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -261,53 +286,55 @@ class SubjectCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              color: Colors.white,
-                              border: Border.all(color: cPrimaryBlue),
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                fixedSize: const Size.fromWidth(150),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 45, vertical: 12),
-                                primary: cPrimaryBlue,
-                                textStyle: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text("Tutup"),
-                            ),
-                          ),
                           // Container(
                           //   decoration: BoxDecoration(
                           //     borderRadius: BorderRadius.circular(80.0),
-                          //     gradient: const LinearGradient(
-                          //       begin: Alignment.topRight,
-                          //       end: Alignment.bottomLeft,
-                          //       colors: [
-                          //         Color(0xff145ae3),
-                          //         Color(0xff15aeef),
-                          //       ],
-                          //     ),
+                          //     color: Colors.white,
+                          //     border: Border.all(color: cPrimaryBlue),
                           //   ),
                           //   child: TextButton(
                           //     style: TextButton.styleFrom(
+                          //       fixedSize: const Size.fromWidth(150),
                           //       padding: const EdgeInsets.symmetric(
                           //           horizontal: 45, vertical: 12),
-                          //       primary: Colors.white,
+                          //       primary: cPrimaryBlue,
                           //       textStyle: cInter.copyWith(
                           //         fontSize: 16,
                           //         fontWeight: FontWeight.bold,
                           //       ),
                           //     ),
-                          //     onPressed: () {},
-                          //     child: const Text("Presensi"),
+                          //     onPressed: () => Navigator.pop(context),
+                          //     child: const Text("Tutup"),
                           //   ),
                           // ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80.0),
+                              gradient: const LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0xff145ae3),
+                                  Color(0xff15aeef),
+                                ],
+                              ),
+                            ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 45, vertical: 12),
+                                primary: Colors.white,
+                                textStyle: cInter.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: bold,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Tutup"),
+                            ),
+                          ),
                         ],
                       ),
                     ),
