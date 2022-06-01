@@ -513,7 +513,7 @@ class _HomeState extends State<Home> {
                             height: 25,
                           ),
                           Text(
-                            "Kelas dengan Proximity UUID tersebut tidak ditemukan",
+                            "Pastikan anda berada pada jangkauan kelas atau ruangan 😉",
                             textAlign: TextAlign.center,
                             style: cInter.copyWith(
                               fontSize: 16.0,
