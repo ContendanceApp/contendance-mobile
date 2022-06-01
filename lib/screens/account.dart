@@ -200,7 +200,7 @@ class _AccountState extends State<Account> {
                           logOut();
                         },
                         child: Text(
-                          "KELUAR",
+                          "KELUAR DARI AKUN",
                           style: cInter.copyWith(
                             fontWeight: semibold,
                             color: const Color(0xFFE3145F),
@@ -210,6 +210,12 @@ class _AccountState extends State<Account> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.transparent),
                           elevation: MaterialStateProperty.all(0),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
                           side: MaterialStateProperty.all(
                             const BorderSide(
                               width: 1.5,
