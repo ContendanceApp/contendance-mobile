@@ -7,6 +7,7 @@ Color cPrimaryBlue = const Color(0xFF145AE3);
 Color cSecondaryBlue = const Color(0xFF15AEEF);
 Color cPrimaryBlack = const Color(0xFF333333);
 Color cSubText = const Color(0xFF64749F);
+Color cDanger = const Color(0xFFE3145F);
 
 // Paddings
 const double cPadding1 = 16.0;
