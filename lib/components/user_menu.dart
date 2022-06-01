@@ -101,7 +101,7 @@ class UserMenu extends StatelessWidget {
                       ]),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, "/subject-schedule");
+                  Navigator.pushNamed(context, "/change-schedule");
                 },
               ),
               InkWell(

@@ -6,14 +6,14 @@ import 'package:date_format/date_format.dart';
 
 import 'package:iconly/iconly.dart';
 
-class JadwalPengganti extends StatefulWidget {
-  const JadwalPengganti({Key? key}) : super(key: key);
+class ChangeScheduleScreen extends StatefulWidget {
+  const ChangeScheduleScreen({Key? key}) : super(key: key);
 
   @override
-  State<JadwalPengganti> createState() => _JadwalPenggantiState();
+  State<ChangeScheduleScreen> createState() => _ChangeScheduleScreenState();
 }
 
-class _JadwalPenggantiState extends State<JadwalPengganti> {
+class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
   get child => null;
   String? pickedDate = '';
   String? pickedStart = '';
