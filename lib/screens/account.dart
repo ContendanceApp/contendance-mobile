@@ -197,13 +197,14 @@ class _AccountState extends State<Account> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          logOut();
+                          showModalBottom();
+                          // logOut();
                         },
                         child: Text(
                           "KELUAR DARI AKUN",
                           style: cInter.copyWith(
                             fontWeight: semibold,
-                            color: const Color(0xFFE3145F),
+                            color: cDanger,
                           ),
                         ),
                         style: ButtonStyle(
@@ -217,9 +218,9 @@ class _AccountState extends State<Account> {
                             ),
                           ),
                           side: MaterialStateProperty.all(
-                            const BorderSide(
+                            BorderSide(
                               width: 1.5,
-                              color: Color(0xFFE3145F),
+                              color: cDanger,
                             ),
                           ),
                           minimumSize: MaterialStateProperty.all(
@@ -271,6 +272,122 @@ class _AccountState extends State<Account> {
       floatingActionButton: const FloatingActionButtonComp(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: const BottomAppBarComp(),
+    );
+  }
+
+  showModalBottom() {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (builder) {
+        return Container(
+          height: 250.0,
+          color: Colors.transparent,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(cRounded),
+                topRight: Radius.circular(cRounded),
+              ),
+            ),
+            child: Center(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(40),
+                    child: Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Keluar dari akun ini?",
+                            style: cInter.copyWith(
+                              fontWeight: bold,
+                              fontSize: 18.0,
+                              color: cPrimaryBlack,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Anda masih dapat login kembali setelah keluar dari akun ini 😉",
+                            style: cInter.copyWith(
+                              fontSize: 16.0,
+                              color: cSubText,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(cPadding1),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80.0),
+                              color: Colors.white,
+                              border: Border.all(color: cPrimaryBlue),
+                            ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                fixedSize: const Size.fromWidth(150),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 45, vertical: 12),
+                                primary: cPrimaryBlue,
+                                textStyle: cInter.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text("Batal"),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80.0),
+                              gradient: const LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0xff145ae3),
+                                  Color(0xff15aeef),
+                                ],
+                              ),
+                            ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                fixedSize: const Size.fromWidth(150),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 45, vertical: 12),
+                                primary: Colors.white,
+                                textStyle: cInter.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onPressed: () => logOut(),
+                              child: const Text("Keluar"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
