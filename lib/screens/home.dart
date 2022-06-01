@@ -3,6 +3,7 @@ import 'package:contendance_app/components/bottom_app_bar/bottom_app_bar.dart';
 import 'package:contendance_app/components/bottom_app_bar/floating_action_button.dart';
 import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/skeleton_user_menu.dart';
+import 'package:contendance_app/components/subject_card.dart';
 import 'package:contendance_app/components/user_menu.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
@@ -376,8 +377,7 @@ class _HomeState extends State<Home> {
                     const SizedBox(height: 12),
                     Column(
                       children: histories
-                          .map((history) =>
-                              PresenceHistoryCard(history: history))
+                          .map((history) => SubjectCard(history: history))
                           .toList(),
                     ),
                     const SizedBox(height: 120),
