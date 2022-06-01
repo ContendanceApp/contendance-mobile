@@ -119,7 +119,7 @@ class _RoomListState extends State<RoomList> {
                             "Lantai 6 - Gedung Pascasarjana Pens",
                             style: cInter.copyWith(
                               fontWeight: bold,
-                              fontSize: 14.0,
+                              fontSize: 16.0,
                               color: cPrimaryBlue,
                             ),
                           ),
@@ -129,7 +129,7 @@ class _RoomListState extends State<RoomList> {
                           Text(
                             "Digunakan untuk Pertemua Orang Tua",
                             style: cInter.copyWith(
-                              fontSize: 14.0,
+                              fontSize: 16.0,
                               color: cSubText,
                             ),
                           ),
