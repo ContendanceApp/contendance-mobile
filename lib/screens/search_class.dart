@@ -35,6 +35,7 @@ class _SearchClassState extends State<SearchClass> {
     super.initState();
     initializeBeacon();
     rangingBeacon();
+    timeoutSearchClass();
   }
 
   @override
@@ -53,6 +54,15 @@ class _SearchClassState extends State<SearchClass> {
         child: Container(),
       ),
     );
+  }
+
+  timeoutSearchClass() {
+    var duration = const Duration(seconds: 5);
+    return Timer(duration, () async {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('classStatus', "not-found");
+      await Navigator.pushReplacementNamed(context, "/home");
+    });
   }
 
   initializeBeacon() async {
