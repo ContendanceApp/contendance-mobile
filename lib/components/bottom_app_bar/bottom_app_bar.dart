@@ -60,8 +60,7 @@ class BottomAppBarComp extends StatelessWidget {
                       children: [
                         IconButton(
                             onPressed: () {
-                              Navigator.pushReplacementNamed(
-                                  context, "/account");
+                              Navigator.pushNamed(context, "/account");
                             },
                             icon: const Icon(IconlyLight.profile),
                             iconSize: 26,
