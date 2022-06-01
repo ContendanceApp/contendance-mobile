@@ -16,6 +16,8 @@ class JadwalPengganti extends StatefulWidget {
 class _JadwalPenggantiState extends State<JadwalPengganti> {
   get child => null;
   String? pickedDate = '';
+  String? pickedStart = '';
+  String? pickedEnd = '';
 
   @override
   Widget build(BuildContext context) {
@@ -148,10 +150,21 @@ class _JadwalPenggantiState extends State<JadwalPengganti> {
                         width: 350.0,
                         height: 42.0,
                         decoration: BoxDecoration(
-                          //borderRadius: BorderRadius.circular(24.0),
-                          color: Colors.white,
-                          border: Border.all(color: cSubText),
-                          borderRadius: BorderRadius.circular(10.0),
+                          color: const Color(0xFFFFFFFF),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15)),
+                          border: Border.all(
+                            color: const Color(0xFFF4F4F4),
+                            width: 1.0,
+                            style: BorderStyle.solid,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                            )
+                          ],
                         ),
                         child: SizedBox(
                           child: TextButton(
@@ -159,7 +172,7 @@ class _JadwalPenggantiState extends State<JadwalPengganti> {
                               pickedDate == ''
                                   ? 'Pilih tanggal untuk mengganti kelas'
                                   : pickedDate!,
-                              style: TextStyle(color: Colors.blue),
+                              style: const TextStyle(color: Colors.blue),
                             ),
                             onPressed: () {
                               DatePicker.showDatePicker(context,
@@ -183,7 +196,6 @@ class _JadwalPenggantiState extends State<JadwalPengganti> {
                                           int.parse(pickedMonth),
                                           int.parse(pickedDay)),
                                       [d, ' ', MM, ' ', yyyy]);
-                                  ;
                                 });
                               },
                                   currentTime: DateTime.now(),
@@ -213,38 +225,45 @@ class _JadwalPenggantiState extends State<JadwalPengganti> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Mulai",
-                                  textAlign: TextAlign.left,
-                                  style: cInter.copyWith(
-                                    fontSize: 12,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
                                 Container(
                                   width: double.infinity,
                                   height: 42.0,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: cSubText),
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: const Color(0xFFFFFFFF),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(15)),
+                                    border: Border.all(
+                                      color: const Color(0xFFF4F4F4),
+                                      width: 1.0,
+                                      style: BorderStyle.solid,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.05),
+                                        spreadRadius: 2,
+                                        blurRadius: 10,
+                                      )
+                                    ],
                                   ),
                                   child: SizedBox(
                                     child: TextButton(
                                       onPressed: () {
                                         DatePicker.showTimePicker(context,
                                             showTitleActions: true,
-                                            onChanged: (date) {
-                                          print('change $date in time zone ' +
-                                              date.timeZoneOffset.inHours
-                                                  .toString());
-                                        }, onConfirm: (date) {
-                                          print('confirm $date');
+                                            onConfirm: (time) {
+                                          String? pickedSchedule =
+                                              time.toString().substring(11, 16);
+                                          setState(() {
+                                            pickedStart = pickedSchedule;
+                                          });
                                         }, currentTime: DateTime.now());
                                       },
-                                      child: const Text(
-                                        'Mulai',
-                                        style: TextStyle(color: Colors.blue),
+                                      child: Text(
+                                        pickedStart == ''
+                                            ? 'Mulai'
+                                            : pickedStart!,
+                                        style:
+                                            const TextStyle(color: Colors.blue),
                                       ),
                                     ),
                                   ),
@@ -252,46 +271,57 @@ class _JadwalPenggantiState extends State<JadwalPengganti> {
                               ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 25,
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15),
+                            child: SizedBox(
+                              width: 25,
+                              child: Text("-"),
+                            ),
                           ),
                           Expanded(
                             flex: 1,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Selesai",
-                                  textAlign: TextAlign.left,
-                                  style: cInter.copyWith(
-                                    fontSize: 12,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
                                 Container(
                                   width: double.infinity,
                                   height: 42.0,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: cSubText),
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: const Color(0xFFFFFFFF),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(15)),
+                                    border: Border.all(
+                                      color: const Color(0xFFF4F4F4),
+                                      width: 1.0,
+                                      style: BorderStyle.solid,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.05),
+                                        spreadRadius: 2,
+                                        blurRadius: 10,
+                                      )
+                                    ],
                                   ),
                                   child: SizedBox(
                                     child: TextButton(
                                       onPressed: () {
                                         DatePicker.showTimePicker(context,
                                             showTitleActions: true,
-                                            onChanged: (date) {
-                                          print('change $date in time zone ' +
-                                              date.timeZoneOffset.inHours
-                                                  .toString());
-                                        }, onConfirm: (date) {
-                                          print('confirm $date');
+                                            onConfirm: (time) {
+                                          String? pickedSchedule =
+                                              time.toString().substring(11, 16);
+                                          setState(() {
+                                            pickedEnd = pickedSchedule;
+                                          });
                                         }, currentTime: DateTime.now());
                                       },
-                                      child: const Text(
-                                        'Selesai',
-                                        style: TextStyle(color: Colors.blue),
+                                      child: Text(
+                                        pickedEnd == ''
+                                            ? 'Selesai'
+                                            : pickedEnd!,
+                                        style:
+                                            const TextStyle(color: Colors.blue),
                                       ),
                                     ),
                                   ),
@@ -301,6 +331,123 @@ class _JadwalPenggantiState extends State<JadwalPengganti> {
                           ),
                         ],
                       ),
+                    ),
+                    Text(
+                      "Pilih Mata Kuliah",
+                      textAlign: TextAlign.left,
+                      style: cInter.copyWith(
+                        fontSize: 14,
+                        fontWeight: bold,
+                        color: cPrimaryBlack,
+                      ),
+                    ),
+                    GridView.count(
+                      padding: const EdgeInsets.all(0),
+                      controller: ScrollController(
+                        keepScrollOffset: false,
+                      ),
+                      clipBehavior: Clip.none,
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 2.2,
+                      children: List.generate(
+                        8,
+                        (index) => InkWell(
+                          child: Container(
+                            padding: const EdgeInsets.all(18),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "C 102",
+                                  textAlign: TextAlign.center,
+                                  style: cInter.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: bold,
+                                    color: cPrimaryBlack,
+                                  ),
+                                ),
+                                Text(
+                                  "Lantai 1 - D4",
+                                  textAlign: TextAlign.center,
+                                  style: cInter.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: bold,
+                                    color: cPrimaryBlue,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFFFFFF),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(15)),
+                              border: Border.all(
+                                color: const Color(0xFFF4F4F4),
+                                width: 1.0,
+                                style: BorderStyle.solid,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                )
+                              ],
+                            ),
+                          ),
+                          onTap: () {},
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.all(0.0)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0),
+                              ),
+                            ),
+                          ),
+                          child: Ink(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                                colors: [
+                                  Color(0xff145ae3),
+                                  Color(0xff15aeef),
+                                ],
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(80.0)),
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 45, vertical: 12),
+                              constraints: const BoxConstraints(
+                                  minWidth: 88.0,
+                                  minHeight:
+                                      36.0), // min sizes for Material buttons
+                              alignment: Alignment.center,
+                              child: const Text(
+                                'Tetapkan Jadwal',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {}),
                     ),
                   ],
                 ),
