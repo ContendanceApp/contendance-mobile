@@ -13,6 +13,7 @@ import 'package:contendance_app/services/location_service.dart';
 import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:badges/badges.dart';
 import 'dart:async';
@@ -103,6 +104,7 @@ class _HomeState extends State<Home> {
     locationService.getLocation();
     initializeBeacon();
     rangingBeacon();
+    checkClassStatus();
   }
 
   Future<void> checkAuth() async {
@@ -394,35 +396,131 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // showModalBottom() {
+  //   return showModalBottomSheet(
+  //     backgroundColor: Colors.transparent,
+  //     context: context,
+  //     builder: (builder) {
+  //       return Container(
+  //         height: 250.0,
+  //         color: Colors.transparent, //could change this to Color(0xFF737373),
+  //         //so you don't have to change MaterialApp canvasColor
+  //         child: Container(
+  //           decoration: const BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.only(
+  //                   topLeft: Radius.circular(cRounded),
+  //                   topRight: Radius.circular(cRounded))),
+  //           child: Center(
+  //             child: Stack(
+  //               children: [
+  //                 Positioned.fill(
+  //                   top: -40,
+  //                   child: Align(
+  //                     alignment: AlignmentDirectional.center,
+  //                     child: Text(
+  //                       "Fitur ini akan segera tersedia!",
+  //                       style: cInter.copyWith(
+  //                         fontWeight: bold,
+  //                         fontSize: 18.0,
+  //                         color: cPrimaryBlack,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Align(
+  //                   alignment: AlignmentDirectional.bottomCenter,
+  //                   child: Padding(
+  //                     padding: const EdgeInsets.all(cPadding1),
+  //                     child: Container(
+  //                       decoration: BoxDecoration(
+  //                         borderRadius: BorderRadius.circular(cRounded),
+  //                         gradient: const LinearGradient(
+  //                           begin: Alignment.topRight,
+  //                           end: Alignment.bottomLeft,
+  //                           colors: [
+  //                             Color(0xff145ae3),
+  //                             Color(0xff15aeef),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                       child: TextButton(
+  //                         style: TextButton.styleFrom(
+  //                           minimumSize: const Size.fromHeight(0),
+  //                           padding: const EdgeInsets.symmetric(
+  //                               horizontal: 45, vertical: 12),
+  //                           primary: Colors.white,
+  //                           textStyle: cInter.copyWith(
+  //                             fontSize: 16,
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                         ),
+  //                         onPressed: () => Navigator.pop(context),
+  //                         child: const Text("OKE!"),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 )
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
   showModalBottom() {
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
       builder: (builder) {
         return Container(
-          height: 250.0,
-          color: Colors.transparent, //could change this to Color(0xFF737373),
-          //so you don't have to change MaterialApp canvasColor
+          height: 300.0,
+          color: Colors.transparent,
           child: Container(
             decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(cRounded),
-                    topRight: Radius.circular(cRounded))),
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(cRounded),
+                topRight: Radius.circular(cRounded),
+              ),
+            ),
             child: Center(
               child: Stack(
                 children: [
-                  Positioned.fill(
-                    top: -40,
+                  Padding(
+                    padding: const EdgeInsets.all(40),
                     child: Align(
-                      alignment: AlignmentDirectional.center,
-                      child: Text(
-                        "Fitur ini akan segera tersedia!",
-                        style: cInter.copyWith(
-                          fontWeight: bold,
-                          fontSize: 18.0,
-                          color: cPrimaryBlack,
-                        ),
+                      alignment: AlignmentDirectional.topStart,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Kelas Tidak Ditemukan!",
+                            textAlign: TextAlign.center,
+                            style: cInter.copyWith(
+                              fontWeight: bold,
+                              fontSize: 18.0,
+                              color: cPrimaryBlack,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          SvgPicture.asset("assets/images/close-square.svg"),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          Text(
+                            "Kelas dengan Proximity UUID tersebut tidak ditemukan",
+                            textAlign: TextAlign.center,
+                            style: cInter.copyWith(
+                              fontSize: 16.0,
+                              color: cSubText,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -430,32 +528,39 @@ class _HomeState extends State<Home> {
                     alignment: AlignmentDirectional.bottomCenter,
                     child: Padding(
                       padding: const EdgeInsets.all(cPadding1),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(cRounded),
-                          gradient: const LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              Color(0xff145ae3),
-                              Color(0xff15aeef),
-                            ],
-                          ),
-                        ),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            minimumSize: const Size.fromHeight(0),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 45, vertical: 12),
-                            primary: Colors.white,
-                            textStyle: cInter.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80.0),
+                              gradient: const LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0xff145ae3),
+                                  Color(0xff15aeef),
+                                ],
+                              ),
+                            ),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                fixedSize: const Size.fromWidth(150),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 45, vertical: 12),
+                                primary: Colors.white,
+                                textStyle: cInter.copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Tutup"),
                             ),
                           ),
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text("OKE!"),
-                        ),
+                        ],
                       ),
                     ),
                   )
@@ -530,15 +635,23 @@ class _HomeState extends State<Home> {
         .show(id, title, body, platformChannelSpecifics, payload: payload);
   }
 
+  Future<void> checkClassStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('classStatus') != null) {
+      if (prefs.getString('classStatus') == "not-found") {
+        showModalBottom();
+        await prefs.remove('classStatus');
+      }
+    }
+  }
+
   Future onSelectNotification(String? payload) async {
     if (payload != null) {
       debugPrint("Notification Payload = $payload");
     }
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SearchClass(),
-      ),
-    );
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('classStatus', "not-found");
+    await Navigator.pushReplacementNamed(context, "/home");
   }
 }

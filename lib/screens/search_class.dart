@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(const SearchClass());
 
@@ -122,11 +123,8 @@ class _SearchClassState extends State<SearchClass> {
     if (payload != null) {
       debugPrint("Notification Payload = $payload");
     }
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const SearchClass(),
-      ),
-    );
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('classStatus', "not-found");
+    await Navigator.pushReplacementNamed(context, "/home");
   }
 }
