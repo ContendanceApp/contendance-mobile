@@ -64,9 +64,11 @@ class _AccountState extends State<Account> {
 
     if (res.statusCode == 200) {
       UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
-      setState(() {
-        userInfo = resBody;
-      });
+      if (mounted) {
+        setState(() {
+          userInfo = resBody;
+        });
+      }
     } else {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       setState(() {
@@ -92,6 +94,7 @@ class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       extendBody: true,
       body: SingleChildScrollView(
         child: Stack(
@@ -111,21 +114,50 @@ class _AccountState extends State<Account> {
                   ),
                 ),
                 height: 225,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    alignment: AlignmentDirectional.topCenter,
-                    child: Text(
-                      "Akun",
-                      //textAlign: TextAlign.center,
-                      style: cInter.copyWith(
-                        fontWeight: bold,
-                        fontSize: 16,
-                        color: cWhite,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: InkWell(
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 19.25, top: 50),
+                          child: const Icon(
+                            IconlyLight.arrow_left,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          margin: const EdgeInsets.only(top: 50),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Akun",
+                                //textAlign: TextAlign.center,
+                                style: cInter.copyWith(
+                                  fontWeight: bold,
+                                  fontSize: 16,
+                                  color: cWhite,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -144,7 +176,6 @@ class _AccountState extends State<Account> {
                 child: Container(
                   margin: const EdgeInsets.only(top: 70),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       userInfo.fullname != ""
                           ? Text(
@@ -192,58 +223,6 @@ class _AccountState extends State<Account> {
                                 ),
                               ),
                             ),
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          showModalBottom();
-                          // logOut();
-                        },
-                        child: Text(
-                          "KELUAR DARI AKUN",
-                          style: cInter.copyWith(
-                            fontWeight: semibold,
-                            color: cDanger,
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          elevation: MaterialStateProperty.all(0),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                          ),
-                          side: MaterialStateProperty.all(
-                            BorderSide(
-                              width: 1.5,
-                              color: cDanger,
-                            ),
-                          ),
-                          minimumSize: MaterialStateProperty.all(
-                            Size.fromHeight(50),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 0, vertical: 20),
-                        constraints: const BoxConstraints(
-                            minWidth: 88.0,
-                            minHeight: 36.0), // min sizes for Material buttons
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'LOGIN',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -266,12 +245,49 @@ class _AccountState extends State<Account> {
                 ),
               ),
             ),
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0,
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    showModalBottom();
+                    // logOut();
+                  },
+                  child: Text(
+                    "KELUAR DARI AKUN",
+                    style: cInter.copyWith(
+                      fontWeight: semibold,
+                      color: cDanger,
+                    ),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.transparent),
+                    elevation: MaterialStateProperty.all(0),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    side: MaterialStateProperty.all(
+                      BorderSide(
+                        width: 1.5,
+                        color: cDanger,
+                      ),
+                    ),
+                    minimumSize: MaterialStateProperty.all(
+                      Size.fromHeight(50),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
-      floatingActionButton: const FloatingActionButtonComp(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const BottomAppBarComp(),
     );
   }
 
