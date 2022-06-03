@@ -33,9 +33,13 @@ class BottomAppBarComp extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(context, '/home');
+                            final String? currentRoute =
+                                ModalRoute.of(context)?.settings.name;
+                            if (currentRoute != "/home") {
+                              Navigator.pushReplacementNamed(context, '/home');
+                            }
                           },
-                          icon: const Icon(IconlyLight.home),
+                          icon: const Icon(IconlyBold.home),
                           iconSize: 26,
                           color: Colors.white,
                         ),
