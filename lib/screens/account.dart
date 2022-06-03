@@ -6,6 +6,7 @@ import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
@@ -171,58 +172,177 @@ class _AccountState extends State<Account> {
                 color: Colors.white,
               ),
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                padding: const EdgeInsets.symmetric(vertical: 18),
                 child: Container(
                   margin: const EdgeInsets.only(top: 70),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      userInfo.fullname != ""
-                          ? Text(
-                              userInfo.fullname,
-                              style: cInter.copyWith(
-                                fontWeight: bold,
-                                fontSize: 18,
-                                color: cPrimaryBlack,
-                              ),
-                            )
-                          : SkeletonAnimation(
-                              borderRadius: BorderRadius.circular(8.0),
-                              shimmerColor: Colors.grey[100]!,
-                              child: Container(
-                                height: 25,
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey[200],
-                                ),
-                              ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          children: [
+                            userInfo.fullname != ""
+                                ? Text(
+                                    userInfo.fullname,
+                                    style: cInter.copyWith(
+                                      fontWeight: bold,
+                                      fontSize: 18,
+                                      color: cPrimaryBlack,
+                                    ),
+                                  )
+                                : SkeletonAnimation(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    shimmerColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 25,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        color: Colors.grey[200],
+                                      ),
+                                    ),
+                                  ),
+                            const SizedBox(
+                              height: 2,
                             ),
-                      const SizedBox(
-                        height: 2,
+                            userInfo.email != ""
+                                ? Text(
+                                    userInfo.email,
+                                    style: cInter.copyWith(
+                                      fontWeight: medium,
+                                      fontSize: 16,
+                                      color: cSubText,
+                                    ),
+                                  )
+                                : SkeletonAnimation(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    shimmerColor: Colors.grey[100]!,
+                                    child: Container(
+                                      margin: const EdgeInsets.only(top: 5),
+                                      height: 15,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.25,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        color: Colors.grey[200],
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
                       ),
-                      userInfo.email != ""
-                          ? Text(
-                              userInfo.email,
-                              style: cInter.copyWith(
-                                fontWeight: medium,
-                                fontSize: 16,
-                                color: cSubText,
-                              ),
-                            )
-                          : SkeletonAnimation(
-                              borderRadius: BorderRadius.circular(8.0),
-                              shimmerColor: Colors.grey[100]!,
-                              child: Container(
-                                margin: const EdgeInsets.only(top: 5),
-                                height: 15,
-                                width: MediaQuery.of(context).size.width * 0.25,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey[200],
-                                ),
-                              ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: cPadding1),
+                        child: Text(
+                          "Menu",
+                          style: cInter.copyWith(
+                            fontWeight: bold,
+                            fontSize: 16,
+                            color: cPrimaryBlack,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: cPadding1,
+                              vertical: 10,
                             ),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset("assets/images/profile.svg"),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  "Detail Akun",
+                                  style: cInter.copyWith(
+                                    fontWeight: medium,
+                                    fontSize: 16,
+                                    color: cPrimaryBlack,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/account-detail");
+                          },
+                        ),
+                      ),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: cPadding1,
+                              vertical: 10,
+                            ),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset("assets/images/document.svg"),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  "Privacy Policy",
+                                  style: cInter.copyWith(
+                                    fontWeight: medium,
+                                    fontSize: 16,
+                                    color: cPrimaryBlack,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/privacy-policy");
+                          },
+                        ),
+                      ),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: cPadding1,
+                              vertical: 10,
+                            ),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                    "assets/images/info-circle.svg"),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  "Tentang Aplikasi",
+                                  style: cInter.copyWith(
+                                    fontWeight: medium,
+                                    fontSize: 16,
+                                    color: cPrimaryBlack,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(context, "/about-app");
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
