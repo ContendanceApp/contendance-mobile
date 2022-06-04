@@ -1,5 +1,6 @@
 import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/stack_screen.dart';
+import 'package:contendance_app/components/subject_card.dart';
 import 'package:contendance_app/components/subject_schedule_list.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
@@ -17,42 +18,94 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
   String? selectedValue;
   final bool _isVisible = true;
 
-  List histories = [
-    PresenceHistory(
-      subject: "Workshop Pemrograman Perangkat Lunak",
-      acronym: "WPPL",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-      isExpanded: false,
-    ),
-    PresenceHistory(
-      subject: "Workshop Pemrograman Perangkat Bergerak",
-      acronym: "WPPB",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-      isExpanded: false,
-    ),
-    PresenceHistory(
-      subject: "Workshop Administrasi dan Manajemen Jaringan",
-      acronym: "WPPL",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-      isExpanded: false,
-    ),
-    PresenceHistory(
-      subject: "Workshop Administrasi dan Manajemen Jaringan",
-      acronym: "WPPL",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-      isExpanded: false,
-    ),
-    PresenceHistory(
-      subject: "Workshop Administrasi dan Manajemen Jaringan",
-      acronym: "WPPL",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-      isExpanded: false,
-    ),
+  List<List<PresenceHistory>> histories = [
+    [
+      PresenceHistory(
+        subject: "Kecerdasan Komputasional",
+        acronym: "KK",
+        lab: "R. Virtual M8",
+        presenceTime: "08:00 - 09:40",
+        isExpanded: false,
+      ),
+      PresenceHistory(
+        subject: "Praktikum Kecerdasan Komputasional",
+        acronym: "PKK",
+        lab: "Lab C-206",
+        presenceTime: "12:20 - 14:50",
+        isExpanded: false,
+      )
+    ],
+    [
+      PresenceHistory(
+        subject: "Sistem Pendukung Keputusan",
+        acronym: "SPK",
+        lab: "R. Virtual M14",
+        presenceTime: "08:00 - 09:40",
+        isExpanded: false,
+      ),
+      PresenceHistory(
+        subject: "Workshop Pemograman Perangkat Bergerak",
+        acronym: "WPPB",
+        lab: "Lab C-203",
+        presenceTime: "10:30 - 13:50",
+        isExpanded: false,
+      ),
+    ],
+    [
+      PresenceHistory(
+        subject: "Workshop Pemodelan Perangkat Lunak",
+        acronym: "WPPL",
+        lab: "Lab C-105",
+        presenceTime: "08:00 - 11:20",
+        isExpanded: false,
+      ),
+      PresenceHistory(
+        subject: "Desain Pengalaman Pengguna",
+        acronym: "DPP",
+        lab: "Lab C-307",
+        presenceTime: "14:00 - 15:40",
+        isExpanded: false,
+      ),
+      PresenceHistory(
+        subject: "Matematika 4",
+        acronym: "M4",
+        lab: "Lab C-307",
+        presenceTime: "15:40 - 17:20",
+        isExpanded: false,
+      ),
+    ],
+    [
+      PresenceHistory(
+        subject: "Administrasi & Manajemen Jaringan",
+        acronym: "AMJ",
+        lab: "Lab C-307",
+        presenceTime: "08:00 - 11:20",
+        isExpanded: false,
+      ),
+      PresenceHistory(
+        subject: "Praktikum Pengolahan Citra",
+        acronym: "PPC",
+        lab: "Lab C-303",
+        presenceTime: "14:00 - 16:30",
+        isExpanded: false,
+      ),
+    ],
+    [
+      PresenceHistory(
+        subject: "Pengolahan Citra",
+        acronym: "PC",
+        lab: "R. Virtual M6",
+        presenceTime: "08:00 - 09:40",
+        isExpanded: false,
+      ),
+      PresenceHistory(
+        subject: "Bahasa Inggris Untuk Professional 2",
+        acronym: "BIUP2",
+        lab: "R. Virtual M14",
+        presenceTime: "09:40 - 11:20",
+        isExpanded: false,
+      ),
+    ],
   ];
 
   List days = [
@@ -61,7 +114,6 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
     'Rabu',
     'Kamis',
     'Jumat',
-    'Sabtu',
   ];
 
   @override
@@ -70,38 +122,38 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
       title: "Jadwal Matkul",
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Buka Semua',
-                  style: TextStyle(
-                    fontFamily: 'inter',
-                    fontSize: 14,
-                    fontWeight: bold,
-                    color: cPrimaryBlue,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 25,
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Tutup Semua',
-                  style: TextStyle(
-                    fontFamily: 'inter',
-                    fontSize: 14,
-                    fontWeight: bold,
-                    color: cPrimaryBlue.withOpacity(0.5),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     TextButton(
+          //       onPressed: () {},
+          //       child: Text(
+          //         'Buka Semua',
+          //         style: TextStyle(
+          //           fontFamily: 'inter',
+          //           fontSize: 14,
+          //           fontWeight: bold,
+          //           color: cPrimaryBlue,
+          //         ),
+          //       ),
+          //     ),
+          //     const SizedBox(
+          //       width: 25,
+          //     ),
+          //     TextButton(
+          //       onPressed: () {},
+          //       child: Text(
+          //         'Tutup Semua',
+          //         style: TextStyle(
+          //           fontFamily: 'inter',
+          //           fontSize: 14,
+          //           fontWeight: bold,
+          //           color: cPrimaryBlue.withOpacity(0.5),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
           Container(
             clipBehavior: Clip.none,
             child: ExpansionPanelList(
@@ -109,7 +161,7 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
               elevation: 0,
               dividerColor: Colors.white,
               expandedHeaderPadding: const EdgeInsets.all(0),
-              children: histories.map<ExpansionPanel>(
+              children: histories.asMap().entries.map<ExpansionPanel>(
                 (dynamic item) {
                   return ExpansionPanel(
                     hasIcon: false,
@@ -119,14 +171,14 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            days[1],
+                            days[item.key],
                             style: cInter.copyWith(
                               color: cPrimaryBlack,
                               fontWeight: bold,
                               fontSize: 24,
                             ),
                           ),
-                          item.isExpanded
+                          item.value[0].isExpanded
                               ? Icon(
                                   IconlyLight.arrow_up_2,
                                   color: cPrimaryBlack,
@@ -139,18 +191,17 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
                       );
                     },
                     body: Column(
-                      children: (histories)
-                          .map((history) =>
-                              PresenceHistoryCard(history: history))
+                      children: (histories[item.key])
+                          .map((history) => SubjectCard(history: history))
                           .toList(),
                     ),
-                    isExpanded: item.isExpanded,
+                    isExpanded: item.value[0].isExpanded,
                   );
                 },
               ).toList(),
               expansionCallback: (int index, bool isExpanded) {
                 setState(() {
-                  histories[index].isExpanded = !isExpanded;
+                  histories[index][0].isExpanded = !isExpanded;
                 });
               },
             ),

@@ -63,47 +63,47 @@ class UserMenu extends StatelessWidget {
                   Navigator.pushNamed(context, "/subject-schedule");
                 },
               ),
-              InkWell(
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SvgPicture.asset(
-                        "assets/images/swap.svg",
-                        width: 35,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "Jadwal \nPengganti",
-                        textAlign: TextAlign.start,
-                        style: cInter.copyWith(
-                          fontSize: 14,
-                          fontWeight: bold,
-                          color: cPrimaryBlack,
-                        ),
-                      ),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFFFFFFF),
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                      border: Border.all(
-                          color: const Color(0xFFF4F4F4),
-                          width: 1.0,
-                          style: BorderStyle.solid),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          spreadRadius: 2,
-                          blurRadius: 10,
-                        )
-                      ]),
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, "/change-schedule");
-                },
-              ),
+              // InkWell(
+              //   child: Container(
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.center,
+              //       crossAxisAlignment: CrossAxisAlignment.center,
+              //       children: <Widget>[
+              //         SvgPicture.asset(
+              //           "assets/images/swap.svg",
+              //           width: 35,
+              //         ),
+              //         const SizedBox(width: 10),
+              //         Text(
+              //           "Jadwal \nPengganti",
+              //           textAlign: TextAlign.start,
+              //           style: cInter.copyWith(
+              //             fontSize: 14,
+              //             fontWeight: bold,
+              //             color: cPrimaryBlack,
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //     decoration: BoxDecoration(
+              //         color: const Color(0xFFFFFFFF),
+              //         borderRadius: const BorderRadius.all(Radius.circular(15)),
+              //         border: Border.all(
+              //             color: const Color(0xFFF4F4F4),
+              //             width: 1.0,
+              //             style: BorderStyle.solid),
+              //         boxShadow: [
+              //           BoxShadow(
+              //             color: Colors.black.withOpacity(0.05),
+              //             spreadRadius: 2,
+              //             blurRadius: 10,
+              //           )
+              //         ]),
+              //   ),
+              //   onTap: () {
+              //     Navigator.pushNamed(context, "/change-schedule");
+              //   },
+              // ),
               InkWell(
                 child: Container(
                   child: Row(
