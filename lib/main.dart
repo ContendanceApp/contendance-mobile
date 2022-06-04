@@ -7,6 +7,7 @@ import 'package:contendance_app/screens/login.dart';
 import 'package:contendance_app/screens/no_connection.dart';
 import 'package:contendance_app/screens/presence_history.dart';
 import 'package:contendance_app/screens/privacy_policy.dart';
+import 'package:contendance_app/screens/prominent_disclosure.dart';
 import 'package:contendance_app/screens/room_list.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/screens/splash_screen.dart';
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
         '/account-detail': (context) => const AccountDetail(),
         '/privacy-policy': (context) => const PrivacyPolicy(),
         '/about-app': (context) => const AboutApp(),
+        '/prominent-disclosure-location': (context) =>
+            const ProminentDisclosureLocation(),
       },
     );
   }
