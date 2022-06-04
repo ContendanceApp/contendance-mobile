@@ -57,7 +57,7 @@ class _SearchClassState extends State<SearchClass> {
   }
 
   timeoutSearchClass() {
-    var duration = const Duration(seconds: 5);
+    var duration = const Duration(seconds: 3);
     return Timer(duration, () async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('classStatus', "not-found");
