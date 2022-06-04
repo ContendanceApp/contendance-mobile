@@ -1,9 +1,12 @@
+import 'package:contendance_app/screens/about_app.dart';
 import 'package:contendance_app/screens/account.dart';
+import 'package:contendance_app/screens/account_detail.dart';
 import 'package:contendance_app/screens/change_schedule.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/login.dart';
 import 'package:contendance_app/screens/no_connection.dart';
 import 'package:contendance_app/screens/presence_history.dart';
+import 'package:contendance_app/screens/privacy_policy.dart';
 import 'package:contendance_app/screens/room_list.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/screens/splash_screen.dart';
@@ -36,6 +39,9 @@ class MyApp extends StatelessWidget {
         '/presence-history': (context) => const PresenceHistoryScreen(),
         '/subject-schedule': (context) => const SubjectSchedule(),
         '/change-schedule': (context) => const ChangeScheduleScreen(),
+        '/account-detail': (context) => const AccountDetail(),
+        '/privacy-policy': (context) => const PrivacyPolicy(),
+        '/about-app': (context) => const AboutApp(),
       },
     );
   }
