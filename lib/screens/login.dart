@@ -79,6 +79,56 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
+          Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xff145ae3),
+                  Color(0xff15aeef),
+                ],
+              ),
+            ),
+            margin: const EdgeInsets.only(top: cPadding2),
+            padding: const EdgeInsets.all(cPadding2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Akun Demo (Demo Account)",
+                  style: TextStyle(
+                    color: cWhite,
+                    fontSize: 16.0,
+                    fontWeight: bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(
+                  "Email: demo@contendance.com",
+                  style: TextStyle(
+                    color: cWhite,
+                    fontSize: 16.0,
+                  ),
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  "Password: 12345678",
+                  style: TextStyle(
+                    color: cWhite,
+                    fontSize: 16.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Form(
             key: _formKey,
             child: Container(
