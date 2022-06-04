@@ -38,7 +38,8 @@ class StackScreen extends StatelessWidget {
                       alignment: AlignmentDirectional.centerStart,
                       child: InkWell(
                         child: Container(
-                          margin: const EdgeInsets.only(left: 19.25),
+                          margin: const EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.all(10),
                           child: const Icon(
                             IconlyLight.arrow_left,
                             color: Colors.white,
