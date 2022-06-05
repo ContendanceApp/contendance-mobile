@@ -22,6 +22,7 @@ import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -166,11 +167,57 @@ class _HomeState extends State<Home> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
 
-    checkAuth();
-    locationService.getLocation();
-    initializeBeacon();
-    rangingBeacon();
+    // locationService.getLocation();
+    _checkPermission();
     checkClassStatus();
+  }
+
+  Future<void> _checkPermission() async {
+    final prefs = await SharedPreferences.getInstance();
+    checkAuth();
+
+    if (prefs.getString('locationPerm') == null) {
+      final serviceStatus = await Permission.locationWhenInUse.serviceStatus;
+      final isGpsOn = serviceStatus == ServiceStatus.enabled;
+      if (!isGpsOn) {
+        await prefs.remove("locationPerm");
+        // print('Turn on location services before requesting permission.');
+        Navigator.pushReplacementNamed(
+            context, '/prominent-disclosure-location');
+        return;
+      }
+
+      // final status = await Permission.locationWhenInUse.request();
+      // if (status == PermissionStatus.granted) {
+      //   print('Permission granted');
+      // } else if (status == PermissionStatus.denied) {
+      //   print(
+      //       'Permission denied. Show a dialog and again ask for the permission');
+      // } else if (status == PermissionStatus.permanentlyDenied) {
+      //   print('Take the user to the settings page.');
+      //   await openAppSettings();
+      // }
+    }
+    // print(prefs.getString('locationPerm'));
+    if (prefs.getString('locationPerm') != null) {
+      await prefs.remove("locationPerm");
+      final status = await Permission.locationWhenInUse.request();
+      if (status == PermissionStatus.granted) {
+        // print('Permission granted');
+        await locationService.getLocation();
+        initializeBeacon();
+        rangingBeacon();
+      } else if (status == PermissionStatus.denied) {
+        // print(
+        //     'Permission denied. Show a dialog and again ask for the permission');
+        Navigator.pushReplacementNamed(
+            context, '/prominent-disclosure-location');
+      } else if (status == PermissionStatus.permanentlyDenied) {
+        // print('Take the user to the settings page.');
+        await openAppSettings();
+        _checkPermission();
+      }
+    }
   }
 
   Future<void> checkAuth() async {
@@ -190,9 +237,11 @@ class _HomeState extends State<Home> {
     var res = await login.loggedUser(_token.toString()).then((value) => value);
     if (res.statusCode == 200) {
       UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
-      setState(() {
-        userInfo = resBody;
-      });
+      if (mounted) {
+        setState(() {
+          userInfo = resBody;
+        });
+      }
     } else {
       final prefs = await SharedPreferences.getInstance();
       final success = await prefs.remove('token');

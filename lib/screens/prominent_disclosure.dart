@@ -3,6 +3,7 @@ import 'package:contendance_app/screens/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProminentDisclosureLocation extends StatelessWidget {
   const ProminentDisclosureLocation({Key? key}) : super(key: key);
@@ -91,7 +92,14 @@ class ProminentDisclosureLocation extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setString('locationPerm', "off");
+
+                            if (prefs.getString('locationPerm') != null) {
+                              Navigator.pushReplacementNamed(context, "/home");
+                            }
+                          },
                           child: const Text("No thanks"),
                         ),
                       ),
@@ -122,12 +130,14 @@ class ProminentDisclosureLocation extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () => Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Home(),
-                            ),
-                          ),
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setString('locationPerm', "on");
+
+                            if (prefs.getString('locationPerm') != null) {
+                              Navigator.pushReplacementNamed(context, "/home");
+                            }
+                          },
                           child: const Text(
                             "Turn on",
                             softWrap: false,

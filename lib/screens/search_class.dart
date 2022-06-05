@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/ripple_animation/ripple_animation.dart';
+import 'package:contendance_app/services/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(const SearchClass());
@@ -22,6 +24,8 @@ class _SearchClassState extends State<SearchClass> {
 
   final regions = <Region>[];
   StreamSubscription<RangingResult>? _streamRanging;
+
+  LocationService locationService = LocationService();
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -44,12 +48,7 @@ class _SearchClassState extends State<SearchClass> {
       debugShowCheckedModeBanner: false,
       // ignore: prefer_const_constructors
       home: RipplesAnimation(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Home(),
-          ),
-        ),
+        onPressed: () {},
         key: null,
         child: Container(),
       ),
@@ -63,6 +62,51 @@ class _SearchClassState extends State<SearchClass> {
       await prefs.setString('classStatus', "not-found");
       await Navigator.pushReplacementNamed(context, "/home");
     });
+  }
+
+  Future<void> _checkPermission() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('locationPerm') == null) {
+      final serviceStatus = await Permission.locationWhenInUse.serviceStatus;
+      final isGpsOn = serviceStatus == ServiceStatus.enabled;
+      if (!isGpsOn) {
+        // print('Turn on location services before requesting permission.');
+        Navigator.pushReplacementNamed(
+            context, '/prominent-disclosure-location');
+        return;
+      }
+
+      // final status = await Permission.locationWhenInUse.request();
+      // if (status == PermissionStatus.granted) {
+      //   print('Permission granted');
+      // } else if (status == PermissionStatus.denied) {
+      //   print(
+      //       'Permission denied. Show a dialog and again ask for the permission');
+      // } else if (status == PermissionStatus.permanentlyDenied) {
+      //   print('Take the user to the settings page.');
+      //   await openAppSettings();
+      // }
+    }
+    if (prefs.getString('locationPerm') != null) {
+      await prefs.remove("locationPerm");
+      initializeBeacon();
+      rangingBeacon();
+      final status = await Permission.locationWhenInUse.request();
+      if (status == PermissionStatus.granted) {
+        // print('Permission granted');
+        await locationService.getLocation();
+      } else if (status == PermissionStatus.denied) {
+        // print(
+        //     'Permission denied. Show a dialog and again ask for the permission');
+        Navigator.pushReplacementNamed(
+            context, '/prominent-disclosure-location');
+      } else if (status == PermissionStatus.permanentlyDenied) {
+        // print('Take the user to the settings page.');
+        await openAppSettings();
+        _checkPermission();
+      }
+    }
   }
 
   initializeBeacon() async {
