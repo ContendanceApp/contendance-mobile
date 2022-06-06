@@ -52,8 +52,6 @@ android {
         applicationId "com.contendance"
         minSdkVersion 18
         targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
         multiDexEnabled true
     }
 
