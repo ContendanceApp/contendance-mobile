@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             margin: const EdgeInsets.only(top: 16, bottom: 48),
             child: TextFormField(
-              textInputAction: TextInputAction.go,
+              textInputAction: TextInputAction.done,
               obscureText: ishiddenPassword,
               controller: passwordController,
               decoration: InputDecoration(
