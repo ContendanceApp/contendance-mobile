@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static AndroidInitializationSettings initializationSettingsAndroid =
-      const AndroidInitializationSettings('app_icon');
+      const AndroidInitializationSettings('mipmap/launcher_icon');
   var initializationSettings =
       InitializationSettings(android: initializationSettingsAndroid);
 
@@ -204,9 +204,9 @@ class _HomeState extends State<Home> {
       final status = await Permission.locationWhenInUse.request();
       if (status == PermissionStatus.granted) {
         // print('Permission granted');
-        await locationService.getLocation();
         initializeBeacon();
         rangingBeacon();
+        await locationService.getLocation();
       } else if (status == PermissionStatus.denied) {
         // print(
         //     'Permission denied. Show a dialog and again ask for the permission');
