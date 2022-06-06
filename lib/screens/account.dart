@@ -282,36 +282,36 @@ class _AccountState extends State<Account> {
                           },
                         ),
                       ),
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: cPadding1,
-                              vertical: 10,
-                            ),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset("assets/images/document.svg"),
-                                const SizedBox(
-                                  width: 15,
-                                ),
-                                Text(
-                                  "Privacy Policy",
-                                  style: cInter.copyWith(
-                                    fontWeight: medium,
-                                    fontSize: 16,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.pushNamed(context, "/privacy-policy");
-                          },
-                        ),
-                      ),
+                      // Material(
+                      //   color: Colors.transparent,
+                      //   child: InkWell(
+                      //     child: Container(
+                      //       padding: const EdgeInsets.symmetric(
+                      //         horizontal: cPadding1,
+                      //         vertical: 10,
+                      //       ),
+                      //       child: Row(
+                      //         children: [
+                      //           SvgPicture.asset("assets/images/document.svg"),
+                      //           const SizedBox(
+                      //             width: 15,
+                      //           ),
+                      //           Text(
+                      //             "Privacy Policy",
+                      //             style: cInter.copyWith(
+                      //               fontWeight: medium,
+                      //               fontSize: 16,
+                      //               color: cPrimaryBlack,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     onTap: () {
+                      //       Navigator.pushNamed(context, "/privacy-policy");
+                      //     },
+                      //   ),
+                      // ),
                       Material(
                         color: Colors.transparent,
                         child: InkWell(
