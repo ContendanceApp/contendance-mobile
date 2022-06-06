@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Email: demo@contendance.com",
                   style: TextStyle(
-                    color: cWhite,
+                    color: cSubWhite,
                     fontSize: 16.0,
                   ),
                 ),
@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Password: 12345678",
                   style: TextStyle(
-                    color: cWhite,
+                    color: cSubWhite,
                     fontSize: 16.0,
                   ),
                 ),
