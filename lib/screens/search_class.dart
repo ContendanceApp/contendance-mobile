@@ -30,7 +30,7 @@ class _SearchClassState extends State<SearchClass> {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   static AndroidInitializationSettings initializationSettingsAndroid =
-      const AndroidInitializationSettings('app_icon');
+      const AndroidInitializationSettings('mipmap/launcher_icon');
   var initializationSettings =
       InitializationSettings(android: initializationSettingsAndroid);
 
