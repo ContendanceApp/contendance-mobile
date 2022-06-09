@@ -4,13 +4,17 @@ import 'package:contendance_app/data/models/presence.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
-class SuccessPresence extends StatelessWidget {
-  const SuccessPresence({Key? key, required this.presence}) : super(key: key);
-
-  final Presence presence;
+class SuccessOpenPresence extends StatefulWidget {
+  const SuccessOpenPresence({Key? key}) : super(key: key);
 
   @override
+  State<SuccessOpenPresence> createState() => _SuccessOpenPresenceState();
+}
+
+class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
+  @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Presence;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -38,7 +42,7 @@ class SuccessPresence extends StatelessWidget {
               child: Column(
                 children: [
                   const Text(
-                    "Presensi Berhasil!",
+                    "Presensi Berhasil Dibuka!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
@@ -54,7 +58,7 @@ class SuccessPresence extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    "Ruangan ${presence.ruangan.name}",
+                    args.data.room.name,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontFamily: "Inter",
@@ -109,12 +113,12 @@ class SuccessPresence extends StatelessWidget {
               bottom: 150,
               child: Column(
                 children: <Widget>[
-                  const SizedBox(
+                  SizedBox(
                     width: 200,
                     child: Text(
-                      "Workshop Pemrograman Perangkat Lunak",
+                      args.data.subject.name,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: "Inter",
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -124,10 +128,10 @@ class SuccessPresence extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    "08:00 - 13:00",
+                  Text(
+                    "${args.data.subjectSchedule.startTime} - ${args.data.subjectSchedule.finishTime}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -136,8 +140,8 @@ class SuccessPresence extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Column(
-                    children: const [
-                      SizedBox(
+                    children: [
+                      const SizedBox(
                         width: 50,
                         child: Divider(
                           color: Color(0xFFF4F4F4),
@@ -145,11 +149,11 @@ class SuccessPresence extends StatelessWidget {
                           thickness: 2,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        "Andhik Ampuh Yunanto",
+                        args.data.lecturer.fullname,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "Inter",
                           fontSize: 16.0,
                           fontWeight: FontWeight.w600,
@@ -189,12 +193,8 @@ class SuccessPresence extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onPressed: () => Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Home(),
-                        ),
-                      ),
+                      onPressed: () =>
+                          Navigator.pushReplacementNamed(context, "/home"),
                       child: const Text('OKE'),
                     ),
                   ],
