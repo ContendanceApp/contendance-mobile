@@ -15,7 +15,7 @@ import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/screens/splash_screen.dart';
 import 'package:contendance_app/screens/subject_schedule.dart';
 import 'package:contendance_app/screens/success_open_presence.dart';
-import 'package:contendance_app/screens/success_presence%20copy.dart';
+import 'package:contendance_app/screens/success_presence.dart';
 import 'package:flutter/material.dart';
 
 void main() {
