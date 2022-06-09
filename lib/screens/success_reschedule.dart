@@ -1,8 +1,6 @@
 import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:iconly/iconly.dart';
 
 class SuccessReschedule extends StatelessWidget {
   const SuccessReschedule({Key? key}) : super(key: key);

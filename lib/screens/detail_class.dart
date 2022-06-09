@@ -1,11 +1,6 @@
 import 'package:contendance_app/components/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/screens/home.dart';
-import 'package:contendance_app/screens/search_class.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
 
 class DetailClass extends StatefulWidget {
@@ -19,13 +14,13 @@ class _DetailClassState extends State<DetailClass> {
   // static const kelas = 'Dalam Kelas';
   @override
   Widget build(BuildContext context) {
-    return StackScreen(title: "C 102", child: Column(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 12),
-        Container(
-
-          child: Column(
+    return StackScreen(
+      title: "C 102",
+      child: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 12),
+          Column(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -43,56 +38,51 @@ class _DetailClassState extends State<DetailClass> {
                   //
                   // ),
 
-                Row(
-
-                  children: [
-                    // Container(
-                    //   child: ClipRRect(
-                    //     borderRadius: BorderRadius.circular(10),
-                    //     child: Image.asset(
-                    //       'assets/images/lab-pens.jpg',
-                    //       height: 110,
-                    //       width: 110,
-                    //       fit: BoxFit.fitHeight,
-                    //     ),
-                    //   ),
-                    // ),
-                    Badge(
-                      toAnimate: false,
-                      shape: BadgeShape.square,
-                      elevation: 0,
-                      badgeColor: Color(0xFF145AE3),
-                      borderRadius: BorderRadius.circular(50),
-                      position: BadgePosition.topEnd(),
-                      badgeContent: Text(
-                        "Dalam Kelas",
-                        style: const TextStyle(
-                            color:  Colors.white
+                  Row(
+                    children: [
+                      // Container(
+                      //   child: ClipRRect(
+                      //     borderRadius: BorderRadius.circular(10),
+                      //     child: Image.asset(
+                      //       'assets/images/lab-pens.jpg',
+                      //       height: 110,
+                      //       width: 110,
+                      //       fit: BoxFit.fitHeight,
+                      //     ),
+                      //   ),
+                      // ),
+                      Badge(
+                        toAnimate: false,
+                        shape: BadgeShape.square,
+                        elevation: 0,
+                        badgeColor: const Color(0xFF145AE3),
+                        borderRadius: BorderRadius.circular(50),
+                        position: BadgePosition.topEnd(),
+                        badgeContent: const Text(
+                          "Dalam Kelas",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.asset(
+                            'assets/images/lab-pens.jpg',
+                            height: 110,
+                            width: 110,
+                            fit: BoxFit.fitHeight,
+                          ),
                         ),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/images/lab-pens.jpg',
-                          height: 110,
-                          width: 110,
-                          fit: BoxFit.fitHeight,
-                        ),
+                      const SizedBox(
+                        width: 18,
                       ),
-                    ),
-                    SizedBox(
-                      width: 18,
-                    ),
-                    Container(
-                      child: Column(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-
-                          Text(
+                          const Text(
                             "C-102",
                             textAlign: TextAlign.left,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
@@ -101,8 +91,8 @@ class _DetailClassState extends State<DetailClass> {
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              const SizedBox(
+                            children: const <Widget>[
+                              SizedBox(
                                 width: 200,
                                 child: Text(
                                   "Workshop Pemrograman Perangkat Lunak",
@@ -133,20 +123,16 @@ class _DetailClassState extends State<DetailClass> {
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-
+                    ],
+                  ),
                 ],
               ),
-
               InkWell(
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 40, top: 27),
                   width: double.infinity,
                   height: 100,
                   padding: const EdgeInsets.all(16),
-
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,10 +145,10 @@ class _DetailClassState extends State<DetailClass> {
                             style: cInter.copyWith(
                               fontSize: 16,
                               fontWeight: bold,
-                              color: Color(0xFF333333),
+                              color: const Color(0xFF333333),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 180,
                           ),
                           Text(
@@ -174,7 +160,6 @@ class _DetailClassState extends State<DetailClass> {
                               color: cPrimaryBlue,
                             ),
                           ),
-
                         ],
                       ),
                       Text(
@@ -188,16 +173,14 @@ class _DetailClassState extends State<DetailClass> {
                       ),
                     ],
                   ),
-
                   decoration: BoxDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         colors: <Color>[
                           Color(0xf145ae3),
                           Color(0xf15aeef),
                         ],
                       ),
-                      borderRadius:
-                      const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       border: Border.all(
                           color: const Color(0xFFF4F4F4),
                           width: 1.0,
@@ -210,7 +193,6 @@ class _DetailClassState extends State<DetailClass> {
                         )
                       ]),
                 ),
-
               ),
               ListView(
                 shrinkWrap: true,
@@ -225,7 +207,7 @@ class _DetailClassState extends State<DetailClass> {
                     style: cInter.copyWith(
                       fontSize: 14,
                       fontWeight: bold,
-                      color: Color(0xFF333333),
+                      color: const Color(0xFF333333),
                     ),
                   ),
                   Row(
@@ -251,15 +233,13 @@ class _DetailClassState extends State<DetailClass> {
                             const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 0),
                           ),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.circular(18.0),
+                              borderRadius: BorderRadius.circular(18.0),
                             ),
                           ),
-                          backgroundColor: MaterialStateProperty.all(
-                              Color(0xFFE3145F)),
+                          backgroundColor: MaterialStateProperty.all(cDanger),
                         ),
                         onPressed: () {},
                         child: const Text(
@@ -273,8 +253,8 @@ class _DetailClassState extends State<DetailClass> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      const SizedBox(
+                    children: const <Widget>[
+                      SizedBox(
                         width: 200,
                         child: Text(
                           "3120600029",
@@ -294,8 +274,8 @@ class _DetailClassState extends State<DetailClass> {
               ),
             ],
           ),
-        ),
-      ],
-    ),);
+        ],
+      ),
+    );
   }
 }

@@ -58,7 +58,6 @@ class _AccountDetailState extends State<AccountDetail> {
 
   getUserInfo() async {
     var res = await login.loggedUser(_token!).then((value) => value);
-    print("status code : ${res.statusCode}");
 
     if (res.statusCode == 200) {
       UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));

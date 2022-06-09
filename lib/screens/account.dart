@@ -1,7 +1,4 @@
 import 'dart:convert';
-
-import 'package:contendance_app/components/bottom_app_bar/bottom_app_bar.dart';
-import 'package:contendance_app/components/bottom_app_bar/floating_action_button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/services/login_service.dart';
@@ -399,7 +396,7 @@ class _AccountState extends State<Account> {
                       ),
                     ),
                     minimumSize: MaterialStateProperty.all(
-                      Size.fromHeight(50),
+                      const Size.fromHeight(50),
                     ),
                   ),
                 ),

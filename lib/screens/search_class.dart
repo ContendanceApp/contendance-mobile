@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io' show Platform;
-import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/ripple_animation/ripple_animation.dart';
 import 'package:contendance_app/services/location_service.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:contendance_app/components/bottom_app_bar/bottom_app_bar.dart';
 import 'package:contendance_app/components/bottom_app_bar/floating_action_button.dart';
-import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/skeleton_user_menu.dart';
 import 'package:contendance_app/components/subject_card.dart';
 import 'package:contendance_app/components/user_menu.dart';

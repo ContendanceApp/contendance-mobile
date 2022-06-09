@@ -2,6 +2,7 @@ import 'package:contendance_app/screens/about_app.dart';
 import 'package:contendance_app/screens/account.dart';
 import 'package:contendance_app/screens/account_detail.dart';
 import 'package:contendance_app/screens/change_schedule.dart';
+import 'package:contendance_app/screens/detail_class.dart';
 import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/screens/login.dart';
 import 'package:contendance_app/screens/no_connection.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/about-app': (context) => const AboutApp(),
         '/prominent-disclosure-location': (context) =>
             const ProminentDisclosureLocation(),
+        '/detail-class': (context) => const DetailClass(),
       },
     );
   }

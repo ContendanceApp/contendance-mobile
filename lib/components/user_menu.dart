@@ -10,7 +10,7 @@ class UserMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-      padding: EdgeInsets.symmetric(vertical: 24),
+      padding: const EdgeInsets.symmetric(vertical: 24),
       controller: ScrollController(
         keepScrollOffset: false,
       ),

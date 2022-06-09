@@ -1,11 +1,8 @@
 import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/stack_screen.dart';
-import 'package:contendance_app/constant/string.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 class PresenceHistoryScreen extends StatefulWidget {
   const PresenceHistoryScreen({Key? key}) : super(key: key);
