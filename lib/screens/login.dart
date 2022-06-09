@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,25 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = "12345678";
   bool isClicked = false;
   late Future<String> _token;
+
+  UserInfo userInfo = UserInfo(
+    userId: 0,
+    fullname: "",
+    email: "",
+    emailVerifiedAt: DateTime.now(),
+    sidEid: 0,
+    gender: "",
+    roleId: 0,
+    studyGroupId: 0,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    studyGroup: StudyGroup(
+      studyGroupId: 0,
+      name: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+  );
 
   @override
   void initState() {
@@ -337,6 +358,7 @@ class _LoginScreenState extends State<LoginScreen> {
     await prefs.setString('token', response.accessToken ?? "");
 
     if (prefs.getString('token') != "") {
+      getUserInfo(response.accessToken!);
       Navigator.pushReplacementNamed(context, "/home");
     } else {
       setState(() {
@@ -349,6 +371,16 @@ class _LoginScreenState extends State<LoginScreen> {
           duration: const Duration(seconds: 3),
         ),
       );
+    }
+  }
+
+  Future<void> getUserInfo(String accessToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    var res = await login.loggedUser(accessToken).then((value) => value);
+    if (res.statusCode == 200) {
+      UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
+      prefs.setInt('roleId', resBody.roleId);
+      prefs.setInt('userId', resBody.userId);
     }
   }
 }
