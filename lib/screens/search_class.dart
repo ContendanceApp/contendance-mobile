@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:io' show Platform;
+import 'package:contendance_app/data/models/presence.dart';
+import 'package:contendance_app/screens/open_presence.dart';
 import 'package:contendance_app/screens/ripple_animation/ripple_animation.dart';
 import 'package:contendance_app/services/location_service.dart';
+import 'package:contendance_app/services/presence_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -25,6 +28,7 @@ class _SearchClassState extends State<SearchClass> {
   StreamSubscription<RangingResult>? _streamRanging;
 
   LocationService locationService = LocationService();
+  PresenceService presence = PresenceService();
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -38,7 +42,7 @@ class _SearchClassState extends State<SearchClass> {
     super.initState();
     initializeBeacon();
     rangingBeacon();
-    timeoutSearchClass();
+    // timeoutSearchClass();
   }
 
   @override
@@ -108,6 +112,36 @@ class _SearchClassState extends State<SearchClass> {
     }
   }
 
+  Future<Schedule> checkPresence(
+    String proximityUUID,
+    int major,
+    int minor,
+    int userId,
+  ) async {
+    final prefs = await SharedPreferences.getInstance();
+    int? roleId = prefs.getInt("roleId");
+
+    if (roleId == 1) {
+      // If student
+      Map<String, String> body = {
+        'proximity_uuid': proximityUUID.toLowerCase(),
+        'major': major.toString(),
+        'minor': minor.toString(),
+        'user_id': userId.toString(),
+      };
+      return presence.validateSchedule(body).then((value) => value);
+    } else {
+      // If lecturer
+      Map<String, String> body = {
+        'proximity_uuid': proximityUUID.toLowerCase(),
+        'major': major.toString(),
+        'minor': minor.toString(),
+        'user_id': userId.toString(),
+      };
+      return presence.validateSchedule(body).then((value) => value);
+    }
+  }
+
   initializeBeacon() async {
     try {
       // if you want to manage manual checking about the required permissions
@@ -122,7 +156,7 @@ class _SearchClassState extends State<SearchClass> {
     }
   }
 
-  rangingBeacon() {
+  rangingBeacon() async {
     if (Platform.isIOS) {
       // iOS platform, at least set identifier and proximityUUID for region scanning
       regions.add(Region(
@@ -132,23 +166,31 @@ class _SearchClassState extends State<SearchClass> {
       regions.add(Region(identifier: 'com.beacon'));
     }
 
+    final prefs = await SharedPreferences.getInstance();
+    int userId = prefs.getInt('userId') ?? 0;
+
     _streamRanging =
-        flutterBeacon.ranging(regions).listen((RangingResult result) {
+        flutterBeacon.ranging(regions).listen((RangingResult result) async {
       print("result ${result.beacons}");
       if (result.beacons.isNotEmpty) {
         setState(() {
           beacons = result.beacons;
         });
         _streamRanging?.cancel();
-        int index = 0;
+        // int index = 0;
         for (var beacon in beacons) {
-          print("keluar $index");
-          _showNotification(
-              index,
-              "Beacon Detected",
-              "UUID: ${beacons[index].proximityUUID} | Jarak: ${beacons[index].accuracy}",
-              "This is the payload");
-          index++;
+          // print("ini beacon = $beacon");
+          await checkPresence(
+                  beacon.proximityUUID, beacon.major, beacon.minor, userId)
+              .then((value) => Navigator.pushReplacementNamed(
+                  context, "/open-presence",
+                  arguments: BeaconArgs(beacon: beacon, schedule: value)));
+          // _showNotification(
+          //     index,
+          //     "Beacon Detected",
+          //     "UUID: ${beacon.proximityUUID} | Jarak: ${beacon.accuracy}",
+          //     "This is the payload");
+          // index++;
         }
       }
       // result contains a region and list of beacons found
