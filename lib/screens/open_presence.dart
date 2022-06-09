@@ -1,13 +1,24 @@
 import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/screens/home.dart';
+import 'package:contendance_app/data/models/presence.dart';
+import 'package:contendance_app/services/presence_service.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class OpenPresence extends StatelessWidget {
+class OpenPresence extends StatefulWidget {
   const OpenPresence({Key? key}) : super(key: key);
 
   @override
+  State<OpenPresence> createState() => _OpenPresenceState();
+}
+
+class _OpenPresenceState extends State<OpenPresence> {
+  PresenceService presence = PresenceService();
+  bool isClicked = false;
+
+  @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as BeaconArgs;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -61,10 +72,10 @@ class OpenPresence extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 22),
-                  const Text(
-                    "Ruangan C-102",
+                  Text(
+                    "Ruangan ${args.schedule.data.room.roomCode}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Inter",
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -79,12 +90,12 @@ class OpenPresence extends StatelessWidget {
               bottom: 274,
               child: Column(
                 children: <Widget>[
-                  const SizedBox(
+                  SizedBox(
                     width: 200,
                     child: Text(
-                      "Workshop Pemrograman Perangkat Lunak",
+                      args.schedule.data.subject.name,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: "Inter",
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -94,10 +105,10 @@ class OpenPresence extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    "08:00 - 13:00",
+                  Text(
+                    "${args.schedule.data.subjectSchedule.startTime} - ${args.schedule.data.subjectSchedule.finishTime}",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -106,8 +117,8 @@ class OpenPresence extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Column(
-                    children: const [
-                      SizedBox(
+                    children: [
+                      const SizedBox(
                         width: 50,
                         child: Divider(
                           color: Color(0xFFF4F4F4),
@@ -115,11 +126,11 @@ class OpenPresence extends StatelessWidget {
                           thickness: 2,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        "Andhik Ampuh Yunanto",
+                        args.schedule.data.lecturer.fullname,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontFamily: "Inter",
                           fontSize: 16.0,
                           fontWeight: FontWeight.w600,
@@ -139,30 +150,35 @@ class OpenPresence extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
                 child: Row(
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(color: cPrimaryBlue),
-                        ),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            primary: cPrimaryBlue,
-                            textStyle: cInter.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                    !isClicked
+                        ? Expanded(
+                            flex: 1,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(color: cPrimaryBlue),
+                              ),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
+                                  primary: cPrimaryBlue,
+                                  textStyle: cInter.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text("Batal"),
+                              ),
                             ),
-                          ),
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text("Batal"),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 24,
-                    ),
+                          )
+                        : const SizedBox(),
+                    !isClicked
+                        ? const SizedBox(
+                            width: 24,
+                          )
+                        : const SizedBox(),
                     Expanded(
                       flex: 1,
                       child: Container(
@@ -186,16 +202,37 @@ class OpenPresence extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          onPressed: () => Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const Home(),
-                            ),
-                          ),
-                          child: const Text(
-                            "Buka Presensi",
-                            softWrap: false,
-                          ),
+                          onPressed: () async {
+                            setState(() {
+                              isClicked = !isClicked;
+                            });
+                            final prefs = await SharedPreferences.getInstance();
+                            int userId = prefs.getInt('userId') ?? 0;
+                            Map<String, String> body = {
+                              'proximity_uuid':
+                                  args.beacon.proximityUUID.toLowerCase(),
+                              'major': args.beacon.major.toString(),
+                              'minor': args.beacon.minor.toString(),
+                              'user_id': userId.toString(),
+                            };
+                            presence.openPresence(body).then((value) =>
+                                Navigator.pushReplacementNamed(
+                                    context, "/success-open-presence",
+                                    arguments: value));
+                          },
+                          child: !isClicked
+                              ? const Text(
+                                  "Buka Presensi",
+                                  softWrap: false,
+                                )
+                              : SizedBox(
+                                  width: 15,
+                                  height: 15,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 3,
+                                    color: cWhite,
+                                  ),
+                                ),
                         ),
                       ),
                     ),
@@ -208,4 +245,14 @@ class OpenPresence extends StatelessWidget {
       ),
     );
   }
+}
+
+class BeaconArgs {
+  final Schedule schedule;
+  final dynamic beacon;
+
+  BeaconArgs({
+    required this.beacon,
+    required this.schedule,
+  });
 }
