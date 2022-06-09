@@ -245,7 +245,9 @@ class _HomeState extends State<Home> {
       final prefs = await SharedPreferences.getInstance();
       final success = await prefs.remove('token');
       if (success) {
-        Navigator.pushReplacementNamed(context, "/login");
+        if (mounted) {
+          Navigator.pushReplacementNamed(context, "/login");
+        }
       }
     }
   }
