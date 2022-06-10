@@ -215,10 +215,19 @@ class _OpenPresenceState extends State<OpenPresence> {
                               'minor': args.beacon.minor.toString(),
                               'user_id': userId.toString(),
                             };
-                            presence.openPresence(body).then((value) =>
-                                Navigator.pushReplacementNamed(
-                                    context, "/success-open-presence",
-                                    arguments: value));
+                            try {
+                              await presence.openPresence(body).then(
+                                    (value) =>
+                                        Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      "/success-open-presence",
+                                      (Route<dynamic> route) => false,
+                                      arguments: value,
+                                    ),
+                                  );
+                            } catch (e) {
+                              print(e);
+                            }
                           },
                           child: !isClicked
                               ? const Text(

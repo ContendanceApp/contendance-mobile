@@ -184,8 +184,11 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onPressed: () =>
-                          Navigator.pushReplacementNamed(context, "/home"),
+                      onPressed: () {
+                        print("disini bang");
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, "/home", (Route<dynamic> route) => false);
+                      },
                       child: const Text('OKE'),
                     ),
                   ],

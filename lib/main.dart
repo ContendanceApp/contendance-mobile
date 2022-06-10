@@ -16,6 +16,7 @@ import 'package:contendance_app/screens/splash_screen.dart';
 import 'package:contendance_app/screens/subject_schedule.dart';
 import 'package:contendance_app/screens/success_open_presence.dart';
 import 'package:contendance_app/screens/success_presence.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
             const ProminentDisclosureLocation(),
         '/detail-class': (context) => const DetailClass(),
       },
+      builder: EasyLoading.init(),
     );
   }
 }

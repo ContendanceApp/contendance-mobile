@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:contendance_app/constant/string.dart';
+import 'package:contendance_app/data/models/class_presence.dart';
 import 'package:contendance_app/data/models/presence.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,6 +72,50 @@ class PresenceService {
       return Presence.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to presence.');
+    }
+  }
+
+  Future<dynamic> closePresence(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("token");
+    final response = await http.post(
+      Uri.parse("$baseUrl/presence/close"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': "bearer $token",
+      },
+      body: jsonEncode(<String, String>{
+        'presence_id': body["presence_id"]!,
+      }),
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to close class.');
+    }
+  }
+
+  Future<ClassPresence> activeClass(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("token");
+    int? userId = prefs.getInt("userId");
+    final response = await http.get(
+      Uri.parse("$baseUrl/presence/active/$userId"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': "bearer $token",
+      },
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return ClassPresence.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('No active class.');
     }
   }
 }

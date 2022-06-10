@@ -1,15 +1,19 @@
 import 'dart:convert';
+import 'package:contendance_app/components/active_class.dart';
 import 'package:contendance_app/components/bottom_app_bar/bottom_app_bar.dart';
 import 'package:contendance_app/components/bottom_app_bar/floating_action_button.dart';
+import 'package:contendance_app/components/skeleton_active_class.dart';
 import 'package:contendance_app/components/skeleton_user_menu.dart';
 import 'package:contendance_app/components/subject_card.dart';
 import 'package:contendance_app/components/user_menu.dart';
 import 'package:contendance_app/constant/theme.dart';
+import 'package:contendance_app/data/models/class_presence.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/services/location_service.dart';
 import 'package:contendance_app/services/login_service.dart';
+import 'package:contendance_app/services/presence_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -49,6 +53,40 @@ class _HomeState extends State<Home> {
 
   LoginService login = LoginService();
   String? _token;
+
+  bool loadActiveClass = true;
+
+  PresenceService presence = PresenceService();
+  ClassPresence detailActiveClass = ClassPresence(
+    presenceId: 0,
+    userId: 0,
+    isOpen: false,
+    openTime: "00:00",
+    closeTime: "00:00",
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    room: Room(
+      roomId: 0,
+      beaconId: 0,
+      name: "",
+      roomCode: "",
+      location: "",
+      description: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+    subjectSchedule: SubjectSchedule(
+      subjectScheduleId: 0,
+      subjectId: 0,
+      userId: 0,
+      studyGroupId: 0,
+      roomId: 0,
+      startTime: "00:00",
+      finishTime: "00:00",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+  );
 
   UserInfo userInfo = UserInfo(
     userId: 0,
@@ -240,6 +278,7 @@ class _HomeState extends State<Home> {
         setState(() {
           userInfo = resBody;
         });
+        getActiveClass();
       }
     } else {
       final prefs = await SharedPreferences.getInstance();
@@ -249,6 +288,28 @@ class _HomeState extends State<Home> {
           Navigator.pushReplacementNamed(context, "/login");
         }
       }
+    }
+  }
+
+  getActiveClass() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('userId');
+
+    Map<String, String> body = {
+      'user_id': userId.toString(),
+    };
+    try {
+      await presence.activeClass(body).then((value) {
+        setState(() {
+          loadActiveClass = false;
+          detailActiveClass = value;
+        });
+      });
+    } catch (e) {
+      setState(() {
+        loadActiveClass = false;
+      });
+      print(e);
     }
   }
 
@@ -414,70 +475,78 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    InkWell(
-                      child: Container(
-                        width: double.infinity,
-                        height: 136,
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 5),
-                              child: const Icon(
-                                IconlyLight.login,
-                                color: Color(0xFF64749F),
-                                size: 35,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 15),
-                              child: Text(
-                                "Belum memasuki kelas",
-                                textAlign: TextAlign.center,
-                                style: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: bold,
-                                  color: cSubText,
+                    detailActiveClass.presenceId == 0 && loadActiveClass
+                        ? const SkeletonActiveClass()
+                        : detailActiveClass.presenceId == 0
+                            ? InkWell(
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 135,
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 5),
+                                        child: const Icon(
+                                          IconlyLight.login,
+                                          color: Color(0xFF64749F),
+                                          size: 35,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(bottom: 15),
+                                        child: Text(
+                                          "Belum memasuki kelas",
+                                          textAlign: TextAlign.center,
+                                          style: cInter.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: bold,
+                                            color: cSubText,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Cari Kelas",
+                                        textAlign: TextAlign.center,
+                                        style: cInter.copyWith(
+                                          fontWeight: medium,
+                                          fontSize: 14,
+                                          color: cPrimaryBlue,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: const Color(0xFFFFFFFF),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(15)),
+                                      border: Border.all(
+                                          color: const Color(0xFFF4F4F4),
+                                          width: 1.0,
+                                          style: BorderStyle.solid),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.05),
+                                          spreadRadius: 2,
+                                          blurRadius: 10,
+                                        )
+                                      ]),
                                 ),
-                              ),
-                            ),
-                            Text(
-                              "Cari Kelas",
-                              textAlign: TextAlign.center,
-                              style: cInter.copyWith(
-                                fontWeight: medium,
-                                fontSize: 14,
-                                color: cPrimaryBlue,
-                              ),
-                            ),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                            color: const Color(0xFFFFFFFF),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(15)),
-                            border: Border.all(
-                                color: const Color(0xFFF4F4F4),
-                                width: 1.0,
-                                style: BorderStyle.solid),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                spreadRadius: 2,
-                                blurRadius: 10,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SearchClass(),
+                                      ));
+                                },
                               )
-                            ]),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SearchClass(),
-                            ));
-                      },
-                    ),
+                            : ActiveClass(classPresence: detailActiveClass),
                     Container(
                       child: userInfo.roleId == 0
                           ? const SkeletonUserMenu()
