@@ -1,3 +1,8 @@
+// To parse this JSON data, do
+//
+//     final classPresence = classPresenceFromJson(jsonString);
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 ClassPresence classPresenceFromJson(String str) =>
@@ -108,6 +113,7 @@ class SubjectSchedule {
     required this.finishTime,
     required this.createdAt,
     required this.updatedAt,
+    required this.subject,
   });
 
   int subjectScheduleId;
@@ -119,6 +125,7 @@ class SubjectSchedule {
   String finishTime;
   DateTime createdAt;
   DateTime updatedAt;
+  Subject subject;
 
   factory SubjectSchedule.fromJson(Map<String, dynamic> json) =>
       SubjectSchedule(
@@ -131,6 +138,7 @@ class SubjectSchedule {
         finishTime: json["finish_time"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        subject: Subject.fromJson(json["subject"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -141,6 +149,35 @@ class SubjectSchedule {
         "room_id": roomId,
         "start_time": startTime,
         "finish_time": finishTime,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "subject": subject.toJson(),
+      };
+}
+
+class Subject {
+  Subject({
+    required this.subjectId,
+    required this.name,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  int subjectId;
+  String name;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  factory Subject.fromJson(Map<String, dynamic> json) => Subject(
+        subjectId: json["subject_id"],
+        name: json["name"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "subject_id": subjectId,
+        "name": name,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

@@ -82,7 +82,7 @@ class _ActiveClassState extends State<ActiveClass> {
                             height: 4,
                           ),
                           Text(
-                            "Workshop Pemrograman Perangkat Lunak",
+                            widget.classPresence.subjectSchedule.subject.name,
                             textAlign: TextAlign.left,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,

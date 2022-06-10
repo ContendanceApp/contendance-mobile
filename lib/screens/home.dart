@@ -76,16 +76,21 @@ class _HomeState extends State<Home> {
       updatedAt: DateTime.now(),
     ),
     subjectSchedule: SubjectSchedule(
-      subjectScheduleId: 0,
-      subjectId: 0,
-      userId: 0,
-      studyGroupId: 0,
-      roomId: 0,
-      startTime: "00:00",
-      finishTime: "00:00",
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    ),
+        subjectScheduleId: 0,
+        subjectId: 0,
+        userId: 0,
+        studyGroupId: 0,
+        roomId: 0,
+        startTime: "00:00",
+        finishTime: "00:00",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        subject: Subject(
+          subjectId: 0,
+          name: "",
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        )),
   );
 
   UserInfo userInfo = UserInfo(
