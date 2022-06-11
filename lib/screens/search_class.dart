@@ -58,16 +58,13 @@ class _SearchClassState extends State<SearchClass> {
     );
   }
 
-  timeoutSearchClass() {
-    var duration = const Duration(seconds: 2);
-    return Timer(duration, () async {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('classStatus', "not-found");
-      if (mounted) {
-        await Navigator.pushNamedAndRemoveUntil(
-            context, "/home", (Route<dynamic> route) => false);
-      }
-    });
+  timeoutSearchClass() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('classStatus', "not-found");
+    if (mounted) {
+      Navigator.pushNamedAndRemoveUntil(
+          context, "/home", (Route<dynamic> route) => false);
+    }
   }
 
   Future<void> _checkPermission() async {
@@ -176,13 +173,13 @@ class _SearchClassState extends State<SearchClass> {
         flutterBeacon.ranging(regions).listen((RangingResult result) async {
       print("result ${result.beacons}");
       if (result.beacons.isNotEmpty) {
-        await prefs.remove('classStatus');
+        _streamRanging?.cancel();
+        prefs.remove('classStatus');
         if (mounted) {
           setState(() {
             beacons = result.beacons;
           });
         }
-        _streamRanging?.cancel();
         // int index = 0;
         for (var beacon in beacons) {
           // print("ini beacon = $beacon");
@@ -201,7 +198,7 @@ class _SearchClassState extends State<SearchClass> {
           // index++;
         }
       } else {
-        Timer.periodic(Duration(seconds: 5), (timer) {
+        Timer.periodic(const Duration(seconds: 8), (timer) {
           timeoutSearchClass();
         });
       }

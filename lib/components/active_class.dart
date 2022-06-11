@@ -5,6 +5,7 @@ import 'package:contendance_app/services/presence_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ActiveClass extends StatefulWidget {
   const ActiveClass({Key? key, required this.classPresence}) : super(key: key);
@@ -130,7 +131,9 @@ class _ActiveClassState extends State<ActiveClass> {
                         fontWeight: bold,
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.remove('classStatus');
                       showModalBottom(context);
                     },
                     child: const Text("Tutup Presensi"),

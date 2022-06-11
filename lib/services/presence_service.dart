@@ -113,8 +113,10 @@ class PresenceService {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
+      await prefs.remove('classStatus');
       return ClassPresence.fromJson(jsonDecode(response.body));
     } else {
+      await prefs.remove('classStatus');
       throw Exception('No active class.');
     }
   }

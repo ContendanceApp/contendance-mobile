@@ -746,7 +746,10 @@ class _HomeState extends State<Home> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
+                                final prefs =
+                                    await SharedPreferences.getInstance();
+                                await prefs.setString('classStatus', 'found');
                                 Navigator.pop(context);
                               },
                               child: const Text("Tutup"),
@@ -832,8 +835,8 @@ class _HomeState extends State<Home> {
 
     if (prefs.getString('classStatus') != null) {
       if (prefs.getString('classStatus') == "not-found") {
-        showModalBottom();
         await prefs.remove('classStatus');
+        showModalBottom();
       }
     }
   }
