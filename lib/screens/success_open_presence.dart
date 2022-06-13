@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence.dart';
-import 'package:contendance_app/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class SuccessPresence extends StatefulWidget {
@@ -41,10 +40,12 @@ class _SuccessPresenceState extends State<SuccessPresence> {
               top: 100,
               child: Column(
                 children: [
-                  const Text(
-                    "Presensi Berhasil Dibuka!",
+                  Text(
+                    args.data.lecturer.roleId == 1
+                        ? 'Presensi Berhasil'
+                        : 'Presensi Berhasil Dibuka!',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

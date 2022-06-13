@@ -6,20 +6,29 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PresenceService {
-  Future<Presences> createPresence(Map<String, String> body) async {
+  Future<Presence> createPresence(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString("token");
     final response = await http.post(
-      Uri.parse('https://contendance-api.herokuapp.com/api/presensi'),
+      Uri.parse("$baseUrl/presence/create"),
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': "bearer $token",
       },
       body: jsonEncode(<String, String>{
-        'user_id': body["userId"]!,
-        'ruangan_id': body["ruanganId"]!,
+        'proximity_uuid': body["proximity_uuid"]!,
+        'major': body["major"]!,
+        'minor': body["minor"]!,
+        'user_id': body["user_id"]!,
+        'study_group_id': body["study_group_id"]!,
       }),
     );
 
+    print(response.body);
+
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return Presences.fromJson(jsonDecode(response.body));
+      return Presence.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to presence.');
     }
@@ -112,11 +121,12 @@ class PresenceService {
       },
     );
 
+    print(response.body);
+
+    await prefs.remove('classStatus');
     if (response.statusCode == 201 || response.statusCode == 200) {
-      await prefs.remove('classStatus');
       return ClassPresence.fromJson(jsonDecode(response.body));
     } else {
-      await prefs.remove('classStatus');
       throw Exception('No active class.');
     }
   }

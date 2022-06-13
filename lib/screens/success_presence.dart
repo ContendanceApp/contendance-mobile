@@ -41,10 +41,10 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
               top: 100,
               child: Column(
                 children: [
-                  const Text(
-                    "Presensi Berhasil Dibuka!",
+                  Text(
+                    args.message,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

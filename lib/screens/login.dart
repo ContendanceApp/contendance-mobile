@@ -50,6 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState;
     getToken();
+    cleanClassPrefs();
+  }
+
+  cleanClassPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final success = await prefs.remove('classStatus');
+    success ? print("prefs cleared") : 0;
   }
 
   Future<void> getToken() async {
@@ -381,6 +388,7 @@ class _LoginScreenState extends State<LoginScreen> {
       UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
       prefs.setInt('roleId', resBody.roleId);
       prefs.setInt('userId', resBody.userId);
+      prefs.setInt('studyGroupId', resBody.studyGroupId ?? 0);
     }
   }
 }

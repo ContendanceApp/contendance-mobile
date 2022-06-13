@@ -118,29 +118,38 @@ class _SearchClassState extends State<SearchClass> {
     int minor,
     int userId,
   ) async {
-    final prefs = await SharedPreferences.getInstance();
-    int? roleId = prefs.getInt("roleId");
-
-    if (roleId == 1) {
-      // If student
-      Map<String, String> body = {
-        'proximity_uuid': proximityUUID.toLowerCase(),
-        'major': major.toString(),
-        'minor': minor.toString(),
-        'user_id': userId.toString(),
-      };
-      return presence.validateSchedule(body).then((value) => value);
-    } else {
-      // If lecturer
-      Map<String, String> body = {
-        'proximity_uuid': proximityUUID.toLowerCase(),
-        'major': major.toString(),
-        'minor': minor.toString(),
-        'user_id': userId.toString(),
-      };
-      return presence.validateSchedule(body).then((value) => value);
-    }
+    // If lecturer
+    Map<String, String> body = {
+      'proximity_uuid': proximityUUID.toLowerCase(),
+      'major': major.toString(),
+      'minor': minor.toString(),
+      'user_id': userId.toString(),
+    };
+    return presence.validateSchedule(body).then((value) => value);
   }
+
+  // Future<Presence> doPresence(
+  //   String proximityUUID,
+  //   int major,
+  //   int minor,
+  //   int userId,
+  //   int studyGroupId,
+  // ) async {
+  //   // If student
+  //   Map<String, String> body = {
+  //     'proximity_uuid': proximityUUID.toLowerCase(),
+  //     'major': major.toString(),
+  //     'minor': minor.toString(),
+  //     'user_id': userId.toString(),
+  //     'study_group_id': studyGroupId.toString(),
+  //   };
+
+  //   try {
+  //     await presence.createPresence(body).then((value) => value);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   initializeBeacon() async {
     try {
@@ -168,6 +177,8 @@ class _SearchClassState extends State<SearchClass> {
 
     final prefs = await SharedPreferences.getInstance();
     int userId = prefs.getInt('userId') ?? 0;
+    int roleId = prefs.getInt('roleId') ?? 0;
+    int studyGroupId = prefs.getInt('studyGroupId') ?? 0;
 
     _streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) async {
@@ -180,15 +191,34 @@ class _SearchClassState extends State<SearchClass> {
             beacons = result.beacons;
           });
         }
-        // int index = 0;
         for (var beacon in beacons) {
-          // print("ini beacon = $beacon");
           if (mounted) {
-            await checkPresence(
-                    beacon.proximityUUID, beacon.major, beacon.minor, userId)
-                .then((value) => Navigator.pushReplacementNamed(
-                    context, "/open-presence",
-                    arguments: BeaconArgs(beacon: beacon, schedule: value)));
+            if (roleId == 1) {
+              // if student
+              Map<String, String> body = {
+                'proximity_uuid': beacon.proximityUUID.toLowerCase(),
+                'major': beacon.major.toString(),
+                'minor': beacon.minor.toString(),
+                'user_id': userId.toString(),
+                'study_group_id': studyGroupId.toString(),
+              };
+
+              try {
+                await presence.createPresence(body).then((value) => value).then(
+                    (value) => Navigator.pushReplacementNamed(
+                        context, "/success-open-presence",
+                        arguments: value));
+              } catch (e) {
+                print(e);
+              }
+            } else {
+              // if lecturer
+              await checkPresence(
+                      beacon.proximityUUID, beacon.major, beacon.minor, userId)
+                  .then((value) => Navigator.pushReplacementNamed(
+                      context, "/open-presence",
+                      arguments: BeaconArgs(beacon: beacon, schedule: value)));
+            }
           }
           // _showNotification(
           //     index,
