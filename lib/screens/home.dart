@@ -551,7 +551,10 @@ class _HomeState extends State<Home> {
                                       ));
                                 },
                               )
-                            : ActiveClass(classPresence: detailActiveClass),
+                            : ActiveClass(
+                                classPresence: detailActiveClass,
+                                roleId: userInfo.roleId,
+                              ),
                     Container(
                       child: userInfo.roleId == 0
                           ? const SkeletonUserMenu()

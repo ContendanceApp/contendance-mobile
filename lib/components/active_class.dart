@@ -8,9 +8,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ActiveClass extends StatefulWidget {
-  const ActiveClass({Key? key, required this.classPresence}) : super(key: key);
+  const ActiveClass(
+      {Key? key, required this.classPresence, required this.roleId})
+      : super(key: key);
 
   final ClassPresence classPresence;
+  final int roleId;
 
   @override
   State<ActiveClass> createState() => _ActiveClassState();
@@ -110,36 +113,38 @@ class _ActiveClassState extends State<ActiveClass> {
               ),
             ],
           ),
-          const SizedBox(
-            height: cPadding2,
+          SizedBox(
+            height: widget.roleId != 1 ? cPadding2 : 0,
           ),
           Row(
             children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: cDanger,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 0),
-                      primary: cWhite,
-                      textStyle: cInter.copyWith(
-                        fontSize: 14,
-                        fontWeight: bold,
+              widget.roleId != 1
+                  ? Expanded(
+                      flex: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: cDanger,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 0),
+                            primary: cWhite,
+                            textStyle: cInter.copyWith(
+                              fontSize: 14,
+                              fontWeight: bold,
+                            ),
+                          ),
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.remove('classStatus');
+                            showModalBottom(context);
+                          },
+                          child: const Text("Tutup Presensi"),
+                        ),
                       ),
-                    ),
-                    onPressed: () async {
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.remove('classStatus');
-                      showModalBottom(context);
-                    },
-                    child: const Text("Tutup Presensi"),
-                  ),
-                ),
-              ),
+                    )
+                  : const SizedBox(),
               // const SizedBox(
               //   width: 24,
               // ),
@@ -207,19 +212,30 @@ class _ActiveClassState extends State<ActiveClass> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Apakah anda yakin menutup presensi?",
-                            style: cInter.copyWith(
-                              fontWeight: bold,
-                              fontSize: 18.0,
-                              color: cPrimaryBlack,
-                            ),
-                          ),
+                          widget.roleId == 1
+                              ? Text(
+                                  "Apakah anda yakin keluar kelas?",
+                                  style: cInter.copyWith(
+                                    fontWeight: bold,
+                                    fontSize: 18.0,
+                                    color: cPrimaryBlack,
+                                  ),
+                                )
+                              : Text(
+                                  "Apakah anda yakin menutup presensi?",
+                                  style: cInter.copyWith(
+                                    fontWeight: bold,
+                                    fontSize: 18.0,
+                                    color: cPrimaryBlack,
+                                  ),
+                                ),
                           const SizedBox(
                             height: 20,
                           ),
                           Text(
-                            "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
+                            widget.roleId == 1
+                                ? "Kelas anda belum selesai, anda tidak dapat masuk kembali ke kelas ini"
+                                : "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
                             style: cInter.copyWith(
                               fontSize: 16.0,
                               color: cSubText,

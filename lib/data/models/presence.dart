@@ -260,3 +260,43 @@ class SubjectSchedule {
         "updated_at": updatedAt.toIso8601String(),
       };
 }
+
+class PresenceDetail {
+  PresenceDetail({
+    required this.presenceId,
+    required this.userId,
+    required this.isOpen,
+    required this.openTime,
+    required this.closeTime,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  int presenceId;
+  int userId;
+  bool isOpen;
+  String openTime;
+  String closeTime;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  factory PresenceDetail.fromJson(Map<String, dynamic> json) => PresenceDetail(
+        presenceId: json["presence_id"],
+        userId: json["user_id"],
+        isOpen: json["is_open"],
+        openTime: json["open_time"],
+        closeTime: json["close_time"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "presence_id": presenceId,
+        "user_id": userId,
+        "is_open": isOpen,
+        "open_time": openTime,
+        "close_time": closeTime,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
+}
