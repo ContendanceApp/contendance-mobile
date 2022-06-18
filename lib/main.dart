@@ -18,8 +18,11 @@ import 'package:contendance_app/screens/success_open_presence.dart';
 import 'package:contendance_app/screens/success_presence.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
