@@ -66,14 +66,14 @@ class _SubjectScheduleListState extends State<SubjectScheduleList> {
               const SizedBox(
                 height: 16,
               ),
-              Column(
-                verticalDirection: VerticalDirection.up,
-                children: show
-                    ? (histories)
-                        .map((history) => PresenceHistoryCard(history: history))
-                        .toList()
-                    : [],
-              ),
+              // Column(
+              //   verticalDirection: VerticalDirection.up,
+              //   children: show
+              //       ? (histories)
+              //           .map((history) => PresenceHistoryCard(history: history))
+              //           .toList()
+              //       : [],
+              // ),
             ],
           ),
         ),

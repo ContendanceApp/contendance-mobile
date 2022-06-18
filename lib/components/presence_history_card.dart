@@ -1,14 +1,17 @@
 import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence_history.dart';
+import 'package:contendance_app/data/models/presence_history_lecturer.dart';
+import 'package:contendance_app/data/models/presence_history_student.dart';
 import 'package:flutter/material.dart';
 
 class PresenceHistoryCard extends StatelessWidget {
-  const PresenceHistoryCard({
+  PresenceHistoryCard({
     Key? key,
-    required this.history,
+    this.historyStudent,
+    this.historyLecturer,
   }) : super(key: key);
 
-  final PresenceHistory history;
+  late PresenceHistoryStudent? historyStudent;
+  late PresenceHistoryLecturer? historyLecturer;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class PresenceHistoryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    history.acronym,
+                    "ACR",
                     textAlign: TextAlign.center,
                     style: cInter.copyWith(
                       fontSize: 14,
@@ -54,7 +57,10 @@ class PresenceHistoryCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      history.subject,
+                      historyLecturer != null
+                          ? historyLecturer!.subjectSchedule.subject.name
+                          : historyStudent!
+                              .presences.subjectSchedule.subject.name,
                       style: cInter.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -67,7 +73,9 @@ class PresenceHistoryCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          history.lab,
+                          historyLecturer != null
+                              ? historyLecturer!.room.roomCode
+                              : historyStudent!.presences.room.roomCode,
                           style: cInter.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -87,7 +95,9 @@ class PresenceHistoryCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              history.presenceTime,
+                              historyLecturer != null
+                                  ? historyLecturer!.openTime
+                                  : historyStudent!.presenceTime,
                               style: cInter.copyWith(
                                 color: cPrimaryBlue,
                                 fontSize: 14,

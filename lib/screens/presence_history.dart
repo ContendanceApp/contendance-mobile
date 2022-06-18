@@ -1,8 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
+import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
+import 'package:contendance_app/data/models/presence_history_lecturer.dart';
+import 'package:contendance_app/data/models/presence_history_student.dart';
+import 'package:contendance_app/services/login_service.dart';
+import 'package:contendance_app/services/presence_history_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PresenceHistoryScreen extends StatefulWidget {
   const PresenceHistoryScreen({Key? key}) : super(key: key);
@@ -15,6 +24,13 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   String? selectedDay;
   String? selectedMonth;
   String? selectedYear;
+
+  LoginService login = LoginService();
+  String? _token;
+
+  late Future<PresenceHistoryLecturers> _historyLecturer;
+  late Future<PresenceHistoryStudents> _historyStudent;
+  PresenceHistoryService presenceHistory = PresenceHistoryService();
 
   List histories = [
     PresenceHistory(
@@ -36,6 +52,81 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
       presenceTime: "11.02",
     ),
   ];
+
+  UserInfo userInfo = UserInfo(
+    userId: 0,
+    fullname: "",
+    email: "",
+    emailVerifiedAt: DateTime.now(),
+    sidEid: 0,
+    gender: "",
+    roleId: 0,
+    studyGroupId: 0,
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    studyGroup: StudyGroup(
+      studyGroupId: 0,
+      name: "",
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+  );
+
+  @override
+  void initState() {
+    super.initState();
+
+    checkAuth();
+    _historyStudent = PresenceHistoryService().getPresenceHistoryStudent();
+    _historyLecturer = PresenceHistoryService().getPresenceHistoryLecturer();
+
+    // getPresenceHistory();
+  }
+
+  Future<void> checkAuth() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('token') != null) {
+      setState(() {
+        _token = prefs.getString("token");
+      });
+      getUserInfo();
+    } else {
+      Navigator.pushReplacementNamed(context, "/login");
+    }
+  }
+
+  getUserInfo() async {
+    var res = await login.loggedUser(_token.toString()).then((value) => value);
+    if (res.statusCode == 200) {
+      UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
+      if (mounted) {
+        setState(() {
+          userInfo = resBody;
+        });
+      }
+    } else {
+      final prefs = await SharedPreferences.getInstance();
+      final success = await prefs.remove('token');
+      if (success) {
+        if (mounted) {
+          Navigator.pushReplacementNamed(context, "/login");
+        }
+      }
+    }
+  }
+
+  getPresenceHistoryData() async {
+    print("sini bang");
+    print(userInfo.roleId);
+    if (userInfo.roleId == 1) {
+      print("student");
+      // if student
+    } else if (userInfo.roleId == 2) {
+      print("dosen");
+      // if lecturer
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +321,6 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           // ),
           Container(
             // padding: const EdgeInsets.only(top: 40, bottom: 16),
-            padding: const EdgeInsets.only(bottom: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -255,14 +345,106 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
             ),
           ),
           SizedBox(
-            child: Column(
-              children: histories
-                  .map((history) => PresenceHistoryCard(history: history))
-                  .toList(),
-            ),
+            child: userInfo.roleId == 0
+                ? const Center(child: CircularProgressIndicator())
+                : userInfo.roleId == 1
+                    ? FutureBuilder(
+                        future: _historyStudent,
+                        builder: (context,
+                            AsyncSnapshot<PresenceHistoryStudents> snapshot) {
+                          var state = snapshot.connectionState;
+                          if (state != ConnectionState.done) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else {
+                            if (snapshot.hasData) {
+                              if (snapshot.data!.data.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    'Presensi masih kosong',
+                                    style:
+                                        Theme.of(context).textTheme.headline6,
+                                  ),
+                                );
+                              } else {
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data?.data.length,
+                                  itemBuilder: (context, index) {
+                                    var history = snapshot.data?.data[index];
+                                    return PresenceHistoryCard(
+                                        historyStudent: history!);
+                                  },
+                                );
+                              }
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                  child: Text(snapshot.error.toString()));
+                            } else {
+                              return const Text('Presensi masih kosong');
+                            }
+                          }
+                        },
+                      )
+                    : userInfo.roleId == 2
+                        ? FutureBuilder(
+                            future: _historyLecturer,
+                            builder: (context,
+                                AsyncSnapshot<PresenceHistoryLecturers>
+                                    snapshot) {
+                              var state = snapshot.connectionState;
+                              if (state != ConnectionState.done) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else {
+                                if (snapshot.hasData) {
+                                  if (snapshot.data!.data.isEmpty) {
+                                    return Center(
+                                      child: Text(
+                                        'Presensi masih kosong',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6,
+                                      ),
+                                    );
+                                  } else {
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data?.data.length,
+                                      itemBuilder: (context, index) {
+                                        var history =
+                                            snapshot.data?.data[index];
+                                        return PresenceHistoryCard(
+                                            historyLecturer: history!);
+                                      },
+                                    );
+                                  }
+                                } else if (snapshot.hasError) {
+                                  return Center(
+                                      child: Text(snapshot.error.toString()));
+                                } else {
+                                  return const Text('Presensi masih kosong');
+                                }
+                              }
+                            },
+                          )
+                        : const Center(child: CircularProgressIndicator()),
           ),
         ],
       ),
     );
+  }
+
+  getPresenceHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    int roleId = prefs.getInt("roleId") ?? 0;
+
+    if (roleId == 1) {
+      // if student
+      presenceHistory.getPresenceHistoryStudent();
+    } else {
+      // if lecturer
+      presenceHistory.getPresenceHistoryLecturer();
+    }
   }
 }
