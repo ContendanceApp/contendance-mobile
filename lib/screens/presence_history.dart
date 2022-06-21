@@ -364,10 +364,17 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                             if (snapshot.hasData) {
                               if (snapshot.data!.data.isEmpty) {
                                 return Center(
-                                  child: Text(
-                                    'Presensi masih kosong',
-                                    style:
-                                        Theme.of(context).textTheme.headline6,
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 100),
+                                    child: Text(
+                                      'Belum ada presensi',
+                                      style: cInter.copyWith(
+                                        fontWeight: bold,
+                                        fontSize: 18,
+                                        color: cSubText,
+                                      ),
+                                    ),
                                   ),
                                 );
                               } else {
@@ -385,7 +392,20 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                               return Center(
                                   child: Text(snapshot.error.toString()));
                             } else {
-                              return const Text('Presensi masih kosong');
+                              return Center(
+                                child: Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 100),
+                                  child: Text(
+                                    'Belum ada presensi',
+                                    style: cInter.copyWith(
+                                      fontWeight: bold,
+                                      fontSize: 18,
+                                      color: cSubText,
+                                    ),
+                                  ),
+                                ),
+                              );
                             }
                           }
                         },
@@ -404,11 +424,17 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                 if (snapshot.hasData) {
                                   if (snapshot.data!.data.isEmpty) {
                                     return Center(
-                                      child: Text(
-                                        'Presensi masih kosong',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6,
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 100),
+                                        child: Text(
+                                          'Belum ada presensi',
+                                          style: cInter.copyWith(
+                                            fontWeight: bold,
+                                            fontSize: 18,
+                                            color: cSubText,
+                                          ),
+                                        ),
                                       ),
                                     );
                                   } else {
@@ -427,7 +453,20 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                   return Center(
                                       child: Text(snapshot.error.toString()));
                                 } else {
-                                  return const Text('Presensi masih kosong');
+                                  return Center(
+                                    child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 100),
+                                      child: Text(
+                                        'Belum ada presensi',
+                                        style: cInter.copyWith(
+                                          fontWeight: bold,
+                                          fontSize: 18,
+                                          color: cSubText,
+                                        ),
+                                      ),
+                                    ),
+                                  );
                                 }
                               }
                             },
