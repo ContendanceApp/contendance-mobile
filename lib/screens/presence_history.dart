@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
@@ -79,7 +78,6 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   @override
   void initState() {
     super.initState();
-    initializeDateFormatting('id_ID', null);
     checkAuth();
     _historyStudent = PresenceHistoryService().getPresenceHistoryStudent();
     _historyLecturer = PresenceHistoryService().getPresenceHistoryLecturer();
@@ -453,6 +451,9 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                     );
                                   } else {
                                     return ListView.builder(
+                                      controller: ScrollController(
+                                        keepScrollOffset: false,
+                                      ),
                                       shrinkWrap: true,
                                       itemCount: snapshot.data?.data.length,
                                       itemBuilder: (context, index) {
