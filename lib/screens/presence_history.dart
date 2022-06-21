@@ -350,7 +350,12 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           ),
           SizedBox(
             child: userInfo.roleId == 0
-                ? const Center(child: CircularProgressIndicator())
+                ? Container(
+                    margin: const EdgeInsets.symmetric(vertical: 100),
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
                 : userInfo.roleId == 1
                     ? FutureBuilder(
                         future: _historyStudent,
@@ -358,8 +363,12 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                             AsyncSnapshot<PresenceHistoryStudents> snapshot) {
                           var state = snapshot.connectionState;
                           if (state != ConnectionState.done) {
-                            return const Center(
-                                child: CircularProgressIndicator());
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 100),
+                              child: const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
                           } else {
                             if (snapshot.hasData) {
                               if (snapshot.data!.data.isEmpty) {
@@ -418,8 +427,13 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                     snapshot) {
                               var state = snapshot.connectionState;
                               if (state != ConnectionState.done) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
+                                return Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 100),
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
                               } else {
                                 if (snapshot.hasData) {
                                   if (snapshot.data!.data.isEmpty) {
@@ -471,7 +485,12 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                               }
                             },
                           )
-                        : const Center(child: CircularProgressIndicator()),
+                        : Container(
+                            margin: const EdgeInsets.symmetric(vertical: 100),
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
           ),
         ],
       ),
