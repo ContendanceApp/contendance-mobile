@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
-
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:contendance_app/components/presence_history_card.dart';
 import 'package:contendance_app/components/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
@@ -31,6 +32,9 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   late Future<PresenceHistoryLecturers> _historyLecturer;
   late Future<PresenceHistoryStudents> _historyStudent;
   PresenceHistoryService presenceHistory = PresenceHistoryService();
+
+  String dayNow =
+      DateFormat("EEEEE, d MMMM yyyy", "id_ID").format(DateTime.now());
 
   List histories = [
     PresenceHistory(
@@ -75,7 +79,7 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   @override
   void initState() {
     super.initState();
-
+    initializeDateFormatting('id_ID', null);
     checkAuth();
     _historyStudent = PresenceHistoryService().getPresenceHistoryStudent();
     _historyLecturer = PresenceHistoryService().getPresenceHistoryLecturer();
@@ -334,7 +338,7 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Selasa, 24 Maret 2022', //need improve
+                  dayNow, //need improve
                   style: cInter.copyWith(
                     fontWeight: medium,
                     fontSize: 15,
