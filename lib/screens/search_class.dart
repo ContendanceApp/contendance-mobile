@@ -59,12 +59,15 @@ class _SearchClassState extends State<SearchClass> {
   }
 
   timeoutSearchClass() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('classStatus', "not-found");
-    if (mounted) {
-      Navigator.pushNamedAndRemoveUntil(
-          context, "/home", (Route<dynamic> route) => false);
-    }
+    _streamRanging?.cancel();
+    Navigator.pushReplacementNamed(context, '/class-not-found');
+    // final prefs = await SharedPreferences.getInstance();
+    // await prefs.setString('classStatus', "not-found");
+    // _streamRanging?.cancel();
+    // if (mounted) {
+    //   Navigator.pushNamedAndRemoveUntil(
+    //       context, "/home", (Route<dynamic> route) => false);
+    // }
   }
 
   Future<void> _checkPermission() async {
@@ -185,12 +188,14 @@ class _SearchClassState extends State<SearchClass> {
       print("result ${result.beacons}");
       if (result.beacons.isNotEmpty) {
         _streamRanging?.cancel();
-        prefs.remove('classStatus');
+        // final success = await prefs.remove('classStatus');
+        // if (success) {
         if (mounted) {
           setState(() {
             beacons = result.beacons;
           });
         }
+        // }
         for (var beacon in beacons) {
           if (mounted) {
             if (roleId == 1) {
@@ -228,7 +233,8 @@ class _SearchClassState extends State<SearchClass> {
           // index++;
         }
       } else {
-        Timer.periodic(const Duration(seconds: 8), (timer) {
+        print("kok di sini bang");
+        Timer.periodic(const Duration(seconds: 4), (timer) {
           timeoutSearchClass();
         });
       }

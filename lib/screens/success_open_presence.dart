@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SuccessPresence extends StatefulWidget {
   const SuccessPresence({Key? key}) : super(key: key);
@@ -185,10 +186,14 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         print("disini bang");
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, "/home", (Route<dynamic> route) => false);
+                        final prefs = await SharedPreferences.getInstance();
+                        final success = await prefs.remove('classStatus');
+                        if (success) {
+                          print(prefs.getString('classStatus'));
+                          Navigator.pushReplacementNamed(context, "/home");
+                        }
                       },
                       child: const Text('OKE'),
                     ),

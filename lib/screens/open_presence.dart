@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence.dart';
 import 'package:contendance_app/services/presence_service.dart';
@@ -23,7 +25,9 @@ class _OpenPresenceState extends State<OpenPresence> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, "/home");
+          },
           icon: const Icon(IconlyLight.arrow_left),
           color: Colors.black87,
           iconSize: 24,
@@ -216,15 +220,24 @@ class _OpenPresenceState extends State<OpenPresence> {
                               'user_id': userId.toString(),
                             };
                             try {
-                              await presence.openPresence(body).then(
-                                    (value) =>
-                                        Navigator.pushNamedAndRemoveUntil(
+                              await presence
+                                  .openPresence(body)
+                                  .then((value) async {
+                                final success =
+                                    await prefs.remove('classStatus');
+                                if (success) {
+                                  print(prefs.getString('classStatus'));
+                                  print("kehapus kok");
+                                  if (mounted) {
+                                    Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       "/success-open-presence",
                                       (Route<dynamic> route) => false,
                                       arguments: value,
-                                    ),
-                                  );
+                                    );
+                                  }
+                                }
+                              });
                             } catch (e) {
                               print(e);
                             }

@@ -246,8 +246,8 @@ class _HomeState extends State<Home> {
       final status = await Permission.locationWhenInUse.request();
       if (status == PermissionStatus.granted) {
         // print('Permission granted');
-        initializeBeacon();
-        rangingBeacon();
+        // initializeBeacon();
+        // rangingBeacon();
         await locationService.getLocation();
       } else if (status == PermissionStatus.denied) {
         // print(
@@ -752,8 +752,15 @@ class _HomeState extends State<Home> {
                               onPressed: () async {
                                 final prefs =
                                     await SharedPreferences.getInstance();
-                                await prefs.setString('classStatus', 'found');
-                                Navigator.pop(context);
+                                // await prefs.setString('classStatus', 'found');
+                                final success =
+                                    await prefs.remove('classStatus');
+                                if (success) {
+                                  print('terhapus');
+                                  if (mounted) {
+                                    Navigator.pop(context);
+                                  }
+                                }
                               },
                               child: const Text("Tutup"),
                             ),
@@ -835,6 +842,7 @@ class _HomeState extends State<Home> {
 
   Future<void> checkClassStatus() async {
     final prefs = await SharedPreferences.getInstance();
+    print(prefs.getString('classStatus'));
 
     if (prefs.getString('classStatus') != null) {
       if (prefs.getString('classStatus') == "not-found") {
