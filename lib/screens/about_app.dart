@@ -29,7 +29,7 @@ class _AboutAppState extends State<AboutApp> {
             height: 4,
           ),
           Text(
-            "1.1.0",
+            "2.1.0",
             textAlign: TextAlign.justify,
             style: cInter.copyWith(
               fontWeight: regular,
