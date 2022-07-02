@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/class_presence.dart';
 import 'package:contendance_app/services/presence_service.dart';
@@ -121,27 +121,19 @@ class _ActiveClassState extends State<ActiveClass> {
               widget.roleId != 1
                   ? Expanded(
                       flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: cDanger,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 0),
-                            primary: cWhite,
-                            textStyle: cInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: bold,
-                            ),
-                          ),
-                          onPressed: () async {
-                            final prefs = await SharedPreferences.getInstance();
-                            await prefs.remove('classStatus');
-                            showModalBottom(context);
-                          },
-                          child: const Text("Tutup Presensi"),
-                        ),
+                      child: Button(
+                        text: "Tutup Presensi",
+                        callback: () async {
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.remove('classStatus');
+                          showModalBottom(context);
+                        },
+                        primary: false,
+                        secondary: false,
+                        custom: true,
+                        backgroundColor: cDanger,
+                        fontColor: cWhite,
+                        borderColor: cDanger,
                       ),
                     )
                   : const SizedBox(),
@@ -252,44 +244,23 @@ class _ActiveClassState extends State<ActiveClass> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              color: Colors.white,
-                              border: Border.all(color: cPrimaryBlue),
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                fixedSize: const Size.fromWidth(150),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
-                                primary: cPrimaryBlue,
-                                textStyle: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text("Tidak, batal"),
+                          Expanded(
+                            flex: 1,
+                            child: Button(
+                              text: "Tidak, batal",
+                              callback: () => Navigator.pop(context),
+                              primary: false,
+                              secondary: true,
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              color: cDanger,
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
-                                fixedSize: const Size.fromWidth(150),
-                                primary: Colors.white,
-                                textStyle: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onPressed: () async {
+                          const SizedBox(
+                            width: cPadding2,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Button(
+                              text: "Ya, yakin",
+                              callback: () async {
                                 Map<String, String> body = {
                                   'presence_id': widget.classPresence.presenceId
                                       .toString(),
@@ -324,10 +295,12 @@ class _ActiveClassState extends State<ActiveClass> {
                                   print(e);
                                 }
                               },
-                              child: const Text(
-                                "Ya, yakin",
-                                textAlign: TextAlign.center,
-                              ),
+                              primary: false,
+                              secondary: false,
+                              custom: true,
+                              backgroundColor: cDanger,
+                              fontColor: cWhite,
+                              borderColor: cDanger,
                             ),
                           ),
                         ],

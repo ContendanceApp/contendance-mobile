@@ -1,4 +1,4 @@
-import 'package:contendance_app/components/stack_screen.dart';
+import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:indent/indent.dart';

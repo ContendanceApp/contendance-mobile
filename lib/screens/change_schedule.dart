@@ -1,3 +1,5 @@
+import 'package:contendance_app/widgets/button.dart';
+import 'package:contendance_app/widgets/cards_room_builder.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:contendance_app/constant/theme.dart';
@@ -41,15 +43,8 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
               alignment: AlignmentDirectional.topCenter,
               child: Container(
                 height: 140,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xff145ae3),
-                      Color(0xff15aeef),
-                    ],
-                  ),
+                decoration: BoxDecoration(
+                  gradient: cGradient,
                 ),
                 child: Stack(
                   children: [
@@ -126,22 +121,6 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-                    // DropdownSearch<String>(
-                    //   popupProps: const PopupProps.menu(
-                    //     showSelectedItems: true,
-                    //     //disabledItemFn: (String s) => s.startsWith('I'),
-                    //   ),
-                    //   items: const [
-                    //     "Workshop Pemrograman Perangkat Lunak",
-                    //     "Kecerdasan Komputasional",
-                    //     "Desain Pengalaman Pengguna",
-                    //     "Workshop Administrasi Jaringan",
-                    //     "Bahasa Inggris 2",
-                    //     "Matematika 4"
-                    //   ],
-                    //   onChanged: print,
-                    //   //selectedItem: "Brazil",
-                    // ),
                     SizedBox(
                       width: double.infinity,
                       child: DropdownButtonHideUnderline(
@@ -215,61 +194,42 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFFFFF),
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: const Color(0xFFF4F4F4),
-                          width: 1.0,
-                          style: BorderStyle.solid,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            spreadRadius: 2,
-                            blurRadius: 10,
-                          )
-                        ],
-                      ),
-                      child: SizedBox(
-                        child: TextButton(
-                          child: Text(
-                            pickedDate == ''
-                                ? 'Pilih tanggal untuk mengganti kelas'
-                                : pickedDate!,
-                            style: TextStyle(
-                              color: pickedDate == '' ? cSubText : cPrimaryBlue,
-                              fontWeight: medium,
-                              fontSize: 16,
-                            ),
+                    clickableBox(
+                      child: TextButton(
+                        child: Text(
+                          pickedDate == ''
+                              ? 'Pilih tanggal untuk mengganti kelas'
+                              : pickedDate!,
+                          style: TextStyle(
+                            color: pickedDate == '' ? cSubText : cPrimaryBlue,
+                            fontWeight: medium,
+                            fontSize: 16,
                           ),
-                          onPressed: () {
-                            DatePicker.showDatePicker(context,
-                                showTitleActions: true,
-                                minTime: DateTime(2022, 3, 5),
-                                maxTime: DateTime(2030, 6, 7),
-                                onChanged: (date) {}, onConfirm: (date) {
-                              String? pickedDay =
-                                  date.toString().substring(8, 11);
-                              String? pickedMonth =
-                                  date.toString().substring(5, 7);
-                              String? pickedYear =
-                                  date.toString().substring(0, 4);
-                              setState(() {
-                                pickedDate = formatDate(
-                                    DateTime(
-                                        int.parse(pickedYear),
-                                        int.parse(pickedMonth),
-                                        int.parse(pickedDay)),
-                                    [d, ' ', MM, ' ', yyyy]);
-                              });
-                            },
-                                currentTime: DateTime.now(),
-                                locale: LocaleType.id);
-                          },
                         ),
+                        onPressed: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(2022, 3, 5),
+                              maxTime: DateTime(2030, 6, 7),
+                              onChanged: (date) {}, onConfirm: (date) {
+                            String? pickedDay =
+                                date.toString().substring(8, 11);
+                            String? pickedMonth =
+                                date.toString().substring(5, 7);
+                            String? pickedYear =
+                                date.toString().substring(0, 4);
+                            setState(() {
+                              pickedDate = formatDate(
+                                  DateTime(
+                                      int.parse(pickedYear),
+                                      int.parse(pickedMonth),
+                                      int.parse(pickedDay)),
+                                  [d, ' ', MM, ' ', yyyy]);
+                            });
+                          },
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.id);
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -295,48 +255,27 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFFFFFFF),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.05),
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                    )
-                                  ],
-                                ),
-                                child: SizedBox(
-                                  child: TextButton(
-                                    onPressed: () {
-                                      DatePicker.showTimePicker(context,
-                                          showTitleActions: true,
-                                          onConfirm: (time) {
-                                        String? pickedSchedule =
-                                            time.toString().substring(11, 16);
-                                        setState(() {
-                                          pickedStart = pickedSchedule;
-                                        });
-                                      }, currentTime: DateTime.now());
-                                    },
-                                    child: Text(
-                                      pickedStart == ''
-                                          ? 'Mulai'
-                                          : pickedStart!,
-                                      style: TextStyle(
-                                        color: pickedStart == ''
-                                            ? cSubText
-                                            : cPrimaryBlue,
-                                        fontWeight: medium,
-                                        fontSize: 16,
-                                      ),
+                              clickableBox(
+                                child: TextButton(
+                                  onPressed: () {
+                                    DatePicker.showTimePicker(context,
+                                        showTitleActions: true,
+                                        onConfirm: (time) {
+                                      String? pickedSchedule =
+                                          time.toString().substring(11, 16);
+                                      setState(() {
+                                        pickedStart = pickedSchedule;
+                                      });
+                                    }, currentTime: DateTime.now());
+                                  },
+                                  child: Text(
+                                    pickedStart == '' ? 'Mulai' : pickedStart!,
+                                    style: TextStyle(
+                                      color: pickedStart == ''
+                                          ? cSubText
+                                          : cPrimaryBlue,
+                                      fontWeight: medium,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),
@@ -344,11 +283,14 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                             ],
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 15),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: SizedBox(
-                            width: 25,
-                            child: Text("-"),
+                            width: 20,
+                            child: Divider(
+                              thickness: 2,
+                              color: cSubText.withOpacity(0.5),
+                            ),
                           ),
                         ),
                         Expanded(
@@ -356,46 +298,27 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFFFFFFF),
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                    color: const Color(0xFFF4F4F4),
-                                    width: 1.0,
-                                    style: BorderStyle.solid,
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.05),
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                    )
-                                  ],
-                                ),
-                                child: SizedBox(
-                                  child: TextButton(
-                                    onPressed: () {
-                                      DatePicker.showTimePicker(context,
-                                          showTitleActions: true,
-                                          onConfirm: (time) {
-                                        String? pickedSchedule =
-                                            time.toString().substring(11, 16);
-                                        setState(() {
-                                          pickedEnd = pickedSchedule;
-                                        });
-                                      }, currentTime: DateTime.now());
-                                    },
-                                    child: Text(
-                                      pickedEnd == '' ? 'Selesai' : pickedEnd!,
-                                      style: TextStyle(
-                                        color: pickedEnd == ''
-                                            ? cSubText
-                                            : cPrimaryBlue,
-                                        fontWeight: medium,
-                                        fontSize: 16,
-                                      ),
+                              clickableBox(
+                                child: TextButton(
+                                  onPressed: () {
+                                    DatePicker.showTimePicker(context,
+                                        showTitleActions: true,
+                                        onConfirm: (time) {
+                                      String? pickedSchedule =
+                                          time.toString().substring(11, 16);
+                                      setState(() {
+                                        pickedEnd = pickedSchedule;
+                                      });
+                                    }, currentTime: DateTime.now());
+                                  },
+                                  child: Text(
+                                    pickedEnd == '' ? 'Selesai' : pickedEnd!,
+                                    style: TextStyle(
+                                      color: pickedEnd == ''
+                                          ? cSubText
+                                          : cPrimaryBlue,
+                                      fontWeight: medium,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ),
@@ -409,7 +332,7 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                       height: cPadding2,
                     ),
                     Text(
-                      "Pilih Mata Kuliah",
+                      "Pilih Lab/Ruangan",
                       textAlign: TextAlign.left,
                       style: cInter.copyWith(
                         fontSize: 14,
@@ -420,113 +343,18 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                     const SizedBox(
                       height: 12,
                     ),
-                    GridView.count(
-                      padding: const EdgeInsets.all(0),
-                      controller: ScrollController(
-                        keepScrollOffset: false,
-                      ),
-                      clipBehavior: Clip.none,
-                      shrinkWrap: true,
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 2.2,
-                      children: List.generate(
-                        8,
-                        (index) => InkWell(
-                          child: Container(
-                            padding: const EdgeInsets.all(18),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "C 102",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlack,
-                                  ),
-                                ),
-                                Text(
-                                  "Lantai 1 - D4",
-                                  textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFFFFFFF),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(15)),
-                              border: Border.all(
-                                color: const Color(0xFFF4F4F4),
-                                width: 1.0,
-                                style: BorderStyle.solid,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                )
-                              ],
-                            ),
-                          ),
-                          onTap: () {},
-                        ),
-                      ),
-                    ),
+                    const CardsRoomBuilder(),
                     const SizedBox(
                       height: 40,
                     ),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.all(0.0)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(80.0),
-                          ),
-                        ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Button(
+                        text: "Tetapkan Jadwal",
+                        callback: () {},
+                        primary: true,
+                        secondary: false,
                       ),
-                      child: Ink(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color(0xff145ae3),
-                              Color(0xff15aeef),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(80.0)),
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 20),
-                          constraints: const BoxConstraints(
-                              minWidth: 88.0,
-                              minHeight:
-                                  36.0), // min sizes for Material buttons
-                          alignment: Alignment.center,
-                          child: const Text(
-                            'Tetapkan Jadwal',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -537,69 +365,29 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
       ),
     );
   }
-}
 
-class CustomPicker extends CommonPickerModel {
-  String digits(int value, int length) {
-    return '$value'.padLeft(length, "0");
-  }
-
-  CustomPicker({DateTime? currentTime, LocaleType? locale})
-      : super(locale: locale) {
-    this.currentTime = currentTime ?? DateTime.now();
-    setLeftIndex(this.currentTime.hour);
-    setMiddleIndex(this.currentTime.minute);
-    setRightIndex(this.currentTime.second);
-  }
-
-  @override
-  String? leftStringAtIndex(int index) {
-    if (index >= 0 && index < 24) {
-      return digits(index, 2);
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  String? middleStringAtIndex(int index) {
-    if (index >= 0 && index < 60) {
-      return digits(index, 2);
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  String? rightStringAtIndex(int index) {
-    if (index >= 0 && index < 60) {
-      return digits(index, 2);
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  String leftDivider() {
-    return "|";
-  }
-
-  @override
-  String rightDivider() {
-    return "|";
-  }
-
-  @override
-  List<int> layoutProportions() {
-    return [1, 2, 1];
-  }
-
-  @override
-  DateTime finalTime() {
-    return currentTime.isUtc
-        ? DateTime.utc(currentTime.year, currentTime.month, currentTime.day,
-            currentLeftIndex(), currentMiddleIndex(), currentRightIndex())
-        : DateTime(currentTime.year, currentTime.month, currentTime.day,
-            currentLeftIndex(), currentMiddleIndex(), currentRightIndex());
+  Widget clickableBox({required Widget child}) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFFFFF),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: const Color(0xFFF4F4F4),
+          width: 1.0,
+          style: BorderStyle.solid,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            spreadRadius: 2,
+            blurRadius: 10,
+          )
+        ],
+      ),
+      child: SizedBox(
+        child: child,
+      ),
+    );
   }
 }

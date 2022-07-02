@@ -1,4 +1,4 @@
-import 'package:contendance_app/components/stack_screen.dart';
+import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
@@ -174,12 +174,7 @@ class _DetailClassState extends State<DetailClass> {
                     ],
                   ),
                   decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: <Color>[
-                          Color(0xf145ae3),
-                          Color(0xf15aeef),
-                        ],
-                      ),
+                      gradient: cGradient,
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       border: Border.all(
                           color: const Color(0xFFF4F4F4),

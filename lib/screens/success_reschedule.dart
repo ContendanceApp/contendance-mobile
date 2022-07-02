@@ -1,3 +1,4 @@
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,7 +32,7 @@ class SuccessReschedule extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
             Positioned(
-              top: 125,
+              top: MediaQuery.of(context).size.height * 0.15,
               child: Column(
                 children: [
                   Text(
@@ -159,33 +160,11 @@ class SuccessReschedule extends StatelessWidget {
             ),
             Align(
               alignment: AlignmentDirectional.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 48),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  gradient: const LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xff145ae3),
-                      Color(0xff15aeef),
-                    ],
-                  ),
-                ),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 45, vertical: 12),
-                    primary: Colors.white,
-                    textStyle: cInter.copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("OKE!"),
-                ),
-              ),
+              child: Button(
+                  text: "OKE!",
+                  callback: () => Navigator.pop(context),
+                  primary: true,
+                  secondary: false),
             )
           ],
         ),

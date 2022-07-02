@@ -32,7 +32,7 @@ class LoginService {
       return response;
     } catch (e) {
       // throw e;
-      rethrow;
+      throw Exception(e);
     }
   }
 }

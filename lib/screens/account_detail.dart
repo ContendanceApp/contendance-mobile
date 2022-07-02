@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:contendance_app/components/stack_screen.dart';
+import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/services/login_service.dart';

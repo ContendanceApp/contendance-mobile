@@ -9,6 +9,15 @@ Color cPrimaryBlack = const Color(0xFF333333);
 Color cSubText = const Color(0xFF64749F);
 Color cDanger = const Color(0xFFE3145F);
 
+LinearGradient cGradient = LinearGradient(
+  begin: Alignment.topRight,
+  end: Alignment.bottomLeft,
+  colors: [
+    cSecondaryBlue,
+    cPrimaryBlue,
+  ],
+);
+
 // Paddings
 const double cPadding1 = 16.0;
 const double cPadding2 = 24.0;

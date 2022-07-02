@@ -38,7 +38,7 @@ class _SuccessPresenceState extends State<SuccessPresence> {
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: 100,
+              top: MediaQuery.of(context).size.height * 0.1,
               child: Column(
                 children: [
                   Text(
@@ -103,7 +103,7 @@ class _SuccessPresenceState extends State<SuccessPresence> {
               ),
             ),
             Positioned(
-              bottom: 150,
+              bottom: MediaQuery.of(context).size.height * 0.15,
               child: Column(
                 children: <Widget>[
                   SizedBox(
@@ -166,13 +166,8 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0xff145ae3),
-                              Color(0xff15aeef),
-                            ],
-                          ),
+                        decoration: BoxDecoration(
+                          gradient: cGradient,
                         ),
                       ),
                     ),

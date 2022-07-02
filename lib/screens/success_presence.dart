@@ -1,8 +1,10 @@
 import 'package:badges/badges.dart';
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence.dart';
-import 'package:contendance_app/screens/home.dart';
+import 'package:contendance_app/widgets/screen_wrapper/base_white_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SuccessOpenPresence extends StatefulWidget {
   const SuccessOpenPresence({Key? key}) : super(key: key);
@@ -15,30 +17,14 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Presence;
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
-            fontWeight: bold,
-            fontSize: 14,
-            letterSpacing: 1,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.white,
+    return BaseWhiteScreen(
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: 100,
+              top: MediaQuery.of(context).size.height * 0.1,
               child: Column(
                 children: [
                   Text(
@@ -73,20 +59,11 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
                     shape: BadgeShape.square,
                     elevation: 0,
                     badgeColor: cPrimaryBlue,
-                    // badgeColor: const Color(0xFF1482E9),
-                    // gradient: const LinearGradient(
-                    //   begin: Alignment.topRight,
-                    //   end: Alignment.bottomLeft,
-                    //   colors: [
-                    //     Color(0xff145ae3),
-                    //     Color(0xff15aeef),
-                    //   ],
-                    // ),
                     borderRadius: BorderRadius.circular(150),
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
-                      '08:07',
+                      DateFormat("H:mm").format(DateTime.now()),
                       style: cInter.copyWith(
                         color: const Color(0xFFFFFFFF).withOpacity(0.9),
                         fontWeight: FontWeight.w600,
@@ -110,7 +87,7 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
               ),
             ),
             Positioned(
-              bottom: 150,
+              bottom: MediaQuery.of(context).size.height * 0.17,
               child: Column(
                 children: <Widget>[
                   SizedBox(
@@ -167,38 +144,15 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
             ),
             Positioned(
               bottom: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0xff145ae3),
-                              Color(0xff15aeef),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 45, vertical: 12),
-                        primary: Colors.white,
-                        textStyle: cInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () =>
-                          Navigator.pushReplacementNamed(context, "/home"),
-                      child: const Text('OKE'),
-                    ),
-                  ],
+              child: Button(
+                text: "OKE",
+                callback: () => Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  "/home",
+                  (Route<dynamic> route) => false,
                 ),
+                primary: true,
+                secondary: false,
               ),
             )
           ],

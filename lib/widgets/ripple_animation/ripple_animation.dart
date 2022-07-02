@@ -1,8 +1,7 @@
 import 'package:contendance_app/screens/home.dart';
-import 'package:contendance_app/screens/ripple_animation/circle_painter.dart';
+import 'package:contendance_app/widgets/ripple_animation/circle_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/screens/success_open_presence.dart';
 import 'package:contendance_app/services/presence_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';

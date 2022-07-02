@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/services/login_service.dart';
@@ -101,15 +102,8 @@ class _AccountState extends State<Account> {
             Align(
               alignment: AlignmentDirectional.topCenter,
               child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xff145ae3),
-                      Color(0xff15aeef),
-                    ],
-                  ),
+                decoration: BoxDecoration(
+                  gradient: cGradient,
                 ),
                 height: 225,
                 child: Stack(
@@ -347,7 +341,7 @@ class _AccountState extends State<Account> {
             ),
             Positioned.directional(
               textDirection: TextDirection.ltr,
-              top: 150,
+              top: MediaQuery.of(context).size.height * 0.17,
               start: 0,
               end: 0,
               child: Align(
@@ -366,39 +360,19 @@ class _AccountState extends State<Account> {
               bottom: 10,
               left: 0,
               right: 0,
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                child: ElevatedButton(
-                  onPressed: () {
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: cPadding1),
+                child: Button(
+                  text: "KELUAR DARI AKUN",
+                  primary: false,
+                  secondary: false,
+                  custom: true,
+                  backgroundColor: cWhite,
+                  borderColor: cDanger,
+                  fontColor: cDanger,
+                  callback: () {
                     showModalBottom();
-                    // logOut();
                   },
-                  child: Text(
-                    "KELUAR DARI AKUN",
-                    style: cInter.copyWith(
-                      fontWeight: semibold,
-                      color: cDanger,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.transparent),
-                    elevation: MaterialStateProperty.all(0),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                    ),
-                    side: MaterialStateProperty.all(
-                      BorderSide(
-                        width: 1.5,
-                        color: cDanger,
-                      ),
-                    ),
-                    minimumSize: MaterialStateProperty.all(
-                      const Size.fromHeight(50),
-                    ),
-                  ),
                 ),
               ),
             ),
@@ -463,52 +437,25 @@ class _AccountState extends State<Account> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              color: Colors.white,
-                              border: Border.all(color: cPrimaryBlue),
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                fixedSize: const Size.fromWidth(150),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 45, vertical: 12),
-                                primary: cPrimaryBlue,
-                                textStyle: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text("Batal"),
+                          Expanded(
+                            flex: 1,
+                            child: Button(
+                              text: "Batal",
+                              callback: () => Navigator.pop(context),
+                              primary: false,
+                              secondary: true,
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color(0xff145ae3),
-                                  Color(0xff15aeef),
-                                ],
-                              ),
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                fixedSize: const Size.fromWidth(150),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 45, vertical: 12),
-                                primary: Colors.white,
-                                textStyle: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onPressed: () => logOut(),
-                              child: const Text("Keluar"),
+                          const SizedBox(
+                            width: cPadding2,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Button(
+                              text: "Keluar",
+                              callback: () => logOut(),
+                              primary: true,
+                              secondary: false,
                             ),
                           ),
                         ],

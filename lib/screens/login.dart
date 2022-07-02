@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   LoginService login = LoginService();
   final _formKey = GlobalKey<FormState>();
-  String email = "sattar@it.student.pens.ac.id";
-  String password = "12345678";
   bool isClicked = false;
   late Future<String> _token;
 
@@ -73,8 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         children: [
-          const SizedBox(
-            height: 117,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
           ),
           Text(
             "CONTENDANCE",
@@ -85,8 +84,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(
-            height: 91,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,18 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
             ],
           ),
           Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xff145ae3),
-                  Color(0xff15aeef),
-                ],
-              ),
+              gradient: cGradient,
             ),
             margin: const EdgeInsets.only(top: cPadding2),
             padding: const EdgeInsets.all(cPadding2),
@@ -244,54 +236,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          ElevatedButton(
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(const EdgeInsets.all(0.0)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0),
-                ),
-              ),
-            ),
-            child: Ink(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xff145ae3),
-                    Color(0xff15aeef),
-                  ],
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(80.0)),
-              ),
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                constraints: const BoxConstraints(
-                    minWidth: 88.0,
-                    minHeight: 36.0), // min sizes for Material buttons
-                alignment: Alignment.center,
-                child: !isClicked
-                    ? const Text(
-                        'LOGIN',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      )
-                    : SizedBox(
-                        width: 15,
-                        height: 15,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 3,
-                          color: cWhite,
-                        ),
-                      ),
-              ),
-            ),
-            onPressed: () async {
+          Button(
+            text: "LOGIN",
+            callback: () async {
               emailController.text.isEmpty
                   ? setState(() {
                       _validateEmail = false;
@@ -324,7 +271,100 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
               }
             },
+            primary: true,
+            secondary: false,
+            withChild: !isClicked
+                ? const Text(
+                    'LOGIN',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
+                : SizedBox(
+                    width: 15,
+                    height: 15,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                      color: cWhite,
+                    ),
+                  ),
           ),
+          // ElevatedButton(
+          //   style: ButtonStyle(
+          //     padding: MaterialStateProperty.all(const EdgeInsets.all(0.0)),
+          //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          //       RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(80.0),
+          //       ),
+          //     ),
+          //   ),
+          //   child: Ink(
+          //     decoration: BoxDecoration(
+          //       gradient: cGradient,
+          //       borderRadius: const BorderRadius.all(Radius.circular(80.0)),
+          //     ),
+          //     child: Container(
+          //       padding:
+          //           const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+          //       constraints: const BoxConstraints(
+          //           minWidth: 88.0,
+          //           minHeight: 36.0), // min sizes for Material buttons
+          //       alignment: Alignment.center,
+          //       child: !isClicked
+          //           ? const Text(
+          //               'LOGIN',
+          //               textAlign: TextAlign.center,
+          //               style: TextStyle(
+          //                 fontWeight: FontWeight.bold,
+          //                 color: Colors.white,
+          //               ),
+          //             )
+          //           : SizedBox(
+          //               width: 15,
+          //               height: 15,
+          //               child: CircularProgressIndicator(
+          //                 strokeWidth: 3,
+          //                 color: cWhite,
+          //               ),
+          //             ),
+          //     ),
+          //   ),
+          //   onPressed: () async {
+          //     emailController.text.isEmpty
+          //         ? setState(() {
+          //             _validateEmail = false;
+          //           })
+          //         : setState(() {
+          //             _validateEmail = true;
+          //           });
+          //     passwordController.text.isEmpty
+          //         ? setState(() {
+          //             _validatePassword = false;
+          //           })
+          //         : setState(() {
+          //             _validatePassword = true;
+          //           });
+
+          //     if (_validateEmail == true && _validatePassword == true) {
+          //       setState(() {
+          //         isClicked = true;
+          //       });
+          //       _formKey.currentState!.save();
+          //       Map<String, String> body = {
+          //         'email': emailController.text,
+          //         'password': passwordController.text,
+          //       };
+
+          //       await login.authLogin(body).then(
+          //             (value) => {
+          //               _setAccessToken(value),
+          //             },
+          //           );
+          //     }
+          //   },
+          // ),
         ],
       ),
     );

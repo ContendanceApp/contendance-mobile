@@ -1,3 +1,4 @@
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +119,10 @@ class SubjectCard extends StatelessWidget {
   }
 
   showModalBottom(BuildContext context) {
+    closeModal() {
+      Navigator.pop(context);
+    }
+
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -286,55 +291,14 @@ class SubjectCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          // Container(
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(80.0),
-                          //     color: Colors.white,
-                          //     border: Border.all(color: cPrimaryBlue),
-                          //   ),
-                          //   child: TextButton(
-                          //     style: TextButton.styleFrom(
-                          //       fixedSize: const Size.fromWidth(150),
-                          //       padding: const EdgeInsets.symmetric(
-                          //           horizontal: 45, vertical: 12),
-                          //       primary: cPrimaryBlue,
-                          //       textStyle: cInter.copyWith(
-                          //         fontSize: 16,
-                          //         fontWeight: FontWeight.bold,
-                          //       ),
-                          //     ),
-                          //     onPressed: () => Navigator.pop(context),
-                          //     child: const Text("Tutup"),
-                          //   ),
-                          // ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color(0xff145ae3),
-                                  Color(0xff15aeef),
-                                ],
-                              ),
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 45, vertical: 12),
-                                primary: Colors.white,
-                                textStyle: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: bold,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text("Tutup"),
-                            ),
-                          ),
+                          Button(
+                            text: "Tutup",
+                            primary: true,
+                            secondary: false,
+                            callback: () {
+                              Navigator.pop(context);
+                            },
+                          )
                         ],
                       ),
                     ),

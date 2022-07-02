@@ -1,8 +1,8 @@
-import 'dart:convert';
-
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence.dart';
 import 'package:contendance_app/services/presence_service.dart';
+import 'package:contendance_app/widgets/screen_wrapper/base_white_screen.dart';
 import 'package:iconly/iconly.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,38 +21,14 @@ class _OpenPresenceState extends State<OpenPresence> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as BeaconArgs;
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, "/home");
-          },
-          icon: const Icon(IconlyLight.arrow_left),
-          color: Colors.black87,
-          iconSize: 24,
-        ),
-        title: Text(
-          "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
-            fontWeight: bold,
-            fontSize: 14,
-            letterSpacing: 1,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.white,
+    return BaseWhiteScreen(
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: 123,
+              top: MediaQuery.of(context).size.height * 0.15,
               child: Column(
                 children: [
                   const Text(
@@ -91,7 +67,7 @@ class _OpenPresenceState extends State<OpenPresence> {
               ),
             ),
             Positioned(
-              bottom: 274,
+              bottom: MediaQuery.of(context).size.height * 0.32,
               child: Column(
                 children: <Widget>[
                   SizedBox(
@@ -150,31 +126,18 @@ class _OpenPresenceState extends State<OpenPresence> {
             Align(
               alignment: AlignmentDirectional.bottomCenter,
               child: Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: cPadding1, vertical: cPadding3),
                 child: Row(
                   children: [
                     !isClicked
                         ? Expanded(
                             flex: 1,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(color: cPrimaryBlue),
-                              ),
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 12),
-                                  primary: cPrimaryBlue,
-                                  textStyle: cInter.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text("Batal"),
-                              ),
+                            child: Button(
+                              text: "Batal",
+                              callback: () => Navigator.pop(context),
+                              primary: false,
+                              secondary: true,
                             ),
                           )
                         : const SizedBox(),
@@ -185,77 +148,58 @@ class _OpenPresenceState extends State<OpenPresence> {
                         : const SizedBox(),
                     Expanded(
                       flex: 1,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          gradient: const LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              Color(0xff15aeef),
-                              Color(0xff145ae3),
-                            ],
-                          ),
-                        ),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            primary: Colors.white,
-                            textStyle: cInter.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onPressed: () async {
-                            setState(() {
-                              isClicked = !isClicked;
-                            });
-                            final prefs = await SharedPreferences.getInstance();
-                            int userId = prefs.getInt('userId') ?? 0;
-                            Map<String, String> body = {
-                              'proximity_uuid':
-                                  args.beacon.proximityUUID.toLowerCase(),
-                              'major': args.beacon.major.toString(),
-                              'minor': args.beacon.minor.toString(),
-                              'user_id': userId.toString(),
-                            };
-                            try {
-                              await presence
-                                  .openPresence(body)
-                                  .then((value) async {
-                                final success =
-                                    await prefs.remove('classStatus');
-                                if (success) {
-                                  print(prefs.getString('classStatus'));
-                                  print("kehapus kok");
-                                  if (mounted) {
-                                    Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      "/success-open-presence",
-                                      (Route<dynamic> route) => false,
-                                      arguments: value,
-                                    );
-                                  }
+                      child: Button(
+                        text: "Buka Presensi",
+                        callback: () async {
+                          setState(() {
+                            isClicked = !isClicked;
+                          });
+                          final prefs = await SharedPreferences.getInstance();
+                          int userId = prefs.getInt('userId') ?? 0;
+                          Map<String, String> body = {
+                            'proximity_uuid':
+                                args.beacon.proximityUUID.toLowerCase(),
+                            'major': args.beacon.major.toString(),
+                            'minor': args.beacon.minor.toString(),
+                            'user_id': userId.toString(),
+                          };
+                          try {
+                            await presence
+                                .openPresence(body)
+                                .then((value) async {
+                              final success = await prefs.remove('classStatus');
+                              if (success) {
+                                print(prefs.getString('classStatus'));
+                                print("kehapus kok");
+                                if (mounted) {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                    context,
+                                    "/success-open-presence",
+                                    (Route<dynamic> route) => false,
+                                    arguments: value,
+                                  );
                                 }
-                              });
-                            } catch (e) {
-                              print(e);
-                            }
-                          },
-                          child: !isClicked
-                              ? const Text(
-                                  "Buka Presensi",
-                                  softWrap: false,
-                                )
-                              : SizedBox(
-                                  width: 15,
-                                  height: 15,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 3,
-                                    color: cWhite,
-                                  ),
+                              }
+                            });
+                          } catch (e) {
+                            print(e);
+                          }
+                        },
+                        primary: true,
+                        secondary: false,
+                        withChild: !isClicked
+                            ? const Text(
+                                "Buka Presensi",
+                                softWrap: false,
+                              )
+                            : SizedBox(
+                                width: 15,
+                                height: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3,
+                                  color: cWhite,
                                 ),
-                        ),
+                              ),
                       ),
                     ),
                   ],

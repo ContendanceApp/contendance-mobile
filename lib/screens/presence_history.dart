@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:intl/intl.dart';
-import 'package:contendance_app/components/presence_history_card.dart';
-import 'package:contendance_app/components/stack_screen.dart';
+import 'package:contendance_app/widgets/presence_history_card.dart';
+import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
@@ -321,30 +321,27 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           //     ],
           //   ),
           // ),
-          Container(
-            // padding: const EdgeInsets.only(top: 40, bottom: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hari Ini', //need improve
-                  style: cInter.copyWith(
-                    fontWeight: bold,
-                    fontSize: 24,
-                    color: cPrimaryBlack,
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Hari Ini', //need improve
+                style: cInter.copyWith(
+                  fontWeight: bold,
+                  fontSize: 24,
+                  color: cPrimaryBlack,
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  dayNow, //need improve
-                  style: cInter.copyWith(
-                    fontWeight: medium,
-                    fontSize: 15,
-                    color: cSubText,
-                  ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                dayNow, //need improve
+                style: cInter.copyWith(
+                  fontWeight: medium,
+                  fontSize: 15,
+                  color: cSubText,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           SizedBox(
             child: userInfo.roleId == 0

@@ -1,3 +1,4 @@
+import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/screens/search_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,16 +13,9 @@ class FloatingActionButtonComp extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         width: 60,
         height: 60,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xff145ae3),
-              Color(0xff15aeef),
-            ],
-          ),
+          gradient: cGradient,
         ),
         child: SvgPicture.asset(
           "assets/images/search-class.svg",

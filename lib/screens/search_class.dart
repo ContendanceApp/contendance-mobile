@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io' show Platform;
 import 'package:contendance_app/data/models/presence.dart';
 import 'package:contendance_app/screens/open_presence.dart';
-import 'package:contendance_app/screens/ripple_animation/ripple_animation.dart';
+import 'package:contendance_app/widgets/ripple_animation/ripple_animation.dart';
 import 'package:contendance_app/services/location_service.dart';
 import 'package:contendance_app/services/presence_service.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,6 @@ class _SearchClassState extends State<SearchClass> {
     super.initState();
     initializeBeacon();
     rangingBeacon();
-    // timeoutSearchClass();
   }
 
   @override
@@ -131,33 +130,10 @@ class _SearchClassState extends State<SearchClass> {
     return presence.validateSchedule(body).then((value) => value);
   }
 
-  // Future<Presence> doPresence(
-  //   String proximityUUID,
-  //   int major,
-  //   int minor,
-  //   int userId,
-  //   int studyGroupId,
-  // ) async {
-  //   // If student
-  //   Map<String, String> body = {
-  //     'proximity_uuid': proximityUUID.toLowerCase(),
-  //     'major': major.toString(),
-  //     'minor': minor.toString(),
-  //     'user_id': userId.toString(),
-  //     'study_group_id': studyGroupId.toString(),
-  //   };
-
-  //   try {
-  //     await presence.createPresence(body).then((value) => value);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
   initializeBeacon() async {
     try {
       // if you want to manage manual checking about the required permissions
-      await flutterBeacon.initializeScanning;
+      // await flutterBeacon.initializeScanning;
 
       // or if you want to include automatic checking permission
       await flutterBeacon.initializeAndCheckScanning;
@@ -169,12 +145,16 @@ class _SearchClassState extends State<SearchClass> {
   }
 
   rangingBeacon() async {
-    if (Platform.isIOS) {
-      // iOS platform, at least set identifier and proximityUUID for region scanning
-      regions.add(Region(
-          identifier: 'Apple Airlocate',
-          proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
-    } else {
+    // if (Platform.isIOS) {
+    //   // iOS platform, at least set identifier and proximityUUID for region scanning
+    //   regions.add(Region(
+    //       identifier: 'Apple Airlocate',
+    //       proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
+    // } else {
+    //   regions.add(Region(identifier: 'com.beacon'));
+    // }
+
+    if (Platform.isAndroid) {
       regions.add(Region(identifier: 'com.beacon'));
     }
 

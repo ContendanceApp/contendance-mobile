@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,7 +36,7 @@ class _ClassNotFoundState extends State<ClassNotFound> {
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: 100,
+              top: MediaQuery.of(context).size.height * 0.1,
               child: Column(
                 children: [
                   const Text(
@@ -72,31 +72,20 @@ class _ClassNotFoundState extends State<ClassNotFound> {
             ),
             Positioned(
               bottom: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        color: cSubText,
-                      ),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 45, vertical: 12),
-                        primary: Colors.white,
-                        textStyle: cInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () =>
-                          Navigator.pushReplacementNamed(context, "/home"),
-                      child: const Text('OKE'),
-                    ),
-                  ],
+              child: Button(
+                text: "OKE",
+                callback: () => Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  "/home",
+                  (Route<dynamic> route) => false,
                 ),
+                primary: false,
+                secondary: false,
+                custom: true,
+                backgroundColor: cSubText,
+                fontColor: cWhite,
+                borderColor: cSubText,
+                paddingX: 45,
               ),
             )
           ],

@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/screens/home.dart';
+import 'package:contendance_app/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
@@ -32,7 +33,7 @@ class ClassFinished extends StatelessWidget {
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: 125,
+              top: MediaQuery.of(context).size.height * 0.15,
               child: Column(
                 children: [
                   Text(
@@ -86,7 +87,7 @@ class ClassFinished extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 150,
+              bottom: MediaQuery.of(context).size.height * 0.17,
               child: Column(
                 children: <Widget>[
                   SizedBox(
@@ -145,33 +146,26 @@ class ClassFinished extends StatelessWidget {
                   children: <Widget>[
                     Positioned.fill(
                       child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0xfff1f3f6),
-                              Color(0xffdadada),
-                            ],
-                          ),
+                        decoration: BoxDecoration(
+                          gradient: cGradient,
                         ),
                       ),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 45, vertical: 12),
-                        primary: cPrimaryBlue,
-                        textStyle: cInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () => Navigator.pushReplacement(
+                    Button(
+                      text: "OKE!",
+                      callback: () => Navigator.pushNamedAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const Home(),
-                        ),
+                        "/home",
+                        (Route<dynamic> route) => false,
                       ),
-                      child: const Text('OKE!'),
+                      primary: false,
+                      secondary: false,
+                      custom: true,
+                      backgroundColor: cWhite,
+                      fontColor: cSubText,
+                      borderColor: cWhite,
+                      paddingX: cPadding3,
+                      paddingY: cPadding1,
                     ),
                   ],
                 ),

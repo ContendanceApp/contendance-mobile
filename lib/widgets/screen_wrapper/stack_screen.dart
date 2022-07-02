@@ -22,15 +22,8 @@ class StackScreen extends StatelessWidget {
               alignment: AlignmentDirectional.topCenter,
               child: Container(
                 height: 140,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xff145ae3),
-                      Color(0xff15aeef),
-                    ],
-                  ),
+                decoration: BoxDecoration(
+                  gradient: cGradient,
                 ),
                 child: Stack(
                   children: [

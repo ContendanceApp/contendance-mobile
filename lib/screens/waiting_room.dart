@@ -1,4 +1,5 @@
-import 'package:contendance_app/components/stack_screen.dart';
+import 'package:contendance_app/widgets/button.dart';
+import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -21,39 +22,39 @@ class _WaitingRoomState extends State<WaitingRoom> {
         ),
         padding: const EdgeInsets.all(0),
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                "Ainul Muhlasin",
-                style: cInter.copyWith(
-                  fontSize: 14,
-                  fontWeight: medium,
-                  color: cPrimaryBlack,
-                ),
-              ),
-              TextButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-                  ),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                  ),
-                  backgroundColor: MaterialStateProperty.all(cPrimaryBlue),
-                ),
-                onPressed: () {},
-                child: const Text(
-                  "Terima",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            ],
+          waitingUser(name: "Ainul Muhlasin"),
+          waitingUser(name: "Faisal Amrullah Pratama"),
+          waitingUser(name: "Raihan Ahnaf Nafisaputra"),
+        ],
+      ),
+    );
+  }
+
+  Widget waitingUser({required String name}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: cPadding1),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            name,
+            style: cInter.copyWith(
+              fontSize: 16.0,
+              fontWeight: medium,
+              color: cPrimaryBlack,
+            ),
           ),
+          Button(
+            text: "Terima",
+            callback: () {},
+            primary: false,
+            secondary: false,
+            backgroundColor: cPrimaryBlue,
+            fontColor: cWhite,
+            paddingX: 10,
+            paddingY: 5,
+            customFontSize: 14,
+          )
         ],
       ),
     );

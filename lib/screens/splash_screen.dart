@@ -1,3 +1,4 @@
+import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,14 +27,9 @@ class _SplashScreen extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-            Color(0xff145ae3),
-            Color(0xff15aeef),
-          ])),
+      decoration: BoxDecoration(
+        gradient: cGradient,
+      ),
       child: Stack(
         children: <Widget>[
           Center(

@@ -1,11 +1,12 @@
 import 'dart:convert';
-import 'package:contendance_app/components/active_class.dart';
-import 'package:contendance_app/components/bottom_app_bar/bottom_app_bar.dart';
-import 'package:contendance_app/components/bottom_app_bar/floating_action_button.dart';
-import 'package:contendance_app/components/skeleton_active_class.dart';
-import 'package:contendance_app/components/skeleton_user_menu.dart';
-import 'package:contendance_app/components/subject_card.dart';
-import 'package:contendance_app/components/user_menu.dart';
+import 'package:contendance_app/widgets/active_class.dart';
+import 'package:contendance_app/widgets/bottom_app_bar/bottom_app_bar.dart';
+import 'package:contendance_app/widgets/bottom_app_bar/floating_action_button.dart';
+import 'package:contendance_app/widgets/button.dart';
+import 'package:contendance_app/widgets/skeleton_active_class.dart';
+import 'package:contendance_app/widgets/skeleton_user_menu.dart';
+import 'package:contendance_app/widgets/subject_card.dart';
+import 'package:contendance_app/widgets/user_menu.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/class_presence.dart';
 import 'package:contendance_app/data/models/login.dart';
@@ -277,6 +278,7 @@ class _HomeState extends State<Home> {
 
   getUserInfo() async {
     var res = await login.loggedUser(_token.toString()).then((value) => value);
+    print(res);
     if (res.statusCode == 200) {
       UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
       if (mounted) {
@@ -311,10 +313,12 @@ class _HomeState extends State<Home> {
         });
       });
     } catch (e) {
-      setState(() {
-        loadActiveClass = false;
-      });
-      print(e);
+      if (mounted) {
+        setState(() {
+          loadActiveClass = false;
+        });
+        print(e);
+      }
     }
   }
 
@@ -329,15 +333,8 @@ class _HomeState extends State<Home> {
             Align(
               alignment: AlignmentDirectional.topCenter,
               child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [
-                      Color(0xff145ae3),
-                      Color(0xff15aeef),
-                    ],
-                  ),
+                decoration: BoxDecoration(
+                  gradient: cGradient,
                 ),
                 height: 225,
                 child: Row(
@@ -726,45 +723,23 @@ class _HomeState extends State<Home> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80.0),
-                              gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color(0xff145ae3),
-                                  Color(0xff15aeef),
-                                ],
-                              ),
-                            ),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                fixedSize: const Size.fromWidth(150),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 45, vertical: 12),
-                                primary: Colors.white,
-                                textStyle: cInter.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onPressed: () async {
-                                final prefs =
-                                    await SharedPreferences.getInstance();
-                                // await prefs.setString('classStatus', 'found');
-                                final success =
-                                    await prefs.remove('classStatus');
-                                if (success) {
-                                  print('terhapus');
-                                  if (mounted) {
-                                    Navigator.pop(context);
-                                  }
+                          Button(
+                            text: "Tutup",
+                            primary: true,
+                            secondary: false,
+                            callback: () async {
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              // await prefs.setString('classStatus', 'found');
+                              final success = await prefs.remove('classStatus');
+                              if (success) {
+                                print('terhapus');
+                                if (mounted) {
+                                  Navigator.pop(context);
                                 }
-                              },
-                              child: const Text("Tutup"),
-                            ),
-                          ),
+                              }
+                            },
+                          )
                         ],
                       ),
                     ),
@@ -781,7 +756,7 @@ class _HomeState extends State<Home> {
   initializeBeacon() async {
     try {
       // if you want to manage manual checking about the required permissions
-      await flutterBeacon.initializeScanning;
+      // await flutterBeacon.initializeScanning;
 
       // or if you want to include automatic checking permission
       await flutterBeacon.initializeAndCheckScanning;
