@@ -27,6 +27,7 @@ import 'dart:io' show Platform;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as SvgProvider;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -335,6 +336,12 @@ class _HomeState extends State<Home> {
               child: Container(
                 decoration: BoxDecoration(
                   gradient: cGradient,
+                  image: const DecorationImage(
+                    image: SvgProvider.Svg(
+                      'assets/images/bg-waves.svg',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 height: 225,
                 child: Row(
@@ -347,105 +354,136 @@ class _HomeState extends State<Home> {
                           vertical: 40, horizontal: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          userInfo.fullname != ""
-                              ? Text(
-                                  userInfo.fullname,
-                                  style: cInter.copyWith(
-                                    fontWeight: bold,
-                                    fontSize: 20,
-                                    color: cWhite,
-                                  ),
-                                )
-                              : SkeletonAnimation(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  shimmerColor: Colors.white54,
-                                  child: Container(
-                                    height: 25,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.5,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      color: Colors.white.withOpacity(0.5),
-                                    ),
-                                  ),
-                                ),
-                          const SizedBox(height: 2),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          InkWell(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 8.0,
+                                right: 8.0,
+                              ),
+                              child: SvgPicture.asset(
+                                  "assets/images/hamburger-menu.svg"),
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(context, "/account");
+                            },
+                          ),
+                          // Icon(
+                          //   Icons.menu,
+                          //   color: cWhite,
+                          //   size: 28,
+                          // ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              userInfo.sidEid != 0
+                              userInfo.fullname != ""
                                   ? Text(
-                                      userInfo.sidEid.toString(),
+                                      userInfo.fullname,
                                       style: cInter.copyWith(
-                                        fontWeight: medium,
-                                        fontSize: 14,
-                                        color: cSubWhite,
+                                        fontWeight: bold,
+                                        fontSize: 20,
+                                        color: cWhite,
                                       ),
                                     )
                                   : SkeletonAnimation(
                                       borderRadius: BorderRadius.circular(8.0),
                                       shimmerColor: Colors.white54,
                                       child: Container(
-                                        height: 15,
+                                        height: 25,
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.25,
+                                                0.5,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(8.0),
-                                          color: Colors.white.withOpacity(0.25),
+                                          color: Colors.white.withOpacity(0.5),
                                         ),
                                       ),
                                     ),
-                              userInfo.studyGroup?.name != ""
-                                  ? userInfo.studyGroup != null
-                                      ? Badge(
-                                          toAnimate: false,
-                                          shape: BadgeShape.square,
-                                          elevation: 0,
-                                          badgeColor: cWhite,
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                          badgeContent: Text(
-                                            userInfo.studyGroup!.name,
-                                            style: cInter.copyWith(
-                                              color: cPrimaryBlue,
-                                              fontWeight: semibold,
-                                            ),
+                              const SizedBox(height: 2),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  userInfo.sidEid != 0
+                                      ? Text(
+                                          userInfo.sidEid.toString(),
+                                          style: cInter.copyWith(
+                                            fontWeight: medium,
+                                            fontSize: 14,
+                                            color: cSubWhite,
                                           ),
                                         )
-                                      : Badge(
-                                          toAnimate: false,
-                                          shape: BadgeShape.square,
-                                          elevation: 0,
-                                          badgeColor: cWhite,
+                                      : SkeletonAnimation(
                                           borderRadius:
-                                              BorderRadius.circular(50),
-                                          badgeContent: Text(
-                                            "Dosen",
-                                            style: cInter.copyWith(
-                                              color: cPrimaryBlue,
-                                              fontWeight: semibold,
+                                              BorderRadius.circular(8.0),
+                                          shimmerColor: Colors.white54,
+                                          child: Container(
+                                            height: 15,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.25,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              color: Colors.white
+                                                  .withOpacity(0.25),
                                             ),
                                           ),
-                                        )
-                                  : SkeletonAnimation(
-                                      borderRadius: BorderRadius.circular(50.0),
-                                      shimmerColor: Colors.white54,
-                                      child: Container(
-                                        height: 25,
-                                        width: 75,
-                                        decoration: BoxDecoration(
+                                        ),
+                                  userInfo.studyGroup?.name != ""
+                                      ? userInfo.studyGroup != null
+                                          ? Badge(
+                                              toAnimate: false,
+                                              shape: BadgeShape.square,
+                                              elevation: 0,
+                                              badgeColor: cWhite,
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              badgeContent: Text(
+                                                userInfo.studyGroup!.name,
+                                                style: cInter.copyWith(
+                                                  color: cPrimaryBlue,
+                                                  fontWeight: semibold,
+                                                ),
+                                              ),
+                                            )
+                                          : Badge(
+                                              toAnimate: false,
+                                              shape: BadgeShape.square,
+                                              elevation: 0,
+                                              badgeColor: cWhite,
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              badgeContent: Text(
+                                                "Dosen",
+                                                style: cInter.copyWith(
+                                                  color: cPrimaryBlue,
+                                                  fontWeight: semibold,
+                                                ),
+                                              ),
+                                            )
+                                      : SkeletonAnimation(
                                           borderRadius:
                                               BorderRadius.circular(50.0),
-                                          color: Colors.white.withOpacity(0.25),
+                                          shimmerColor: Colors.white54,
+                                          child: Container(
+                                            height: 25,
+                                            width: 75,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50.0),
+                                              color: Colors.white
+                                                  .withOpacity(0.25),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
+                                ],
+                              ),
                             ],
-                          ),
+                          )
                         ],
                       ),
                     )
@@ -512,14 +550,19 @@ class _HomeState extends State<Home> {
                                           ),
                                         ),
                                       ),
-                                      Text(
-                                        "Cari Kelas",
-                                        textAlign: TextAlign.center,
-                                        style: cInter.copyWith(
-                                          fontWeight: medium,
-                                          fontSize: 14,
-                                          color: cPrimaryBlue,
-                                        ),
+                                      Button(
+                                        text: "Cari Kelas",
+                                        callback: () {
+                                          Navigator.pushNamed(
+                                              context, "/search-class");
+                                        },
+                                        primary: false,
+                                        secondary: false,
+                                        paddingX: 6,
+                                        paddingY: 3,
+                                        backgroundColor: cPrimaryBlue,
+                                        fontColor: cWhite,
+                                        customFontSize: 13,
                                       ),
                                     ],
                                   ),
@@ -540,12 +583,7 @@ class _HomeState extends State<Home> {
                                       ]),
                                 ),
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SearchClass(),
-                                      ));
+                                  Navigator.pushNamed(context, "/search-class");
                                 },
                               )
                             : ActiveClass(
@@ -582,9 +620,9 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      floatingActionButton: const FloatingActionButtonComp(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: const BottomAppBarComp(),
+      // floatingActionButton: const FloatingActionButtonComp(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // bottomNavigationBar: const BottomAppBarComp(),
     );
   }
 
