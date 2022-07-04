@@ -59,6 +59,8 @@ dependencies:
   firebase_analytics: ^9.1.10
   firebase_core: ^1.18.0
   intl: ^0.17.0
+  flutter_svg_provider: ^1.0.3
+  figma_squircle: ^0.5.3
 
 dev_dependencies:
   flutter_test:

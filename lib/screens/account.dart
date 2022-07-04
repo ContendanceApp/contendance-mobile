@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
+import 'package:figma_squircle/figma_squircle.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -345,13 +346,23 @@ class _AccountState extends State<Account> {
               start: 0,
               end: 0,
               child: Align(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Image.asset(
-                    'assets/images/lab-pens.jpg',
-                    width: 125,
-                    height: 125,
-                    fit: BoxFit.fitHeight,
+                child: Container(
+                  height: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  decoration: ShapeDecoration(
+                    image: const DecorationImage(
+                      image: AssetImage(
+                        'assets/images/lab-pens.jpg',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                    color: cSubWhite,
+                    shape: SmoothRectangleBorder(
+                      borderRadius: SmoothBorderRadius(
+                        cornerRadius: 30,
+                        cornerSmoothing: 1,
+                      ),
+                    ),
                   ),
                 ),
               ),
