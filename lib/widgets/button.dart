@@ -125,7 +125,7 @@ class Button extends StatelessWidget {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     minimumSize: Size.zero,
                     padding: EdgeInsets.symmetric(
-                        vertical: paddingY ?? 12, horizontal: paddingX ?? 12),
+                        vertical: paddingY ?? 18, horizontal: paddingX ?? 40),
                     primary: fontColor,
                     textStyle: cInter.copyWith(
                       fontSize: customFontSize ?? fontSize,
