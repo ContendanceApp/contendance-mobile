@@ -289,6 +289,10 @@ class _HomeState extends State<Home> {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getInt('userId');
 
+    setState(() {
+      loadActiveClass = true;
+    });
+
     Map<String, String> body = {
       'user_id': userId.toString(),
     };
@@ -313,334 +317,351 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: SingleChildScrollView(
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: <Widget>[
-            Align(
-              alignment: AlignmentDirectional.topCenter,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: cGradient,
-                  image: const DecorationImage(
-                    image: svg_provider.Svg(
-                      'assets/images/bg-waves.svg',
+      body: RefreshIndicator(
+        color: cPrimaryBlue,
+        onRefresh: () async {
+          // Replace this delay with the code to be executed during refresh
+          // and return a Future when code finishs execution.
+          getActiveClass();
+          return Future<void>.delayed(const Duration(seconds: 3));
+        },
+        child: SingleChildScrollView(
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: <Widget>[
+              Align(
+                alignment: AlignmentDirectional.topCenter,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: cGradient,
+                    image: const DecorationImage(
+                      image: svg_provider.Svg(
+                        'assets/images/bg-waves.svg',
+                      ),
+                      fit: BoxFit.cover,
                     ),
-                    fit: BoxFit.cover,
+                  ),
+                  height: 225,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 40, horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: 8.0,
+                                      right: 8.0,
+                                    ),
+                                    child: SvgPicture.asset(
+                                        "assets/images/hamburger-menu.svg"),
+                                  ),
+                                  onTap: () {
+                                    Navigator.pushNamed(context, "/account");
+                                  },
+                                ),
+                                InkWell(
+                                  child: Container(
+                                    height: MediaQuery.of(context).size.width *
+                                        0.08,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.08,
+                                    decoration: ShapeDecoration(
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                          'assets/images/lab-pens.jpg',
+                                        ),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      color: cSubWhite,
+                                      shape: SmoothRectangleBorder(
+                                        side: BorderSide(
+                                          color: cSubWhite,
+                                          width: 0.8,
+                                        ),
+                                        borderRadius: SmoothBorderRadius(
+                                          cornerRadius: 8,
+                                          cornerSmoothing: 1,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/account-detail");
+                                  },
+                                ),
+                              ],
+                            ),
+                            // Icon(
+                            //   Icons.menu,
+                            //   color: cWhite,
+                            //   size: 28,
+                            // ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                userInfo.fullname != ""
+                                    ? Text(
+                                        userInfo.fullname,
+                                        style: cInter.copyWith(
+                                          fontWeight: bold,
+                                          fontSize: 20,
+                                          color: cWhite,
+                                        ),
+                                      )
+                                    : SkeletonAnimation(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        shimmerColor: Colors.white54,
+                                        child: Container(
+                                          height: 25,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.5,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            color:
+                                                Colors.white.withOpacity(0.5),
+                                          ),
+                                        ),
+                                      ),
+                                const SizedBox(height: 2),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    userInfo.sidEid != 0
+                                        ? Text(
+                                            userInfo.sidEid.toString(),
+                                            style: cInter.copyWith(
+                                              fontWeight: medium,
+                                              fontSize: 14,
+                                              color: cSubWhite,
+                                            ),
+                                          )
+                                        : SkeletonAnimation(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            shimmerColor: Colors.white54,
+                                            child: Container(
+                                              height: 15,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.25,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                                color: Colors.white
+                                                    .withOpacity(0.25),
+                                              ),
+                                            ),
+                                          ),
+                                    userInfo.studyGroup?.name != ""
+                                        ? userInfo.studyGroup != null
+                                            ? Badge(
+                                                toAnimate: false,
+                                                shape: BadgeShape.square,
+                                                elevation: 0,
+                                                badgeColor: cWhite,
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                badgeContent: Text(
+                                                  userInfo.studyGroup!.name,
+                                                  style: cInter.copyWith(
+                                                    color: cPrimaryBlue,
+                                                    fontWeight: semibold,
+                                                  ),
+                                                ),
+                                              )
+                                            : Badge(
+                                                toAnimate: false,
+                                                shape: BadgeShape.square,
+                                                elevation: 0,
+                                                badgeColor: cWhite,
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                badgeContent: Text(
+                                                  "Dosen",
+                                                  style: cInter.copyWith(
+                                                    color: cPrimaryBlue,
+                                                    fontWeight: semibold,
+                                                  ),
+                                                ),
+                                              )
+                                        : SkeletonAnimation(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0),
+                                            shimmerColor: Colors.white54,
+                                            child: Container(
+                                              height: 25,
+                                              width: 75,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50.0),
+                                                color: Colors.white
+                                                    .withOpacity(0.25),
+                                              ),
+                                            ),
+                                          ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                height: 225,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 40, horizontal: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    bottom: 8.0,
-                                    right: 8.0,
-                                  ),
-                                  child: SvgPicture.asset(
-                                      "assets/images/hamburger-menu.svg"),
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/account");
-                                },
-                              ),
-                              InkWell(
-                                child: Container(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.08,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.08,
-                                  decoration: ShapeDecoration(
-                                    image: const DecorationImage(
-                                      image: AssetImage(
-                                        'assets/images/lab-pens.jpg',
-                                      ),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    color: cSubWhite,
-                                    shape: SmoothRectangleBorder(
-                                      side: BorderSide(
-                                        color: cSubWhite,
-                                        width: 0.8,
-                                      ),
-                                      borderRadius: SmoothBorderRadius(
-                                        cornerRadius: 8,
-                                        cornerSmoothing: 1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, "/account-detail");
-                                },
-                              ),
-                            ],
-                          ),
-                          // Icon(
-                          //   Icons.menu,
-                          //   color: cWhite,
-                          //   size: 28,
-                          // ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              userInfo.fullname != ""
-                                  ? Text(
-                                      userInfo.fullname,
-                                      style: cInter.copyWith(
-                                        fontWeight: bold,
-                                        fontSize: 20,
-                                        color: cWhite,
-                                      ),
-                                    )
-                                  : SkeletonAnimation(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      shimmerColor: Colors.white54,
-                                      child: Container(
-                                        height: 25,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          color: Colors.white.withOpacity(0.5),
-                                        ),
-                                      ),
-                                    ),
-                              const SizedBox(height: 2),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  userInfo.sidEid != 0
-                                      ? Text(
-                                          userInfo.sidEid.toString(),
-                                          style: cInter.copyWith(
-                                            fontWeight: medium,
-                                            fontSize: 14,
-                                            color: cSubWhite,
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 200),
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height * 0.75),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Kelas berlangsung",
+                        textAlign: TextAlign.left,
+                        style: cInter.copyWith(
+                          fontSize: 14,
+                          fontWeight: bold,
+                          color: cPrimaryBlack,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      detailActiveClass.presenceId == 0 && loadActiveClass
+                          // detailActiveClass.presenceId == 0 || loadActiveClass
+                          ? const SkeletonActiveClass()
+                          : detailActiveClass.presenceId == 0
+                              ? InkWell(
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 135,
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(bottom: 5),
+                                          child: const Icon(
+                                            IconlyLight.login,
+                                            color: Color(0xFF64749F),
+                                            size: 35,
                                           ),
-                                        )
-                                      : SkeletonAnimation(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                          shimmerColor: Colors.white54,
-                                          child: Container(
-                                            height: 15,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.25,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
-                                              color: Colors.white
-                                                  .withOpacity(0.25),
+                                        ),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(bottom: 15),
+                                          child: Text(
+                                            "Belum memasuki kelas",
+                                            textAlign: TextAlign.center,
+                                            style: cInter.copyWith(
+                                              fontSize: 16,
+                                              fontWeight: bold,
+                                              color: cSubText,
                                             ),
                                           ),
                                         ),
-                                  userInfo.studyGroup?.name != ""
-                                      ? userInfo.studyGroup != null
-                                          ? Badge(
-                                              toAnimate: false,
-                                              shape: BadgeShape.square,
-                                              elevation: 0,
-                                              badgeColor: cWhite,
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              badgeContent: Text(
-                                                userInfo.studyGroup!.name,
-                                                style: cInter.copyWith(
-                                                  color: cPrimaryBlue,
-                                                  fontWeight: semibold,
-                                                ),
-                                              ),
-                                            )
-                                          : Badge(
-                                              toAnimate: false,
-                                              shape: BadgeShape.square,
-                                              elevation: 0,
-                                              badgeColor: cWhite,
-                                              borderRadius:
-                                                  BorderRadius.circular(50),
-                                              badgeContent: Text(
-                                                "Dosen",
-                                                style: cInter.copyWith(
-                                                  color: cPrimaryBlue,
-                                                  fontWeight: semibold,
-                                                ),
-                                              ),
-                                            )
-                                      : SkeletonAnimation(
-                                          borderRadius:
-                                              BorderRadius.circular(50.0),
-                                          shimmerColor: Colors.white54,
-                                          child: Container(
-                                            height: 25,
-                                            width: 75,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50.0),
-                                              color: Colors.white
-                                                  .withOpacity(0.25),
-                                            ),
-                                          ),
+                                        Button(
+                                          text: "Cari Kelas",
+                                          callback: () {
+                                            Navigator.pushNamed(
+                                                context, "/search-class");
+                                          },
+                                          primary: false,
+                                          secondary: false,
+                                          paddingX: 6,
+                                          paddingY: 3,
+                                          backgroundColor: cPrimaryBlue,
+                                          fontColor: cWhite,
+                                          customFontSize: 13,
                                         ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 200),
-              constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height * 0.75),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Kelas berlangsung",
-                      textAlign: TextAlign.left,
-                      style: cInter.copyWith(
-                        fontSize: 14,
-                        fontWeight: bold,
-                        color: cPrimaryBlack,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    detailActiveClass.presenceId == 0 && loadActiveClass
-                        ? const SkeletonActiveClass()
-                        : detailActiveClass.presenceId == 0
-                            ? InkWell(
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 135,
-                                  padding: const EdgeInsets.all(16),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(bottom: 5),
-                                        child: const Icon(
-                                          IconlyLight.login,
-                                          color: Color(0xFF64749F),
-                                          size: 35,
-                                        ),
-                                      ),
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(bottom: 15),
-                                        child: Text(
-                                          "Belum memasuki kelas",
-                                          textAlign: TextAlign.center,
-                                          style: cInter.copyWith(
-                                            fontSize: 16,
-                                            fontWeight: bold,
-                                            color: cSubText,
-                                          ),
-                                        ),
-                                      ),
-                                      Button(
-                                        text: "Cari Kelas",
-                                        callback: () {
-                                          Navigator.pushNamed(
-                                              context, "/search-class");
-                                        },
-                                        primary: false,
-                                        secondary: false,
-                                        paddingX: 6,
-                                        paddingY: 3,
-                                        backgroundColor: cPrimaryBlue,
-                                        fontColor: cWhite,
-                                        customFontSize: 13,
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                        color: const Color(0xFFFFFFFF),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(15)),
+                                        border: Border.all(
+                                            color: const Color(0xFFF4F4F4),
+                                            width: 1.0,
+                                            style: BorderStyle.solid),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.05),
+                                            spreadRadius: 2,
+                                            blurRadius: 10,
+                                          )
+                                        ]),
                                   ),
-                                  decoration: BoxDecoration(
-                                      color: const Color(0xFFFFFFFF),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(15)),
-                                      border: Border.all(
-                                          color: const Color(0xFFF4F4F4),
-                                          width: 1.0,
-                                          style: BorderStyle.solid),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.05),
-                                          spreadRadius: 2,
-                                          blurRadius: 10,
-                                        )
-                                      ]),
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, "/search-class");
+                                  },
+                                )
+                              : ActiveClass(
+                                  classPresence: detailActiveClass,
+                                  roleId: userInfo.roleId,
                                 ),
-                                onTap: () {
-                                  Navigator.pushNamed(context, "/search-class");
-                                },
-                              )
-                            : ActiveClass(
-                                classPresence: detailActiveClass,
-                                roleId: userInfo.roleId,
-                              ),
-                    Container(
-                      child: userInfo.roleId == 0
-                          ? const SkeletonUserMenu()
-                          : UserMenu(
-                              role:
-                                  userInfo.roleId == 1 ? "mahasiswa" : "dosen"),
-                    ),
-                    Text(
-                      "Mata kuliah hari ini",
-                      textAlign: TextAlign.left,
-                      style: cInter.copyWith(
-                        fontSize: 14,
-                        fontWeight: bold,
-                        color: cPrimaryBlack,
+                      Container(
+                        child: userInfo.roleId == 0
+                            ? const SkeletonUserMenu()
+                            : UserMenu(
+                                role: userInfo.roleId == 1
+                                    ? "mahasiswa"
+                                    : "dosen"),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    Column(
-                      children: (histories[1])
-                          .map((history) => SubjectCard(history: history))
-                          .toList(),
-                    ),
-                    const SizedBox(height: 120),
-                  ],
+                      Text(
+                        "Mata kuliah hari ini",
+                        textAlign: TextAlign.left,
+                        style: cInter.copyWith(
+                          fontSize: 14,
+                          fontWeight: bold,
+                          color: cPrimaryBlack,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Column(
+                        children: (histories[1])
+                            .map((history) => SubjectCard(history: history))
+                            .toList(),
+                      ),
+                      const SizedBox(height: 120),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       // floatingActionButton: const FloatingActionButtonComp(),
