@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(const SearchClass());
@@ -41,7 +40,12 @@ class _SearchClassState extends State<SearchClass> {
   void initState() {
     super.initState();
     initializeBeacon();
-    rangingBeacon();
+  }
+
+  @override
+  void dispose() {
+    _streamRanging?.cancel();
+    super.dispose();
   }
 
   @override
@@ -58,59 +62,10 @@ class _SearchClassState extends State<SearchClass> {
   }
 
   timeoutSearchClass() async {
-    _streamRanging?.cancel();
-    Navigator.pushReplacementNamed(context, '/class-not-found');
-    // final prefs = await SharedPreferences.getInstance();
-    // await prefs.setString('classStatus', "not-found");
-    // _streamRanging?.cancel();
-    // if (mounted) {
-    //   Navigator.pushNamedAndRemoveUntil(
-    //       context, "/home", (Route<dynamic> route) => false);
-    // }
-  }
-
-  Future<void> _checkPermission() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    if (prefs.getString('locationPerm') == null) {
-      final serviceStatus = await Permission.locationWhenInUse.serviceStatus;
-      final isGpsOn = serviceStatus == ServiceStatus.enabled;
-      if (!isGpsOn) {
-        // print('Turn on location services before requesting permission.');
-        Navigator.pushReplacementNamed(
-            context, '/prominent-disclosure-location');
-        return;
-      }
-
-      // final status = await Permission.locationWhenInUse.request();
-      // if (status == PermissionStatus.granted) {
-      //   print('Permission granted');
-      // } else if (status == PermissionStatus.denied) {
-      //   print(
-      //       'Permission denied. Show a dialog and again ask for the permission');
-      // } else if (status == PermissionStatus.permanentlyDenied) {
-      //   print('Take the user to the settings page.');
-      //   await openAppSettings();
-      // }
-    }
-    if (prefs.getString('locationPerm') != null) {
-      await prefs.remove("locationPerm");
-      initializeBeacon();
-      rangingBeacon();
-      final status = await Permission.locationWhenInUse.request();
-      if (status == PermissionStatus.granted) {
-        // print('Permission granted');
-        await locationService.getLocation();
-      } else if (status == PermissionStatus.denied) {
-        // print(
-        //     'Permission denied. Show a dialog and again ask for the permission');
-        Navigator.pushReplacementNamed(
-            context, '/prominent-disclosure-location');
-      } else if (status == PermissionStatus.permanentlyDenied) {
-        // print('Take the user to the settings page.');
-        await openAppSettings();
-        _checkPermission();
-      }
+    if (mounted) {
+      _streamRanging?.cancel();
+      Navigator.of(context, rootNavigator: true)
+          .pushReplacementNamed('/class-not-found');
     }
   }
 
@@ -137,23 +92,14 @@ class _SearchClassState extends State<SearchClass> {
 
       // or if you want to include automatic checking permission
       await flutterBeacon.initializeAndCheckScanning;
+      rangingBeacon();
     } on PlatformException catch (e) {
       // ignore: avoid_print
       print(e.message);
-      // library failed to initialize, check code and message
     }
   }
 
   rangingBeacon() async {
-    // if (Platform.isIOS) {
-    //   // iOS platform, at least set identifier and proximityUUID for region scanning
-    //   regions.add(Region(
-    //       identifier: 'Apple Airlocate',
-    //       proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
-    // } else {
-    //   regions.add(Region(identifier: 'com.beacon'));
-    // }
-
     if (Platform.isAndroid) {
       regions.add(Region(identifier: 'com.beacon'));
     }
@@ -163,19 +109,23 @@ class _SearchClassState extends State<SearchClass> {
     int roleId = prefs.getInt('roleId') ?? 0;
     int studyGroupId = prefs.getInt('studyGroupId') ?? 0;
 
+    // final bool locationServiceStatus =
+    //     await flutterBeacon.checkLocationServicesIfEnabled;
+
+    // if (!locationServiceStatus) {
+    //   await locationService.getLocation();
+    //   rangingBeacon();
+    // }
     _streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) async {
       print("result ${result.beacons}");
       if (result.beacons.isNotEmpty) {
         _streamRanging?.cancel();
-        // final success = await prefs.remove('classStatus');
-        // if (success) {
         if (mounted) {
           setState(() {
             beacons = result.beacons;
           });
         }
-        // }
         for (var beacon in beacons) {
           if (mounted) {
             if (roleId == 1) {
@@ -189,16 +139,19 @@ class _SearchClassState extends State<SearchClass> {
               };
 
               try {
-                await presence.createPresence(body).then((value) => value).then(
-                    (value) => Navigator.pushReplacementNamed(
+                await presence.createPresence(body).then((value) =>
+                    Navigator.pushReplacementNamed(
                         context, "/success-open-presence",
                         arguments: value));
               } catch (e) {
                 print(e);
+                Timer.periodic(const Duration(seconds: 4), (timer) {
+                  timeoutSearchClass();
+                });
               }
             } else {
               // if lecturer
-              await checkPresence(
+              var res = await checkPresence(
                       beacon.proximityUUID, beacon.major, beacon.minor, userId)
                   .then((value) => Navigator.pushReplacementNamed(
                       context, "/open-presence",
@@ -213,13 +166,10 @@ class _SearchClassState extends State<SearchClass> {
           // index++;
         }
       } else {
-        print("kok di sini bang");
         Timer.periodic(const Duration(seconds: 4), (timer) {
           timeoutSearchClass();
         });
       }
-      // result contains a region and list of beacons found
-      // list can be empty if no matching beacons were found in range
     });
   }
 

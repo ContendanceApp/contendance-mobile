@@ -69,6 +69,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
                         callback: () async {
                           final prefs = await SharedPreferences.getInstance();
                           await prefs.setString('locationPerm', "off");
+                          await prefs.setBool('collectsLocation', false);
 
                           if (prefs.getString('locationPerm') != null) {
                             Navigator.pushReplacementNamed(context, "/home");
@@ -88,6 +89,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
                         callback: () async {
                           final prefs = await SharedPreferences.getInstance();
                           await prefs.setString('locationPerm', "on");
+                          await prefs.setBool('collectsLocation', true);
 
                           if (prefs.getString('locationPerm') != null) {
                             Navigator.pushReplacementNamed(context, "/home");

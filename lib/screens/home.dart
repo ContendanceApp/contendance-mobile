@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:contendance_app/widgets/active_class.dart';
-import 'package:contendance_app/widgets/bottom_app_bar/bottom_app_bar.dart';
-import 'package:contendance_app/widgets/bottom_app_bar/floating_action_button.dart';
 import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/widgets/skeleton_active_class.dart';
 import 'package:contendance_app/widgets/skeleton_user_menu.dart';
@@ -11,7 +9,6 @@ import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/class_presence.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
-import 'package:contendance_app/screens/search_class.dart';
 import 'package:contendance_app/services/location_service.dart';
 import 'package:contendance_app/services/login_service.dart';
 import 'package:contendance_app/services/presence_service.dart';
@@ -22,12 +19,10 @@ import 'package:iconly/iconly.dart';
 import 'package:badges/badges.dart';
 import 'dart:async';
 import 'package:flutter_beacon/flutter_beacon.dart';
-import 'package:flutter/services.dart';
-import 'dart:io' show Platform;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as SvgProvider;
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -211,55 +206,45 @@ class _HomeState extends State<Home> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
 
-    // locationService.getLocation();
     _checkPermission();
+    checkAuth();
     checkClassStatus();
   }
 
   Future<void> _checkPermission() async {
     final prefs = await SharedPreferences.getInstance();
-    checkAuth();
+    final locationPerm = prefs.getString('locationPerm');
+    final locationData = prefs.getBool('collectsLocation');
 
-    if (prefs.getString('locationPerm') == null) {
-      final serviceStatus = await Permission.locationWhenInUse.serviceStatus;
-      final isGpsOn = serviceStatus == ServiceStatus.enabled;
+    if (locationPerm == null) {
+      final locationServiceStatus =
+          await Permission.locationWhenInUse.serviceStatus;
+      final isGpsOn = locationServiceStatus == ServiceStatus.enabled;
       if (!isGpsOn) {
-        await prefs.remove("locationPerm");
         // print('Turn on location services before requesting permission.');
         Navigator.pushReplacementNamed(
             context, '/prominent-disclosure-location');
         return;
       }
-
-      // final status = await Permission.locationWhenInUse.request();
-      // if (status == PermissionStatus.granted) {
-      //   print('Permission granted');
-      // } else if (status == PermissionStatus.denied) {
-      //   print(
-      //       'Permission denied. Show a dialog and again ask for the permission');
-      // } else if (status == PermissionStatus.permanentlyDenied) {
-      //   print('Take the user to the settings page.');
-      //   await openAppSettings();
-      // }
-    }
-    // print(prefs.getString('locationPerm'));
-    if (prefs.getString('locationPerm') != null) {
+    } else {
       await prefs.remove("locationPerm");
-      final status = await Permission.locationWhenInUse.request();
-      if (status == PermissionStatus.granted) {
-        // print('Permission granted');
-        // initializeBeacon();
-        // rangingBeacon();
-        await locationService.getLocation();
-      } else if (status == PermissionStatus.denied) {
-        // print(
-        //     'Permission denied. Show a dialog and again ask for the permission');
-        Navigator.pushReplacementNamed(
-            context, '/prominent-disclosure-location');
-      } else if (status == PermissionStatus.permanentlyDenied) {
-        // print('Take the user to the settings page.');
-        await openAppSettings();
-        _checkPermission();
+      if (locationData == true) {
+        final status = await Permission.locationWhenInUse.request();
+        if (status == PermissionStatus.granted) {
+          // print('Permission granted');
+          // initializeBeacon();
+          // rangingBeacon();
+          await locationService.getLocation();
+        } else if (status == PermissionStatus.denied) {
+          // print(
+          //     'Permission denied. Show a dialog and again ask for the permission');
+          Navigator.pushReplacementNamed(
+              context, '/prominent-disclosure-location');
+        } else if (status == PermissionStatus.permanentlyDenied) {
+          // print('Take the user to the settings page.');
+          await openAppSettings();
+          _checkPermission();
+        }
       }
     }
   }
@@ -279,7 +264,7 @@ class _HomeState extends State<Home> {
 
   getUserInfo() async {
     var res = await login.loggedUser(_token.toString()).then((value) => value);
-    print(res);
+    // print(res);
     if (res.statusCode == 200) {
       UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
       if (mounted) {
@@ -337,7 +322,7 @@ class _HomeState extends State<Home> {
                 decoration: BoxDecoration(
                   gradient: cGradient,
                   image: const DecorationImage(
-                    image: SvgProvider.Svg(
+                    image: svg_provider.Svg(
                       'assets/images/bg-waves.svg',
                     ),
                     fit: BoxFit.cover,
@@ -771,7 +756,6 @@ class _HomeState extends State<Home> {
                               // await prefs.setString('classStatus', 'found');
                               final success = await prefs.remove('classStatus');
                               if (success) {
-                                print('terhapus');
                                 if (mounted) {
                                   Navigator.pop(context);
                                 }
@@ -791,71 +775,71 @@ class _HomeState extends State<Home> {
     );
   }
 
-  initializeBeacon() async {
-    try {
-      // if you want to manage manual checking about the required permissions
-      // await flutterBeacon.initializeScanning;
+  // initializeBeacon() async {
+  //   try {
+  //     // if you want to manage manual checking about the required permissions
+  //     // await flutterBeacon.initializeScanning;
 
-      // or if you want to include automatic checking permission
-      await flutterBeacon.initializeAndCheckScanning;
-    } on PlatformException catch (e) {
-      // ignore: avoid_print
-      print(e.message);
-      // library failed to initialize, check code and message
-    }
-  }
+  //     // or if you want to include automatic checking permission
+  //     await flutterBeacon.initializeAndCheckScanning;
+  //   } on PlatformException catch (e) {
+  //     // ignore: avoid_print
+  //     print(e.message);
+  //     // library failed to initialize, check code and message
+  //   }
+  // }
 
-  rangingBeacon() {
-    if (Platform.isIOS) {
-      // iOS platform, at least set identifier and proximityUUID for region scanning
-      regions.add(Region(
-          identifier: 'Apple Airlocate',
-          proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
-    } else {
-      regions.add(Region(identifier: 'com.beacon'));
-    }
+  // rangingBeacon() {
+  //   if (Platform.isIOS) {
+  //     // iOS platform, at least set identifier and proximityUUID for region scanning
+  //     regions.add(Region(
+  //         identifier: 'Apple Airlocate',
+  //         proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
+  //   } else {
+  //     regions.add(Region(identifier: 'com.beacon'));
+  //   }
 
-    _streamRanging =
-        flutterBeacon.ranging(regions).listen((RangingResult result) {
-      if (result.beacons.isNotEmpty) {
-        setState(() {
-          beacons = result.beacons;
-        });
-        _streamRanging?.cancel();
-        int index = 0;
-        for (var beacon in beacons) {
-          _showNotification(
-              index,
-              "Beacon Detected",
-              "UUID: ${beacon.proximityUUID} | Jarak: ${beacon.accuracy}",
-              "This is the payload");
-          index++;
-        }
-      }
-      // result contains a region and list of beacons found
-      // list can be empty if no matching beacons were found in range
-    });
-  }
+  //   _streamRanging =
+  //       flutterBeacon.ranging(regions).listen((RangingResult result) {
+  //     if (result.beacons.isNotEmpty) {
+  //       setState(() {
+  //         beacons = result.beacons;
+  //       });
+  //       _streamRanging?.cancel();
+  //       int index = 0;
+  //       for (var beacon in beacons) {
+  //         _showNotification(
+  //             index,
+  //             "Beacon Detected",
+  //             "UUID: ${beacon.proximityUUID} | Jarak: ${beacon.accuracy}",
+  //             "This is the payload");
+  //         index++;
+  //       }
+  //     }
+  //     // result contains a region and list of beacons found
+  //     // list can be empty if no matching beacons were found in range
+  //   });
+  // }
 
-  void _showNotification(
-      int id, String? title, String? body, String? payload) async {
-    const androidChannelPlatformSpecifics = AndroidNotificationDetails(
-        'channelId', 'channelName',
-        channelDescription: 'channelDescription',
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'test ticker');
+  // void _showNotification(
+  //     int id, String? title, String? body, String? payload) async {
+  //   const androidChannelPlatformSpecifics = AndroidNotificationDetails(
+  //       'channelId', 'channelName',
+  //       channelDescription: 'channelDescription',
+  //       importance: Importance.max,
+  //       priority: Priority.high,
+  //       ticker: 'test ticker');
 
-    const platformChannelSpecifics =
-        NotificationDetails(android: androidChannelPlatformSpecifics);
+  //   const platformChannelSpecifics =
+  //       NotificationDetails(android: androidChannelPlatformSpecifics);
 
-    await flutterLocalNotificationsPlugin
-        .show(id, title, body, platformChannelSpecifics, payload: payload);
-  }
+  //   await flutterLocalNotificationsPlugin
+  //       .show(id, title, body, platformChannelSpecifics, payload: payload);
+  // }
 
   Future<void> checkClassStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    print(prefs.getString('classStatus'));
+    // print(prefs.getString('classStatus'));
 
     if (prefs.getString('classStatus') != null) {
       if (prefs.getString('classStatus') == "not-found") {
