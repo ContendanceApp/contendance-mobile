@@ -23,6 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
+import 'package:figma_squircle/figma_squircle.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -341,18 +342,55 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 8.0,
-                                right: 8.0,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    bottom: 8.0,
+                                    right: 8.0,
+                                  ),
+                                  child: SvgPicture.asset(
+                                      "assets/images/hamburger-menu.svg"),
+                                ),
+                                onTap: () {
+                                  Navigator.pushNamed(context, "/account");
+                                },
                               ),
-                              child: SvgPicture.asset(
-                                  "assets/images/hamburger-menu.svg"),
-                            ),
-                            onTap: () {
-                              Navigator.pushNamed(context, "/account");
-                            },
+                              InkWell(
+                                child: Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.08,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.08,
+                                  decoration: ShapeDecoration(
+                                    image: const DecorationImage(
+                                      image: AssetImage(
+                                        'assets/images/lab-pens.jpg',
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    color: cSubWhite,
+                                    shape: SmoothRectangleBorder(
+                                      side: BorderSide(
+                                        color: cSubWhite,
+                                        width: 0.8,
+                                      ),
+                                      borderRadius: SmoothBorderRadius(
+                                        cornerRadius: 8,
+                                        cornerSmoothing: 1,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, "/account-detail");
+                                },
+                              ),
+                            ],
                           ),
                           // Icon(
                           //   Icons.menu,
