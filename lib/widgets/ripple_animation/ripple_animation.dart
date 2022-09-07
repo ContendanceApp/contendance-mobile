@@ -28,7 +28,7 @@ class _RipplesAnimationState extends State<RipplesAnimation>
 
   PresenceService presence = PresenceService();
   String? userId = "1";
-  String? ruanganId = "1";
+  String? roomId = "1";
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _RipplesAnimationState extends State<RipplesAnimation>
   doPresence() async {
     Map<String, String> body = {
       'userId': userId!,
-      'ruanganId': ruanganId!,
+      'roomId': roomId!,
     };
     // await presence.createPresence(body).then((value) {
     //   Navigator.push(
