@@ -265,8 +265,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 };
 
                 await login.authLogin(body).then(
-                      (value) => {
-                        _setAccessToken(value),
+                      (response) => {
+                        _afterLoginHandler(response),
                       },
                     );
               }
@@ -359,7 +359,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
           //       await login.authLogin(body).then(
           //             (value) => {
-          //               _setAccessToken(value),
+          //               _afterLoginHandler(value),
           //             },
           //           );
           //     }
@@ -400,10 +400,8 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> _setAccessToken(Login response) async {
+  Future<void> _afterLoginHandler(Login response) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', response.accessToken ?? "");
-
     if (prefs.getString('token') != "") {
       getUserInfo(response.accessToken!);
       Navigator.pushReplacementNamed(context, "/home");

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:contendance_app/constant/string.dart';
 import 'package:contendance_app/data/models/login.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
   Future<Login> authLogin(Map<String, String> body) async {
@@ -17,6 +18,9 @@ class LoginService {
     );
 
     if (response.statusCode == 200) {
+      Map<dynamic, dynamic> temp = jsonDecode(response.body);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', temp['access_token'] ?? "");
       return Login.fromJson(jsonDecode(response.body));
     } else {
       return Login.fromJson(jsonDecode(response.body));
