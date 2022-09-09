@@ -15,7 +15,7 @@ class FloatingActionButtonComp extends StatelessWidget {
         height: 60,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: cGradient,
+          gradient: colorGradient,
         ),
         child: SvgPicture.asset(
           "assets/images/search-class.svg",

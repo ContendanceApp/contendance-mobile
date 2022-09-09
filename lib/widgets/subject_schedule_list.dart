@@ -56,9 +56,9 @@ class _SubjectScheduleListState extends State<SubjectScheduleList> {
             children: [
               Text(
                 "Senin",
-                style: cInter.copyWith(
-                  color: cPrimaryBlack,
-                  fontWeight: bold,
+                style: fontInter.copyWith(
+                  color: colorPrimaryBlack,
+                  fontWeight: fwBold,
                   fontSize: 24,
                 ),
               ),

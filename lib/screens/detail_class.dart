@@ -79,14 +79,14 @@ class _DetailClassState extends State<DetailClass> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          const Text(
+                          Text(
                             "C-102",
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF145AE3),
+                              fontWeight: fwBold,
+                              color: const Color(0xFF145AE3),
                             ),
                           ),
                           Row(
@@ -115,10 +115,10 @@ class _DetailClassState extends State<DetailClass> {
                           Text(
                             "08:00 - 13.00",
                             textAlign: TextAlign.left,
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 14,
-                              fontWeight: bold,
-                              color: cPrimaryBlack,
+                              fontWeight: fwBold,
+                              color: colorPrimaryBlack,
                             ),
                           ),
                         ],
@@ -142,9 +142,9 @@ class _DetailClassState extends State<DetailClass> {
                           Text(
                             "Ruang Tunggu",
                             textAlign: TextAlign.left,
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 16,
-                              fontWeight: bold,
+                              fontWeight: fwBold,
                               color: const Color(0xFF333333),
                             ),
                           ),
@@ -154,10 +154,10 @@ class _DetailClassState extends State<DetailClass> {
                           Text(
                             "Lihat Semua",
                             textAlign: TextAlign.right,
-                            style: cInter.copyWith(
-                              fontWeight: medium,
+                            style: fontInter.copyWith(
+                              fontWeight: fwMedium,
                               fontSize: 14,
-                              color: cPrimaryBlue,
+                              color: colorPrimaryBlue,
                             ),
                           ),
                         ],
@@ -165,16 +165,16 @@ class _DetailClassState extends State<DetailClass> {
                       Text(
                         "Kosong",
                         textAlign: TextAlign.left,
-                        style: cInter.copyWith(
+                        style: fontInter.copyWith(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: cSubText,
+                          fontWeight: fwBold,
+                          color: colorSubText,
                         ),
                       ),
                     ],
                   ),
                   decoration: BoxDecoration(
-                      gradient: cGradient,
+                      gradient: colorGradient,
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       border: Border.all(
                           color: const Color(0xFFF4F4F4),
@@ -199,9 +199,9 @@ class _DetailClassState extends State<DetailClass> {
                   Text(
                     "Mahasiswa dalam Kelas",
                     textAlign: TextAlign.left,
-                    style: cInter.copyWith(
+                    style: fontInter.copyWith(
                       fontSize: 14,
-                      fontWeight: bold,
+                      fontWeight: fwBold,
                       color: const Color(0xFF333333),
                     ),
                   ),
@@ -234,7 +234,8 @@ class _DetailClassState extends State<DetailClass> {
                               borderRadius: BorderRadius.circular(18.0),
                             ),
                           ),
-                          backgroundColor: MaterialStateProperty.all(cDanger),
+                          backgroundColor:
+                              MaterialStateProperty.all(colorDanger),
                         ),
                         onPressed: () {},
                         child: const Text(

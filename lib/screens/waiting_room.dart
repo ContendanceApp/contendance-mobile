@@ -32,16 +32,16 @@ class _WaitingRoomState extends State<WaitingRoom> {
 
   Widget waitingUser({required String name}) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: cPadding1),
+      padding: const EdgeInsets.only(bottom: paddingBase),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
             name,
-            style: cInter.copyWith(
+            style: fontInter.copyWith(
               fontSize: 16.0,
-              fontWeight: medium,
-              color: cPrimaryBlack,
+              fontWeight: fwMedium,
+              color: colorPrimaryBlack,
             ),
           ),
           Button(
@@ -49,8 +49,8 @@ class _WaitingRoomState extends State<WaitingRoom> {
             callback: () {},
             primary: false,
             secondary: false,
-            backgroundColor: cPrimaryBlue,
-            fontColor: cWhite,
+            backgroundColor: colorPrimaryBlue,
+            fontColor: colorWhite,
             paddingX: 10,
             paddingY: 5,
             customFontSize: 14,

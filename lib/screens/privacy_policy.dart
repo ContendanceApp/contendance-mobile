@@ -40,10 +40,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
         children: [
           Text(
             "Privacy Policy",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -52,22 +52,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             privacyPolicy.indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Information Collection and Use",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -76,19 +76,19 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             informationCollection.indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           Text(
             "Link to the privacy policy of third-party service providers used by the app",
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
@@ -99,10 +99,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             child: Text(
               'Google Play Service',
               textAlign: TextAlign.justify,
-              style: cInter.copyWith(
-                fontWeight: regular,
+              style: fontInter.copyWith(
+                fontWeight: fwRegular,
                 fontSize: 16,
-                color: cPrimaryBlue,
+                color: colorPrimaryBlue,
               ),
             ),
             onTap: () => launchUrl(
@@ -116,10 +116,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             child: Text(
               'AdMob',
               textAlign: TextAlign.justify,
-              style: cInter.copyWith(
-                fontWeight: regular,
+              style: fontInter.copyWith(
+                fontWeight: fwRegular,
                 fontSize: 16,
-                color: cPrimaryBlue,
+                color: colorPrimaryBlue,
               ),
             ),
             onTap: () => launchUrl(
@@ -134,10 +134,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             child: Text(
               'Google Analytics for Firebase',
               textAlign: TextAlign.justify,
-              style: cInter.copyWith(
-                fontWeight: regular,
+              style: fontInter.copyWith(
+                fontWeight: fwRegular,
                 fontSize: 16,
-                color: cPrimaryBlue,
+                color: colorPrimaryBlue,
               ),
             ),
             onTap: () => launchUrl(
@@ -147,22 +147,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             "",
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Log Data",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -171,22 +171,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             logData.indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Cookies",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -195,22 +195,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             cookies.indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Service Providers",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -219,22 +219,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             "We may employ third-party companies and individuals due to the following reasons:",
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           BulletedList(
             bullet: Icon(
               Icons.circle,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
               size: 8,
             ),
             style: TextStyle(
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
             ),
             listItems: const [
               "To facilitate our Service;",
@@ -249,22 +249,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             "We want to inform users of this Service that these third parties have access to their Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.",
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding3,
+            height: paddingXl,
           ),
           Text(
             "Links to Other Sites",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -273,22 +273,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             linksOther.indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Children’s Privacy",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -297,22 +297,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
           Text(
             linksOther.indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Changes to This Privacy Policy",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -322,22 +322,22 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             ("We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page.")
                 .indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Changes to This Privacy Policy",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -347,32 +347,32 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             ("We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page.")
                 .indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           Text(
             "This policy is effective as of 2022-05-29",
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Contact Us",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -382,10 +382,10 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             ("If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at contendance@gmail.com.")
                 .indent(5),
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),

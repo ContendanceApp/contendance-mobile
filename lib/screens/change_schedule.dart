@@ -44,7 +44,7 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
               child: Container(
                 height: 140,
                 decoration: BoxDecoration(
-                  gradient: cGradient,
+                  gradient: colorGradient,
                 ),
                 child: Stack(
                   children: [
@@ -77,10 +77,10 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                               Text(
                                 "Jadwal Pengganti",
                                 //textAlign: TextAlign.center,
-                                style: cInter.copyWith(
-                                  fontWeight: bold,
+                                style: fontInter.copyWith(
+                                  fontWeight: fwBold,
                                   fontSize: 16,
-                                  color: cWhite,
+                                  color: colorWhite,
                                 ),
                               ),
                               const SizedBox(height: 2),
@@ -112,10 +112,10 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                     Text(
                       "Pilih Mata Kuliah",
                       textAlign: TextAlign.left,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         fontSize: 14,
-                        fontWeight: bold,
-                        color: cPrimaryBlack,
+                        fontWeight: fwBold,
+                        color: colorPrimaryBlack,
                       ),
                     ),
                     const SizedBox(
@@ -130,8 +130,8 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                             'Matakuliah',
                             style: TextStyle(
                               fontSize: 16,
-                              fontWeight: medium,
-                              color: cSubText,
+                              fontWeight: fwMedium,
+                              color: colorSubText,
                             ),
                           ),
                           items: subjects
@@ -142,8 +142,8 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                                     item,
                                     style: TextStyle(
                                       fontSize: 16,
-                                      color: cPrimaryBlue,
-                                      fontWeight: medium,
+                                      color: colorPrimaryBlue,
+                                      fontWeight: fwMedium,
                                     ),
                                   ),
                                 ),
@@ -180,15 +180,15 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: cPadding2,
+                      height: paddingLg,
                     ),
                     Text(
                       "Pilih Tanggal",
                       textAlign: TextAlign.left,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         fontSize: 14,
-                        fontWeight: bold,
-                        color: cPrimaryBlack,
+                        fontWeight: fwBold,
+                        color: colorPrimaryBlack,
                       ),
                     ),
                     const SizedBox(
@@ -201,8 +201,10 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                               ? 'Pilih tanggal untuk mengganti kelas'
                               : pickedDate!,
                           style: TextStyle(
-                            color: pickedDate == '' ? cSubText : cPrimaryBlue,
-                            fontWeight: medium,
+                            color: pickedDate == ''
+                                ? colorSubText
+                                : colorPrimaryBlue,
+                            fontWeight: fwMedium,
                             fontSize: 16,
                           ),
                         ),
@@ -233,15 +235,15 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                       ),
                     ),
                     const SizedBox(
-                      height: cPadding2,
+                      height: paddingLg,
                     ),
                     Text(
                       "Pilih Jam",
                       textAlign: TextAlign.left,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         fontSize: 14,
-                        fontWeight: bold,
-                        color: cPrimaryBlack,
+                        fontWeight: fwBold,
+                        color: colorPrimaryBlack,
                       ),
                     ),
                     const SizedBox(
@@ -272,9 +274,9 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                                     pickedStart == '' ? 'Mulai' : pickedStart!,
                                     style: TextStyle(
                                       color: pickedStart == ''
-                                          ? cSubText
-                                          : cPrimaryBlue,
-                                      fontWeight: medium,
+                                          ? colorSubText
+                                          : colorPrimaryBlue,
+                                      fontWeight: fwMedium,
                                       fontSize: 16,
                                     ),
                                   ),
@@ -289,7 +291,7 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                             width: 20,
                             child: Divider(
                               thickness: 2,
-                              color: cSubText.withOpacity(0.5),
+                              color: colorSubText.withOpacity(0.5),
                             ),
                           ),
                         ),
@@ -315,9 +317,9 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                                     pickedEnd == '' ? 'Selesai' : pickedEnd!,
                                     style: TextStyle(
                                       color: pickedEnd == ''
-                                          ? cSubText
-                                          : cPrimaryBlue,
-                                      fontWeight: medium,
+                                          ? colorSubText
+                                          : colorPrimaryBlue,
+                                      fontWeight: fwMedium,
                                       fontSize: 16,
                                     ),
                                   ),
@@ -329,15 +331,15 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                       ],
                     ),
                     const SizedBox(
-                      height: cPadding2,
+                      height: paddingLg,
                     ),
                     Text(
                       "Pilih Lab/Ruangan",
                       textAlign: TextAlign.left,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         fontSize: 14,
-                        fontWeight: bold,
-                        color: cPrimaryBlack,
+                        fontWeight: fwBold,
+                        color: colorPrimaryBlack,
                       ),
                     ),
                     const SizedBox(

@@ -21,9 +21,9 @@ class BaseWhiteScreen extends StatelessWidget {
         // ),
         title: Text(
           "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
-            fontWeight: bold,
+          style: fontInter.copyWith(
+            color: colorPrimaryBlue,
+            fontWeight: fwBold,
             fontSize: 14,
             letterSpacing: 1,
           ),

@@ -46,9 +46,9 @@ class BottomAppBarComp extends StatelessWidget {
                         Text(
                           "Beranda",
                           textAlign: TextAlign.center,
-                          style: cInter.copyWith(
+                          style: fontInter.copyWith(
                             fontSize: 14,
-                            fontWeight: semibold,
+                            fontWeight: fwSemifwBold,
                             color: const Color(0xFFFFFFFF),
                             height: 0.4,
                           ),
@@ -72,9 +72,9 @@ class BottomAppBarComp extends StatelessWidget {
                         Text(
                           "Akun",
                           textAlign: TextAlign.center,
-                          style: cInter.copyWith(
+                          style: fontInter.copyWith(
                             fontSize: 14,
-                            fontWeight: semibold,
+                            fontWeight: fwSemifwBold,
                             color: const Color(0xFFFFFFFF),
                             height: 0.4,
                           ),
@@ -95,9 +95,9 @@ class BottomAppBarComp extends StatelessWidget {
                 child: Text(
                   "Cari Kelas",
                   textAlign: TextAlign.center,
-                  style: cInter.copyWith(
+                  style: fontInter.copyWith(
                     fontSize: 14,
-                    fontWeight: semibold,
+                    fontWeight: fwSemifwBold,
                     color: const Color(0xFFFFFFFF),
                   ),
                 ),

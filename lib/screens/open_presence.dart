@@ -31,14 +31,14 @@ class _OpenPresenceState extends State<OpenPresence> {
               top: MediaQuery.of(context).size.height * 0.15,
               child: Column(
                 children: [
-                  const Text(
+                  Text(
                     "Kelas Ditemukan!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF333333),
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlack,
                     ),
                   ),
                   const SizedBox(height: 25),
@@ -55,11 +55,11 @@ class _OpenPresenceState extends State<OpenPresence> {
                   Text(
                     "Ruangan ${args.schedule.data.room.roomCode}",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF145AE3),
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlue,
                     ),
                   ),
                   const SizedBox(height: 57),
@@ -127,7 +127,7 @@ class _OpenPresenceState extends State<OpenPresence> {
               alignment: AlignmentDirectional.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.symmetric(
-                    horizontal: cPadding1, vertical: cPadding3),
+                    horizontal: paddingBase, vertical: paddingXl),
                 child: Row(
                   children: [
                     !isClicked
@@ -197,7 +197,7 @@ class _OpenPresenceState extends State<OpenPresence> {
                                 height: 15,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 3,
-                                  color: cWhite,
+                                  color: colorWhite,
                                 ),
                               ),
                       ),

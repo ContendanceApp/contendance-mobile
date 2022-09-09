@@ -19,10 +19,10 @@ class _AboutAppState extends State<AboutApp> {
         children: [
           Text(
             "Versi",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -31,22 +31,22 @@ class _AboutAppState extends State<AboutApp> {
           Text(
             "2.1.0",
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Developed by",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -55,10 +55,10 @@ class _AboutAppState extends State<AboutApp> {
           Text(
             "A4 WPPL PENS 2022",
             textAlign: TextAlign.justify,
-            style: cInter.copyWith(
-              fontWeight: regular,
+            style: fontInter.copyWith(
+              fontWeight: fwRegular,
               fontSize: 16,
-              color: cSubText,
+              color: colorSubText,
               height: 1.5,
             ),
           ),

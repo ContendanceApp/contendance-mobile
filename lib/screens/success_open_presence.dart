@@ -20,9 +20,9 @@ class _SuccessPresenceState extends State<SuccessPresence> {
         automaticallyImplyLeading: false,
         title: Text(
           "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
-            fontWeight: bold,
+          style: fontInter.copyWith(
+            color: colorPrimaryBlue,
+            fontWeight: fwBold,
             fontSize: 14,
             letterSpacing: 1,
           ),
@@ -46,11 +46,11 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                         ? 'Presensi Berhasil'
                         : 'Presensi Berhasil Dibuka!',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF333333),
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlack,
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -62,11 +62,11 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                   Text(
                     args.data.room.name,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF145AE3),
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlue,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -74,13 +74,13 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                     toAnimate: false,
                     shape: BadgeShape.square,
                     elevation: 0,
-                    badgeColor: cPrimaryBlue,
+                    badgeColor: colorPrimaryBlue,
                     borderRadius: BorderRadius.circular(150),
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
                       args.data.room.roomCode,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         color: const Color(0xFFFFFFFF).withOpacity(0.9),
                         fontWeight: FontWeight.w600,
                       ),
@@ -167,7 +167,7 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                     Positioned.fill(
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: cGradient,
+                          gradient: colorGradient,
                         ),
                       ),
                     ),
@@ -176,9 +176,9 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 45, vertical: 12),
                         primary: Colors.white,
-                        textStyle: cInter.copyWith(
+                        textStyle: fontInter.copyWith(
                           fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: fwBold,
                         ),
                       ),
                       onPressed: () async {

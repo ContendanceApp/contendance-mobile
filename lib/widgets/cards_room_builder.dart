@@ -60,21 +60,21 @@ class _CardsRoomBuilderState extends State<CardsRoomBuilder> {
               Text(
                 rooms[index].roomCode,
                 textAlign: TextAlign.center,
-                style: cInter.copyWith(
+                style: fontInter.copyWith(
                   fontSize: 14,
-                  fontWeight: bold,
-                  color: cPrimaryBlack,
+                  fontWeight: fwBold,
+                  color: colorPrimaryBlack,
                 ),
               ),
               Text(
                 rooms[index].name,
                 textAlign: TextAlign.left,
                 softWrap: true,
-                style: cInter.copyWith(
+                style: fontInter.copyWith(
                   overflow: TextOverflow.ellipsis,
                   fontSize: 14,
-                  fontWeight: bold,
-                  color: cPrimaryBlue,
+                  fontWeight: fwBold,
+                  color: colorPrimaryBlue,
                 ),
               ),
             ],
@@ -131,8 +131,8 @@ class _CardsRoomBuilderState extends State<CardsRoomBuilder> {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(cRounded),
-                topRight: Radius.circular(cRounded),
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
               ),
             ),
             child: Center(
@@ -148,18 +148,18 @@ class _CardsRoomBuilderState extends State<CardsRoomBuilder> {
                         children: [
                           Text(
                             name + " - " + roomCode,
-                            style: cInter.copyWith(
-                              fontWeight: bold,
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
                               fontSize: 18.0,
-                              color: cPrimaryBlack,
+                              color: colorPrimaryBlack,
                             ),
                           ),
                           Text(
                             location,
-                            style: cInter.copyWith(
-                              fontWeight: bold,
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
                               fontSize: 16.0,
-                              color: cPrimaryBlue,
+                              color: colorPrimaryBlue,
                             ),
                           ),
                           const SizedBox(
@@ -167,9 +167,9 @@ class _CardsRoomBuilderState extends State<CardsRoomBuilder> {
                           ),
                           Text(
                             description,
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 16.0,
-                              color: cSubText,
+                              color: colorSubText,
                             ),
                           ),
                         ],
@@ -179,7 +179,7 @@ class _CardsRoomBuilderState extends State<CardsRoomBuilder> {
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(cPadding1),
+                      padding: const EdgeInsets.all(paddingBase),
                       child: Button(
                         text: "Tutup",
                         primary: true,
