@@ -1,29 +1,32 @@
 import 'dart:convert';
-import 'package:contendance_app/widgets/active_class.dart';
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/widgets/skeleton_active_class.dart';
-import 'package:contendance_app/widgets/skeleton_user_menu.dart';
-import 'package:contendance_app/widgets/subject_card.dart';
-import 'package:contendance_app/widgets/user_menu.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/class_presence.dart';
-import 'package:contendance_app/data/models/login.dart';
-import 'package:contendance_app/data/models/presence_history.dart';
-import 'package:contendance_app/services/location_service.dart';
-import 'package:contendance_app/services/login_service.dart';
-import 'package:contendance_app/services/presence_service.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:iconly/iconly.dart';
 import 'package:badges/badges.dart';
-import 'dart:async';
-import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:figma_squircle/figma_squircle.dart';
+
+import '../widgets/active_class.dart';
+import '../widgets/button.dart';
+import '../widgets/skeleton_active_class.dart';
+import '../widgets/skeleton_user_menu.dart';
+import '../widgets/subject_card.dart';
+import '../widgets/user_menu.dart';
+import '../constant/theme.dart';
+import '../data/models/class_presence.dart';
+import '../data/models/login.dart';
+import '../data/models/presence_history.dart';
+import '../services/location_service.dart';
+import '../services/login_service.dart';
+import '../services/presence_service.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
