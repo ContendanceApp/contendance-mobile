@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:expandable/expandable.dart';
 
-import '../widgets/screen_wrapper/stack_screen.dart';
-import '../widgets/subject_card.dart';
 import '../constant/theme.dart';
 import '../data/models/presence_history.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
+import '../widgets/subject_card.dart';
 
 class SubjectSchedule extends StatefulWidget {
   const SubjectSchedule({Key? key}) : super(key: key);

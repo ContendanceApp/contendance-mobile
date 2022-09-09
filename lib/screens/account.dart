@@ -1,16 +1,17 @@
 import 'dart:convert';
 
-import '../widgets/button.dart';
-import '../constant/theme.dart';
-import '../data/models/login.dart';
-import '../services/login_service.dart';
-
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:figma_squircle/figma_squircle.dart';
+
+import '../constant/theme.dart';
+import '../data/models/login.dart';
+import '../services/login_service.dart';
+import '../widgets/button.dart';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);

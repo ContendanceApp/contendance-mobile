@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+
+import 'package:iconly/iconly.dart';
 import 'package:badges/badges.dart';
 
 import '../constant/theme.dart';
 import '../widgets/button.dart';
-
-import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 
 class ClassFinished extends StatelessWidget {
   const ClassFinished({Key? key}) : super(key: key);

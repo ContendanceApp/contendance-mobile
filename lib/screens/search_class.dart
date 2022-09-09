@@ -1,21 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'dart:async';
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/models/presence.dart';
 import '../screens/open_presence.dart';
-import '../widgets/ripple_animation/ripple_animation.dart';
 import '../services/location_service.dart';
 import '../services/presence_service.dart';
+import '../widgets/ripple_animation/ripple_animation.dart';
 
 void main() => runApp(const SearchClass());
 

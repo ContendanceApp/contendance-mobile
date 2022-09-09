@@ -4,8 +4,8 @@ import 'package:indent/indent.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bulleted_list/bulleted_list.dart';
 
-import '../widgets/screen_wrapper/stack_screen.dart';
 import '../constant/theme.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
 
 class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({Key? key}) : super(key: key);

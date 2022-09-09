@@ -1,9 +1,10 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_beacon/flutter_beacon.dart';
 import 'dart:io' show Platform;
+
 import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_beacon/flutter_beacon.dart';
 
 class Beacon extends StatefulWidget {
   const Beacon({Key? key}) : super(key: key);

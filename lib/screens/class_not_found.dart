@@ -1,7 +1,9 @@
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../constant/theme.dart';
+import '../widgets/button.dart';
 
 class ClassNotFound extends StatefulWidget {
   const ClassNotFound({Key? key}) : super(key: key);

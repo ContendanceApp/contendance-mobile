@@ -1,7 +1,7 @@
-import '../widgets/screen_wrapper/stack_screen.dart';
-import '../constant/theme.dart';
-
 import 'package:flutter/material.dart';
+
+import '../constant/theme.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
 
 class AboutApp extends StatefulWidget {
   const AboutApp({Key? key}) : super(key: key);

@@ -1,12 +1,14 @@
-import '../widgets/screen_wrapper/stack_screen.dart';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skeleton_text/skeleton_text.dart';
+
 import '../constant/theme.dart';
 import '../data/models/login.dart';
 import '../services/login_service.dart';
-
-import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skeleton_text/skeleton_text.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
 
 class AccountDetail extends StatefulWidget {
   const AccountDetail({Key? key}) : super(key: key);

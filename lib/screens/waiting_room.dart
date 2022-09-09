@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../constant/theme.dart';
 import '../widgets/button.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
-import '../constant/theme.dart';
 
 class WaitingRoom extends StatefulWidget {
   const WaitingRoom({Key? key}) : super(key: key);
