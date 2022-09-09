@@ -85,10 +85,10 @@ class _AccountDetailState extends State<AccountDetail> {
         children: [
           Text(
             "Nama",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -97,10 +97,10 @@ class _AccountDetailState extends State<AccountDetail> {
           userInfo.fullname != ""
               ? Text(
                   userInfo.fullname,
-                  style: cInter.copyWith(
-                    fontWeight: medium,
+                  style: fontInter.copyWith(
+                    fontWeight: fwMedium,
                     fontSize: 16,
-                    color: cSubText,
+                    color: colorSubText,
                   ),
                 )
               : SkeletonAnimation(
@@ -116,14 +116,14 @@ class _AccountDetailState extends State<AccountDetail> {
                   ),
                 ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "NRP",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -132,10 +132,10 @@ class _AccountDetailState extends State<AccountDetail> {
           userInfo.sidEid != 0
               ? Text(
                   userInfo.sidEid.toString(),
-                  style: cInter.copyWith(
-                    fontWeight: medium,
+                  style: fontInter.copyWith(
+                    fontWeight: fwMedium,
                     fontSize: 16,
-                    color: cSubText,
+                    color: colorSubText,
                   ),
                 )
               : SkeletonAnimation(
@@ -151,14 +151,14 @@ class _AccountDetailState extends State<AccountDetail> {
                   ),
                 ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Kelas",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -168,10 +168,10 @@ class _AccountDetailState extends State<AccountDetail> {
               ? userInfo.studyGroup?.name != ""
                   ? Text(
                       userInfo.studyGroup!.name,
-                      style: cInter.copyWith(
-                        fontWeight: medium,
+                      style: fontInter.copyWith(
+                        fontWeight: fwMedium,
                         fontSize: 16,
-                        color: cSubText,
+                        color: colorSubText,
                       ),
                     )
                   : SkeletonAnimation(
@@ -188,21 +188,21 @@ class _AccountDetailState extends State<AccountDetail> {
                     )
               : Text(
                   "-",
-                  style: cInter.copyWith(
-                    fontWeight: medium,
+                  style: fontInter.copyWith(
+                    fontWeight: fwMedium,
                     fontSize: 16,
-                    color: cSubText,
+                    color: colorSubText,
                   ),
                 ),
           const SizedBox(
-            height: cPadding2,
+            height: paddingLg,
           ),
           Text(
             "Email",
-            style: cInter.copyWith(
-              fontWeight: bold,
+            style: fontInter.copyWith(
+              fontWeight: fwBold,
               fontSize: 16,
-              color: cPrimaryBlack,
+              color: colorPrimaryBlack,
             ),
           ),
           const SizedBox(
@@ -211,10 +211,10 @@ class _AccountDetailState extends State<AccountDetail> {
           userInfo.email != ""
               ? Text(
                   userInfo.email,
-                  style: cInter.copyWith(
-                    fontWeight: medium,
+                  style: fontInter.copyWith(
+                    fontWeight: fwMedium,
                     fontSize: 16,
-                    color: cSubText,
+                    color: colorSubText,
                   ),
                 )
               : SkeletonAnimation(

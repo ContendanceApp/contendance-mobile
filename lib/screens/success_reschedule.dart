@@ -13,9 +13,9 @@ class SuccessReschedule extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Text(
           "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
-            fontWeight: bold,
+          style: fontInter.copyWith(
+            color: colorPrimaryBlue,
+            fontWeight: fwBold,
             fontSize: 14,
             letterSpacing: 1,
           ),
@@ -26,7 +26,7 @@ class SuccessReschedule extends StatelessWidget {
       ),
       backgroundColor: const Color(0xFFFFFFFF),
       body: SafeArea(
-        minimum: const EdgeInsets.all(cPadding1),
+        minimum: const EdgeInsets.all(paddingBase),
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,
@@ -41,8 +41,8 @@ class SuccessReschedule extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
-                      fontWeight: bold,
-                      color: cPrimaryBlack,
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlack,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -57,8 +57,8 @@ class SuccessReschedule extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16.0,
-                      fontWeight: bold,
-                      color: cPrimaryBlack,
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlack,
                     ),
                   ),
                   SizedBox(
@@ -89,9 +89,9 @@ class SuccessReschedule extends StatelessWidget {
                             margin: const EdgeInsets.only(bottom: 4),
                             child: Text(
                               "Perubahan Ruangan",
-                              style: cInter.copyWith(
+                              style: fontInter.copyWith(
                                 fontSize: 14,
-                                color: cSubText,
+                                color: colorSubText,
                               ),
                             ),
                           ),
@@ -100,16 +100,16 @@ class SuccessReschedule extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16.0,
-                              fontWeight: bold,
-                              color: cPrimaryBlue,
+                              fontWeight: fwBold,
+                              color: colorPrimaryBlue,
                             ),
                           ),
                           const SizedBox(height: 16),
                           Text(
                             "Perubahan Jadwal ",
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 14,
-                              color: cSubText,
+                              color: colorSubText,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -118,8 +118,8 @@ class SuccessReschedule extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16.0,
-                              fontWeight: semibold,
-                              color: cPrimaryBlue,
+                              fontWeight: fwSemifwBold,
+                              color: colorPrimaryBlue,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -128,8 +128,8 @@ class SuccessReschedule extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16,
-                              fontWeight: semibold,
-                              color: cPrimaryBlack,
+                              fontWeight: fwSemifwBold,
+                              color: colorPrimaryBlack,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -147,8 +147,8 @@ class SuccessReschedule extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16.0,
-                              fontWeight: medium,
-                              color: cPrimaryBlack,
+                              fontWeight: fwMedium,
+                              color: colorPrimaryBlack,
                             ),
                           ),
                         ],

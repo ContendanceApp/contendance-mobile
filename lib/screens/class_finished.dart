@@ -16,9 +16,9 @@ class ClassFinished extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Text(
           "CONTENDANCE",
-          style: cInter.copyWith(
+          style: fontInter.copyWith(
             color: Colors.white,
-            fontWeight: bold,
+            fontWeight: fwBold,
             fontSize: 14,
             letterSpacing: 1,
           ),
@@ -43,8 +43,8 @@ class ClassFinished extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
-                      fontWeight: bold,
-                      color: cWhite,
+                      fontWeight: fwBold,
+                      color: colorWhite,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -53,7 +53,7 @@ class ClassFinished extends StatelessWidget {
                     child: Icon(
                       IconlyLight.logout,
                       size: 75,
-                      color: cSubWhite,
+                      color: colorSubWhite,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -63,8 +63,8 @@ class ClassFinished extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: cSubWhite,
+                      fontWeight: fwBold,
+                      color: colorSubWhite,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -78,9 +78,9 @@ class ClassFinished extends StatelessWidget {
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
                       '11:20',
-                      style: cInter.copyWith(
-                        color: cPrimaryBlue,
-                        fontWeight: semibold,
+                      style: fontInter.copyWith(
+                        color: colorPrimaryBlue,
+                        fontWeight: fwSemifwBold,
                       ),
                     ),
                   ),
@@ -99,8 +99,8 @@ class ClassFinished extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: "Inter",
                         fontSize: 16.0,
-                        fontWeight: semibold,
-                        color: cSubWhite,
+                        fontWeight: fwSemifwBold,
+                        color: colorSubWhite,
                         height: 1.5,
                       ),
                     ),
@@ -112,8 +112,8 @@ class ClassFinished extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16,
-                      fontWeight: semibold,
-                      color: cWhite,
+                      fontWeight: fwSemifwBold,
+                      color: colorWhite,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -132,8 +132,8 @@ class ClassFinished extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16.0,
-                      fontWeight: semibold,
-                      color: cSubWhite,
+                      fontWeight: fwSemifwBold,
+                      color: colorSubWhite,
                     ),
                   ),
                 ],
@@ -148,7 +148,7 @@ class ClassFinished extends StatelessWidget {
                     Positioned.fill(
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: cGradient,
+                          gradient: colorGradient,
                         ),
                       ),
                     ),
@@ -162,11 +162,11 @@ class ClassFinished extends StatelessWidget {
                       primary: false,
                       secondary: false,
                       custom: true,
-                      backgroundColor: cWhite,
-                      fontColor: cSubText,
-                      borderColor: cWhite,
-                      paddingX: cPadding3,
-                      paddingY: cPadding1,
+                      backgroundColor: colorWhite,
+                      fontColor: colorSubText,
+                      borderColor: colorWhite,
+                      paddingX: paddingXl,
+                      paddingY: paddingBase,
                     ),
                   ],
                 ),

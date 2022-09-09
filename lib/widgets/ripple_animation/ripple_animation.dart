@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 import 'package:contendance_app/screens/home.dart';
 import 'package:contendance_app/widgets/ripple_animation/circle_painter.dart';
-import 'package:flutter/material.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/services/presence_service.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class RipplesAnimation extends StatefulWidget {
   const RipplesAnimation({
@@ -121,8 +123,8 @@ class _RipplesAnimationState extends State<RipplesAnimation>
         automaticallyImplyLeading: false,
         title: Text(
           "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
+          style: fontInter.copyWith(
+            color: colorPrimaryBlue,
             fontWeight: FontWeight.w800,
             fontSize: 14,
             letterSpacing: 1,
@@ -140,10 +142,10 @@ class _RipplesAnimationState extends State<RipplesAnimation>
           children: [
             Text(
               "Mencari Kelas ...",
-              style: cInter.copyWith(
+              style: fontInter.copyWith(
                 fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: cPrimaryBlack,
+                fontWeight: fwBold,
+                color: colorPrimaryBlack,
               ),
             ),
             Center(

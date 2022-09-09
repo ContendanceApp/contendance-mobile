@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
             style: TextStyle(
               color: const Color(0xff145ae3),
               fontSize: 20.0,
-              fontWeight: bold,
+              fontWeight: fwBold,
             ),
             textAlign: TextAlign.center,
           ),
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Text(
                 "Masuk Ke akunmu",
                 style: TextStyle(
-                  fontWeight: bold,
+                  fontWeight: fwBold,
                   fontSize: 20,
                 ),
               ),
@@ -111,19 +111,19 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
-              gradient: cGradient,
+              gradient: colorGradient,
             ),
-            margin: const EdgeInsets.only(top: cPadding2),
-            padding: const EdgeInsets.all(cPadding2),
+            margin: const EdgeInsets.only(top: paddingLg),
+            padding: const EdgeInsets.all(paddingLg),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Akun Demo (Demo Account)",
                   style: TextStyle(
-                    color: cWhite,
+                    color: colorWhite,
                     fontSize: 16.0,
-                    fontWeight: bold,
+                    fontWeight: fwBold,
                   ),
                 ),
                 const SizedBox(
@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Email: demo@contendance.com",
                   style: TextStyle(
-                    color: cSubWhite,
+                    color: colorSubWhite,
                     fontSize: 16.0,
                   ),
                 ),
@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   "Password: 12345678",
                   style: TextStyle(
-                    color: cSubWhite,
+                    color: colorSubWhite,
                     fontSize: 16.0,
                   ),
                 ),
@@ -165,12 +165,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   labelStyle: TextStyle(
-                    fontWeight: semibold,
-                    color: cSubText,
+                    fontWeight: fwSemifwBold,
+                    color: colorSubText,
                   ),
                   errorText:
                       _validateEmail ? null : "Email tidak boleh kosong!",
-                  focusColor: cPrimaryBlue,
+                  focusColor: colorPrimaryBlue,
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 2,
@@ -203,12 +203,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 labelStyle: TextStyle(
-                  fontWeight: semibold,
-                  color: cSubText,
+                  fontWeight: fwSemifwBold,
+                  color: colorSubText,
                 ),
                 errorText:
                     _validatePassword ? null : "Password tidak boleh kosong!",
-                focusColor: cPrimaryBlue,
+                focusColor: colorPrimaryBlue,
                 focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 2,
@@ -226,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ishiddenPassword
                       ? Icon(
                           Icons.visibility_off_outlined,
-                          color: cSubText,
+                          color: colorSubText,
                         )
                       : const Icon(
                           Icons.visibility_outlined,
@@ -274,11 +274,11 @@ class _LoginScreenState extends State<LoginScreen> {
             primary: true,
             secondary: false,
             withChild: !isClicked
-                ? const Text(
+                ? Text(
                     'LOGIN',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: fwBold,
                       color: Colors.white,
                     ),
                   )
@@ -287,7 +287,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 15,
                     child: CircularProgressIndicator(
                       strokeWidth: 3,
-                      color: cWhite,
+                      color: colorWhite,
                     ),
                   ),
           ),
@@ -302,7 +302,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //   ),
           //   child: Ink(
           //     decoration: BoxDecoration(
-          //       gradient: cGradient,
+          //       gradient: colorGradient,
           //       borderRadius: const BorderRadius.all(Radius.circular(80.0)),
           //     ),
           //     child: Container(
@@ -317,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //               'LOGIN',
           //               textAlign: TextAlign.center,
           //               style: TextStyle(
-          //                 fontWeight: FontWeight.bold,
+          //                 fontWeight: FontWeight.fwBold,
           //                 color: Colors.white,
           //               ),
           //             )
@@ -326,7 +326,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //               height: 15,
           //               child: CircularProgressIndicator(
           //                 strokeWidth: 3,
-          //                 color: cWhite,
+          //                 color: colorWhite,
           //               ),
           //             ),
           //     ),

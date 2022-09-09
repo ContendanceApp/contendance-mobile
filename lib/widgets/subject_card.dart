@@ -33,10 +33,10 @@ class SubjectCard extends StatelessWidget {
                   Text(
                     history.acronym,
                     textAlign: TextAlign.center,
-                    style: cInter.copyWith(
+                    style: fontInter.copyWith(
                       fontSize: 14,
-                      fontWeight: bold,
-                      color: cPrimaryBlue,
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlue,
                     ),
                   ),
                 ],
@@ -56,10 +56,10 @@ class SubjectCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       history.subject,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         fontSize: 16,
-                        fontWeight: medium,
-                        color: cSubText,
+                        fontWeight: fwMedium,
+                        color: colorSubText,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -72,18 +72,18 @@ class SubjectCard extends StatelessWidget {
                           children: [
                             Text(
                               '08:00 - 10:00',
-                              style: cInter.copyWith(
-                                color: cPrimaryBlack,
+                              style: fontInter.copyWith(
+                                color: colorPrimaryBlack,
                                 fontSize: 14,
-                                fontWeight: bold,
+                                fontWeight: fwBold,
                               ),
                             ),
                             Text(
                               history.lab,
-                              style: cInter.copyWith(
+                              style: fontInter.copyWith(
                                 fontSize: 14,
-                                fontWeight: bold,
-                                color: cPrimaryBlue,
+                                fontWeight: fwBold,
+                                color: colorPrimaryBlue,
                               ),
                             ),
                           ],
@@ -134,8 +134,8 @@ class SubjectCard extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(cRounded),
-                topRight: Radius.circular(cRounded),
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
               ),
             ),
             child: Center(
@@ -161,10 +161,10 @@ class SubjectCard extends StatelessWidget {
                                 Text(
                                   history.acronym,
                                   textAlign: TextAlign.center,
-                                  style: cInter.copyWith(
+                                  style: fontInter.copyWith(
                                     fontSize: 14,
-                                    fontWeight: bold,
-                                    color: cPrimaryBlue,
+                                    fontWeight: fwBold,
+                                    color: colorPrimaryBlue,
                                   ),
                                 ),
                               ],
@@ -175,7 +175,7 @@ class SubjectCard extends StatelessWidget {
                                   const BorderRadius.all(Radius.circular(15)),
                             ),
                           ),
-                          const SizedBox(height: cPadding1),
+                          const SizedBox(height: paddingBase),
                           Expanded(
                             flex: 2,
                             child: Container(
@@ -186,13 +186,13 @@ class SubjectCard extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     history.subject,
-                                    style: cInter.copyWith(
+                                    style: fontInter.copyWith(
                                       fontSize: 18,
-                                      fontWeight: bold,
-                                      color: cPrimaryBlue,
+                                      fontWeight: fwBold,
+                                      color: colorPrimaryBlue,
                                     ),
                                   ),
-                                  const SizedBox(height: cPadding2),
+                                  const SizedBox(height: paddingLg),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -205,10 +205,10 @@ class SubjectCard extends StatelessWidget {
                                         children: [
                                           Text(
                                             'Waktu Pelaksanaan',
-                                            style: cInter.copyWith(
-                                              color: cSubText,
+                                            style: fontInter.copyWith(
+                                              color: colorSubText,
                                               fontSize: 16,
-                                              fontWeight: medium,
+                                              fontWeight: fwMedium,
                                             ),
                                           ),
                                           const SizedBox(
@@ -216,21 +216,21 @@ class SubjectCard extends StatelessWidget {
                                           ),
                                           Text(
                                             '08:00 - 10:00',
-                                            style: cInter.copyWith(
-                                              color: cPrimaryBlack,
+                                            style: fontInter.copyWith(
+                                              color: colorPrimaryBlack,
                                               fontSize: 16,
-                                              fontWeight: semibold,
+                                              fontWeight: fwSemifwBold,
                                             ),
                                           ),
                                           const SizedBox(
-                                            height: cPadding1,
+                                            height: paddingBase,
                                           ),
                                           Text(
                                             'Tempat Pelaksanaan',
-                                            style: cInter.copyWith(
-                                              color: cSubText,
+                                            style: fontInter.copyWith(
+                                              color: colorSubText,
                                               fontSize: 16,
-                                              fontWeight: medium,
+                                              fontWeight: fwMedium,
                                             ),
                                           ),
                                           const SizedBox(
@@ -238,10 +238,10 @@ class SubjectCard extends StatelessWidget {
                                           ),
                                           Text(
                                             history.lab,
-                                            style: cInter.copyWith(
+                                            style: fontInter.copyWith(
                                               fontSize: 16,
-                                              fontWeight: bold,
-                                              color: cPrimaryBlue,
+                                              fontWeight: fwBold,
+                                              color: colorPrimaryBlue,
                                             ),
                                           ),
                                         ],
@@ -249,7 +249,7 @@ class SubjectCard extends StatelessWidget {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: cPadding1,
+                                    height: paddingBase,
                                   ),
                                   Column(
                                     crossAxisAlignment:
@@ -257,10 +257,10 @@ class SubjectCard extends StatelessWidget {
                                     children: [
                                       Text(
                                         'Dosen Pengampu',
-                                        style: cInter.copyWith(
-                                          color: cSubText,
+                                        style: fontInter.copyWith(
+                                          color: colorSubText,
                                           fontSize: 16,
-                                          fontWeight: medium,
+                                          fontWeight: fwMedium,
                                         ),
                                       ),
                                       const SizedBox(
@@ -268,10 +268,10 @@ class SubjectCard extends StatelessWidget {
                                       ),
                                       Text(
                                         "Andhik Ampuh Yunanto",
-                                        style: cInter.copyWith(
+                                        style: fontInter.copyWith(
                                           fontSize: 16,
-                                          fontWeight: semibold,
-                                          color: cPrimaryBlack,
+                                          fontWeight: fwSemifwBold,
+                                          color: colorPrimaryBlack,
                                         ),
                                       ),
                                     ],
@@ -287,7 +287,7 @@ class SubjectCard extends StatelessWidget {
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(cPadding1),
+                      padding: const EdgeInsets.all(paddingBase),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

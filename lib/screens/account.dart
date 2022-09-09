@@ -106,7 +106,7 @@ class _AccountState extends State<Account> {
               alignment: AlignmentDirectional.topCenter,
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: cGradient,
+                  gradient: colorGradient,
                 ),
                 height: 225,
                 child: Stack(
@@ -140,10 +140,10 @@ class _AccountState extends State<Account> {
                               Text(
                                 "Akun",
                                 //textAlign: TextAlign.center,
-                                style: cInter.copyWith(
-                                  fontWeight: bold,
+                                style: fontInter.copyWith(
+                                  fontWeight: fwBold,
                                   fontSize: 16,
-                                  color: cWhite,
+                                  color: colorWhite,
                                 ),
                               ),
                               const SizedBox(height: 2),
@@ -179,10 +179,10 @@ class _AccountState extends State<Account> {
                             userInfo.fullname != ""
                                 ? Text(
                                     userInfo.fullname,
-                                    style: cInter.copyWith(
-                                      fontWeight: bold,
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwBold,
                                       fontSize: 18,
-                                      color: cPrimaryBlack,
+                                      color: colorPrimaryBlack,
                                     ),
                                   )
                                 : SkeletonAnimation(
@@ -205,10 +205,10 @@ class _AccountState extends State<Account> {
                             userInfo.email != ""
                                 ? Text(
                                     userInfo.email,
-                                    style: cInter.copyWith(
-                                      fontWeight: medium,
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwMedium,
                                       fontSize: 16,
-                                      color: cSubText,
+                                      color: colorSubText,
                                     ),
                                   )
                                 : SkeletonAnimation(
@@ -233,13 +233,13 @@ class _AccountState extends State<Account> {
                         height: 50,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: cPadding1),
+                        padding: const EdgeInsets.only(left: paddingBase),
                         child: Text(
                           "Menu",
-                          style: cInter.copyWith(
-                            fontWeight: bold,
+                          style: fontInter.copyWith(
+                            fontWeight: fwBold,
                             fontSize: 16,
-                            color: cPrimaryBlack,
+                            color: colorPrimaryBlack,
                           ),
                         ),
                       ),
@@ -251,7 +251,7 @@ class _AccountState extends State<Account> {
                         child: InkWell(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: cPadding1,
+                              horizontal: paddingBase,
                               vertical: 10,
                             ),
                             child: Row(
@@ -262,10 +262,10 @@ class _AccountState extends State<Account> {
                                 ),
                                 Text(
                                   "Detail Akun",
-                                  style: cInter.copyWith(
-                                    fontWeight: medium,
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwMedium,
                                     fontSize: 16,
-                                    color: cPrimaryBlack,
+                                    color: colorPrimaryBlack,
                                   ),
                                 ),
                               ],
@@ -281,7 +281,7 @@ class _AccountState extends State<Account> {
                       //   child: InkWell(
                       //     child: Container(
                       //       padding: const EdgeInsets.symmetric(
-                      //         horizontal: cPadding1,
+                      //         horizontal: paddingBase,
                       //         vertical: 10,
                       //       ),
                       //       child: Row(
@@ -292,10 +292,10 @@ class _AccountState extends State<Account> {
                       //           ),
                       //           Text(
                       //             "Privacy Policy",
-                      //             style: cInter.copyWith(
-                      //               fontWeight: medium,
+                      //             style: fontInter.copyWith(
+                      //               fontWeight: fwMedium,
                       //               fontSize: 16,
-                      //               color: cPrimaryBlack,
+                      //               color: colorPrimaryBlack,
                       //             ),
                       //           ),
                       //         ],
@@ -311,7 +311,7 @@ class _AccountState extends State<Account> {
                         child: InkWell(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: cPadding1,
+                              horizontal: paddingBase,
                               vertical: 10,
                             ),
                             child: Row(
@@ -323,10 +323,10 @@ class _AccountState extends State<Account> {
                                 ),
                                 Text(
                                   "Tentang Aplikasi",
-                                  style: cInter.copyWith(
-                                    fontWeight: medium,
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwMedium,
                                     fontSize: 16,
-                                    color: cPrimaryBlack,
+                                    color: colorPrimaryBlack,
                                   ),
                                 ),
                               ],
@@ -358,7 +358,7 @@ class _AccountState extends State<Account> {
                       ),
                       fit: BoxFit.cover,
                     ),
-                    color: cSubWhite,
+                    color: colorSubWhite,
                     shape: SmoothRectangleBorder(
                       borderRadius: SmoothBorderRadius(
                         cornerRadius: 30,
@@ -374,15 +374,15 @@ class _AccountState extends State<Account> {
               left: 0,
               right: 0,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: cPadding1),
+                padding: const EdgeInsets.symmetric(horizontal: paddingBase),
                 child: Button(
                   text: "KELUAR DARI AKUN",
                   primary: false,
                   secondary: false,
                   custom: true,
-                  backgroundColor: cWhite,
-                  borderColor: cDanger,
-                  fontColor: cDanger,
+                  backgroundColor: colorWhite,
+                  borderColor: colorDanger,
+                  fontColor: colorDanger,
                   callback: () {
                     showModalBottom();
                   },
@@ -407,8 +407,8 @@ class _AccountState extends State<Account> {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(cRounded),
-                topRight: Radius.circular(cRounded),
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
               ),
             ),
             child: Center(
@@ -423,10 +423,10 @@ class _AccountState extends State<Account> {
                         children: [
                           Text(
                             "Keluar dari akun ini?",
-                            style: cInter.copyWith(
-                              fontWeight: bold,
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
                               fontSize: 18.0,
-                              color: cPrimaryBlack,
+                              color: colorPrimaryBlack,
                             ),
                           ),
                           const SizedBox(
@@ -434,9 +434,9 @@ class _AccountState extends State<Account> {
                           ),
                           Text(
                             "Anda masih dapat login kembali setelah keluar dari akun ini 😉",
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 16.0,
-                              color: cSubText,
+                              color: colorSubText,
                             ),
                           ),
                         ],
@@ -446,7 +446,7 @@ class _AccountState extends State<Account> {
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(cPadding1),
+                      padding: const EdgeInsets.all(paddingBase),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -460,7 +460,7 @@ class _AccountState extends State<Account> {
                             ),
                           ),
                           const SizedBox(
-                            width: cPadding2,
+                            width: paddingLg,
                           ),
                           Expanded(
                             flex: 1,

@@ -30,11 +30,11 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
                   Text(
                     args.message,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF333333),
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlack,
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -46,11 +46,11 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
                   Text(
                     args.data.room.name,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF145AE3),
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlue,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -58,13 +58,13 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
                     toAnimate: false,
                     shape: BadgeShape.square,
                     elevation: 0,
-                    badgeColor: cPrimaryBlue,
+                    badgeColor: colorPrimaryBlue,
                     borderRadius: BorderRadius.circular(150),
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
                       DateFormat("H:mm").format(DateTime.now()),
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         color: const Color(0xFFFFFFFF).withOpacity(0.9),
                         fontWeight: FontWeight.w600,
                       ),

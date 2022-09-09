@@ -122,10 +122,10 @@ class UserMenu extends StatelessWidget {
             Text(
               text,
               textAlign: TextAlign.start,
-              style: cInter.copyWith(
+              style: fontInter.copyWith(
                 fontSize: 14,
-                fontWeight: bold,
-                color: cPrimaryBlack,
+                fontWeight: fwBold,
+                color: colorPrimaryBlack,
               ),
             ),
           ],
@@ -166,10 +166,10 @@ class UserMenu extends StatelessWidget {
             Text(
               text,
               textAlign: TextAlign.center,
-              style: cInter.copyWith(
+              style: fontInter.copyWith(
                 fontSize: 14,
-                fontWeight: bold,
-                color: cPrimaryBlack,
+                fontWeight: fwBold,
+                color: colorPrimaryBlack,
               ),
             ),
           ],

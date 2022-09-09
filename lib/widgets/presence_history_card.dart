@@ -35,10 +35,10 @@ class PresenceHistoryCard extends StatelessWidget {
                   Text(
                     "ACR",
                     textAlign: TextAlign.center,
-                    style: cInter.copyWith(
+                    style: fontInter.copyWith(
                       fontSize: 14,
-                      fontWeight: bold,
-                      color: cPrimaryBlue,
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlue,
                     ),
                   ),
                 ],
@@ -61,10 +61,10 @@ class PresenceHistoryCard extends StatelessWidget {
                           ? historyLecturer!.subjectSchedule.subject.name
                           : historyStudent!
                               .presences.subjectSchedule.subject.name,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: cSubText,
+                        color: colorSubText,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -76,10 +76,10 @@ class PresenceHistoryCard extends StatelessWidget {
                           historyLecturer != null
                               ? historyLecturer!.room.roomCode
                               : historyStudent!.presences.room.roomCode,
-                          style: cInter.copyWith(
+                          style: fontInter.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
-                            color: cPrimaryBlue,
+                            color: colorPrimaryBlue,
                           ),
                         ),
                         Column(
@@ -88,8 +88,8 @@ class PresenceHistoryCard extends StatelessWidget {
                           children: [
                             Text(
                               'Presensi Pukul',
-                              style: cInter.copyWith(
-                                color: cPrimaryBlack,
+                              style: fontInter.copyWith(
+                                color: colorPrimaryBlack,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -98,8 +98,8 @@ class PresenceHistoryCard extends StatelessWidget {
                               historyLecturer != null
                                   ? historyLecturer!.openTime
                                   : historyStudent!.presenceTime,
-                              style: cInter.copyWith(
-                                color: cPrimaryBlue,
+                              style: fontInter.copyWith(
+                                color: colorPrimaryBlue,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),

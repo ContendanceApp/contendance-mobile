@@ -39,16 +39,16 @@ class Button extends StatelessWidget {
             ? Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(80.0),
-                  gradient: cGradient,
+                  gradient: colorGradient,
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 18),
                     primary: Colors.white,
-                    textStyle: cInter.copyWith(
+                    textStyle: fontInter.copyWith(
                       fontSize: fontSize,
-                      fontWeight: bold,
+                      fontWeight: fwBold,
                     ),
                   ),
                   onPressed: callback,
@@ -58,16 +58,16 @@ class Button extends StatelessWidget {
             : Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(80.0),
-                  gradient: cGradient,
+                  gradient: colorGradient,
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 18),
                     primary: Colors.white,
-                    textStyle: cInter.copyWith(
+                    textStyle: fontInter.copyWith(
                       fontSize: fontSize,
-                      fontWeight: bold,
+                      fontWeight: fwBold,
                     ),
                   ),
                   onPressed: callback,
@@ -79,16 +79,16 @@ class Button extends StatelessWidget {
                 ? Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: cPrimaryBlue),
-                      color: cWhite,
+                      border: Border.all(color: colorPrimaryBlue),
+                      color: colorWhite,
                     ),
                     child: TextButton(
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 18),
-                        primary: cPrimaryBlue,
-                        textStyle: cInter.copyWith(
+                        primary: colorPrimaryBlue,
+                        textStyle: fontInter.copyWith(
                           fontSize: fontSize,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: fwBold,
                         ),
                       ),
                       onPressed: callback,
@@ -98,16 +98,16 @@ class Button extends StatelessWidget {
                 : Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: cPrimaryBlue),
-                      color: cWhite,
+                      border: Border.all(color: colorPrimaryBlue),
+                      color: colorWhite,
                     ),
                     child: TextButton(
                       style: TextButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 18),
-                        primary: cPrimaryBlue,
-                        textStyle: cInter.copyWith(
+                        primary: colorPrimaryBlue,
+                        textStyle: fontInter.copyWith(
                           fontSize: fontSize,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: fwBold,
                         ),
                       ),
                       onPressed: callback,
@@ -117,7 +117,7 @@ class Button extends StatelessWidget {
             : Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: borderColor ?? cPrimaryBlue),
+                  border: Border.all(color: borderColor ?? colorPrimaryBlue),
                   color: backgroundColor,
                 ),
                 child: TextButton(
@@ -127,9 +127,9 @@ class Button extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         vertical: paddingY ?? 18, horizontal: paddingX ?? 40),
                     primary: fontColor,
-                    textStyle: cInter.copyWith(
+                    textStyle: fontInter.copyWith(
                       fontSize: customFontSize ?? fontSize,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: fwBold,
                     ),
                   ),
                   onPressed: callback,

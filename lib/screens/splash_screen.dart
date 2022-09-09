@@ -28,7 +28,7 @@ class _SplashScreen extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: cGradient,
+        gradient: colorGradient,
       ),
       child: Stack(
         children: <Widget>[

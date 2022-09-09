@@ -26,7 +26,7 @@ class _ActiveClassState extends State<ActiveClass> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(cPadding1),
+      padding: const EdgeInsets.all(paddingBase),
       decoration: BoxDecoration(
           color: const Color(0xFFFFFFFF),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -76,10 +76,10 @@ class _ActiveClassState extends State<ActiveClass> {
                           Text(
                             widget.classPresence.room.roomCode,
                             textAlign: TextAlign.left,
-                            style: cInter.copyWith(
-                              fontWeight: bold,
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
                               fontSize: 16.0,
-                              color: cPrimaryBlue,
+                              color: colorPrimaryBlue,
                             ),
                           ),
                           const SizedBox(
@@ -90,10 +90,10 @@ class _ActiveClassState extends State<ActiveClass> {
                             textAlign: TextAlign.left,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 14.0,
-                              fontWeight: medium,
-                              color: cSubText,
+                              fontWeight: fwMedium,
+                              color: colorSubText,
                             ),
                           ),
                         ],
@@ -101,10 +101,10 @@ class _ActiveClassState extends State<ActiveClass> {
                       Text(
                         "${widget.classPresence.subjectSchedule.startTime} - ${widget.classPresence.subjectSchedule.finishTime}",
                         textAlign: TextAlign.left,
-                        style: cInter.copyWith(
+                        style: fontInter.copyWith(
                           fontSize: 14,
-                          fontWeight: semibold,
-                          color: cPrimaryBlack,
+                          fontWeight: fwSemifwBold,
+                          color: colorPrimaryBlack,
                         ),
                       ),
                     ],
@@ -114,7 +114,7 @@ class _ActiveClassState extends State<ActiveClass> {
             ],
           ),
           SizedBox(
-            height: widget.roleId != 1 ? cPadding2 : 0,
+            height: widget.roleId != 1 ? paddingLg : 0,
           ),
           Row(
             children: [
@@ -131,9 +131,9 @@ class _ActiveClassState extends State<ActiveClass> {
                         primary: false,
                         secondary: false,
                         custom: true,
-                        backgroundColor: cDanger,
-                        fontColor: cWhite,
-                        borderColor: cDanger,
+                        backgroundColor: colorDanger,
+                        fontColor: colorWhite,
+                        borderColor: colorDanger,
                       ),
                     )
                   : const SizedBox(),
@@ -158,9 +158,9 @@ class _ActiveClassState extends State<ActiveClass> {
               //       style: TextButton.styleFrom(
               //         padding: const EdgeInsets.symmetric(vertical: 12),
               //         primary: Colors.white,
-              //         textStyle: cInter.copyWith(
+              //         textStyle: fontInter.copyWith(
               //           fontSize: 16,
-              //           fontWeight: FontWeight.bold,
+              //           fontWeight: FontWeight.fwBold,
               //         ),
               //       ),
               //       onPressed: () {},
@@ -190,8 +190,8 @@ class _ActiveClassState extends State<ActiveClass> {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(cRounded),
-                topRight: Radius.circular(cRounded),
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
               ),
             ),
             child: Center(
@@ -207,18 +207,18 @@ class _ActiveClassState extends State<ActiveClass> {
                           widget.roleId == 1
                               ? Text(
                                   "Apakah anda yakin keluar kelas?",
-                                  style: cInter.copyWith(
-                                    fontWeight: bold,
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwBold,
                                     fontSize: 18.0,
-                                    color: cPrimaryBlack,
+                                    color: colorPrimaryBlack,
                                   ),
                                 )
                               : Text(
                                   "Apakah anda yakin menutup presensi?",
-                                  style: cInter.copyWith(
-                                    fontWeight: bold,
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwBold,
                                     fontSize: 18.0,
-                                    color: cPrimaryBlack,
+                                    color: colorPrimaryBlack,
                                   ),
                                 ),
                           const SizedBox(
@@ -228,9 +228,9 @@ class _ActiveClassState extends State<ActiveClass> {
                             widget.roleId == 1
                                 ? "Kelas anda belum selesai, anda tidak dapat masuk kembali ke kelas ini"
                                 : "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 16.0,
-                              color: cSubText,
+                              color: colorSubText,
                             ),
                           ),
                         ],
@@ -240,7 +240,7 @@ class _ActiveClassState extends State<ActiveClass> {
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(cPadding1),
+                      padding: const EdgeInsets.all(paddingBase),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -254,7 +254,7 @@ class _ActiveClassState extends State<ActiveClass> {
                             ),
                           ),
                           const SizedBox(
-                            width: cPadding2,
+                            width: paddingLg,
                           ),
                           Expanded(
                             flex: 1,
@@ -269,12 +269,12 @@ class _ActiveClassState extends State<ActiveClass> {
                                 Navigator.pop(context);
                                 EasyLoading.instance
                                   ..indicatorWidget = SpinKitFoldingCube(
-                                    color: cSecondaryBlue,
+                                    color: colorSecondaryBlue,
                                     size: 30.0,
                                   )
                                   ..contentPadding = const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 15)
-                                  ..indicatorColor = cPrimaryBlue;
+                                  ..indicatorColor = colorPrimaryBlue;
                                 EasyLoading.show(
                                     status: 'Loading...',
                                     dismissOnTap: false,
@@ -298,9 +298,9 @@ class _ActiveClassState extends State<ActiveClass> {
                               primary: false,
                               secondary: false,
                               custom: true,
-                              backgroundColor: cDanger,
-                              fontColor: cWhite,
-                              borderColor: cDanger,
+                              backgroundColor: colorDanger,
+                              fontColor: colorWhite,
+                              borderColor: colorDanger,
                             ),
                           ),
                         ],

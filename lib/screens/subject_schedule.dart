@@ -129,15 +129,16 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
                     (history) => ExpandablePanel(
                       header: Text(
                         days[history.key],
-                        style: cInter.copyWith(
-                          color: cPrimaryBlack,
-                          fontWeight: bold,
+                        style: fontInter.copyWith(
+                          color: colorPrimaryBlack,
+                          fontWeight: fwBold,
                           fontSize: 24,
                         ),
                       ),
                       collapsed: const SizedBox(height: 16),
                       expanded: Container(
-                        margin: const EdgeInsets.symmetric(vertical: cPadding1),
+                        margin:
+                            const EdgeInsets.symmetric(vertical: paddingBase),
                         child: Column(
                           children: (histories[history.key])
                               .map((history) => SubjectCard(history: history))
@@ -153,7 +154,7 @@ class _SubjectScheduleState extends State<SubjectSchedule> {
                         iconPadding: const EdgeInsets.all(0),
                         animationDuration: const Duration(milliseconds: 300),
                         iconSize: 24,
-                        iconColor: cPrimaryBlack,
+                        iconColor: colorPrimaryBlack,
                       ),
                     ),
                   )

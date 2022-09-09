@@ -18,9 +18,9 @@ class _ClassNotFoundState extends State<ClassNotFound> {
         automaticallyImplyLeading: false,
         title: Text(
           "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
-            fontWeight: bold,
+          style: fontInter.copyWith(
+            color: colorPrimaryBlue,
+            fontWeight: fwBold,
             fontSize: 14,
             letterSpacing: 1,
           ),
@@ -39,14 +39,14 @@ class _ClassNotFoundState extends State<ClassNotFound> {
               top: MediaQuery.of(context).size.height * 0.1,
               child: Column(
                 children: [
-                  const Text(
+                  Text(
                     "Kelas tidak ditemukan!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF333333),
+                      fontWeight: fwBold,
+                      color: const Color(0xFF333333),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -60,10 +60,10 @@ class _ClassNotFoundState extends State<ClassNotFound> {
                     child: Text(
                       "Pastikan anda berada pada jangkauan kelas atau ruangan!",
                       textAlign: TextAlign.center,
-                      style: cInter.copyWith(
+                      style: fontInter.copyWith(
                         fontSize: 16.0,
                         height: 1.5,
-                        color: cSubText,
+                        color: colorSubText,
                       ),
                     ),
                   ),
@@ -82,9 +82,9 @@ class _ClassNotFoundState extends State<ClassNotFound> {
                 primary: false,
                 secondary: false,
                 custom: true,
-                backgroundColor: cSubText,
-                fontColor: cWhite,
-                borderColor: cSubText,
+                backgroundColor: colorSubText,
+                fontColor: colorWhite,
+                borderColor: colorSubText,
                 paddingX: 45,
               ),
             )

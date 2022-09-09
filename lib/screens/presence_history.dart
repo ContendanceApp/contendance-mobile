@@ -140,10 +140,10 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           // Text(
           //   "Cari Berdasarkan Tanggal",
           //   textAlign: TextAlign.left,
-          //   style: cInter.copyWith(
+          //   style: fontInter.copyWith(
           //     fontSize: 14,
-          //     fontWeight: bold,
-          //     color: cPrimaryBlack,
+          //     fontWeight: fwBold,
+          //     color: colorPrimaryBlack,
           //   ),
           // ),
           // Padding(
@@ -159,8 +159,8 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           //               'Tgl',
           //               style: TextStyle(
           //                 fontSize: 16,
-          //                 fontWeight: medium,
-          //                 color: cSubText,
+          //                 fontWeight: fwMedium,
+          //                 color: colorSubText,
           //               ),
           //             ),
           //             items: day
@@ -216,8 +216,8 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           //                 'Bulan',
           //                 style: TextStyle(
           //                   fontSize: 16,
-          //                   fontWeight: medium,
-          //                   color: cSubText,
+          //                   fontWeight: fwMedium,
+          //                   color: colorSubText,
           //                 ),
           //               ),
           //               items: month
@@ -272,8 +272,8 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           //               'Tahun',
           //               style: TextStyle(
           //                 fontSize: 16,
-          //                 fontWeight: medium,
-          //                 color: cSubText,
+          //                 fontWeight: fwMedium,
+          //                 color: colorSubText,
           //               ),
           //             ),
           //             items: year
@@ -326,19 +326,19 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
             children: [
               Text(
                 'Hari Ini', //need improve
-                style: cInter.copyWith(
-                  fontWeight: bold,
+                style: fontInter.copyWith(
+                  fontWeight: fwBold,
                   fontSize: 24,
-                  color: cPrimaryBlack,
+                  color: colorPrimaryBlack,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
                 dayNow, //need improve
-                style: cInter.copyWith(
-                  fontWeight: medium,
+                style: fontInter.copyWith(
+                  fontWeight: fwMedium,
                   fontSize: 15,
-                  color: cSubText,
+                  color: colorSubText,
                 ),
               ),
             ],
@@ -373,10 +373,10 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                         vertical: 100),
                                     child: Text(
                                       'Belum ada presensi',
-                                      style: cInter.copyWith(
-                                        fontWeight: bold,
+                                      style: fontInter.copyWith(
+                                        fontWeight: fwBold,
                                         fontSize: 18,
-                                        color: cSubText,
+                                        color: colorSubText,
                                       ),
                                     ),
                                   ),
@@ -402,10 +402,10 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                       const EdgeInsets.symmetric(vertical: 100),
                                   child: Text(
                                     'Belum ada presensi',
-                                    style: cInter.copyWith(
-                                      fontWeight: bold,
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwBold,
                                       fontSize: 18,
-                                      color: cSubText,
+                                      color: colorSubText,
                                     ),
                                   ),
                                 ),
@@ -438,10 +438,10 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                             vertical: 100),
                                         child: Text(
                                           'Belum ada presensi',
-                                          style: cInter.copyWith(
-                                            fontWeight: bold,
+                                          style: fontInter.copyWith(
+                                            fontWeight: fwBold,
                                             fontSize: 18,
-                                            color: cSubText,
+                                            color: colorSubText,
                                           ),
                                         ),
                                       ),
@@ -471,10 +471,10 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                           vertical: 100),
                                       child: Text(
                                         'Belum ada presensi',
-                                        style: cInter.copyWith(
-                                          fontWeight: bold,
+                                        style: fontInter.copyWith(
+                                          fontWeight: fwBold,
                                           fontSize: 18,
-                                          color: cSubText,
+                                          color: colorSubText,
                                         ),
                                       ),
                                     ),

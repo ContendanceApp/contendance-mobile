@@ -318,7 +318,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       extendBody: true,
       body: RefreshIndicator(
-        color: cPrimaryBlue,
+        color: colorPrimaryBlue,
         onRefresh: () async {
           // Replace this delay with the code to be executed during refresh
           // and return a Future when code finishs execution.
@@ -333,7 +333,7 @@ class _HomeState extends State<Home> {
                 alignment: AlignmentDirectional.topCenter,
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: cGradient,
+                    gradient: colorGradient,
                     image: const DecorationImage(
                       image: svg_provider.Svg(
                         'assets/images/bg-waves.svg',
@@ -384,10 +384,10 @@ class _HomeState extends State<Home> {
                                         ),
                                         fit: BoxFit.cover,
                                       ),
-                                      color: cSubWhite,
+                                      color: colorSubWhite,
                                       shape: SmoothRectangleBorder(
                                         side: BorderSide(
-                                          color: cSubWhite,
+                                          color: colorSubWhite,
                                           width: 0.8,
                                         ),
                                         borderRadius: SmoothBorderRadius(
@@ -406,7 +406,7 @@ class _HomeState extends State<Home> {
                             ),
                             // Icon(
                             //   Icons.menu,
-                            //   color: cWhite,
+                            //   color: colorWhite,
                             //   size: 28,
                             // ),
                             Column(
@@ -415,10 +415,10 @@ class _HomeState extends State<Home> {
                                 userInfo.fullname != ""
                                     ? Text(
                                         userInfo.fullname,
-                                        style: cInter.copyWith(
-                                          fontWeight: bold,
+                                        style: fontInter.copyWith(
+                                          fontWeight: fwBold,
                                           fontSize: 20,
-                                          color: cWhite,
+                                          color: colorWhite,
                                         ),
                                       )
                                     : SkeletonAnimation(
@@ -447,10 +447,10 @@ class _HomeState extends State<Home> {
                                     userInfo.sidEid != 0
                                         ? Text(
                                             userInfo.sidEid.toString(),
-                                            style: cInter.copyWith(
-                                              fontWeight: medium,
+                                            style: fontInter.copyWith(
+                                              fontWeight: fwMedium,
                                               fontSize: 14,
-                                              color: cSubWhite,
+                                              color: colorSubWhite,
                                             ),
                                           )
                                         : SkeletonAnimation(
@@ -477,14 +477,14 @@ class _HomeState extends State<Home> {
                                                 toAnimate: false,
                                                 shape: BadgeShape.square,
                                                 elevation: 0,
-                                                badgeColor: cWhite,
+                                                badgeColor: colorWhite,
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                                 badgeContent: Text(
                                                   userInfo.studyGroup!.name,
-                                                  style: cInter.copyWith(
-                                                    color: cPrimaryBlue,
-                                                    fontWeight: semibold,
+                                                  style: fontInter.copyWith(
+                                                    color: colorPrimaryBlue,
+                                                    fontWeight: fwSemifwBold,
                                                   ),
                                                 ),
                                               )
@@ -492,14 +492,14 @@ class _HomeState extends State<Home> {
                                                 toAnimate: false,
                                                 shape: BadgeShape.square,
                                                 elevation: 0,
-                                                badgeColor: cWhite,
+                                                badgeColor: colorWhite,
                                                 borderRadius:
                                                     BorderRadius.circular(50),
                                                 badgeContent: Text(
                                                   "Dosen",
-                                                  style: cInter.copyWith(
-                                                    color: cPrimaryBlue,
-                                                    fontWeight: semibold,
+                                                  style: fontInter.copyWith(
+                                                    color: colorPrimaryBlue,
+                                                    fontWeight: fwSemifwBold,
                                                   ),
                                                 ),
                                               )
@@ -546,10 +546,10 @@ class _HomeState extends State<Home> {
                       Text(
                         "Kelas berlangsung",
                         textAlign: TextAlign.left,
-                        style: cInter.copyWith(
+                        style: fontInter.copyWith(
                           fontSize: 14,
-                          fontWeight: bold,
-                          color: cPrimaryBlack,
+                          fontWeight: fwBold,
+                          color: colorPrimaryBlack,
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -583,10 +583,10 @@ class _HomeState extends State<Home> {
                                           child: Text(
                                             "Belum memasuki kelas",
                                             textAlign: TextAlign.center,
-                                            style: cInter.copyWith(
+                                            style: fontInter.copyWith(
                                               fontSize: 16,
-                                              fontWeight: bold,
-                                              color: cSubText,
+                                              fontWeight: fwBold,
+                                              color: colorSubText,
                                             ),
                                           ),
                                         ),
@@ -600,8 +600,8 @@ class _HomeState extends State<Home> {
                                           secondary: false,
                                           paddingX: 6,
                                           paddingY: 3,
-                                          backgroundColor: cPrimaryBlue,
-                                          fontColor: cWhite,
+                                          backgroundColor: colorPrimaryBlue,
+                                          fontColor: colorWhite,
                                           customFontSize: 13,
                                         ),
                                       ],
@@ -643,10 +643,10 @@ class _HomeState extends State<Home> {
                       Text(
                         "Mata kuliah hari ini",
                         textAlign: TextAlign.left,
-                        style: cInter.copyWith(
+                        style: fontInter.copyWith(
                           fontSize: 14,
-                          fontWeight: bold,
-                          color: cPrimaryBlack,
+                          fontWeight: fwBold,
+                          color: colorPrimaryBlack,
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -683,8 +683,8 @@ class _HomeState extends State<Home> {
   //           decoration: const BoxDecoration(
   //               color: Colors.white,
   //               borderRadius: BorderRadius.only(
-  //                   topLeft: Radius.circular(cRounded),
-  //                   topRight: Radius.circular(cRounded))),
+  //                   topLeft: Radius.circular(roundedBase),
+  //                   topRight: Radius.circular(roundedBase))),
   //           child: Center(
   //             child: Stack(
   //               children: [
@@ -694,10 +694,10 @@ class _HomeState extends State<Home> {
   //                     alignment: AlignmentDirectional.center,
   //                     child: Text(
   //                       "Fitur ini akan segera tersedia!",
-  //                       style: cInter.copyWith(
-  //                         fontWeight: bold,
+  //                       style: fontInter.copyWith(
+  //                         fontWeight: fwBold,
   //                         fontSize: 18.0,
-  //                         color: cPrimaryBlack,
+  //                         color: colorPrimaryBlack,
   //                       ),
   //                     ),
   //                   ),
@@ -705,10 +705,10 @@ class _HomeState extends State<Home> {
   //                 Align(
   //                   alignment: AlignmentDirectional.bottomCenter,
   //                   child: Padding(
-  //                     padding: const EdgeInsets.all(cPadding1),
+  //                     padding: const EdgeInsets.all(paddingBase),
   //                     child: Container(
   //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(cRounded),
+  //                         borderRadius: BorderRadius.circular(roundedBase),
   //                         gradient: const LinearGradient(
   //                           begin: Alignment.topRight,
   //                           end: Alignment.bottomLeft,
@@ -724,9 +724,9 @@ class _HomeState extends State<Home> {
   //                           padding: const EdgeInsets.symmetric(
   //                               horizontal: 45, vertical: 12),
   //                           primary: Colors.white,
-  //                           textStyle: cInter.copyWith(
+  //                           textStyle: fontInter.copyWith(
   //                             fontSize: 16,
-  //                             fontWeight: FontWeight.bold,
+  //                             fontWeight: FontWeight.fwBold,
   //                           ),
   //                         ),
   //                         onPressed: () => Navigator.pop(context),
@@ -756,8 +756,8 @@ class _HomeState extends State<Home> {
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(cRounded),
-                topRight: Radius.circular(cRounded),
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
               ),
             ),
             child: Center(
@@ -773,10 +773,10 @@ class _HomeState extends State<Home> {
                           Text(
                             "Kelas Tidak Ditemukan!",
                             textAlign: TextAlign.center,
-                            style: cInter.copyWith(
-                              fontWeight: bold,
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
                               fontSize: 18.0,
-                              color: cPrimaryBlack,
+                              color: colorPrimaryBlack,
                             ),
                           ),
                           const SizedBox(
@@ -789,9 +789,9 @@ class _HomeState extends State<Home> {
                           Text(
                             "Pastikan anda berada pada jangkauan kelas atau ruangan 😉",
                             textAlign: TextAlign.center,
-                            style: cInter.copyWith(
+                            style: fontInter.copyWith(
                               fontSize: 16.0,
-                              color: cSubText,
+                              color: colorSubText,
                             ),
                           ),
                         ],
@@ -801,7 +801,7 @@ class _HomeState extends State<Home> {
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(cPadding1),
+                      padding: const EdgeInsets.all(paddingBase),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [

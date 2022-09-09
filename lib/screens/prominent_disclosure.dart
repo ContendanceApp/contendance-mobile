@@ -18,14 +18,14 @@ class ProminentDisclosureLocation extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   "Use your location",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Inter",
                     fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF333333),
+                    fontWeight: fwBold,
+                    color: colorPrimaryBlack,
                   ),
                 ),
                 const SizedBox(height: 25),
@@ -34,7 +34,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: cPadding3),
+                    padding: EdgeInsets.symmetric(horizontal: paddingXl),
                     child: Text(
                       "Contendance collects location data to discover room/class with beacon near you even when the app is closed or not in use.",
                       textAlign: TextAlign.center,
@@ -57,7 +57,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
               alignment: AlignmentDirectional.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.symmetric(
-                    horizontal: cPadding1, vertical: 48),
+                    horizontal: paddingBase, vertical: 48),
                 child: Row(
                   children: [
                     Expanded(

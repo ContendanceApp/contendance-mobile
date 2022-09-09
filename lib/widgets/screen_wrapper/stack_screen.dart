@@ -23,7 +23,7 @@ class StackScreen extends StatelessWidget {
               child: Container(
                 height: 140,
                 decoration: BoxDecoration(
-                  gradient: cGradient,
+                  gradient: colorGradient,
                 ),
                 child: Stack(
                   children: [
@@ -57,10 +57,10 @@ class StackScreen extends StatelessWidget {
                               Text(
                                 title,
                                 //textAlign: TextAlign.center,
-                                style: cInter.copyWith(
-                                  fontWeight: bold,
+                                style: fontInter.copyWith(
+                                  fontWeight: fwBold,
                                   fontSize: 16,
-                                  color: cWhite,
+                                  color: colorWhite,
                                 ),
                               ),
                               const SizedBox(height: 2),
