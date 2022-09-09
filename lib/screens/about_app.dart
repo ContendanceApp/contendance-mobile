@@ -1,5 +1,6 @@
-import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
-import 'package:contendance_app/constant/theme.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
+import '../constant/theme.dart';
+
 import 'package:flutter/material.dart';
 
 class AboutApp extends StatefulWidget {

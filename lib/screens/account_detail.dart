@@ -1,8 +1,9 @@
+import '../widgets/screen_wrapper/stack_screen.dart';
+import '../constant/theme.dart';
+import '../data/models/login.dart';
+import '../services/login_service.dart';
+
 import 'dart:convert';
-import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/login.dart';
-import 'package:contendance_app/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';

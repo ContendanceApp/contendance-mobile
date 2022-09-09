@@ -1,8 +1,10 @@
 import 'dart:convert';
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/login.dart';
-import 'package:contendance_app/services/login_service.dart';
+
+import '../widgets/button.dart';
+import '../constant/theme.dart';
+import '../data/models/login.dart';
+import '../services/login_service.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';

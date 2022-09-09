@@ -1,6 +1,8 @@
 import 'package:badges/badges.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/widgets/button.dart';
+
+import '../constant/theme.dart';
+import '../widgets/button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 

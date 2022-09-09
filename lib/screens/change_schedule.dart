@@ -1,11 +1,11 @@
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/widgets/cards_room_builder.dart';
+import '../widgets/button.dart';
+import '../widgets/cards_room_builder.dart';
+import '../constant/theme.dart';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:date_format/date_format.dart';
-
 import 'package:iconly/iconly.dart';
 
 class ChangeScheduleScreen extends StatefulWidget {
