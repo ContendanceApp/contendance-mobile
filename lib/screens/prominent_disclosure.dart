@@ -1,9 +1,11 @@
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/widgets/screen_wrapper/base_white_screen.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../widgets/button.dart';
+import '../constant/theme.dart';
+import '../widgets/screen_wrapper/base_white_screen.dart';
 
 class ProminentDisclosureLocation extends StatelessWidget {
   const ProminentDisclosureLocation({Key? key}) : super(key: key);

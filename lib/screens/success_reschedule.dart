@@ -1,7 +1,8 @@
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../widgets/button.dart';
+import '../constant/theme.dart';
 
 class SuccessReschedule extends StatelessWidget {
   const SuccessReschedule({Key? key}) : super(key: key);

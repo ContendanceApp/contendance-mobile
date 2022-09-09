@@ -1,8 +1,9 @@
-import 'package:badges/badges.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constant/theme.dart';
+import '../data/models/presence.dart';
 
 class SuccessPresence extends StatefulWidget {
   const SuccessPresence({Key? key}) : super(key: key);

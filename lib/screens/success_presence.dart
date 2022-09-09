@@ -1,10 +1,11 @@
-import 'package:badges/badges.dart';
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence.dart';
-import 'package:contendance_app/widgets/screen_wrapper/base_white_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
 import 'package:intl/intl.dart';
+
+import '../widgets/button.dart';
+import '../constant/theme.dart';
+import '../data/models/presence.dart';
+import '../widgets/screen_wrapper/base_white_screen.dart';
 
 class SuccessOpenPresence extends StatefulWidget {
   const SuccessOpenPresence({Key? key}) : super(key: key);
