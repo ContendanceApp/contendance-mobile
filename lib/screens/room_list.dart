@@ -1,6 +1,7 @@
-import 'package:contendance_app/widgets/cards_room_builder.dart';
-import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/cards_room_builder.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
 
 class RoomList extends StatefulWidget {
   const RoomList({Key? key}) : super(key: key);

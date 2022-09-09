@@ -1,9 +1,11 @@
-import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
-import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
+
 import 'package:indent/indent.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:bulleted_list/bulleted_list.dart';
+
+import '../widgets/screen_wrapper/stack_screen.dart';
+import '../constant/theme.dart';
 
 class PrivacyPolicy extends StatefulWidget {
   const PrivacyPolicy({Key? key}) : super(key: key);

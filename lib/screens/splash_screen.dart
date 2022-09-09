@@ -1,7 +1,9 @@
-import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
+
 import 'dart:async';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../constant/theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

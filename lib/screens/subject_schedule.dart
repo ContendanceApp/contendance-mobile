@@ -1,9 +1,10 @@
-import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
-import 'package:contendance_app/widgets/subject_card.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence_history.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
+
+import '../widgets/screen_wrapper/stack_screen.dart';
+import '../widgets/subject_card.dart';
+import '../constant/theme.dart';
+import '../data/models/presence_history.dart';
 
 class SubjectSchedule extends StatefulWidget {
   const SubjectSchedule({Key? key}) : super(key: key);

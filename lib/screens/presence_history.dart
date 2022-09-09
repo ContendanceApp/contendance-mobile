@@ -1,17 +1,20 @@
+import 'package:flutter/material.dart';
+
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:intl/intl.dart';
-import 'package:contendance_app/widgets/presence_history_card.dart';
-import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/login.dart';
-import 'package:contendance_app/data/models/presence_history.dart';
-import 'package:contendance_app/data/models/presence_history_lecturer.dart';
-import 'package:contendance_app/data/models/presence_history_student.dart';
-import 'package:contendance_app/services/login_service.dart';
-import 'package:contendance_app/services/presence_history_service.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../widgets/presence_history_card.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
+import '../constant/theme.dart';
+import '../data/models/login.dart';
+import '../data/models/presence_history.dart';
+import '../data/models/presence_history_lecturer.dart';
+import '../data/models/presence_history_student.dart';
+import '../services/login_service.dart';
+import '../services/presence_history_service.dart';
 
 class PresenceHistoryScreen extends StatefulWidget {
   const PresenceHistoryScreen({Key? key}) : super(key: key);

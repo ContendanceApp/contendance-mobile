@@ -1,7 +1,8 @@
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/widgets/screen_wrapper/stack_screen.dart';
-import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/button.dart';
+import '../widgets/screen_wrapper/stack_screen.dart';
+import '../constant/theme.dart';
 
 class WaitingRoom extends StatefulWidget {
   const WaitingRoom({Key? key}) : super(key: key);

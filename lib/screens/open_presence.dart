@@ -1,11 +1,11 @@
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence.dart';
-import 'package:contendance_app/services/presence_service.dart';
-import 'package:contendance_app/widgets/screen_wrapper/base_white_screen.dart';
-import 'package:iconly/iconly.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../widgets/button.dart';
+import '../constant/theme.dart';
+import '../data/models/presence.dart';
+import '../services/presence_service.dart';
+import '../widgets/screen_wrapper/base_white_screen.dart';
 
 class OpenPresence extends StatefulWidget {
   const OpenPresence({Key? key}) : super(key: key);
