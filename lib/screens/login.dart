@@ -296,30 +296,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  // Future<void> _setToken(LoginModel response) async {
-  //   final SharedPreferences prefs = await _prefs;
-  //   final String token = (prefs.getString('token') ?? "");
-  //   setState(() {
-  //     prefs.setString('token', response.accessToken ?? "").then((bool success) {
-  //       return token;
-  //     });
-  //   });
-  //   if (response.accessToken != null) {
-  //     Navigator.pushReplacementNamed(context, "/home");
-  //   } else {
-  //     setState(() {
-  //       isClicked = false;
-  //     });
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text(response.message!),
-  //         backgroundColor: Colors.red,
-  //         duration: const Duration(seconds: 3),
-  //       ),
-  //     );
-  //   }
-  // }
-
   Future<void> _afterLoginHandler(LoginModel response) async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
