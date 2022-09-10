@@ -1,8 +1,10 @@
 import 'dart:convert';
-import '../constant/string.dart';
-import '../data/models/login.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constant/string.dart';
+import '../data/models/login.dart';
 
 class LoginService {
   Future<Login> authLogin(Map<String, String> body) async {

@@ -1,9 +1,11 @@
 import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../constant/string.dart';
 import '../data/models/class_presence.dart';
 import '../data/models/presence.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PresenceService {
   Future<Presence> createPresence(Map<String, String> body) async {
