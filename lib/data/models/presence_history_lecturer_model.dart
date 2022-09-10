@@ -1,22 +1,22 @@
 import 'dart:convert';
 
-PresenceHistoryLecturers presenceHistoryLecturerFromJson(String str) =>
-    PresenceHistoryLecturers.fromJson(json.decode(str));
+PresenceHistoryLecturerModel presenceHistoryLecturerFromJson(String str) =>
+    PresenceHistoryLecturerModel.fromJson(json.decode(str));
 
-String presenceHistoryLecturerToJson(PresenceHistoryLecturers data) =>
+String presenceHistoryLecturerToJson(PresenceHistoryLecturerModel data) =>
     json.encode(data.toJson());
 
-class PresenceHistoryLecturers {
-  PresenceHistoryLecturers({
+class PresenceHistoryLecturerModel {
+  PresenceHistoryLecturerModel({
     required this.data,
   });
 
-  List<PresenceHistoryLecturer> data;
+  List<PresenceHistoryLecturerData> data;
 
-  factory PresenceHistoryLecturers.fromJson(Map<String, dynamic> json) =>
-      PresenceHistoryLecturers(
-        data: List<PresenceHistoryLecturer>.from(
-            json["data"].map((x) => PresenceHistoryLecturer.fromJson(x))),
+  factory PresenceHistoryLecturerModel.fromJson(Map<String, dynamic> json) =>
+      PresenceHistoryLecturerModel(
+        data: List<PresenceHistoryLecturerData>.from(
+            json["data"].map((x) => PresenceHistoryLecturerData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -24,8 +24,8 @@ class PresenceHistoryLecturers {
       };
 }
 
-class PresenceHistoryLecturer {
-  PresenceHistoryLecturer({
+class PresenceHistoryLecturerData {
+  PresenceHistoryLecturerData({
     required this.presenceId,
     required this.userId,
     required this.isOpen,
@@ -46,11 +46,11 @@ class PresenceHistoryLecturer {
   DateTime presenceDate;
   DateTime createdAt;
   DateTime updatedAt;
-  Room room;
+  RoomModel room;
   SubjectSchedule subjectSchedule;
 
-  factory PresenceHistoryLecturer.fromJson(Map<String, dynamic> json) =>
-      PresenceHistoryLecturer(
+  factory PresenceHistoryLecturerData.fromJson(Map<String, dynamic> json) =>
+      PresenceHistoryLecturerData(
         presenceId: json["presence_id"],
         userId: json["user_id"],
         isOpen: json["is_open"],
@@ -59,7 +59,7 @@ class PresenceHistoryLecturer {
         presenceDate: DateTime.parse(json["presence_date"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        room: Room.fromJson(json["room"]),
+        room: RoomModel.fromJson(json["room"]),
         subjectSchedule: SubjectSchedule.fromJson(json["subject_schedule"]),
       );
 
@@ -78,8 +78,8 @@ class PresenceHistoryLecturer {
       };
 }
 
-class Room {
-  Room({
+class RoomModel {
+  RoomModel({
     required this.roomId,
     required this.beaconId,
     required this.name,
@@ -99,7 +99,7 @@ class Room {
   DateTime createdAt;
   DateTime updatedAt;
 
-  factory Room.fromJson(Map<String, dynamic> json) => Room(
+  factory RoomModel.fromJson(Map<String, dynamic> json) => RoomModel(
         roomId: json["room_id"],
         beaconId: json["beacon_id"],
         name: json["name"],

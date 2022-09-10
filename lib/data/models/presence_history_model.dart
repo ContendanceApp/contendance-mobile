@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-PresenceHistory presenceHistoryFromJson(String str) =>
-    PresenceHistory.fromJson(json.decode(str));
+PresenceHistoryModel presenceHistoryFromJson(String str) =>
+    PresenceHistoryModel.fromJson(json.decode(str));
 
-String presenceHistoryToJson(PresenceHistory data) =>
+String presenceHistoryToJson(PresenceHistoryModel data) =>
     json.encode(data.toJson());
 
-class PresenceHistory {
-  PresenceHistory({
+class PresenceHistoryModel {
+  PresenceHistoryModel({
     required this.subject,
     required this.acronym,
     required this.lab,
@@ -21,8 +21,8 @@ class PresenceHistory {
   String presenceTime;
   bool isExpanded;
 
-  factory PresenceHistory.fromJson(Map<String, dynamic> json) =>
-      PresenceHistory(
+  factory PresenceHistoryModel.fromJson(Map<String, dynamic> json) =>
+      PresenceHistoryModel(
         subject: json["subject"],
         acronym: json["acronym"],
         lab: json["lab"],

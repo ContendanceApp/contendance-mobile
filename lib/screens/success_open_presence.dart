@@ -4,7 +4,7 @@ import 'package:badges/badges.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence.dart';
+import '../data/models/presence_model.dart';
 
 class SuccessPresence extends StatefulWidget {
   const SuccessPresence({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class SuccessPresence extends StatefulWidget {
 class _SuccessPresenceState extends State<SuccessPresence> {
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Presence;
+    final args = ModalRoute.of(context)!.settings.arguments as PresenceData;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence.dart';
+import '../data/models/presence_model.dart';
 import '../services/presence_service.dart';
 import '../widgets/button.dart';
 import '../widgets/screen_wrapper/base_white_screen.dart';

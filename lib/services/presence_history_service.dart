@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/string.dart';
-import '../data/models/presence_history_lecturer.dart';
-import '../data/models/presence_history_student.dart';
+import '../data/models/presence_history_lecturer_model.dart';
+import '../data/models/presence_history_student_model.dart';
 
 class PresenceHistoryService {
-  Future<PresenceHistoryLecturers> getPresenceHistoryLecturer() async {
+  Future<PresenceHistoryLecturerModel> getPresenceHistoryLecturer() async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
     final response = await http.get(
@@ -23,13 +23,13 @@ class PresenceHistoryService {
     print(response.statusCode);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return PresenceHistoryLecturers.fromJson(jsonDecode(response.body));
+      return PresenceHistoryLecturerModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('No presence history.');
     }
   }
 
-  Future<PresenceHistoryStudents> getPresenceHistoryStudent() async {
+  Future<PresenceHistoryStudentModel> getPresenceHistoryStudent() async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
     final response = await http.get(
@@ -43,7 +43,7 @@ class PresenceHistoryService {
     print(response.body);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return PresenceHistoryStudents.fromJson(jsonDecode(response.body));
+      return PresenceHistoryStudentModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('No presence history.');
     }

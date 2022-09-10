@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence_history_lecturer.dart';
-import '../data/models/presence_history_student.dart';
+import '../data/models/presence_history_lecturer_model.dart';
+import '../data/models/presence_history_student_model.dart';
 
 class PresenceHistoryCard extends StatelessWidget {
   PresenceHistoryCard({
@@ -11,8 +11,8 @@ class PresenceHistoryCard extends StatelessWidget {
     this.historyLecturer,
   }) : super(key: key);
 
-  late PresenceHistoryStudent? historyStudent;
-  late PresenceHistoryLecturer? historyLecturer;
+  late PresenceHistoryStudentData? historyStudent;
+  late PresenceHistoryLecturerData? historyLecturer;
 
   @override
   Widget build(BuildContext context) {

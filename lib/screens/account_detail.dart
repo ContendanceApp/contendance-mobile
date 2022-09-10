@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 
 import '../constant/theme.dart';
-import '../data/models/login.dart';
+import '../data/models/login_model.dart';
 import '../services/login_service.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 

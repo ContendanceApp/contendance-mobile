@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence_history.dart';
+import '../data/models/presence_history_model.dart';
 
 class SubjectScheduleList extends StatefulWidget {
   const SubjectScheduleList({
@@ -21,21 +21,21 @@ class _SubjectScheduleListState extends State<SubjectScheduleList> {
   bool show = false;
 
   List histories = [
-    PresenceHistory(
+    PresenceHistoryModel(
       subject: "Workshop Pemrograman Perangkat Lunak",
       acronym: "WPPL",
       lab: "Lab C-120",
       presenceTime: "11.02",
       isExpanded: false,
     ),
-    PresenceHistory(
+    PresenceHistoryModel(
       subject: "Workshop Pemrograman Perangkat Bergerak",
       acronym: "WPPB",
       lab: "Lab C-120",
       presenceTime: "11.02",
       isExpanded: false,
     ),
-    PresenceHistory(
+    PresenceHistoryModel(
       subject: "Workshop Administrasi dan Manajemen Jaringan",
       acronym: "WPPL",
       lab: "Lab C-120",

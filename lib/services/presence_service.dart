@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/string.dart';
-import '../data/models/class_presence.dart';
-import '../data/models/presence.dart';
+import '../data/models/class_presence_model.dart';
+import '../data/models/presence_model.dart';
 
 class PresenceService {
-  Future<Presence> createPresence(Map<String, String> body) async {
+  Future<PresenceData> createPresence(Map<String, String> body) async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
     final response = await http.post(
@@ -30,7 +30,7 @@ class PresenceService {
     // print(response.body);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return Presence.fromJson(jsonDecode(response.body));
+      return PresenceData.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('No class opened');
     }
@@ -61,7 +61,7 @@ class PresenceService {
     }
   }
 
-  Future<Presence> openPresence(Map<String, String> body) async {
+  Future<PresenceData> openPresence(Map<String, String> body) async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
     final response = await http.post(
@@ -80,7 +80,7 @@ class PresenceService {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return Presence.fromJson(jsonDecode(response.body));
+      return PresenceData.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to presence.');
     }
@@ -110,7 +110,7 @@ class PresenceService {
     }
   }
 
-  Future<ClassPresence> activeClass(Map<String, String> body) async {
+  Future<ClassPresenceModel> activeClass(Map<String, String> body) async {
     final prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString("token");
     int? userId = prefs.getInt("userId");
@@ -127,7 +127,7 @@ class PresenceService {
 
     await prefs.remove('classStatus');
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return ClassPresence.fromJson(jsonDecode(response.body));
+      return ClassPresenceModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('No active class.');
     }

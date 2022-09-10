@@ -9,7 +9,7 @@ import 'package:skeleton_text/skeleton_text.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 
 import '../constant/theme.dart';
-import '../data/models/login.dart';
+import '../data/models/login_model.dart';
 import '../services/login_service.dart';
 import '../widgets/button.dart';
 

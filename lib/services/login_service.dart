@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/string.dart';
-import '../data/models/login.dart';
+import '../data/models/login_model.dart';
 
 class LoginService {
-  Future<Login> authLogin(Map<String, String> body) async {
+  Future<LoginModel> authLogin(Map<String, String> body) async {
     final response = await http.post(
       Uri.parse("$baseUrl/auth/login"),
       headers: headers,
@@ -23,9 +23,9 @@ class LoginService {
       Map<dynamic, dynamic> temp = jsonDecode(response.body);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', temp['access_token'] ?? "");
-      return Login.fromJson(jsonDecode(response.body));
+      return LoginModel.fromJson(jsonDecode(response.body));
     } else {
-      return Login.fromJson(jsonDecode(response.body));
+      return LoginModel.fromJson(jsonDecode(response.body));
     }
   }
 

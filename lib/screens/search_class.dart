@@ -8,7 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/models/presence.dart';
+import '../data/models/presence_model.dart';
 import '../screens/open_presence.dart';
 import '../services/location_service.dart';
 import '../services/presence_service.dart';

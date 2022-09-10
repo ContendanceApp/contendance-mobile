@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-Room roomFromJson(String str) => Room.fromJson(json.decode(str));
+RoomModel roomFromJson(String str) => RoomModel.fromJson(json.decode(str));
 
-String roomToJson(Room data) => json.encode(data.toJson());
+String roomToJson(RoomModel data) => json.encode(data.toJson());
 
-class Room {
-  Room({
+class RoomModel {
+  RoomModel({
     required this.name,
     required this.roomCode,
     required this.location,
@@ -17,7 +17,7 @@ class Room {
   String location;
   String description;
 
-  factory Room.fromJson(Map<String, dynamic> json) => Room(
+  factory RoomModel.fromJson(Map<String, dynamic> json) => RoomModel(
         name: json["name"],
         roomCode: json["roomCode"],
         location: json["location"],

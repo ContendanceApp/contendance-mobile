@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constant/theme.dart';
-import '../data/models/room.dart';
+import '../data/models/room_model.dart';
 import '../widgets/button.dart';
 
 class CardsRoomBuilder extends StatefulWidget {
@@ -13,27 +13,27 @@ class CardsRoomBuilder extends StatefulWidget {
 
 class _CardsRoomBuilderState extends State<CardsRoomBuilder> {
   List rooms = [
-    Room(
+    RoomModel(
         name: "Jaringan Komputer",
         roomCode: "C 305",
         location: "Lantai 3 - Gedung D4",
         description: "Ruangan yang digunakan untuk praktek jaringan komputer"),
-    Room(
+    RoomModel(
         name: "Komputer Vision (CV)",
         roomCode: "C 306",
         location: "Lantai 3 - Gedung D4",
         description: "Ruangan yang digunakan untuk praktek pengolohan citra"),
-    Room(
+    RoomModel(
         name: "Sistem Informasi (SI)",
         roomCode: "C 101",
         location: "Lantai 1 - Gedung D4",
         description: "Ruangan yang digunakan untuk praktek sistem informasi"),
-    Room(
+    RoomModel(
         name: "Database",
         roomCode: "C 102",
         location: "Lantai 1 - Gedung D4",
         description: "Ruangan yang digunakan untuk praktek database"),
-    Room(
+    RoomModel(
         name: "Sistem Informasi Geografis (GIS)",
         roomCode: "C 201",
         location: "Lantai 2 - Gedung D4",

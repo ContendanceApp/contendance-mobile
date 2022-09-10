@@ -10,10 +10,10 @@ class ClassroomModel {
     required this.data,
   });
 
-  Data data;
+  ClassroomData data;
 
   factory ClassroomModel.fromJson(Map<String, dynamic> json) => ClassroomModel(
-        data: Data.fromJson(json["data"]),
+        data: ClassroomData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -21,8 +21,8 @@ class ClassroomModel {
       };
 }
 
-class Data {
-  Data({
+class ClassroomData {
+  ClassroomData({
     required this.roomCode,
     required this.roomName,
     required this.hasWaitingRoom,
@@ -38,7 +38,7 @@ class Data {
   DateTime loggedInAt;
   List<User> users;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ClassroomData.fromJson(Map<String, dynamic> json) => ClassroomData(
         roomCode: json["room_code"],
         roomName: json["room_name"],
         hasWaitingRoom: json["has_waiting_room"],

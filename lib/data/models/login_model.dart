@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-Login loginFromJson(String str) => Login.fromJson(json.decode(str));
-String loginToJson(Login data) => json.encode(data.toJson());
+LoginModel loginFromJson(String str) => LoginModel.fromJson(json.decode(str));
+String loginToJson(LoginModel data) => json.encode(data.toJson());
 
 UserInfo userInfoFromJson(String str) => UserInfo.fromJson(json.decode(str));
 String userInfoToJson(UserInfo data) => json.encode(data.toJson());
 
-class Login {
-  Login({
+class LoginModel {
+  LoginModel({
     required this.accessToken,
     required this.tokenType,
     required this.expiresIn,
@@ -19,7 +19,7 @@ class Login {
   int? expiresIn;
   String? message;
 
-  factory Login.fromJson(Map<String, dynamic> json) => Login(
+  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
         accessToken: json["access_token"],
         tokenType: json["token_type"],
         expiresIn: json["expires_in"],

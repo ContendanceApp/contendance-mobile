@@ -1,18 +1,19 @@
 import 'dart:convert';
 
-Presences presencesFromJson(String str) => Presences.fromJson(json.decode(str));
+PresenceModel presencesFromJson(String str) =>
+    PresenceModel.fromJson(json.decode(str));
 
-String presencesToJson(Presences data) => json.encode(data.toJson());
+String presencesToJson(PresenceModel data) => json.encode(data.toJson());
 
-class Presences {
-  Presences({
+class PresenceModel {
+  PresenceModel({
     required this.data,
   });
 
-  Presence data;
+  PresenceData data;
 
-  factory Presences.fromJson(Map<String, dynamic> json) => Presences(
-        data: Presence.fromJson(json["data"]),
+  factory PresenceModel.fromJson(Map<String, dynamic> json) => PresenceModel(
+        data: PresenceData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -20,12 +21,13 @@ class Presences {
       };
 }
 
-Presence presenceFromJson(String str) => Presence.fromJson(json.decode(str));
+PresenceData presenceFromJson(String str) =>
+    PresenceData.fromJson(json.decode(str));
 
-String presenceToJson(Presence data) => json.encode(data.toJson());
+String presenceToJson(PresenceData data) => json.encode(data.toJson());
 
-class Presence {
-  Presence({
+class PresenceData {
+  PresenceData({
     required this.message,
     required this.data,
   });
@@ -33,7 +35,7 @@ class Presence {
   String message;
   Data data;
 
-  factory Presence.fromJson(Map<String, dynamic> json) => Presence(
+  factory PresenceData.fromJson(Map<String, dynamic> json) => PresenceData(
         message: json["message"],
         data: Data.fromJson(json["data"]),
       );
@@ -71,13 +73,13 @@ class Data {
   SubjectSchedule subjectSchedule;
   Subject subject;
   Lecturer lecturer;
-  Room room;
+  RoomModel room;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         subjectSchedule: SubjectSchedule.fromJson(json["subject_schedule"]),
         subject: Subject.fromJson(json["subject"]),
         lecturer: Lecturer.fromJson(json["lecturer"]),
-        room: Room.fromJson(json["room"]),
+        room: RoomModel.fromJson(json["room"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -140,8 +142,8 @@ class Lecturer {
       };
 }
 
-class Room {
-  Room({
+class RoomModel {
+  RoomModel({
     required this.roomId,
     required this.beaconId,
     required this.name,
@@ -161,7 +163,7 @@ class Room {
   DateTime createdAt;
   DateTime updatedAt;
 
-  factory Room.fromJson(Map<String, dynamic> json) => Room(
+  factory RoomModel.fromJson(Map<String, dynamic> json) => RoomModel(
         roomId: json["room_id"],
         beaconId: json["beacon_id"],
         name: json["name"],

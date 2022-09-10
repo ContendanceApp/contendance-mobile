@@ -7,10 +7,10 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
-import '../data/models/login.dart';
-import '../data/models/presence_history.dart';
-import '../data/models/presence_history_lecturer.dart';
-import '../data/models/presence_history_student.dart';
+import '../data/models/login_model.dart';
+import '../data/models/presence_history_model.dart';
+import '../data/models/presence_history_lecturer_model.dart';
+import '../data/models/presence_history_student_model.dart';
 import '../services/login_service.dart';
 import '../services/presence_history_service.dart';
 import '../widgets/presence_history_card.dart';
@@ -31,27 +31,27 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   LoginService login = LoginService();
   String? _token;
 
-  late Future<PresenceHistoryLecturers> _historyLecturer;
-  late Future<PresenceHistoryStudents> _historyStudent;
+  late Future<PresenceHistoryLecturerModel> _historyLecturer;
+  late Future<PresenceHistoryStudentModel> _historyStudent;
   PresenceHistoryService presenceHistory = PresenceHistoryService();
 
   String dayNow =
       DateFormat("EEEEE, d MMMM yyyy", "id_ID").format(DateTime.now());
 
   List histories = [
-    PresenceHistory(
+    PresenceHistoryModel(
       subject: "Workshop Pemrograman Perangkat Lunak",
       acronym: "WPPL",
       lab: "Lab C-120",
       presenceTime: "11.02",
     ),
-    PresenceHistory(
+    PresenceHistoryModel(
       subject: "Workshop Pemrograman Perangkat Bergerak",
       acronym: "WPPB",
       lab: "Lab C-120",
       presenceTime: "11.02",
     ),
-    PresenceHistory(
+    PresenceHistoryModel(
       subject: "Workshop Administrasi dan Manajemen Jaringan",
       acronym: "WPPL",
       lab: "Lab C-120",
@@ -358,7 +358,8 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                     ? FutureBuilder(
                         future: _historyStudent,
                         builder: (context,
-                            AsyncSnapshot<PresenceHistoryStudents> snapshot) {
+                            AsyncSnapshot<PresenceHistoryStudentModel>
+                                snapshot) {
                           var state = snapshot.connectionState;
                           if (state != ConnectionState.done) {
                             return Container(
@@ -421,7 +422,7 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                         ? FutureBuilder(
                             future: _historyLecturer,
                             builder: (context,
-                                AsyncSnapshot<PresenceHistoryLecturers>
+                                AsyncSnapshot<PresenceHistoryLecturerModel>
                                     snapshot) {
                               var state = snapshot.connectionState;
                               if (state != ConnectionState.done) {

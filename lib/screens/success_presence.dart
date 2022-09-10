@@ -4,7 +4,7 @@ import 'package:badges/badges.dart';
 import 'package:intl/intl.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence.dart';
+import '../data/models/presence_model.dart';
 import '../widgets/button.dart';
 import '../widgets/screen_wrapper/base_white_screen.dart';
 
@@ -18,7 +18,7 @@ class SuccessOpenPresence extends StatefulWidget {
 class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Presence;
+    final args = ModalRoute.of(context)!.settings.arguments as PresenceData;
     return BaseWhiteScreen(
       body: SafeArea(
         child: Stack(

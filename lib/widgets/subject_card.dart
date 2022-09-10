@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/button.dart';
 import '../constant/theme.dart';
-import '../data/models/presence_history.dart';
+import '../data/models/presence_history_model.dart';
 
 class SubjectCard extends StatelessWidget {
   const SubjectCard({
@@ -10,7 +10,7 @@ class SubjectCard extends StatelessWidget {
     required this.history,
   }) : super(key: key);
 
-  final PresenceHistory history;
+  final PresenceHistoryModel history;
 
   @override
   Widget build(BuildContext context) {

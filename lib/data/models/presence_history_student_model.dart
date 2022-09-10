@@ -1,17 +1,87 @@
 import 'dart:convert';
 
-ClassPresence classPresenceFromJson(String str) =>
-    ClassPresence.fromJson(json.decode(str));
+PresenceHistoryStudentModel presenceHistoryStudentFromJson(String str) =>
+    PresenceHistoryStudentModel.fromJson(json.decode(str));
 
-String classPresenceToJson(ClassPresence data) => json.encode(data.toJson());
+String presenceHistoryStudentToJson(PresenceHistoryStudentModel data) =>
+    json.encode(data.toJson());
 
-class ClassPresence {
-  ClassPresence({
+class PresenceHistoryStudentModel {
+  PresenceHistoryStudentModel({
+    required this.data,
+  });
+
+  List<PresenceHistoryStudentData> data;
+
+  factory PresenceHistoryStudentModel.fromJson(Map<String, dynamic> json) =>
+      PresenceHistoryStudentModel(
+        data: List<PresenceHistoryStudentData>.from(
+            json["data"].map((x) => PresenceHistoryStudentData.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
+}
+
+class PresenceHistoryStudentData {
+  PresenceHistoryStudentData({
+    required this.presenceDetailId,
+    required this.presenceId,
+    required this.userId,
+    required this.presenceTime,
+    required this.presenceDate,
+    required this.isInclass,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.presences,
+  });
+
+  int presenceDetailId;
+  int presenceId;
+  int userId;
+  String presenceTime;
+  DateTime presenceDate;
+  bool isInclass;
+  DateTime createdAt;
+  DateTime updatedAt;
+  PresenceModel presences;
+
+  factory PresenceHistoryStudentData.fromJson(Map<String, dynamic> json) =>
+      PresenceHistoryStudentData(
+        presenceDetailId: json["presence_detail_id"],
+        presenceId: json["presence_id"],
+        userId: json["user_id"],
+        presenceTime: json["presence_time"],
+        presenceDate: DateTime.parse(json["presence_date"]),
+        isInclass: json["is_inclass"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        presences: PresenceModel.fromJson(json["presences"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "presence_detail_id": presenceDetailId,
+        "presence_id": presenceId,
+        "user_id": userId,
+        "presence_time": presenceTime,
+        "presence_date":
+            "${presenceDate.year.toString().padLeft(4, '0')}-${presenceDate.month.toString().padLeft(2, '0')}-${presenceDate.day.toString().padLeft(2, '0')}",
+        "is_inclass": isInclass,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "presences": presences.toJson(),
+      };
+}
+
+class PresenceModel {
+  PresenceModel({
     required this.presenceId,
     required this.userId,
     required this.isOpen,
     required this.openTime,
     required this.closeTime,
+    required this.presenceDate,
     required this.createdAt,
     required this.updatedAt,
     required this.room,
@@ -23,20 +93,22 @@ class ClassPresence {
   bool isOpen;
   String openTime;
   dynamic closeTime;
+  DateTime presenceDate;
   DateTime createdAt;
   DateTime updatedAt;
-  Room room;
+  RoomModel room;
   SubjectSchedule subjectSchedule;
 
-  factory ClassPresence.fromJson(Map<String, dynamic> json) => ClassPresence(
+  factory PresenceModel.fromJson(Map<String, dynamic> json) => PresenceModel(
         presenceId: json["presence_id"],
         userId: json["user_id"],
         isOpen: json["is_open"],
         openTime: json["open_time"],
         closeTime: json["close_time"],
+        presenceDate: DateTime.parse(json["presence_date"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        room: Room.fromJson(json["room"]),
+        room: RoomModel.fromJson(json["room"]),
         subjectSchedule: SubjectSchedule.fromJson(json["subject_schedule"]),
       );
 
@@ -46,6 +118,8 @@ class ClassPresence {
         "is_open": isOpen,
         "open_time": openTime,
         "close_time": closeTime,
+        "presence_date":
+            "${presenceDate.year.toString().padLeft(4, '0')}-${presenceDate.month.toString().padLeft(2, '0')}-${presenceDate.day.toString().padLeft(2, '0')}",
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "room": room.toJson(),
@@ -53,8 +127,8 @@ class ClassPresence {
       };
 }
 
-class Room {
-  Room({
+class RoomModel {
+  RoomModel({
     required this.roomId,
     required this.beaconId,
     required this.name,
@@ -74,7 +148,7 @@ class Room {
   DateTime createdAt;
   DateTime updatedAt;
 
-  factory Room.fromJson(Map<String, dynamic> json) => Room(
+  factory RoomModel.fromJson(Map<String, dynamic> json) => RoomModel(
         roomId: json["room_id"],
         beaconId: json["beacon_id"],
         name: json["name"],

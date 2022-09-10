@@ -15,9 +15,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 
 import '../constant/theme.dart';
-import '../data/models/class_presence.dart';
-import '../data/models/login.dart';
-import '../data/models/presence_history.dart';
+import '../data/models/class_presence_model.dart';
+import '../data/models/login_model.dart';
+import '../data/models/presence_history_model.dart';
 import '../services/location_service.dart';
 import '../services/login_service.dart';
 import '../services/presence_service.dart';
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
   bool loadActiveClass = true;
 
   PresenceService presence = PresenceService();
-  ClassPresence detailActiveClass = ClassPresence(
+  ClassPresenceModel detailActiveClass = ClassPresenceModel(
     presenceId: 0,
     userId: 0,
     isOpen: false,
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
     closeTime: "00:00",
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
-    room: Room(
+    room: RoomModel(
       roomId: 0,
       beaconId: 0,
       name: "",
@@ -113,16 +113,16 @@ class _HomeState extends State<Home> {
     ),
   );
 
-  List<List<PresenceHistory>> histories = [
+  List<List<PresenceHistoryModel>> histories = [
     [
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Kecerdasan Komputasional",
         acronym: "KK",
         lab: "R. Virtual M8",
         presenceTime: "08:00 - 09:40",
         isExpanded: false,
       ),
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Praktikum Kecerdasan Komputasional",
         acronym: "PKK",
         lab: "Lab C-206",
@@ -131,14 +131,14 @@ class _HomeState extends State<Home> {
       )
     ],
     [
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Sistem Pendukung Keputusan",
         acronym: "SPK",
         lab: "R. Virtual M14",
         presenceTime: "08:00 - 09:40",
         isExpanded: false,
       ),
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Workshop Pemograman Perangkat Bergerak",
         acronym: "WPPB",
         lab: "Lab C-203",
@@ -147,21 +147,21 @@ class _HomeState extends State<Home> {
       ),
     ],
     [
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Workshop Pemodelan Perangkat Lunak",
         acronym: "WPPL",
         lab: "Lab C-105",
         presenceTime: "08:00 - 11:20",
         isExpanded: false,
       ),
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Desain Pengalaman Pengguna",
         acronym: "DPP",
         lab: "Lab C-307",
         presenceTime: "14:00 - 15:40",
         isExpanded: false,
       ),
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Matematika 4",
         acronym: "M4",
         lab: "Lab C-307",
@@ -170,14 +170,14 @@ class _HomeState extends State<Home> {
       ),
     ],
     [
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Administrasi & Manajemen Jaringan",
         acronym: "AMJ",
         lab: "Lab C-307",
         presenceTime: "08:00 - 11:20",
         isExpanded: false,
       ),
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Praktikum Pengolahan Citra",
         acronym: "PPC",
         lab: "Lab C-303",
@@ -186,14 +186,14 @@ class _HomeState extends State<Home> {
       ),
     ],
     [
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Pengolahan Citra",
         acronym: "PC",
         lab: "R. Virtual M6",
         presenceTime: "08:00 - 09:40",
         isExpanded: false,
       ),
-      PresenceHistory(
+      PresenceHistoryModel(
         subject: "Bahasa Inggris Untuk Professional 2",
         acronym: "BIUP2",
         lab: "R. Virtual M14",

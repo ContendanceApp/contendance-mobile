@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/button.dart';
 import '../constant/theme.dart';
-import '../data/models/class_presence.dart';
+import '../data/models/class_presence_model.dart';
 import '../services/presence_service.dart';
 
 class ActiveClass extends StatefulWidget {
@@ -14,7 +14,7 @@ class ActiveClass extends StatefulWidget {
       {Key? key, required this.classPresence, required this.roleId})
       : super(key: key);
 
-  final ClassPresence classPresence;
+  final ClassPresenceModel classPresence;
   final int roleId;
 
   @override

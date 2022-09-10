@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
-import '../data/models/login.dart';
+import '../data/models/login_model.dart';
 import '../services/login_service.dart';
 import '../widgets/button.dart';
 
@@ -378,7 +378,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Future<void> _setToken(Login response) async {
+  Future<void> _setToken(LoginModel response) async {
     final SharedPreferences prefs = await _prefs;
     final String token = (prefs.getString('token') ?? "");
     setState(() {
@@ -402,7 +402,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> _afterLoginHandler(Login response) async {
+  Future<void> _afterLoginHandler(LoginModel response) async {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('token') != "") {
       getUserInfo(response.accessToken!);
