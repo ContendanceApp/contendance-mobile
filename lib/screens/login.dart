@@ -26,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
   LoginService login = LoginService();
   final _formKey = GlobalKey<FormState>();
   bool isClicked = false;
-  late Future<String> _token;
 
   UserInfo userInfo = UserInfo(
     userId: 0,
@@ -51,13 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState;
     getToken();
-    cleanClassPrefs();
-  }
-
-  cleanClassPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    final success = await prefs.remove('classStatus');
-    success ? print("prefs cleared") : 0;
   }
 
   Future<void> getToken() async {
@@ -293,80 +285,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
           ),
-          // ElevatedButton(
-          //   style: ButtonStyle(
-          //     padding: MaterialStateProperty.all(const EdgeInsets.all(0.0)),
-          //     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          //       RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(80.0),
-          //       ),
-          //     ),
-          //   ),
-          //   child: Ink(
-          //     decoration: BoxDecoration(
-          //       gradient: colorGradient,
-          //       borderRadius: const BorderRadius.all(Radius.circular(80.0)),
-          //     ),
-          //     child: Container(
-          //       padding:
-          //           const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-          //       constraints: const BoxConstraints(
-          //           minWidth: 88.0,
-          //           minHeight: 36.0), // min sizes for Material buttons
-          //       alignment: Alignment.center,
-          //       child: !isClicked
-          //           ? const Text(
-          //               'LOGIN',
-          //               textAlign: TextAlign.center,
-          //               style: TextStyle(
-          //                 fontWeight: FontWeight.fwBold,
-          //                 color: Colors.white,
-          //               ),
-          //             )
-          //           : SizedBox(
-          //               width: 15,
-          //               height: 15,
-          //               child: CircularProgressIndicator(
-          //                 strokeWidth: 3,
-          //                 color: colorWhite,
-          //               ),
-          //             ),
-          //     ),
-          //   ),
-          //   onPressed: () async {
-          //     emailController.text.isEmpty
-          //         ? setState(() {
-          //             _validateEmail = false;
-          //           })
-          //         : setState(() {
-          //             _validateEmail = true;
-          //           });
-          //     passwordController.text.isEmpty
-          //         ? setState(() {
-          //             _validatePassword = false;
-          //           })
-          //         : setState(() {
-          //             _validatePassword = true;
-          //           });
-
-          //     if (_validateEmail == true && _validatePassword == true) {
-          //       setState(() {
-          //         isClicked = true;
-          //       });
-          //       _formKey.currentState!.save();
-          //       Map<String, String> body = {
-          //         'email': emailController.text,
-          //         'password': passwordController.text,
-          //       };
-
-          //       await login.authLogin(body).then(
-          //             (value) => {
-          //               _afterLoginHandler(value),
-          //             },
-          //           );
-          //     }
-          //   },
-          // ),
         ],
       ),
     );
@@ -378,33 +296,34 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  Future<void> _setToken(LoginModel response) async {
-    final SharedPreferences prefs = await _prefs;
-    final String token = (prefs.getString('token') ?? "");
-    setState(() {
-      prefs.setString('token', response.accessToken ?? "").then((bool success) {
-        return token;
-      });
-    });
-    if (response.accessToken != null) {
-      Navigator.pushReplacementNamed(context, "/home");
-    } else {
-      setState(() {
-        isClicked = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(response.message!),
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 3),
-        ),
-      );
-    }
-  }
+  // Future<void> _setToken(LoginModel response) async {
+  //   final SharedPreferences prefs = await _prefs;
+  //   final String token = (prefs.getString('token') ?? "");
+  //   setState(() {
+  //     prefs.setString('token', response.accessToken ?? "").then((bool success) {
+  //       return token;
+  //     });
+  //   });
+  //   if (response.accessToken != null) {
+  //     Navigator.pushReplacementNamed(context, "/home");
+  //   } else {
+  //     setState(() {
+  //       isClicked = false;
+  //     });
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(response.message!),
+  //         backgroundColor: Colors.red,
+  //         duration: const Duration(seconds: 3),
+  //       ),
+  //     );
+  //   }
+  // }
 
   Future<void> _afterLoginHandler(LoginModel response) async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('token') != "") {
+    var token = prefs.getString('token');
+    if (token != null) {
       getUserInfo(response.accessToken!);
       Navigator.pushReplacementNamed(context, "/home");
     } else {
