@@ -19,9 +19,6 @@ class PresenceHistoryService {
           'Authorization': "bearer $token",
         });
 
-    print(response.body);
-    print(response.statusCode);
-
     if (response.statusCode == 201 || response.statusCode == 200) {
       return PresenceHistoryLecturerModel.fromJson(jsonDecode(response.body));
     } else {
@@ -39,8 +36,6 @@ class PresenceHistoryService {
           'Accept': 'application/json',
           'Authorization': "bearer $token",
         });
-
-    print(response.body);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       return PresenceHistoryStudentModel.fromJson(jsonDecode(response.body));

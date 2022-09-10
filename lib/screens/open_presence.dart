@@ -170,8 +170,6 @@ class _OpenPresenceState extends State<OpenPresence> {
                                 .then((value) async {
                               final success = await prefs.remove('classStatus');
                               if (success) {
-                                print(prefs.getString('classStatus'));
-                                print("kehapus kok");
                                 if (mounted) {
                                   Navigator.pushNamedAndRemoveUntil(
                                     context,
@@ -183,7 +181,7 @@ class _OpenPresenceState extends State<OpenPresence> {
                               }
                             });
                           } catch (e) {
-                            print(e);
+                            throw Exception(e);
                           }
                         },
                         primary: true,

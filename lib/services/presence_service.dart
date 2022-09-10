@@ -101,8 +101,6 @@ class PresenceService {
       }),
     );
 
-    print(response.body);
-
     if (response.statusCode == 201 || response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
@@ -122,8 +120,6 @@ class PresenceService {
         'Authorization': "bearer $token",
       },
     );
-
-    print(response.body);
 
     await prefs.remove('classStatus');
     if (response.statusCode == 201 || response.statusCode == 200) {

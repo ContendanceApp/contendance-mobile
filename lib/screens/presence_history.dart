@@ -121,18 +121,6 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
     }
   }
 
-  getPresenceHistoryData() async {
-    print("sini bang");
-    print(userInfo.roleId);
-    if (userInfo.roleId == 1) {
-      print("student");
-      // if student
-    } else if (userInfo.roleId == 2) {
-      print("dosen");
-      // if lecturer
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return StackScreen(

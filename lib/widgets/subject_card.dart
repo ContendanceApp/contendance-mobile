@@ -120,10 +120,6 @@ class SubjectCard extends StatelessWidget {
   }
 
   showModalBottom(BuildContext context) {
-    closeModal() {
-      Navigator.pop(context);
-    }
-
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,

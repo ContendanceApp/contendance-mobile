@@ -11,7 +11,6 @@ class LocationService {
   getLocation() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
-      print("location disabled");
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
         return;

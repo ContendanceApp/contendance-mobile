@@ -184,11 +184,9 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                         ),
                       ),
                       onPressed: () async {
-                        print("disini bang");
                         final prefs = await SharedPreferences.getInstance();
                         final success = await prefs.remove('classStatus');
                         if (success) {
-                          print(prefs.getString('classStatus'));
                           Navigator.pushReplacementNamed(context, "/home");
                         }
                       },

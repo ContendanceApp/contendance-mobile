@@ -112,16 +112,8 @@ class _SearchClassState extends State<SearchClass> {
     int roleId = prefs.getInt('roleId') ?? 0;
     int studyGroupId = prefs.getInt('studyGroupId') ?? 0;
 
-    // final bool locationServiceStatus =
-    //     await flutterBeacon.checkLocationServicesIfEnabled;
-
-    // if (!locationServiceStatus) {
-    //   await locationService.getLocation();
-    //   rangingBeacon();
-    // }
     _streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) async {
-      print("result ${result.beacons}");
       if (result.beacons.isNotEmpty) {
         _streamRanging?.cancel();
         if (mounted) {
@@ -147,7 +139,7 @@ class _SearchClassState extends State<SearchClass> {
                         context, "/success-open-presence",
                         arguments: value));
               } catch (e) {
-                print(e);
+                Exception(e);
                 Timer.periodic(const Duration(seconds: 4), (timer) {
                   timeoutSearchClass();
                 });

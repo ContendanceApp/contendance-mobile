@@ -22,7 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool ishiddenPassword = true;
   bool _validateEmail = true;
   bool _validatePassword = true;
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   LoginService login = LoginService();
   final _formKey = GlobalKey<FormState>();
   bool isClicked = false;

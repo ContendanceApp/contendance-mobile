@@ -286,7 +286,6 @@ class _ActiveClassState extends State<ActiveClass> {
                                   await presence
                                       .closePresence(body)
                                       .then((value) {
-                                    print(value);
                                     EasyLoading.dismiss();
                                     Navigator.pushNamedAndRemoveUntil(
                                         context,
@@ -294,7 +293,7 @@ class _ActiveClassState extends State<ActiveClass> {
                                         (Route<dynamic> route) => false);
                                   });
                                 } catch (e) {
-                                  print(e);
+                                  throw Exception(e);
                                 }
                               },
                               primary: false,

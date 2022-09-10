@@ -46,7 +46,7 @@ class _RipplesAnimationState extends State<RipplesAnimation>
   checkConnection() async {
     bool result = await InternetConnectionChecker().hasConnection;
     if (result == true) {
-      doPresence();
+      // doPresence();
     } else {
       Navigator.pushReplacement(
         context,
@@ -57,20 +57,20 @@ class _RipplesAnimationState extends State<RipplesAnimation>
     }
   }
 
-  doPresence() async {
-    Map<String, String> body = {
-      'userId': userId!,
-      'roomId': roomId!,
-    };
-    // await presence.createPresence(body).then((value) {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => SuccessPresence(presence: value.data),
-    //     ),
-    //   );
-    // });
-  }
+  // doPresence() async {
+  //   Map<String, String> body = {
+  //     'userId': userId!,
+  //     'roomId': roomId!,
+  //   };
+  // await presence.createPresence(body).then((value) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => SuccessPresence(presence: value.data),
+  //     ),
+  //   );
+  // });
+  // }
 
   // searchingTimer() async {
   //   var duration = const Duration(seconds: 3);
