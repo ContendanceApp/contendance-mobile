@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:contendance_app/constant/string.dart';
-import 'package:contendance_app/data/models/class_presence.dart';
-import 'package:contendance_app/data/models/presence.dart';
+import '../constant/string.dart';
+import '../data/models/class_presence.dart';
+import '../data/models/presence.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 

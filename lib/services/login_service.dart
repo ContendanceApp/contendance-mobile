@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:contendance_app/constant/string.dart';
-import 'package:contendance_app/data/models/login.dart';
+import '../constant/string.dart';
+import '../data/models/login.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -4,10 +4,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:contendance_app/widgets/button.dart';
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/class_presence.dart';
-import 'package:contendance_app/services/presence_service.dart';
+import '../widgets/button.dart';
+import '../constant/theme.dart';
+import '../data/models/class_presence.dart';
+import '../services/presence_service.dart';
 
 class ActiveClass extends StatefulWidget {
   const ActiveClass(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/room.dart';
-import 'package:contendance_app/widgets/button.dart';
+import '../constant/theme.dart';
+import '../data/models/room.dart';
+import '../widgets/button.dart';
 
 class CardsRoomBuilder extends StatefulWidget {
   const CardsRoomBuilder({Key? key}) : super(key: key);

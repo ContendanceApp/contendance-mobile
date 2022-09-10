@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:contendance_app/constant/string.dart';
-import 'package:contendance_app/data/models/presence_history_lecturer.dart';
-import 'package:contendance_app/data/models/presence_history_student.dart';
+import '../constant/string.dart';
+import '../data/models/presence_history_lecturer.dart';
+import '../data/models/presence_history_student.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 

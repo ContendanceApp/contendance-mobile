@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/screens/search_class.dart';
+import '../../constant/theme.dart';
+import '../../screens/search_class.dart';
 
 class FloatingActionButtonComp extends StatelessWidget {
   const FloatingActionButtonComp({Key? key}) : super(key: key);

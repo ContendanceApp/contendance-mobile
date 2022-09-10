@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:contendance_app/constant/theme.dart';
+import '../constant/theme.dart';
 
 class Button extends StatelessWidget {
   final String text;

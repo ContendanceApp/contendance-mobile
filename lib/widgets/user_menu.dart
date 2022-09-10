@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:contendance_app/constant/theme.dart';
+import '../constant/theme.dart';
 
 class UserMenu extends StatelessWidget {
   const UserMenu({Key? key, required this.role}) : super(key: key);
