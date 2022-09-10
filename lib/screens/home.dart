@@ -50,7 +50,6 @@ class _HomeState extends State<Home> {
 
   List beacons = [];
   final regions = <Region>[];
-  late StreamSubscription<RangingResult>? _streamRanging;
 
   LoginService login = LoginService();
   String? _token;
@@ -311,7 +310,7 @@ class _HomeState extends State<Home> {
         setState(() {
           loadActiveClass = false;
         });
-        print(e);
+        // print(e);
       }
     }
   }
@@ -407,11 +406,6 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            // Icon(
-                            //   Icons.menu,
-                            //   color: colorWhite,
-                            //   size: 28,
-                            // ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -673,80 +667,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // showModalBottom() {
-  //   return showModalBottomSheet(
-  //     backgroundColor: Colors.transparent,
-  //     context: context,
-  //     builder: (builder) {
-  //       return Container(
-  //         height: 250.0,
-  //         color: Colors.transparent, //could change this to Color(0xFF737373),
-  //         //so you don't have to change MaterialApp canvasColor
-  //         child: Container(
-  //           decoration: const BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: BorderRadius.only(
-  //                   topLeft: Radius.circular(roundedBase),
-  //                   topRight: Radius.circular(roundedBase))),
-  //           child: Center(
-  //             child: Stack(
-  //               children: [
-  //                 Positioned.fill(
-  //                   top: -40,
-  //                   child: Align(
-  //                     alignment: AlignmentDirectional.center,
-  //                     child: Text(
-  //                       "Fitur ini akan segera tersedia!",
-  //                       style: fontInter.copyWith(
-  //                         fontWeight: fwBold,
-  //                         fontSize: 18.0,
-  //                         color: colorPrimaryBlack,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 Align(
-  //                   alignment: AlignmentDirectional.bottomCenter,
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(paddingBase),
-  //                     child: Container(
-  //                       decoration: BoxDecoration(
-  //                         borderRadius: BorderRadius.circular(roundedBase),
-  //                         gradient: const LinearGradient(
-  //                           begin: Alignment.topRight,
-  //                           end: Alignment.bottomLeft,
-  //                           colors: [
-  //                             Color(0xff145ae3),
-  //                             Color(0xff15aeef),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                       child: TextButton(
-  //                         style: TextButton.styleFrom(
-  //                           minimumSize: const Size.fromHeight(0),
-  //                           padding: const EdgeInsets.symmetric(
-  //                               horizontal: 45, vertical: 12),
-  //                           primary: Colors.white,
-  //                           textStyle: fontInter.copyWith(
-  //                             fontSize: 16,
-  //                             fontWeight: FontWeight.fwBold,
-  //                           ),
-  //                         ),
-  //                         onPressed: () => Navigator.pop(context),
-  //                         child: const Text("OKE!"),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   showModalBottom() {
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
@@ -837,71 +757,8 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // initializeBeacon() async {
-  //   try {
-  //     // if you want to manage manual checking about the required permissions
-  //     // await flutterBeacon.initializeScanning;
-
-  //     // or if you want to include automatic checking permission
-  //     await flutterBeacon.initializeAndCheckScanning;
-  //   } on PlatformException catch (e) {
-  //     // ignore: avoid_print
-  //     print(e.message);
-  //     // library failed to initialize, check code and message
-  //   }
-  // }
-
-  // rangingBeacon() {
-  //   if (Platform.isIOS) {
-  //     // iOS platform, at least set identifier and proximityUUID for region scanning
-  //     regions.add(Region(
-  //         identifier: 'Apple Airlocate',
-  //         proximityUUID: 'E2C56DB5-DFFB-48D2-B060-D0F5A71096E0'));
-  //   } else {
-  //     regions.add(Region(identifier: 'com.beacon'));
-  //   }
-
-  //   _streamRanging =
-  //       flutterBeacon.ranging(regions).listen((RangingResult result) {
-  //     if (result.beacons.isNotEmpty) {
-  //       setState(() {
-  //         beacons = result.beacons;
-  //       });
-  //       _streamRanging?.cancel();
-  //       int index = 0;
-  //       for (var beacon in beacons) {
-  //         _showNotification(
-  //             index,
-  //             "Beacon Detected",
-  //             "UUID: ${beacon.proximityUUID} | Jarak: ${beacon.accuracy}",
-  //             "This is the payload");
-  //         index++;
-  //       }
-  //     }
-  //     // result contains a region and list of beacons found
-  //     // list can be empty if no matching beacons were found in range
-  //   });
-  // }
-
-  // void _showNotification(
-  //     int id, String? title, String? body, String? payload) async {
-  //   const androidChannelPlatformSpecifics = AndroidNotificationDetails(
-  //       'channelId', 'channelName',
-  //       channelDescription: 'channelDescription',
-  //       importance: Importance.max,
-  //       priority: Priority.high,
-  //       ticker: 'test ticker');
-
-  //   const platformChannelSpecifics =
-  //       NotificationDetails(android: androidChannelPlatformSpecifics);
-
-  //   await flutterLocalNotificationsPlugin
-  //       .show(id, title, body, platformChannelSpecifics, payload: payload);
-  // }
-
   Future<void> checkClassStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    // print(prefs.getString('classStatus'));
 
     if (prefs.getString('classStatus') != null) {
       if (prefs.getString('classStatus') == "not-found") {
