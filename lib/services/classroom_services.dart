@@ -1,43 +1,30 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/models/classroom_model.dart';
 import '../constant/string.dart';
-import '../data/models/login_model.dart';
 
-class LoginService {
-  Future<LoginModel> authLogin(Map<String, String> body) async {
+class ClassroomService {
+  Future<ClassroomModel> getDetailActiveClass(int idClass) async {
     final response = await http.post(
-      Uri.parse("$baseUrl/auth/login"),
+      Uri.parse("$baseUrl/class/detail/$idClass"),
       headers: headers,
-      body: jsonEncode(
-        <String, String>{
-          'email': body['email']!,
-          'password': body['password']!,
-        },
-      ),
     );
 
     if (response.statusCode == 200) {
-      Map<dynamic, dynamic> temp = jsonDecode(response.body);
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('token', temp['access_token'] ?? "");
-      return LoginModel.fromJson(jsonDecode(response.body));
+      return ClassroomModel.fromJson(jsonDecode(response.body));
     } else {
-      return LoginModel.fromJson(jsonDecode(response.body));
+      return ClassroomModel.fromJson(jsonDecode(response.body));
     }
   }
 
-  Future<http.Response> loggedUser(String token) async {
+  Future<http.Response> toggleAdmitClass(int idClass) async {
     try {
-      final response = await http.get(Uri.parse("$baseUrl/auth/me"), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': "bearer $token",
-      });
+      final response =
+          await http.get(Uri.parse("$baseUrl/class/toggle-admit/$idClass"));
       return response;
     } catch (e) {
-      // throw e;
       throw Exception(e);
     }
   }
