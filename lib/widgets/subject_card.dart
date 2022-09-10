@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:contendance_app/widgets/button.dart';
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence_history.dart';
-import 'package:flutter/material.dart';
 
 class SubjectCard extends StatelessWidget {
   const SubjectCard({
