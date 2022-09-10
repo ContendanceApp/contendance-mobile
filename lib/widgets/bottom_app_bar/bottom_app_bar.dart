@@ -1,6 +1,8 @@
-import 'package:contendance_app/constant/theme.dart';
 import 'package:flutter/material.dart';
+
 import 'package:iconly/iconly.dart';
+
+import 'package:contendance_app/constant/theme.dart';
 
 class BottomAppBarComp extends StatelessWidget {
   const BottomAppBarComp({Key? key}) : super(key: key);

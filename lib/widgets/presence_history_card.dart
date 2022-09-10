@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:contendance_app/constant/theme.dart';
 import 'package:contendance_app/data/models/presence_history_lecturer.dart';
 import 'package:contendance_app/data/models/presence_history_student.dart';
-import 'package:flutter/material.dart';
 
 class PresenceHistoryCard extends StatelessWidget {
   PresenceHistoryCard({
