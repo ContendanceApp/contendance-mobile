@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-
-import '../../screens/home.dart';
 import '../../widgets/ripple_animation/circle_painter.dart';
 import '../../constant/theme.dart';
-import '../../services/presence_service.dart';
 
 class RipplesAnimation extends StatefulWidget {
   const RipplesAnimation({
@@ -28,10 +24,6 @@ class _RipplesAnimationState extends State<RipplesAnimation>
     with TickerProviderStateMixin {
   late AnimationController _controller;
 
-  PresenceService presence = PresenceService();
-  String? userId = "1";
-  String? roomId = "1";
-
   @override
   void initState() {
     super.initState();
@@ -39,48 +31,7 @@ class _RipplesAnimationState extends State<RipplesAnimation>
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     )..repeat();
-    // checkConnection();
-    // searchingTimer();
   }
-
-  checkConnection() async {
-    bool result = await InternetConnectionChecker().hasConnection;
-    if (result == true) {
-      // doPresence();
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Tidak ada koneksi internet')));
-    }
-  }
-
-  // doPresence() async {
-  //   Map<String, String> body = {
-  //     'userId': userId!,
-  //     'roomId': roomId!,
-  //   };
-  // await presence.createPresence(body).then((value) {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => SuccessPresence(presence: value.data),
-  //     ),
-  //   );
-  // });
-  // }
-
-  // searchingTimer() async {
-  //   var duration = const Duration(seconds: 3);
-  //   return Timer(duration, () {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => const SuccessPresence()),
-  //     );
-  //   });
-  // }
 
   @override
   void dispose() {
@@ -114,12 +65,6 @@ class _RipplesAnimationState extends State<RipplesAnimation>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: BackButton(
-        //   color: const Color(0xFF130F26),
-        //   onPressed: () {
-        //     // _goBack(context);
-        //   },
-        // ),
         automaticallyImplyLeading: false,
         title: Text(
           "CONTENDANCE",

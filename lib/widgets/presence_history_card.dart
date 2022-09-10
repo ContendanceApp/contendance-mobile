@@ -4,6 +4,7 @@ import '../constant/theme.dart';
 import '../data/models/presence_history_lecturer_model.dart';
 import '../data/models/presence_history_student_model.dart';
 
+// ignore: must_be_immutable
 class PresenceHistoryCard extends StatelessWidget {
   PresenceHistoryCard({
     Key? key,

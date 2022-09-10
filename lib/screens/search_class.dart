@@ -55,7 +55,6 @@ class _SearchClassState extends State<SearchClass> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // ignore: prefer_const_constructors
       home: RipplesAnimation(
         onPressed: () {},
         key: null,
@@ -146,19 +145,13 @@ class _SearchClassState extends State<SearchClass> {
               }
             } else {
               // if lecturer
-              var res = await checkPresence(
+              await checkPresence(
                       beacon.proximityUUID, beacon.major, beacon.minor, userId)
                   .then((value) => Navigator.pushReplacementNamed(
                       context, "/open-presence",
                       arguments: BeaconArgs(beacon: beacon, schedule: value)));
             }
           }
-          // _showNotification(
-          //     index,
-          //     "Beacon Detected",
-          //     "UUID: ${beacon.proximityUUID} | Jarak: ${beacon.accuracy}",
-          //     "This is the payload");
-          // index++;
         }
       } else {
         Timer.periodic(const Duration(seconds: 4), (timer) {
@@ -168,21 +161,21 @@ class _SearchClassState extends State<SearchClass> {
     });
   }
 
-  void _showNotification(
-      int id, String? title, String? body, String? payload) async {
-    const androidChannelPlatformSpecifics = AndroidNotificationDetails(
-        'channelId', 'channelName',
-        channelDescription: 'channelDescription',
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'test ticker');
+  // void _showNotification(
+  //     int id, String? title, String? body, String? payload) async {
+  //   const androidChannelPlatformSpecifics = AndroidNotificationDetails(
+  //       'channelId', 'channelName',
+  //       channelDescription: 'channelDescription',
+  //       importance: Importance.max,
+  //       priority: Priority.high,
+  //       ticker: 'test ticker');
 
-    const platformChannelSpecifics =
-        NotificationDetails(android: androidChannelPlatformSpecifics);
+  //   const platformChannelSpecifics =
+  //       NotificationDetails(android: androidChannelPlatformSpecifics);
 
-    await flutterLocalNotificationsPlugin
-        .show(id, title, body, platformChannelSpecifics, payload: payload);
-  }
+  //   await flutterLocalNotificationsPlugin
+  //       .show(id, title, body, platformChannelSpecifics, payload: payload);
+  // }
 
   Future onSelectNotification(String? payload) async {
     if (payload != null) {
