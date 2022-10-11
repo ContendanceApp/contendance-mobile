@@ -1,25 +1,37 @@
+import '../controllers/succes_presence_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:badges/badges.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
 import '../data/models/presence_model.dart';
-import '../widgets/button.dart';
-import '../widgets/screen_wrapper/base_white_screen.dart';
 
-class SuccessOpenPresence extends StatefulWidget {
-  const SuccessOpenPresence({Key? key}) : super(key: key);
+class SuccessPresence extends StatelessWidget {
+  final controller = Get.put(SuccesPresenceController());
+  SuccessPresence({Key? key}) : super(key: key);
 
-  @override
-  State<SuccessOpenPresence> createState() => _SuccessOpenPresenceState();
-}
-
-class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as PresenceData;
-    return BaseWhiteScreen(
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          "CONTENDANCE",
+          style: fontInter.copyWith(
+            color: colorPrimaryBlue,
+            fontWeight: fwBold,
+            fontSize: 14,
+            letterSpacing: 1,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
@@ -30,7 +42,9 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
               child: Column(
                 children: [
                   Text(
-                    args.message,
+                    args.data.lecturer.roleId == 1
+                        ? 'Presensi Berhasil'
+                        : 'Presensi Berhasil Dibuka!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
@@ -65,7 +79,7 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
-                      DateFormat("H:mm").format(DateTime.now()),
+                      args.data.room.roomCode,
                       style: fontInter.copyWith(
                         color: const Color(0xFFFFFFFF).withOpacity(0.9),
                         fontWeight: FontWeight.w600,
@@ -89,7 +103,7 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
               ),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.17,
+              bottom: MediaQuery.of(context).size.height * 0.15,
               child: Column(
                 children: <Widget>[
                   SizedBox(
@@ -146,15 +160,38 @@ class _SuccessOpenPresenceState extends State<SuccessOpenPresence> {
             ),
             Positioned(
               bottom: 50,
-              child: Button(
-                text: "OKE",
-                callback: () => Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  "/home",
-                  (Route<dynamic> route) => false,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: colorGradient,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 45, vertical: 12),
+                        primary: Colors.white,
+                        textStyle: fontInter.copyWith(
+                          fontSize: 16,
+                          fontWeight: fwBold,
+                        ),
+                      ),
+                      onPressed: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        final success = await prefs.remove('classStatus');
+                        if (success) {
+                          Navigator.pushReplacementNamed(context, "/home");
+                        }
+                      },
+                      child: const Text('OKE'),
+                    ),
+                  ],
                 ),
-                primary: true,
-                secondary: false,
               ),
             )
           ],

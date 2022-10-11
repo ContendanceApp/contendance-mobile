@@ -1,35 +1,19 @@
+import 'package:contendance_app/controllers/change_schedule_screen_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:date_format/date_format.dart';
+import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 import '../widgets/cards_room_builder.dart';
 
-class ChangeScheduleScreen extends StatefulWidget {
-  const ChangeScheduleScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ChangeScheduleScreen> createState() => _ChangeScheduleScreenState();
-}
-
-class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
-  get child => null;
-  String? pickedDate = '';
-  String? pickedStart = '';
-  String? pickedEnd = '';
-  String? selectedSubject;
-  List<String> subjects = [
-    "Workshop Pemrograman Perangkat Lunak",
-    "Kecerdasan Komputasional",
-    "Desain Pengalaman Pengguna",
-    "Workshop Administrasi Jaringan",
-    "Bahasa Inggris 2",
-    "Matematika 4"
-  ];
+class ChangeScheduleScreen extends StatelessWidget {
+  final controller = Get.put(ChangeScheduleScreenController());
+  ChangeScheduleScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +119,7 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                               color: colorSubText,
                             ),
                           ),
-                          items: subjects
+                          items: controller.subjects
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -150,11 +134,9 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                                 ),
                               )
                               .toList(),
-                          value: selectedSubject,
+                          value: controller.selectedSubject,
                           onChanged: (value) {
-                            setState(() {
-                              selectedSubject = value as String;
-                            });
+                            controller.selectedSubject.value = value as String;
                           },
                           icon: const Icon(IconlyLight.arrow_down_2),
                           buttonWidth: 140,
@@ -198,11 +180,11 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                     clickableBox(
                       child: TextButton(
                         child: Text(
-                          pickedDate == ''
+                          controller.pickedDate == ''
                               ? 'Pilih tanggal untuk mengganti kelas'
-                              : pickedDate!,
+                              : controller.pickedDate!,
                           style: TextStyle(
-                            color: pickedDate == ''
+                            color: controller.pickedDate == ''
                                 ? colorSubText
                                 : colorPrimaryBlue,
                             fontWeight: fwMedium,
@@ -221,14 +203,13 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                                 date.toString().substring(5, 7);
                             String? pickedYear =
                                 date.toString().substring(0, 4);
-                            setState(() {
-                              pickedDate = formatDate(
-                                  DateTime(
-                                      int.parse(pickedYear),
-                                      int.parse(pickedMonth),
-                                      int.parse(pickedDay)),
-                                  [d, ' ', MM, ' ', yyyy]);
-                            });
+
+                            controller.pickedDate = formatDate(
+                                DateTime(
+                                    int.parse(pickedYear),
+                                    int.parse(pickedMonth),
+                                    int.parse(pickedDay)),
+                                [d, ' ', MM, ' ', yyyy]);
                           },
                               currentTime: DateTime.now(),
                               locale: LocaleType.id);
@@ -266,15 +247,16 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                                         onConfirm: (time) {
                                       String? pickedSchedule =
                                           time.toString().substring(11, 16);
-                                      setState(() {
-                                        pickedStart = pickedSchedule;
-                                      });
+
+                                      controller.pickedStart = pickedSchedule;
                                     }, currentTime: DateTime.now());
                                   },
                                   child: Text(
-                                    pickedStart == '' ? 'Mulai' : pickedStart!,
+                                    controller.pickedStart == ''
+                                        ? 'Mulai'
+                                        : controller.pickedStart!,
                                     style: TextStyle(
-                                      color: pickedStart == ''
+                                      color: controller.pickedStart == ''
                                           ? colorSubText
                                           : colorPrimaryBlue,
                                       fontWeight: fwMedium,
@@ -309,15 +291,16 @@ class _ChangeScheduleScreenState extends State<ChangeScheduleScreen> {
                                         onConfirm: (time) {
                                       String? pickedSchedule =
                                           time.toString().substring(11, 16);
-                                      setState(() {
-                                        pickedEnd = pickedSchedule;
-                                      });
+
+                                      controller.pickedEnd = pickedSchedule;
                                     }, currentTime: DateTime.now());
                                   },
                                   child: Text(
-                                    pickedEnd == '' ? 'Selesai' : pickedEnd!,
+                                    controller.pickedEnd == ''
+                                        ? 'Selesai'
+                                        : controller.pickedEnd!,
                                     style: TextStyle(
-                                      color: pickedEnd == ''
+                                      color: controller.pickedEnd == ''
                                           ? colorSubText
                                           : colorPrimaryBlue,
                                       fontWeight: fwMedium,

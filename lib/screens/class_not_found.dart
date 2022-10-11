@@ -1,18 +1,16 @@
+import 'package:contendance_app/controllers/class_not_found_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 
-class ClassNotFound extends StatefulWidget {
-  const ClassNotFound({Key? key}) : super(key: key);
+class ClassNotFound extends StatelessWidget {
+  final controller = Get.put(ClassNotFoundController());
+  ClassNotFound({Key? key}) : super(key: key);
 
-  @override
-  State<ClassNotFound> createState() => _ClassNotFoundState();
-}
-
-class _ClassNotFoundState extends State<ClassNotFound> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

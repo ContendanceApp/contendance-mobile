@@ -1,18 +1,18 @@
+// import 'dart:html';
+
+import 'package:contendance_app/controllers/detail_class_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:badges/badges.dart';
+import 'package:get/get.dart';
 
 import '../constant/theme.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 
-class DetailClass extends StatefulWidget {
-  const DetailClass({Key? key}) : super(key: key);
+class DetailClass extends StatelessWidget {
+  final controller = Get.put(DetailClassController());
+  DetailClass({Key? key}) : super(key: key);
 
-  @override
-  State<DetailClass> createState() => _DetailClassState();
-}
-
-class _DetailClassState extends State<DetailClass> {
   // static const kelas = 'Dalam Kelas';
   @override
   Widget build(BuildContext context) {

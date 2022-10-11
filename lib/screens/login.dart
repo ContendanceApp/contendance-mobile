@@ -99,49 +99,49 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              gradient: colorGradient,
-            ),
-            margin: const EdgeInsets.only(top: paddingLg),
-            padding: const EdgeInsets.all(paddingLg),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Akun Demo (Demo Account)",
-                  style: TextStyle(
-                    color: colorWhite,
-                    fontSize: 16.0,
-                    fontWeight: fwBold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  "Email: demo@contendance.com",
-                  style: TextStyle(
-                    color: colorSubWhite,
-                    fontSize: 16.0,
-                  ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  "Password: 12345678",
-                  style: TextStyle(
-                    color: colorSubWhite,
-                    fontSize: 16.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   decoration: BoxDecoration(
+          //     borderRadius: const BorderRadius.all(
+          //       Radius.circular(10),
+          //     ),
+          //     gradient: colorGradient,
+          //   ),
+          //   margin: const EdgeInsets.only(top: paddingLg),
+          //   padding: const EdgeInsets.all(paddingLg),
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Text(
+          //         "Akun Demo (Demo Account)",
+          //         style: TextStyle(
+          //           color: colorWhite,
+          //           fontSize: 16.0,
+          //           fontWeight: fwBold,
+          //         ),
+          //       ),
+          //       const SizedBox(
+          //         height: 8,
+          //       ),
+          //       Text(
+          //         "Email: demo@contendance.com",
+          //         style: TextStyle(
+          //           color: colorSubWhite,
+          //           fontSize: 16.0,
+          //         ),
+          //       ),
+          //       const SizedBox(
+          //         height: 4,
+          //       ),
+          //       Text(
+          //         "Password: 12345678",
+          //         style: TextStyle(
+          //           color: colorSubWhite,
+          //           fontSize: 16.0,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Form(
             key: _formKey,
             child: Container(

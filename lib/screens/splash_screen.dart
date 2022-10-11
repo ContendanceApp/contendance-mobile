@@ -1,31 +1,15 @@
-import 'dart:async';
+import 'package:get/get.dart';
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constant/theme.dart';
+import '../controllers/splash_controller.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  _SplashScreen createState() => _SplashScreen();
-}
-
-class _SplashScreen extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    splashscreenStart();
-  }
-
-  splashscreenStart() async {
-    var duration = const Duration(seconds: 2);
-    return Timer(duration, () {
-      Navigator.pushReplacementNamed(context, "/login");
-    });
-  }
+class SplashScreen extends StatelessWidget {
+  final controller = Get.put(SplashController());
+  SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
