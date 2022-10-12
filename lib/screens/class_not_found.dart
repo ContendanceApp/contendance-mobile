@@ -1,5 +1,6 @@
 import 'package:contendance_app/controllers/class_not_found_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -74,10 +75,8 @@ class ClassNotFound extends StatelessWidget {
               bottom: 50,
               child: Button(
                 text: "OKE",
-                callback: () => Navigator.pushNamedAndRemoveUntil(
-                  context,
+                callback: () => Get.offAllNamed(
                   "/home",
-                  (Route<dynamic> route) => false,
                 ),
                 primary: false,
                 secondary: false,

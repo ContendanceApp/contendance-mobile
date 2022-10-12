@@ -147,8 +147,7 @@ class SuccessOpenPresence extends StatelessWidget {
               bottom: 50,
               child: Button(
                 text: "OKE",
-                callback: () => Navigator.pushNamedAndRemoveUntil(
-                  context,
+                callback: () => Get.offNamedUntil(
                   "/home",
                   (Route<dynamic> route) => false,
                 ),

@@ -185,7 +185,7 @@ class SuccessPresence extends StatelessWidget {
                         final prefs = await SharedPreferences.getInstance();
                         final success = await prefs.remove('classStatus');
                         if (success) {
-                          Navigator.pushReplacementNamed(context, "/home");
+                          Get.offNamed("/home");
                         }
                       },
                       child: const Text('OKE'),

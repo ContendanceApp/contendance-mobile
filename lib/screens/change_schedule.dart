@@ -44,7 +44,7 @@ class ChangeScheduleScreen extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                       ),
                     ),

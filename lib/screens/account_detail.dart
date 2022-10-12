@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
@@ -53,7 +54,7 @@ class _AccountDetailState extends State<AccountDetail> {
       _token = token;
     });
     if (token == null) {
-      Navigator.pushReplacementNamed(context, "/login");
+      Get.offNamed("/login");
     } else {
       getUserInfo();
     }
@@ -74,7 +75,7 @@ class _AccountDetailState extends State<AccountDetail> {
       setState(() {
         preferences.remove("token");
       });
-      Navigator.pushReplacementNamed(context, "/login");
+      Get.offNamed("/login");
     }
   }
 

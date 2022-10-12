@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,7 +75,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
                           await prefs.setBool('collectsLocation', false);
 
                           if (prefs.getString('locationPerm') != null) {
-                            Navigator.pushReplacementNamed(context, "/home");
+                            Get.offNamed("/home");
                           }
                         },
                       ),
@@ -94,7 +95,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
                           await prefs.setBool('collectsLocation', true);
 
                           if (prefs.getString('locationPerm') != null) {
-                            Navigator.pushReplacementNamed(context, "/home");
+                            Get.offNamed("/home");
                           }
                         },
                       ),

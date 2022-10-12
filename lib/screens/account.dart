@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:iconly/iconly.dart';
@@ -56,7 +57,7 @@ class _AccountState extends State<Account> {
       _token = token;
     });
     if (token == null) {
-      Navigator.pushReplacementNamed(context, "/login");
+      Get.offNamed("/login");
     } else {
       getUserInfo();
     }
@@ -77,7 +78,7 @@ class _AccountState extends State<Account> {
       setState(() {
         preferences.remove("token");
       });
-      Navigator.pushReplacementNamed(context, "/login");
+      Get.offNamed("/login");
     }
   }
 
@@ -87,10 +88,8 @@ class _AccountState extends State<Account> {
       preferences.remove("token");
     });
 
-    Navigator.pushNamedAndRemoveUntil(
-      context,
+    Get.offAllNamed(
       "/login",
-      (route) => false,
     );
   }
 
@@ -123,7 +122,7 @@ class _AccountState extends State<Account> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.pop(context);
+                          Get.back();
                         },
                       ),
                     ),
@@ -273,7 +272,7 @@ class _AccountState extends State<Account> {
                             ),
                           ),
                           onTap: () {
-                            Navigator.pushNamed(context, "/account-detail");
+                            Get.offNamed("/account-detail");
                           },
                         ),
                       ),
@@ -334,7 +333,7 @@ class _AccountState extends State<Account> {
                             ),
                           ),
                           onTap: () {
-                            Navigator.pushNamed(context, "/about-app");
+                            Get.offNamed("/about-app");
                           },
                         ),
                       ),
@@ -455,7 +454,7 @@ class _AccountState extends State<Account> {
                             flex: 1,
                             child: Button(
                               text: "Batal",
-                              callback: () => Navigator.pop(context),
+                              callback: () => Get.back(),
                               primary: false,
                               secondary: true,
                             ),

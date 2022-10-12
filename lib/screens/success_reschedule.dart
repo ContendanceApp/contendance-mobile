@@ -167,7 +167,7 @@ class SuccessReschedule extends StatelessWidget {
               alignment: AlignmentDirectional.bottomCenter,
               child: Button(
                   text: "OKE!",
-                  callback: () => Navigator.pop(context),
+                  callback: () => Get.back(),
                   primary: true,
                   secondary: false),
             )

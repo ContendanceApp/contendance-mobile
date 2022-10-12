@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:iconly/iconly.dart';
 import 'package:badges/badges.dart';
@@ -154,10 +155,8 @@ class ClassFinished extends StatelessWidget {
                     ),
                     Button(
                       text: "OKE!",
-                      callback: () => Navigator.pushNamedAndRemoveUntil(
-                        context,
+                      callback: () => Get.offAllNamed(
                         "/home",
-                        (Route<dynamic> route) => false,
                       ),
                       primary: false,
                       secondary: false,

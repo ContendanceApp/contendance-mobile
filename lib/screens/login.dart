@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final prefs = await SharedPreferences.getInstance();
 
     if (prefs.getString('token') != null) {
-      Navigator.pushReplacementNamed(context, "/home");
+      Get.offNamed("/home");
     }
   }
 
@@ -300,7 +301,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var token = prefs.getString('token');
     if (token != null) {
       getUserInfo(response.accessToken!);
-      Navigator.pushReplacementNamed(context, "/home");
+      Get.offNamed("/home");
     } else {
       setState(() {
         isClicked = false;
