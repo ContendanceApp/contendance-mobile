@@ -1,17 +1,16 @@
+import 'package:contendance_app/controllers/waiting_room_controller.dart';
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
 
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 
-class WaitingRoom extends StatefulWidget {
-  const WaitingRoom({Key? key}) : super(key: key);
+class WaitingRoom extends StatelessWidget {
+  final controller = Get.put(WaitingRoomController());
+  WaitingRoom({Key? key}) : super(key: key);
 
-  @override
-  State<WaitingRoom> createState() => _WaitingRoomState();
-}
-
-class _WaitingRoomState extends State<WaitingRoom> {
   @override
   Widget build(BuildContext context) {
     return StackScreen(

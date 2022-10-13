@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 
 import '../constant/theme.dart';
 import '../data/models/presence_model.dart';
@@ -136,7 +137,7 @@ class _OpenPresenceState extends State<OpenPresence> {
                             flex: 1,
                             child: Button(
                               text: "Batal",
-                              callback: () => Navigator.pop(context),
+                              callback: () => Get.back(),
                               primary: false,
                               secondary: true,
                             ),
@@ -171,11 +172,8 @@ class _OpenPresenceState extends State<OpenPresence> {
                               final success = await prefs.remove('classStatus');
                               if (success) {
                                 if (mounted) {
-                                  Navigator.pushNamedAndRemoveUntil(
-                                    context,
+                                  Get.offAllNamed(
                                     "/success-open-presence",
-                                    (Route<dynamic> route) => false,
-                                    arguments: value,
                                   );
                                 }
                               }

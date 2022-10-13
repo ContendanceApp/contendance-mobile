@@ -1,16 +1,14 @@
+import 'package:contendance_app/controllers/about_app_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../constant/theme.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 
-class AboutApp extends StatefulWidget {
-  const AboutApp({Key? key}) : super(key: key);
+class AboutApp extends StatelessWidget {
+  final controller = Get.put(AboutAppController());
+  AboutApp({Key? key}) : super(key: key);
 
-  @override
-  State<AboutApp> createState() => _AboutAppState();
-}
-
-class _AboutAppState extends State<AboutApp> {
   @override
   Widget build(BuildContext context) {
     return StackScreen(

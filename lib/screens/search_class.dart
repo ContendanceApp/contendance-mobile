@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
@@ -66,8 +67,7 @@ class _SearchClassState extends State<SearchClass> {
   timeoutSearchClass() async {
     if (mounted) {
       _streamRanging?.cancel();
-      Navigator.of(context, rootNavigator: true)
-          .pushReplacementNamed('/class-not-found');
+      Get.offNamed('/class-not-found');
     }
   }
 
@@ -134,9 +134,7 @@ class _SearchClassState extends State<SearchClass> {
 
               try {
                 await presence.createPresence(body).then((value) =>
-                    Navigator.pushReplacementNamed(
-                        context, "/success-open-presence",
-                        arguments: value));
+                    Get.offNamed("/success-open-presence", arguments: value));
               } catch (e) {
                 Exception(e);
                 Timer.periodic(const Duration(seconds: 4), (timer) {
@@ -147,8 +145,7 @@ class _SearchClassState extends State<SearchClass> {
               // if lecturer
               await checkPresence(
                       beacon.proximityUUID, beacon.major, beacon.minor, userId)
-                  .then((value) => Navigator.pushReplacementNamed(
-                      context, "/open-presence",
+                  .then((value) => Get.offNamed("/open-presence",
                       arguments: BeaconArgs(beacon: beacon, schedule: value)));
             }
           }
@@ -183,6 +180,6 @@ class _SearchClassState extends State<SearchClass> {
     }
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('classStatus', "not-found");
-    await Navigator.pushReplacementNamed(context, "/home");
+    await Get.offNamed("/home");
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -97,7 +98,7 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
       });
       getUserInfo();
     } else {
-      Navigator.pushReplacementNamed(context, "/login");
+      Get.offNamed("/login");
     }
   }
 
@@ -115,7 +116,7 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
       final success = await prefs.remove('token');
       if (success) {
         if (mounted) {
-          Navigator.pushReplacementNamed(context, "/login");
+          Get.offNamed("/login");
         }
       }
     }

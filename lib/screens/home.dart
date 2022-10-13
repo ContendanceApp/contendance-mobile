@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -225,8 +226,7 @@ class _HomeState extends State<Home> {
       final isGpsOn = locationServiceStatus == ServiceStatus.enabled;
       if (!isGpsOn) {
         // print('Turn on location services before requesting permission.');
-        Navigator.pushReplacementNamed(
-            context, '/prominent-disclosure-location');
+        Get.offNamed('/prominent-disclosure-location');
         return;
       }
     } else {
@@ -241,8 +241,7 @@ class _HomeState extends State<Home> {
         } else if (status == PermissionStatus.denied) {
           // print(
           //     'Permission denied. Show a dialog and again ask for the permission');
-          Navigator.pushReplacementNamed(
-              context, '/prominent-disclosure-location');
+          Get.offNamed('/prominent-disclosure-location');
         } else if (status == PermissionStatus.permanentlyDenied) {
           // print('Take the user to the settings page.');
           await openAppSettings();
@@ -261,7 +260,7 @@ class _HomeState extends State<Home> {
       });
       getUserInfo();
     } else {
-      Navigator.pushReplacementNamed(context, "/login");
+      Get.offNamed("/login");
     }
   }
 
@@ -281,7 +280,7 @@ class _HomeState extends State<Home> {
       final success = await prefs.remove('token');
       if (success) {
         if (mounted) {
-          Navigator.pushReplacementNamed(context, "/login");
+          Get.offNamed("/login");
         }
       }
     }
@@ -370,7 +369,7 @@ class _HomeState extends State<Home> {
                                         "assets/images/hamburger-menu.svg"),
                                   ),
                                   onTap: () {
-                                    Navigator.pushNamed(context, "/account");
+                                    Get.toNamed("/account");
                                   },
                                 ),
                                 InkWell(
@@ -400,8 +399,7 @@ class _HomeState extends State<Home> {
                                     ),
                                   ),
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/account-detail");
+                                    Get.toNamed("/account-detail");
                                   },
                                 ),
                               ],
@@ -590,8 +588,7 @@ class _HomeState extends State<Home> {
                                         Button(
                                           text: "Cari Kelas",
                                           callback: () {
-                                            Navigator.pushNamed(
-                                                context, "/search-class");
+                                            Get.toNamed("/search-class");
                                           },
                                           primary: false,
                                           secondary: false,
@@ -621,8 +618,7 @@ class _HomeState extends State<Home> {
                                         ]),
                                   ),
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/search-class");
+                                    Get.toNamed("/search-class");
                                   },
                                 )
                               : ActiveClass(
@@ -739,7 +735,7 @@ class _HomeState extends State<Home> {
                               final success = await prefs.remove('classStatus');
                               if (success) {
                                 if (mounted) {
-                                  Navigator.pop(context);
+                                  Get.back();
                                 }
                               }
                             },
@@ -774,6 +770,6 @@ class _HomeState extends State<Home> {
     }
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('classStatus', "not-found");
-    await Navigator.pushReplacementNamed(context, "/home");
+    await Get.offNamed("/home");
   }
 }

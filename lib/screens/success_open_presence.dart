@@ -1,52 +1,35 @@
+import '../controllers/succes_open_presence_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:badges/badges.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../constant/theme.dart';
 import '../data/models/presence_model.dart';
+import '../widgets/button.dart';
+import '../widgets/screen_wrapper/base_white_screen.dart';
 
-class SuccessPresence extends StatefulWidget {
-  const SuccessPresence({Key? key}) : super(key: key);
+class SuccessOpenPresence extends StatelessWidget {
+  final controller = Get.put(SuccesOpenPresenceController());
+  SuccessOpenPresence({Key? key}) : super(key: key);
 
-  @override
-  State<SuccessPresence> createState() => _SuccessPresenceState();
-}
-
-class _SuccessPresenceState extends State<SuccessPresence> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as PresenceData;
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          "CONTENDANCE",
-          style: fontInter.copyWith(
-            color: colorPrimaryBlue,
-            fontWeight: fwBold,
-            fontSize: 14,
-            letterSpacing: 1,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.white,
+    return BaseWhiteScreen(
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.1,
+              // top: MediaQuery.of(context).size.height * 0.1,
+              top: Get.height * 0.1,
               child: Column(
                 children: [
                   Text(
-                    args.data.lecturer.roleId == 1
-                        ? 'Presensi Berhasil'
-                        : 'Presensi Berhasil Dibuka!',
+                    args.message,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
@@ -81,7 +64,7 @@ class _SuccessPresenceState extends State<SuccessPresence> {
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
-                      args.data.room.roomCode,
+                      DateFormat("H:mm").format(DateTime.now()),
                       style: fontInter.copyWith(
                         color: const Color(0xFFFFFFFF).withOpacity(0.9),
                         fontWeight: FontWeight.w600,
@@ -105,7 +88,7 @@ class _SuccessPresenceState extends State<SuccessPresence> {
               ),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.15,
+              bottom: MediaQuery.of(context).size.height * 0.17,
               child: Column(
                 children: <Widget>[
                   SizedBox(
@@ -162,38 +145,14 @@ class _SuccessPresenceState extends State<SuccessPresence> {
             ),
             Positioned(
               bottom: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: colorGradient,
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 45, vertical: 12),
-                        primary: Colors.white,
-                        textStyle: fontInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: fwBold,
-                        ),
-                      ),
-                      onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        final success = await prefs.remove('classStatus');
-                        if (success) {
-                          Navigator.pushReplacementNamed(context, "/home");
-                        }
-                      },
-                      child: const Text('OKE'),
-                    ),
-                  ],
+              child: Button(
+                text: "OKE",
+                callback: () => Get.offNamedUntil(
+                  "/home",
+                  (Route<dynamic> route) => false,
                 ),
+                primary: true,
+                secondary: false,
               ),
             )
           ],
