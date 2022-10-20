@@ -1,13 +1,12 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence_model.dart';
-import '../services/presence_service.dart';
 import '../widgets/button.dart';
 import '../widgets/screen_wrapper/base_white_screen.dart';
+import '../data/models/open_presence_model.dart';
+import '../services/presence_service.dart';
 
 class OpenPresence extends StatefulWidget {
   const OpenPresence({Key? key}) : super(key: key);
@@ -34,7 +33,7 @@ class _OpenPresenceState extends State<OpenPresence> {
               child: Column(
                 children: [
                   Text(
-                    "Kelas Ditemukan!",
+                    "Presensi Berhasil Dibuka!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
@@ -55,7 +54,7 @@ class _OpenPresenceState extends State<OpenPresence> {
                   ),
                   const SizedBox(height: 22),
                   Text(
-                    "Ruangan ${args.schedule.data.room.roomCode}",
+                    "Ruangan ${args.schedule.data.rooms.roomCode}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
@@ -64,18 +63,34 @@ class _OpenPresenceState extends State<OpenPresence> {
                       color: colorPrimaryBlue,
                     ),
                   ),
-                  const SizedBox(height: 57),
+                  const SizedBox(height: 24),
+                  Badge(
+                    toAnimate: false,
+                    shape: BadgeShape.square,
+                    elevation: 0,
+                    badgeColor: colorPrimaryBlue,
+                    borderRadius: BorderRadius.circular(50),
+                    badgeContent: Text(
+                      "Kelas ${args.schedule.data.subjectsSchedules.studyGroups.name}",
+                      textAlign: TextAlign.center,
+                      style: fontInter.copyWith(
+                        fontSize: 14,
+                        fontWeight: fwMedium,
+                        color: colorWhite,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.32,
+              bottom: MediaQuery.of(context).size.height * 0.30,
               child: Column(
                 children: <Widget>[
                   SizedBox(
-                    width: 200,
+                    width: 225,
                     child: Text(
-                      args.schedule.data.subject.name,
+                      args.schedule.data.subjectsSchedules.subjects.name,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: "Inter",
@@ -88,7 +103,7 @@ class _OpenPresenceState extends State<OpenPresence> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "${args.schedule.data.subjectSchedule.startTime} - ${args.schedule.data.subjectSchedule.finishTime}",
+                    "${args.schedule.data.subjectsSchedules.startTime} - ${args.schedule.data.subjectsSchedules.finishTime}",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontFamily: "Inter",
@@ -110,7 +125,7 @@ class _OpenPresenceState extends State<OpenPresence> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        args.schedule.data.lecturer.fullname,
+                        args.schedule.data.users.fullname,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontFamily: "Inter",
@@ -131,74 +146,84 @@ class _OpenPresenceState extends State<OpenPresence> {
                 margin: const EdgeInsets.symmetric(
                     horizontal: paddingBase, vertical: paddingXl),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    !isClicked
-                        ? Expanded(
-                            flex: 1,
-                            child: Button(
-                              text: "Batal",
-                              callback: () => Get.back(),
-                              primary: false,
-                              secondary: true,
-                            ),
-                          )
-                        : const SizedBox(),
-                    !isClicked
-                        ? const SizedBox(
-                            width: 24,
-                          )
-                        : const SizedBox(),
-                    Expanded(
-                      flex: 1,
-                      child: Button(
-                        text: "Buka Presensi",
-                        callback: () async {
-                          setState(() {
-                            isClicked = !isClicked;
-                          });
-                          final prefs = await SharedPreferences.getInstance();
-                          int userId = prefs.getInt('userId') ?? 0;
-                          Map<String, String> body = {
-                            'proximity_uuid':
-                                args.beacon.proximityUUID.toLowerCase(),
-                            'major': args.beacon.major.toString(),
-                            'minor': args.beacon.minor.toString(),
-                            'user_id': userId.toString(),
-                          };
-                          try {
-                            await presence
-                                .openPresence(body)
-                                .then((value) async {
-                              final success = await prefs.remove('classStatus');
-                              if (success) {
-                                if (mounted) {
-                                  Get.offAllNamed(
-                                    "/success-open-presence",
-                                  );
-                                }
-                              }
-                            });
-                          } catch (e) {
-                            throw Exception(e);
-                          }
-                        },
-                        primary: true,
-                        secondary: false,
-                        withChild: !isClicked
-                            ? const Text(
-                                "Buka Presensi",
-                                softWrap: false,
-                              )
-                            : SizedBox(
-                                width: 15,
-                                height: 15,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 3,
-                                  color: colorWhite,
-                                ),
-                              ),
+                    Button(
+                      text: "Kembali ke Beranda",
+                      callback: () => Get.offNamedUntil(
+                        "/home",
+                        (Route<dynamic> route) => false,
                       ),
+                      primary: true,
+                      secondary: false,
                     ),
+                    // !isClicked
+                    //     ? Expanded(
+                    //         flex: 1,
+                    //         child: Button(
+                    //           text: "Batal",
+                    //           callback: () => Get.back(),
+                    //           primary: false,
+                    //           secondary: true,
+                    //         ),
+                    //       )
+                    //     : const SizedBox(),
+                    // !isClicked
+                    //     ? const SizedBox(
+                    //         width: 24,
+                    //       )
+                    //     : const SizedBox(),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: Button(
+                    //     text: "Buka Presensi",
+                    //     callback: () async {
+                    //       setState(() {
+                    //         isClicked = !isClicked;
+                    //       });
+                    //       final prefs = await SharedPreferences.getInstance();
+                    //       int userId = prefs.getInt('userId') ?? 0;
+                    //       Map<String, int> body = {
+                    //         'proximity_uuid':
+                    //             args.beacon.proximityUUID.toLowerCase(),
+                    //         'major': args.beacon.major,
+                    //         'minor': args.beacon.minor,
+                    //         'user_id': userId,
+                    //       };
+                    //       try {
+                    //         await presence
+                    //             .openPresence(body)
+                    //             .then((value) async {
+                    //           final success = await prefs.remove('classStatus');
+                    //           if (success) {
+                    //             if (mounted) {
+                    //               Get.offAllNamed(
+                    //                 "/success-open-presence",
+                    //               );
+                    //             }
+                    //           }
+                    //         });
+                    //       } catch (e) {
+                    //         throw Exception(e);
+                    //       }
+                    //     },
+                    //     primary: true,
+                    //     secondary: false,
+                    //     withChild: !isClicked
+                    //         ? const Text(
+                    //             "Buka Presensi",
+                    //             softWrap: false,
+                    //           )
+                    //         : SizedBox(
+                    //             width: 15,
+                    //             height: 15,
+                    //             child: CircularProgressIndicator(
+                    //               strokeWidth: 3,
+                    //               color: colorWhite,
+                    //             ),
+                    //           ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -211,7 +236,7 @@ class _OpenPresenceState extends State<OpenPresence> {
 }
 
 class BeaconArgs {
-  final Schedule schedule;
+  final OpenPresenceModel schedule;
   final dynamic beacon;
 
   BeaconArgs({

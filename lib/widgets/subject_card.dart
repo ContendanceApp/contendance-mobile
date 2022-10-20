@@ -1,16 +1,16 @@
+import 'package:contendance_app/data/models/schedule_model.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/button.dart';
 import '../constant/theme.dart';
-import '../data/models/presence_history_model.dart';
 
 class SubjectCard extends StatelessWidget {
   const SubjectCard({
     Key? key,
-    required this.history,
+    required this.schedule,
   }) : super(key: key);
 
-  final PresenceHistoryModel history;
+  final ScheduleData schedule;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class SubjectCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    history.acronym,
+                    schedule.subjects.acronym,
                     textAlign: TextAlign.center,
                     style: fontInter.copyWith(
                       fontSize: 14,
@@ -56,7 +56,7 @@ class SubjectCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      history.subject,
+                      "${schedule.subjects.name} - ${schedule.studyGroups.name}",
                       style: fontInter.copyWith(
                         fontSize: 16,
                         fontWeight: fwMedium,
@@ -72,7 +72,7 @@ class SubjectCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '08:00 - 10:00',
+                              "${schedule.startTime} - ${schedule.finishTime}",
                               style: fontInter.copyWith(
                                 color: colorPrimaryBlack,
                                 fontSize: 14,
@@ -80,7 +80,7 @@ class SubjectCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              history.lab,
+                              "${schedule.rooms.roomCode} - ${schedule.rooms.name}",
                               style: fontInter.copyWith(
                                 fontSize: 14,
                                 fontWeight: fwBold,
@@ -121,11 +121,13 @@ class SubjectCard extends StatelessWidget {
 
   showModalBottom(BuildContext context) {
     return showModalBottomSheet(
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (builder) {
         return Container(
-          constraints: const BoxConstraints(minHeight: 250),
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * (3 / 4)),
           color: Colors.transparent,
           child: Container(
             decoration: const BoxDecoration(
@@ -135,173 +137,169 @@ class SubjectCard extends StatelessWidget {
                 topRight: Radius.circular(roundedBase),
               ),
             ),
-            child: Center(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(40),
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      width: double.infinity,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 70,
-                            width: 70,
-                            margin: const EdgeInsets.only(right: 8),
-                            padding: const EdgeInsets.all(10),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 40, 40, 0),
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 10),
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 70,
+                          width: 70,
+                          margin: const EdgeInsets.only(right: 8),
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                schedule.subjects.acronym,
+                                textAlign: TextAlign.center,
+                                style: fontInter.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: fwBold,
+                                  color: colorPrimaryBlue,
+                                ),
+                              ),
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF15AEEF).withOpacity(0.15),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(15)),
+                          ),
+                        ),
+                        const SizedBox(height: paddingBase),
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 4),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Text(
-                                  history.acronym,
-                                  textAlign: TextAlign.center,
+                                  "${schedule.subjects.name} - ${schedule.studyGroups.name}",
                                   style: fontInter.copyWith(
-                                    fontSize: 14,
+                                    fontSize: 18,
                                     fontWeight: fwBold,
                                     color: colorPrimaryBlue,
                                   ),
                                 ),
+                                const SizedBox(height: paddingLg),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Waktu Pelaksanaan',
+                                          style: fontInter.copyWith(
+                                            color: colorSubText,
+                                            fontSize: 16,
+                                            fontWeight: fwMedium,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          "${schedule.startTime} - ${schedule.finishTime}",
+                                          style: fontInter.copyWith(
+                                            color: colorPrimaryBlack,
+                                            fontSize: 16,
+                                            fontWeight: fwSemiBold,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: paddingBase,
+                                        ),
+                                        Text(
+                                          'Tempat Pelaksanaan',
+                                          style: fontInter.copyWith(
+                                            color: colorSubText,
+                                            fontSize: 16,
+                                            fontWeight: fwMedium,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          "${schedule.rooms.roomCode} - ${schedule.rooms.name}",
+                                          style: fontInter.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: fwBold,
+                                            color: colorPrimaryBlue,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: paddingBase,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Dosen Pengampu',
+                                      style: fontInter.copyWith(
+                                        color: colorSubText,
+                                        fontSize: 16,
+                                        fontWeight: fwMedium,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 4,
+                                    ),
+                                    Text(
+                                      schedule.users.fullname,
+                                      style: fontInter.copyWith(
+                                        fontSize: 16,
+                                        fontWeight: fwSemiBold,
+                                        color: colorPrimaryBlack,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF15AEEF).withOpacity(0.15),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(15)),
-                            ),
                           ),
-                          const SizedBox(height: paddingBase),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              margin: const EdgeInsets.only(bottom: 4),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Text(
-                                    history.subject,
-                                    style: fontInter.copyWith(
-                                      fontSize: 18,
-                                      fontWeight: fwBold,
-                                      color: colorPrimaryBlue,
-                                    ),
-                                  ),
-                                  const SizedBox(height: paddingLg),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Waktu Pelaksanaan',
-                                            style: fontInter.copyWith(
-                                              color: colorSubText,
-                                              fontSize: 16,
-                                              fontWeight: fwMedium,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text(
-                                            '08:00 - 10:00',
-                                            style: fontInter.copyWith(
-                                              color: colorPrimaryBlack,
-                                              fontSize: 16,
-                                              fontWeight: fwSemifwBold,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: paddingBase,
-                                          ),
-                                          Text(
-                                            'Tempat Pelaksanaan',
-                                            style: fontInter.copyWith(
-                                              color: colorSubText,
-                                              fontSize: 16,
-                                              fontWeight: fwMedium,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text(
-                                            history.lab,
-                                            style: fontInter.copyWith(
-                                              fontSize: 16,
-                                              fontWeight: fwBold,
-                                              color: colorPrimaryBlue,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: paddingBase,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Dosen Pengampu',
-                                        style: fontInter.copyWith(
-                                          color: colorSubText,
-                                          fontSize: 16,
-                                          fontWeight: fwMedium,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 4,
-                                      ),
-                                      Text(
-                                        "Andhik Ampuh Yunanto",
-                                        style: fontInter.copyWith(
-                                          fontSize: 16,
-                                          fontWeight: fwSemifwBold,
-                                          color: colorPrimaryBlack,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(paddingBase),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Button(
-                            text: "Tutup",
-                            primary: true,
-                            secondary: false,
-                            callback: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(paddingBase),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Button(
+                          text: "Tutup",
+                          primary: true,
+                          secondary: false,
+                          callback: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         );

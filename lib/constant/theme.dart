@@ -33,6 +33,6 @@ TextStyle fontInter = const TextStyle(fontFamily: "Inter");
 FontWeight fwLight = FontWeight.w300;
 FontWeight fwRegular = FontWeight.w400;
 FontWeight fwMedium = FontWeight.w500;
-FontWeight fwSemifwBold = FontWeight.w600;
+FontWeight fwSemiBold = FontWeight.w600;
 FontWeight fwBold = FontWeight.w700;
 FontWeight fwExtrafwBold = FontWeight.w800;

@@ -1,12 +1,13 @@
-import '../controllers/succes_presence_controller.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence_model.dart';
+import '../widgets/button.dart';
+import '../data/models/success_presence_model.dart';
+import '../controllers/succes_presence_controller.dart';
 
 class SuccessPresence extends StatelessWidget {
   final controller = Get.put(SuccesPresenceController());
@@ -14,7 +15,8 @@ class SuccessPresence extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as PresenceData;
+    final args =
+        ModalRoute.of(context)!.settings.arguments as SuccessPresenceModel;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -38,13 +40,11 @@ class SuccessPresence extends StatelessWidget {
           children: <Widget>[
             //Container for tittle
             Positioned(
-              top: MediaQuery.of(context).size.height * 0.1,
+              top: MediaQuery.of(context).size.height * 0.15,
               child: Column(
                 children: [
                   Text(
-                    args.data.lecturer.roleId == 1
-                        ? 'Presensi Berhasil'
-                        : 'Presensi Berhasil Dibuka!',
+                    'Presensi Berhasil!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
@@ -54,13 +54,13 @@ class SuccessPresence extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 30),
-                  Image.asset(
-                    'assets/images/bookmark-gradient.jpg',
+                  SvgPicture.asset(
+                    "assets/images/bookmark-solid.svg",
                     height: 75,
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    args.data.room.name,
+                    args.data.presences.rooms.name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: "Inter",
@@ -79,7 +79,7 @@ class SuccessPresence extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                     badgeContent: Text(
-                      args.data.room.roomCode,
+                      args.data.presences.rooms.roomCode,
                       style: fontInter.copyWith(
                         color: const Color(0xFFFFFFFF).withOpacity(0.9),
                         fontWeight: FontWeight.w600,
@@ -103,13 +103,13 @@ class SuccessPresence extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.15,
+              bottom: MediaQuery.of(context).size.height * 0.35,
               child: Column(
                 children: <Widget>[
                   SizedBox(
                     width: 200,
                     child: Text(
-                      args.data.subject.name,
+                      args.data.presences.subjectsSchedules.subjects.name,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: "Inter",
@@ -122,7 +122,7 @@ class SuccessPresence extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "${args.data.subjectSchedule.startTime} - ${args.data.subjectSchedule.finishTime}",
+                    "${args.data.presences.subjectsSchedules.startTime} - ${args.data.presences.subjectsSchedules.finishTime}",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontFamily: "Inter",
@@ -144,7 +144,7 @@ class SuccessPresence extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        args.data.lecturer.fullname,
+                        args.data.presences.users.fullname,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontFamily: "Inter",
@@ -171,25 +171,34 @@ class SuccessPresence extends StatelessWidget {
                         ),
                       ),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 45, vertical: 12),
-                        primary: Colors.white,
-                        textStyle: fontInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: fwBold,
-                        ),
+                    Button(
+                      text: "Kembali ke Beranda",
+                      callback: () => Get.offNamedUntil(
+                        "/home",
+                        (Route<dynamic> route) => false,
                       ),
-                      onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        final success = await prefs.remove('classStatus');
-                        if (success) {
-                          Get.offNamed("/home");
-                        }
-                      },
-                      child: const Text('OKE'),
+                      primary: true,
+                      secondary: false,
                     ),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 45, vertical: 12),
+                    //     primary: Colors.white,
+                    //     textStyle: fontInter.copyWith(
+                    //       fontSize: 16,
+                    //       fontWeight: fwBold,
+                    //     ),
+                    //   ),
+                    //   onPressed: () async {
+                    //     final prefs = await SharedPreferences.getInstance();
+                    //     final success = await prefs.remove('classStatus');
+                    //     if (success) {
+                    //       Get.offNamed("/home");
+                    //     }
+                    //   },
+                    //   child: const Text('OKE'),
+                    // ),
                   ],
                 ),
               ),

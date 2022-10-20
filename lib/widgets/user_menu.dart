@@ -17,13 +17,13 @@ class UserMenu extends StatelessWidget {
       ),
       clipBehavior: Clip.none,
       shrinkWrap: true,
-      crossAxisCount: role == "dosen" ? 2 : 3,
+      crossAxisCount: role == "dosen" ? 3 : 3,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
-      childAspectRatio: role == "dosen" ? 2 : 1,
+      childAspectRatio: role == "dosen" ? 1 : 1,
       children: role == "dosen"
           ? ([
-              cardMenuLecturer(
+              cardMenuStudent(
                 context: context,
                 icon: SvgPicture.asset(
                   "assets/images/calendar.svg",
@@ -34,7 +34,7 @@ class UserMenu extends StatelessWidget {
                   Navigator.pushNamed(context, "/subject-schedule");
                 },
               ),
-              cardMenuLecturer(
+              cardMenuStudent(
                 context: context,
                 icon: SvgPicture.asset(
                   "assets/images/category.svg",
@@ -45,7 +45,7 @@ class UserMenu extends StatelessWidget {
                   Navigator.pushNamed(context, "/room-list");
                 },
               ),
-              cardMenuLecturer(
+              cardMenuStudent(
                 context: context,
                 icon: SvgPicture.asset(
                   "assets/images/bookmark-minus.svg",
@@ -56,18 +56,54 @@ class UserMenu extends StatelessWidget {
                   Navigator.pushNamed(context, "/presence-history");
                 },
               ),
-              // cardMenuLecturer(
-              //   context: context,
-              //   icon: SvgPicture.asset(
-              //     "assets/images/swap.svg",
-              //     width: 35,
+            ]
+              // [
+              //   cardMenuLecturer(
+              //     context: context,
+              //     icon: SvgPicture.asset(
+              //       "assets/images/calendar.svg",
+              //       width: 35,
+              //     ),
+              //     text: "Jadwal \nMata Kuliah",
+              //     onTap: () {
+              //       Navigator.pushNamed(context, "/subject-schedule");
+              //     },
               //   ),
-              //   text: "Jadwal \nPengganti",
-              //   onTap: () {
-              //     Navigator.pushNamed(context, "/change-schedule");
-              //   },
-              // ),
-            ])
+              //   cardMenuLecturer(
+              //     context: context,
+              //     icon: SvgPicture.asset(
+              //       "assets/images/category.svg",
+              //       width: 35,
+              //     ),
+              //     text: "Daftar \nRuangan",
+              //     onTap: () {
+              //       Navigator.pushNamed(context, "/room-list");
+              //     },
+              //   ),
+              //   cardMenuLecturer(
+              //     context: context,
+              //     icon: SvgPicture.asset(
+              //       "assets/images/bookmark-minus.svg",
+              //       width: 35,
+              //     ),
+              //     text: "Riwayat \nPresensi",
+              //     onTap: () {
+              //       Navigator.pushNamed(context, "/presence-history");
+              //     },
+              //   ),
+              //   // cardMenuLecturer(
+              //   //   context: context,
+              //   //   icon: SvgPicture.asset(
+              //   //     "assets/images/swap.svg",
+              //   //     width: 35,
+              //   //   ),
+              //   //   text: "Jadwal \nPengganti",
+              //   //   onTap: () {
+              //   //     Navigator.pushNamed(context, "/change-schedule");
+              //   //   },
+              //   // ),
+              // ]
+              )
           : ([
               cardMenuStudent(
                 context: context,

@@ -50,7 +50,7 @@ class BottomAppBarComp extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: fontInter.copyWith(
                             fontSize: 14,
-                            fontWeight: fwSemifwBold,
+                            fontWeight: fwSemiBold,
                             color: const Color(0xFFFFFFFF),
                             height: 0.4,
                           ),
@@ -76,7 +76,7 @@ class BottomAppBarComp extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: fontInter.copyWith(
                             fontSize: 14,
-                            fontWeight: fwSemifwBold,
+                            fontWeight: fwSemiBold,
                             color: const Color(0xFFFFFFFF),
                             height: 0.4,
                           ),
@@ -99,7 +99,7 @@ class BottomAppBarComp extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: fontInter.copyWith(
                     fontSize: 14,
-                    fontWeight: fwSemifwBold,
+                    fontWeight: fwSemiBold,
                     color: const Color(0xFFFFFFFF),
                   ),
                 ),

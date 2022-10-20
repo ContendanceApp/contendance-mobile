@@ -10,14 +10,13 @@ import '../data/models/presence_history_student_model.dart';
 class PresenceHistoryService {
   Future<PresenceHistoryLecturerModel> getPresenceHistoryLecturer() async {
     final prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("token");
-    final response = await http.get(
-        Uri.parse("$baseUrl/presence/history/lecturer"),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': "bearer $token",
-        });
+    String token = prefs.getString("token")!;
+    final response = await http
+        .get(Uri.parse("$baseUrl/presences/history"), headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': token,
+    });
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       return PresenceHistoryLecturerModel.fromJson(jsonDecode(response.body));
@@ -28,14 +27,13 @@ class PresenceHistoryService {
 
   Future<PresenceHistoryStudentModel> getPresenceHistoryStudent() async {
     final prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString("token");
-    final response = await http.get(
-        Uri.parse("$baseUrl/presence/history/student"),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': "bearer $token",
-        });
+    String token = prefs.getString("token")!;
+    final response = await http
+        .get(Uri.parse("$baseUrl/presences/history"), headers: <String, String>{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': token,
+    });
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       return PresenceHistoryStudentModel.fromJson(jsonDecode(response.body));

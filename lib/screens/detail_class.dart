@@ -1,278 +1,283 @@
-// import 'dart:html';
-
-import 'package:contendance_app/controllers/detail_class_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:badges/badges.dart';
 import 'package:get/get.dart';
 
+import '../data/models/detail_class_model.dart';
+import '../services/classroom_services.dart';
+import '../widgets/user_item_list.dart';
 import '../constant/theme.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
+import '../controllers/detail_class_controller.dart';
 
-class DetailClass extends StatelessWidget {
+class DetailClass extends StatefulWidget {
+  const DetailClass({Key? key}) : super(key: key);
+
+  @override
+  State<DetailClass> createState() => _DetailClassState();
+}
+
+class _DetailClassState extends State<DetailClass> {
   final controller = Get.put(DetailClassController());
-  DetailClass({Key? key}) : super(key: key);
+  ClassroomService classroomService = ClassroomService();
+  late Future<DetailClassModel> detailClassData;
 
-  // static const kelas = 'Dalam Kelas';
+  final DetailClassModel args = Get.arguments;
+
+  @override
+  void initState() {
+    detailClassData = classroomService.getDetailClass(args.data.presenceId);
+    super.initState;
+  }
+
+  getDetailClassData(int presenceId) async {
+    try {
+      detailClassData = classroomService.getDetailClass(args.data.presenceId);
+    } catch (e) {
+      if (mounted) {
+        // ignore: avoid_print
+        print(e);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StackScreen(
-      title: "C 102",
-      child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 12),
-          Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  // Badge(
-                  //   badgeContent: Text(
-                  //       "Dalam Kelas",
-                  //           style: const TextStyle(
-                  //               color:  Colors.white
-                  //           ),
-                  //   ),
-                  //     badgeColor: Colors.blue,
-                  //     position: BadgePosition.topEnd(),
-                  //
-                  // ),
-
-                  Row(
-                    children: [
-                      // Container(
-                      //   child: ClipRRect(
-                      //     borderRadius: BorderRadius.circular(10),
-                      //     child: Image.asset(
-                      //       'assets/images/lab-pens.jpg',
-                      //       height: 110,
-                      //       width: 110,
-                      //       fit: BoxFit.fitHeight,
-                      //     ),
-                      //   ),
-                      // ),
-                      Badge(
-                        toAnimate: false,
-                        shape: BadgeShape.square,
-                        elevation: 0,
-                        badgeColor: const Color(0xFF145AE3),
-                        borderRadius: BorderRadius.circular(50),
-                        position: BadgePosition.topEnd(),
-                        badgeContent: const Text(
-                          "Dalam Kelas",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            'assets/images/lab-pens.jpg',
-                            height: 110,
-                            width: 110,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 18,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "C-102",
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontFamily: "Inter",
-                              fontSize: 16.0,
-                              fontWeight: fwBold,
-                              color: const Color(0xFF145AE3),
+    return RefreshIndicator(
+      onRefresh: () async {
+        getDetailClassData(args.data.presenceId);
+        setState(() {});
+        return Future<void>.delayed(const Duration(seconds: 2));
+      },
+      child: StackScreen(
+        title: args.data.rooms.roomCode,
+        child: Column(
+          children: [
+            const SizedBox(height: 12),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Stack(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Badge(
+                            toAnimate: false,
+                            shape: BadgeShape.square,
+                            elevation: 0,
+                            badgeColor: const Color(0xFF145AE3),
+                            borderRadius: BorderRadius.circular(50),
+                            position: BadgePosition.topEnd(),
+                            badgeContent: Text(
+                              "Dalam Kelas",
+                              style: fontInter.copyWith(
+                                color: colorWhite,
+                                fontWeight: fwSemiBold,
+                                fontSize: 12,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/images/lab-pens.jpg',
+                                height: 110,
+                                width: 110,
+                                fit: BoxFit.fitHeight,
+                              ),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const <Widget>[
-                              SizedBox(
-                                width: 200,
-                                child: Text(
-                                  "Workshop Pemrograman Perangkat Lunak",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontFamily: "Inter",
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF64749F),
-                                    height: 1.5,
-                                  ),
+                        ),
+                        const SizedBox(
+                          width: 18,
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                args.data.rooms.roomCode,
+                                style: TextStyle(
+                                  fontFamily: "Inter",
+                                  fontSize: 16.0,
+                                  fontWeight: fwBold,
+                                  color: const Color(0xFF145AE3),
+                                ),
+                              ),
+                              Text(
+                                args.data.subjectsSchedules.subjects.name,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                  overflow: TextOverflow.clip,
+                                  fontFamily: "Inter",
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF64749F),
+                                  height: 1.5,
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              // SizedBox(
+                              //   height: 15,
+                              // ),
+                              Text(
+                                "${args.data.subjectsSchedules.startTime} - ${args.data.subjectsSchedules.finishTime}",
+                                textAlign: TextAlign.left,
+                                style: fontInter.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: fwBold,
+                                  color: colorPrimaryBlack,
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 15),
-                          // SizedBox(
-                          //   height: 15,
-                          // ),
-                          Text(
-                            "08:00 - 13.00",
-                            textAlign: TextAlign.left,
-                            style: fontInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: fwBold,
-                              color: colorPrimaryBlack,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              InkWell(
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 40, top: 27),
-                  width: double.infinity,
-                  height: 100,
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Text(
-                            "Ruang Tunggu",
-                            textAlign: TextAlign.left,
-                            style: fontInter.copyWith(
-                              fontSize: 16,
-                              fontWeight: fwBold,
-                              color: const Color(0xFF333333),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 180,
-                          ),
-                          Text(
-                            "Lihat Semua",
-                            textAlign: TextAlign.right,
-                            style: fontInter.copyWith(
-                              fontWeight: fwMedium,
-                              fontSize: 14,
-                              color: colorPrimaryBlue,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        "Kosong",
-                        textAlign: TextAlign.left,
-                        style: fontInter.copyWith(
-                          fontSize: 16,
-                          fontWeight: fwBold,
-                          color: colorSubText,
                         ),
-                      ),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                      gradient: colorGradient,
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                          color: const Color(0xFFF4F4F4),
-                          width: 1.0,
-                          style: BorderStyle.solid),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          spreadRadius: 2,
-                          blurRadius: 10,
-                        )
-                      ]),
-                ),
-              ),
-              ListView(
-                shrinkWrap: true,
-                controller: ScrollController(
-                  keepScrollOffset: false,
-                ),
-                padding: const EdgeInsets.all(0),
-                children: [
-                  Text(
-                    "Mahasiswa dalam Kelas",
-                    textAlign: TextAlign.left,
-                    style: fontInter.copyWith(
-                      fontSize: 14,
-                      fontWeight: fwBold,
-                      color: const Color(0xFF333333),
+                      ],
                     ),
+                  ],
+                ),
+                // InkWell(
+                //   child: Container(
+                //     margin: const EdgeInsets.only(bottom: 40, top: 27),
+                //     width: double.infinity,
+                //     height: 100,
+                //     padding: const EdgeInsets.all(16),
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: <Widget>[
+                //         Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               "Ruang Tunggu",
+                //               textAlign: TextAlign.left,
+                //               style: fontInter.copyWith(
+                //                 fontSize: 16,
+                //                 fontWeight: fwBold,
+                //                 color: colorPrimaryBlack,
+                //               ),
+                //             ),
+                //             Text(
+                //               "Lihat Semua",
+                //               textAlign: TextAlign.right,
+                //               style: fontInter.copyWith(
+                //                 fontWeight: fwSemiBold,
+                //                 fontSize: 14,
+                //                 color: colorPrimaryBlue,
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //         Text(
+                //           "Kosong",
+                //           textAlign: TextAlign.left,
+                //           style: fontInter.copyWith(
+                //             fontSize: 16,
+                //             fontWeight: fwMedium,
+                //             color: colorSubText,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //     decoration: BoxDecoration(
+                //       color: const Color(0xFFFFFFFF),
+                //       borderRadius: const BorderRadius.all(Radius.circular(15)),
+                //       border: Border.all(
+                //           color: const Color(0xFFE2E2E2),
+                //           width: 1.0,
+                //           style: BorderStyle.solid),
+                //     ),
+                //   ),
+                // ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Text(
+                  "Mahasiswa dalam Kelas",
+                  textAlign: TextAlign.left,
+                  style: fontInter.copyWith(
+                    fontSize: 14,
+                    fontWeight: fwBold,
+                    color: const Color(0xFF333333),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      const SizedBox(
-                        width: 200,
-                        child: Text(
-                          "Ainul Muhlasin ",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w500,
-                            color: Color(0xFF64749F),
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 0),
-                          ),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                FutureBuilder(
+                  future: detailClassData,
+                  builder: (context, AsyncSnapshot<DetailClassModel> snapshot) {
+                    var state = snapshot.connectionState;
+                    if (state != ConnectionState.done) {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 24),
+                        child: Column(
+                          children: [
+                            Center(
+                              child: CircularProgressIndicator(
+                                color: colorPrimaryBlue,
+                              ),
                             ),
-                          ),
-                          backgroundColor:
-                              MaterialStateProperty.all(colorDanger),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              "Memuat data...",
+                              style: fontInter.copyWith(
+                                fontWeight: fwSemiBold,
+                                color: colorSubText,
+                              ),
+                            )
+                          ],
                         ),
-                        onPressed: () {},
-                        child: const Text(
-                          "Terima",
-                          style: TextStyle(
-                            color: Colors.white,
+                      );
+                    } else {
+                      if (snapshot.hasData) {
+                        return ListView(
+                          shrinkWrap: true,
+                          padding: const EdgeInsets.only(top: 0),
+                          controller: ScrollController(
+                            keepScrollOffset: false,
                           ),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const <Widget>[
-                      SizedBox(
-                        width: 200,
-                        child: Text(
-                          "3120600029",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF145AE3),
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+                          children: snapshot.data!.data.users.isNotEmpty
+                              ? snapshot.data!.data.users
+                                  .map((user) => UserItemList(
+                                        user: user,
+                                      ))
+                                  .toList()
+                              : [
+                                  Center(
+                                      child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 36),
+                                    child: Text(
+                                      "Belum ada mahasiswa",
+                                      style: fontInter.copyWith(
+                                          fontSize: 20,
+                                          fontWeight: fwSemiBold,
+                                          color: colorSubText),
+                                    ),
+                                  ))
+                                ],
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text(snapshot.error.toString()));
+                      } else {
+                        return const Text('');
+                      }
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

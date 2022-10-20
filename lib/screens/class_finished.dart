@@ -81,7 +81,7 @@ class ClassFinished extends StatelessWidget {
                       '11:20',
                       style: fontInter.copyWith(
                         color: colorPrimaryBlue,
-                        fontWeight: fwSemifwBold,
+                        fontWeight: fwSemiBold,
                       ),
                     ),
                   ),
@@ -100,7 +100,7 @@ class ClassFinished extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: "Inter",
                         fontSize: 16.0,
-                        fontWeight: fwSemifwBold,
+                        fontWeight: fwSemiBold,
                         color: colorSubWhite,
                         height: 1.5,
                       ),
@@ -113,7 +113,7 @@ class ClassFinished extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16,
-                      fontWeight: fwSemifwBold,
+                      fontWeight: fwSemiBold,
                       color: colorWhite,
                     ),
                   ),
@@ -133,7 +133,7 @@ class ClassFinished extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: "Inter",
                       fontSize: 16.0,
-                      fontWeight: fwSemifwBold,
+                      fontWeight: fwSemiBold,
                       color: colorSubWhite,
                     ),
                   ),

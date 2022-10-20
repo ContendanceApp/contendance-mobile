@@ -123,7 +123,7 @@ class SuccessReschedule extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16.0,
-                              fontWeight: fwSemifwBold,
+                              fontWeight: fwSemiBold,
                               color: colorPrimaryBlue,
                             ),
                           ),
@@ -133,7 +133,7 @@ class SuccessReschedule extends StatelessWidget {
                             style: TextStyle(
                               fontFamily: "Inter",
                               fontSize: 16,
-                              fontWeight: fwSemifwBold,
+                              fontWeight: fwSemiBold,
                               color: colorPrimaryBlack,
                             ),
                           ),

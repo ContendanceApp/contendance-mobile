@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
 import '../data/models/login_model.dart';
-import '../data/models/presence_history_model.dart';
+import '../data/models/login_model.dart' as study_groups;
 import '../data/models/presence_history_lecturer_model.dart';
 import '../data/models/presence_history_student_model.dart';
 import '../services/login_service.dart';
@@ -39,41 +39,25 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   String dayNow =
       DateFormat("EEEEE, d MMMM yyyy", "id_ID").format(DateTime.now());
 
-  List histories = [
-    PresenceHistoryModel(
-      subject: "Workshop Pemrograman Perangkat Lunak",
-      acronym: "WPPL",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-    ),
-    PresenceHistoryModel(
-      subject: "Workshop Pemrograman Perangkat Bergerak",
-      acronym: "WPPB",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-    ),
-    PresenceHistoryModel(
-      subject: "Workshop Administrasi dan Manajemen Jaringan",
-      acronym: "WPPL",
-      lab: "Lab C-120",
-      presenceTime: "11.02",
-    ),
-  ];
-
   UserInfo userInfo = UserInfo(
     userId: 0,
     fullname: "",
     email: "",
-    emailVerifiedAt: DateTime.now(),
-    sidEid: 0,
+    sidEid: "",
     gender: "",
     roleId: 0,
     studyGroupId: 0,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
-    studyGroup: StudyGroup(
+    roles: Roles(
+        roleId: 0,
+        role: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now()),
+    studyGroups: study_groups.StudyGroups(
       studyGroupId: 0,
       name: "",
+      year: 0,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     ),
@@ -83,10 +67,6 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   void initState() {
     super.initState();
     checkAuth();
-    _historyStudent = PresenceHistoryService().getPresenceHistoryStudent();
-    _historyLecturer = PresenceHistoryService().getPresenceHistoryLecturer();
-
-    // getPresenceHistory();
   }
 
   Future<void> checkAuth() async {
@@ -103,14 +83,17 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
   }
 
   getUserInfo() async {
-    var res = await login.loggedUser(_token.toString()).then((value) => value);
+    final res =
+        await login.loggedUser(_token.toString()).then((value) => value);
+    Map<dynamic, dynamic> result = jsonDecode(res.body);
     if (res.statusCode == 200) {
-      UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
+      UserInfo resBody = UserInfo.fromJson(result['data']);
       if (mounted) {
         setState(() {
           userInfo = resBody;
         });
       }
+      getPresenceHistory();
     } else {
       final prefs = await SharedPreferences.getInstance();
       final success = await prefs.remove('token');
@@ -119,6 +102,15 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           Get.offNamed("/login");
         }
       }
+    }
+  }
+
+  getPresenceHistory() {
+    if (userInfo.roleId == 1) {
+      _historyStudent = presenceHistory.getPresenceHistoryStudent();
+    }
+    if (userInfo.roleId == 2) {
+      _historyLecturer = presenceHistory.getPresenceHistoryLecturer();
     }
   }
 
@@ -441,6 +433,7 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                     );
                                   } else {
                                     return ListView.builder(
+                                      clipBehavior: Clip.none,
                                       controller: ScrollController(
                                         keepScrollOffset: false,
                                       ),
@@ -488,16 +481,16 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
     );
   }
 
-  getPresenceHistory() async {
-    final prefs = await SharedPreferences.getInstance();
-    int roleId = prefs.getInt("roleId") ?? 0;
+  // getPresenceHistory() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   int roleId = prefs.getInt("roleId") ?? 0;
 
-    if (roleId == 1) {
-      // if student
-      presenceHistory.getPresenceHistoryStudent();
-    } else {
-      // if lecturer
-      presenceHistory.getPresenceHistoryLecturer();
-    }
-  }
+  //   if (roleId == 1) {
+  //     // if student
+  //     presenceHistory.getPresenceHistoryStudent();
+  //   } else {
+  //     // if lecturer
+  //     presenceHistory.getPresenceHistoryLecturer();
+  //   }
+  // }
 }

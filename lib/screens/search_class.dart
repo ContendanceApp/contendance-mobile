@@ -3,14 +3,15 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
+import 'package:get/get.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../data/models/presence_model.dart';
-import '../screens/open_presence.dart';
+import '../constant/theme.dart';
+import '../data/models/find_classes_model.dart';
+import '../widgets/subject_card_presence.dart';
 import '../services/location_service.dart';
 import '../services/presence_service.dart';
 import '../widgets/ripple_animation/ripple_animation.dart';
@@ -26,6 +27,7 @@ class SearchClass extends StatefulWidget {
 
 class _SearchClassState extends State<SearchClass> {
   List beacons = [];
+  late FindClassesModel schedule;
 
   final regions = <Region>[];
   StreamSubscription<RangingResult>? _streamRanging;
@@ -71,20 +73,14 @@ class _SearchClassState extends State<SearchClass> {
     }
   }
 
-  Future<Schedule> checkPresence(
+  Future<FindClassesModel> findClasses(
     String proximityUUID,
-    int major,
-    int minor,
-    int userId,
   ) async {
     // If lecturer
     Map<String, String> body = {
       'proximity_uuid': proximityUUID.toLowerCase(),
-      'major': major.toString(),
-      'minor': minor.toString(),
-      'user_id': userId.toString(),
     };
-    return presence.validateSchedule(body).then((value) => value);
+    return presence.findClasses(body).then((value) => value);
   }
 
   initializeBeacon() async {
@@ -107,9 +103,7 @@ class _SearchClassState extends State<SearchClass> {
     }
 
     final prefs = await SharedPreferences.getInstance();
-    int userId = prefs.getInt('userId') ?? 0;
     int roleId = prefs.getInt('roleId') ?? 0;
-    int studyGroupId = prefs.getInt('studyGroupId') ?? 0;
 
     _streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) async {
@@ -126,15 +120,11 @@ class _SearchClassState extends State<SearchClass> {
               // if student
               Map<String, String> body = {
                 'proximity_uuid': beacon.proximityUUID.toLowerCase(),
-                'major': beacon.major.toString(),
-                'minor': beacon.minor.toString(),
-                'user_id': userId.toString(),
-                'study_group_id': studyGroupId.toString(),
               };
 
               try {
                 await presence.createPresence(body).then((value) =>
-                    Get.offNamed("/success-open-presence", arguments: value));
+                    Get.offNamed("/success-presence", arguments: value));
               } catch (e) {
                 Exception(e);
                 Timer.periodic(const Duration(seconds: 4), (timer) {
@@ -143,10 +133,19 @@ class _SearchClassState extends State<SearchClass> {
               }
             } else {
               // if lecturer
-              await checkPresence(
-                      beacon.proximityUUID, beacon.major, beacon.minor, userId)
-                  .then((value) => Get.offNamed("/open-presence",
-                      arguments: BeaconArgs(beacon: beacon, schedule: value)));
+              final response = await findClasses(beacon.proximityUUID)
+                  .then((value) => value);
+
+              // ignore: unnecessary_null_comparison
+              if (response != null) {
+                if (response.data.isNotEmpty) {
+                  setState(() {
+                    schedule = response;
+                  });
+                  showModalBottom();
+                  return;
+                }
+              }
             }
           }
         }
@@ -181,5 +180,71 @@ class _SearchClassState extends State<SearchClass> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('classStatus', "not-found");
     await Get.offNamed("/home");
+  }
+
+  showModalBottom() {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (builder) {
+        return Container(
+          constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * (3 / 4)),
+          color: Colors.transparent,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
+              ),
+            ),
+            child: Center(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(paddingLg),
+                    child: Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Pilih Mata Kuliah",
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
+                              fontSize: 18.0,
+                              color: colorPrimaryBlack,
+                            ),
+                          ),
+                          Text(
+                            "Klik kartu matkul yang akan dibuka presensinya",
+                            style: fontInter.copyWith(
+                              fontSize: 16.0,
+                              color: colorSubText,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: paddingXl,
+                          ),
+                          Column(
+                            children: schedule.data
+                                .map((item) => SubjectCardPresence(
+                                      schedule: item,
+                                      beacon: beacons,
+                                    ))
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

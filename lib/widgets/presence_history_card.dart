@@ -35,7 +35,10 @@ class PresenceHistoryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "ACR",
+                    historyLecturer != null
+                        ? historyLecturer!.subjectsSchedules.subjects.acronym
+                        : historyStudent!
+                            .presences.subjectsSchedules.subjects.acronym,
                     textAlign: TextAlign.center,
                     style: fontInter.copyWith(
                       fontSize: 14,
@@ -60,9 +63,9 @@ class PresenceHistoryCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       historyLecturer != null
-                          ? historyLecturer!.subjectSchedule.subject.name
+                          ? historyLecturer!.subjectsSchedules.subjects.name
                           : historyStudent!
-                              .presences.subjectSchedule.subject.name,
+                              .presences.subjectsSchedules.subjects.name,
                       style: fontInter.copyWith(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -76,8 +79,8 @@ class PresenceHistoryCard extends StatelessWidget {
                       children: [
                         Text(
                           historyLecturer != null
-                              ? historyLecturer!.room.roomCode
-                              : historyStudent!.presences.room.roomCode,
+                              ? historyLecturer!.rooms.roomCode
+                              : historyStudent!.presences.rooms.roomCode,
                           style: fontInter.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,

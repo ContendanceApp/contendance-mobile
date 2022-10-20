@@ -31,16 +31,21 @@ class _LoginScreenState extends State<LoginScreen> {
     userId: 0,
     fullname: "",
     email: "",
-    emailVerifiedAt: DateTime.now(),
-    sidEid: 0,
+    sidEid: "",
     gender: "",
     roleId: 0,
     studyGroupId: 0,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
-    studyGroup: StudyGroup(
+    roles: Roles(
+        roleId: 0,
+        role: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now()),
+    studyGroups: StudyGroups(
       studyGroupId: 0,
       name: "",
+      year: 0,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     ),
@@ -159,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   labelStyle: TextStyle(
-                    fontWeight: fwSemifwBold,
+                    fontWeight: fwSemiBold,
                     color: colorSubText,
                   ),
                   errorText:
@@ -197,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 labelStyle: TextStyle(
-                  fontWeight: fwSemifwBold,
+                  fontWeight: fwSemiBold,
                   color: colorSubText,
                 ),
                 errorText:
@@ -300,7 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     if (token != null) {
-      getUserInfo(response.accessToken!);
+      getUserInfo(token);
       Get.offNamed("/home");
     } else {
       setState(() {
@@ -308,7 +313,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(response.message!),
+          content: Text(response.message),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
         ),
@@ -319,8 +324,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> getUserInfo(String accessToken) async {
     final prefs = await SharedPreferences.getInstance();
     var res = await login.loggedUser(accessToken).then((value) => value);
+    Map<dynamic, dynamic> result = jsonDecode(res.body);
     if (res.statusCode == 200) {
-      UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
+      UserInfo resBody = UserInfo.fromJson(result['data']);
+      // UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
       prefs.setInt('roleId', resBody.roleId);
       prefs.setInt('userId', resBody.userId);
       prefs.setInt('studyGroupId', resBody.studyGroupId ?? 0);

@@ -1,25 +1,29 @@
 import 'dart:convert';
 
-PresenceHistoryStudentModel presenceHistoryStudentFromJson(String str) =>
+PresenceHistoryStudentModel presenceHistoryStudentModelFromJson(String str) =>
     PresenceHistoryStudentModel.fromJson(json.decode(str));
 
-String presenceHistoryStudentToJson(PresenceHistoryStudentModel data) =>
+String presenceHistoryStudentModelToJson(PresenceHistoryStudentModel data) =>
     json.encode(data.toJson());
 
 class PresenceHistoryStudentModel {
   PresenceHistoryStudentModel({
+    required this.message,
     required this.data,
   });
 
+  String message;
   List<PresenceHistoryStudentData> data;
 
   factory PresenceHistoryStudentModel.fromJson(Map<String, dynamic> json) =>
       PresenceHistoryStudentModel(
+        message: json["message"],
         data: List<PresenceHistoryStudentData>.from(
             json["data"].map((x) => PresenceHistoryStudentData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
+        "message": message,
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
@@ -32,8 +36,7 @@ class PresenceHistoryStudentData {
     required this.presenceTime,
     required this.presenceDate,
     required this.isInclass,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.isAdmited,
     required this.presences,
   });
 
@@ -41,11 +44,10 @@ class PresenceHistoryStudentData {
   int presenceId;
   int userId;
   String presenceTime;
-  DateTime presenceDate;
+  String presenceDate;
   bool isInclass;
-  DateTime createdAt;
-  DateTime updatedAt;
-  PresenceModel presences;
+  bool isAdmited;
+  Presences presences;
 
   factory PresenceHistoryStudentData.fromJson(Map<String, dynamic> json) =>
       PresenceHistoryStudentData(
@@ -53,11 +55,10 @@ class PresenceHistoryStudentData {
         presenceId: json["presence_id"],
         userId: json["user_id"],
         presenceTime: json["presence_time"],
-        presenceDate: DateTime.parse(json["presence_date"]),
+        presenceDate: json["presence_date"],
         isInclass: json["is_inclass"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        presences: PresenceModel.fromJson(json["presences"]),
+        isAdmited: json["is_admited"],
+        presences: Presences.fromJson(json["presences"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,189 +66,159 @@ class PresenceHistoryStudentData {
         "presence_id": presenceId,
         "user_id": userId,
         "presence_time": presenceTime,
-        "presence_date":
-            "${presenceDate.year.toString().padLeft(4, '0')}-${presenceDate.month.toString().padLeft(2, '0')}-${presenceDate.day.toString().padLeft(2, '0')}",
+        "presence_date": presenceDate,
         "is_inclass": isInclass,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "is_admited": isAdmited,
         "presences": presences.toJson(),
       };
 }
 
-class PresenceModel {
-  PresenceModel({
+class Presences {
+  Presences({
     required this.presenceId,
-    required this.userId,
     required this.isOpen,
+    required this.waitingRoom,
     required this.openTime,
     required this.closeTime,
     required this.presenceDate,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.room,
-    required this.subjectSchedule,
+    required this.rooms,
+    required this.subjectsSchedules,
   });
 
   int presenceId;
-  int userId;
   bool isOpen;
+  bool waitingRoom;
   String openTime;
   dynamic closeTime;
-  DateTime presenceDate;
-  DateTime createdAt;
-  DateTime updatedAt;
-  RoomModel room;
-  SubjectSchedule subjectSchedule;
+  String presenceDate;
+  Rooms rooms;
+  SubjectsSchedules subjectsSchedules;
 
-  factory PresenceModel.fromJson(Map<String, dynamic> json) => PresenceModel(
+  factory Presences.fromJson(Map<String, dynamic> json) => Presences(
         presenceId: json["presence_id"],
-        userId: json["user_id"],
         isOpen: json["is_open"],
+        waitingRoom: json["waiting_room"],
         openTime: json["open_time"],
         closeTime: json["close_time"],
-        presenceDate: DateTime.parse(json["presence_date"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        room: RoomModel.fromJson(json["room"]),
-        subjectSchedule: SubjectSchedule.fromJson(json["subject_schedule"]),
+        presenceDate: json["presence_date"],
+        rooms: Rooms.fromJson(json["rooms"]),
+        subjectsSchedules:
+            SubjectsSchedules.fromJson(json["subjects_schedules"]),
       );
 
   Map<String, dynamic> toJson() => {
         "presence_id": presenceId,
-        "user_id": userId,
         "is_open": isOpen,
+        "waiting_room": waitingRoom,
         "open_time": openTime,
         "close_time": closeTime,
-        "presence_date":
-            "${presenceDate.year.toString().padLeft(4, '0')}-${presenceDate.month.toString().padLeft(2, '0')}-${presenceDate.day.toString().padLeft(2, '0')}",
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "room": room.toJson(),
-        "subject_schedule": subjectSchedule.toJson(),
+        "presence_date": presenceDate,
+        "rooms": rooms.toJson(),
+        "subjects_schedules": subjectsSchedules.toJson(),
       };
 }
 
-class RoomModel {
-  RoomModel({
-    required this.roomId,
-    required this.beaconId,
+class Rooms {
+  Rooms({
     required this.name,
     required this.roomCode,
     required this.location,
-    required this.description,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
-  int roomId;
-  int beaconId;
   String name;
   String roomCode;
   String location;
-  String description;
-  DateTime createdAt;
-  DateTime updatedAt;
 
-  factory RoomModel.fromJson(Map<String, dynamic> json) => RoomModel(
-        roomId: json["room_id"],
-        beaconId: json["beacon_id"],
+  factory Rooms.fromJson(Map<String, dynamic> json) => Rooms(
         name: json["name"],
         roomCode: json["room_code"],
         location: json["location"],
-        description: json["description"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "room_id": roomId,
-        "beacon_id": beaconId,
         "name": name,
         "room_code": roomCode,
         "location": location,
-        "description": description,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
       };
 }
 
-class SubjectSchedule {
-  SubjectSchedule({
+class SubjectsSchedules {
+  SubjectsSchedules({
     required this.subjectScheduleId,
-    required this.subjectId,
-    required this.userId,
-    required this.studyGroupId,
-    required this.roomId,
     required this.startTime,
     required this.finishTime,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.subject,
+    required this.subjects,
+    required this.studyGroups,
   });
 
   int subjectScheduleId;
-  int subjectId;
-  int userId;
-  int studyGroupId;
-  int roomId;
   String startTime;
   String finishTime;
-  DateTime createdAt;
-  DateTime updatedAt;
-  Subject subject;
+  Subjects subjects;
+  StudyGroups studyGroups;
 
-  factory SubjectSchedule.fromJson(Map<String, dynamic> json) =>
-      SubjectSchedule(
+  factory SubjectsSchedules.fromJson(Map<String, dynamic> json) =>
+      SubjectsSchedules(
         subjectScheduleId: json["subject_schedule_id"],
-        subjectId: json["subject_id"],
-        userId: json["user_id"],
-        studyGroupId: json["study_group_id"],
-        roomId: json["room_id"],
         startTime: json["start_time"],
         finishTime: json["finish_time"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
-        subject: Subject.fromJson(json["subject"]),
+        subjects: Subjects.fromJson(json["subjects"]),
+        studyGroups: StudyGroups.fromJson(json["study_groups"]),
       );
 
   Map<String, dynamic> toJson() => {
         "subject_schedule_id": subjectScheduleId,
-        "subject_id": subjectId,
-        "user_id": userId,
-        "study_group_id": studyGroupId,
-        "room_id": roomId,
         "start_time": startTime,
         "finish_time": finishTime,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "subject": subject.toJson(),
+        "subjects": subjects.toJson(),
+        "study_groups": studyGroups.toJson(),
       };
 }
 
-class Subject {
-  Subject({
+class StudyGroups {
+  StudyGroups({
+    required this.studyGroupId,
+    required this.name,
+    required this.year,
+  });
+
+  int studyGroupId;
+  String name;
+  int year;
+
+  factory StudyGroups.fromJson(Map<String, dynamic> json) => StudyGroups(
+        studyGroupId: json["study_group_id"],
+        name: json["name"],
+        year: json["year"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "study_group_id": studyGroupId,
+        "name": name,
+        "year": year,
+      };
+}
+
+class Subjects {
+  Subjects({
     required this.subjectId,
     required this.name,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.acronym,
   });
 
   int subjectId;
   String name;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String acronym;
 
-  factory Subject.fromJson(Map<String, dynamic> json) => Subject(
+  factory Subjects.fromJson(Map<String, dynamic> json) => Subjects(
         subjectId: json["subject_id"],
         name: json["name"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        acronym: json["acronym"],
       );
 
   Map<String, dynamic> toJson() => {
         "subject_id": subjectId,
         "name": name,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "acronym": acronym,
       };
 }

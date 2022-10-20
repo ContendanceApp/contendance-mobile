@@ -1,10 +1,8 @@
 import 'package:get/get.dart';
 
-import '../data/models/presence_history_model.dart';
+import '../data/models/presence_history_model_old.dart';
 
 class SubjectScheduleController extends GetxController {
-  String? selectedValue;
-
   List<List<PresenceHistoryModel>> histories = [
     [
       PresenceHistoryModel(

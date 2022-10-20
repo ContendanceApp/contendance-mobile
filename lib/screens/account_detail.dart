@@ -20,21 +20,25 @@ class AccountDetail extends StatefulWidget {
 
 class _AccountDetailState extends State<AccountDetail> {
   LoginService login = LoginService();
-  String? _token;
   UserInfo userInfo = UserInfo(
     userId: 0,
     fullname: "",
     email: "",
-    emailVerifiedAt: DateTime.now(),
-    sidEid: 0,
+    sidEid: "",
     gender: "",
     roleId: 0,
     studyGroupId: 0,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
-    studyGroup: StudyGroup(
+    roles: Roles(
+        roleId: 0,
+        role: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now()),
+    studyGroups: StudyGroups(
       studyGroupId: 0,
       name: "",
+      year: 0,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     ),
@@ -50,21 +54,18 @@ class _AccountDetailState extends State<AccountDetail> {
   Future<void> getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    setState(() {
-      _token = token;
-    });
     if (token == null) {
       Get.offNamed("/login");
     } else {
-      getUserInfo();
+      getUserInfo(token);
     }
   }
 
-  getUserInfo() async {
-    var res = await login.loggedUser(_token!).then((value) => value);
-
+  getUserInfo(String token) async {
+    var res = await login.loggedUser(token).then((value) => value);
+    Map<dynamic, dynamic> result = jsonDecode(res.body);
     if (res.statusCode == 200) {
-      UserInfo resBody = UserInfo.fromJson(jsonDecode(res.body));
+      UserInfo resBody = UserInfo.fromJson(result['data']);
       if (mounted) {
         setState(() {
           userInfo = resBody;
@@ -132,7 +133,7 @@ class _AccountDetailState extends State<AccountDetail> {
           const SizedBox(
             height: 2,
           ),
-          userInfo.sidEid != 0
+          userInfo.sidEid != ""
               ? Text(
                   userInfo.sidEid.toString(),
                   style: fontInter.copyWith(
@@ -167,10 +168,10 @@ class _AccountDetailState extends State<AccountDetail> {
           const SizedBox(
             height: 2,
           ),
-          userInfo.studyGroup != null
-              ? userInfo.studyGroup?.name != ""
+          userInfo.studyGroups != null
+              ? userInfo.studyGroups?.name != ""
                   ? Text(
-                      userInfo.studyGroup!.name,
+                      userInfo.studyGroups!.name,
                       style: fontInter.copyWith(
                         fontWeight: fwMedium,
                         fontSize: 16,
