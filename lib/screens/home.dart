@@ -15,6 +15,7 @@ import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg_provider;
 import 'package:iconly/iconly.dart';
 import 'package:badges/badges.dart';
+import 'package:nearby_connections/nearby_connections.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:skeleton_text/skeleton_text.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -126,6 +127,17 @@ class _HomeState extends State<Home> {
     checkClassStatus();
   }
 
+  enableBlue() async {
+    try {
+      // For bluetooth permissions on Android 12+.
+      bool d = await Nearby().checkBluetoothPermission();
+// asks for BLUETOOTH_ADVERTISE, BLUETOOTH_CONNECT, BLUETOOTH_SCAN permissions.
+      Nearby().askBluetoothPermission();
+    } catch (e) {
+      print("Error: $e");
+    }
+  }
+
   Future<void> _checkPermission() async {
     final prefs = await SharedPreferences.getInstance();
     final locationPerm = prefs.getString('locationPerm');
@@ -150,6 +162,7 @@ class _HomeState extends State<Home> {
           // rangingBeacon();
           // initializeBeacon();
           locationService.getLocation();
+          enableBlue();
         } else if (status == PermissionStatus.denied) {
           // print(
           //     'Permission denied. Show a dialog and again ask for the permission');

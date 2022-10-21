@@ -102,16 +102,15 @@ class PresenceHistoryCard extends StatelessWidget {
                             ),
                             Text(
                               historyLecturer != null
-                                  ? DateFormat("HH:mm")
-                                      .format(DateTime.parse(
-                                              historyLecturer!.openTime)
-                                          .toLocal())
-                                      .toString()
+                                  ? historyLecturer!.openTime
                                   : DateFormat("HH:mm")
                                       .format(DateTime.parse(
                                               historyStudent!.presenceTime)
                                           .toLocal())
                                       .toString(),
+                              // historyLecturer != null
+                              //     ? historyLecturer!.openTime
+                              //     : historyStudent!.presenceTime,
                               style: fontInter.copyWith(
                                 color: colorPrimaryBlue,
                                 fontSize: 14,
