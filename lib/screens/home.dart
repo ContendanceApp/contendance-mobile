@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:async';
 
-import 'package:app_settings/app_settings.dart';
 import 'package:contendance_app/data/models/active_presence_model.dart';
 import 'package:contendance_app/data/models/schedule_model.dart';
 import 'package:contendance_app/services/schedule_service.dart';
 import 'package:contendance_app/widgets/skeleton_card_schedule.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -148,7 +148,8 @@ class _HomeState extends State<Home> {
           // print('Permission granted');
           // initializeBeacon();
           // rangingBeacon();
-          await locationService.getLocation();
+          // initializeBeacon();
+          locationService.getLocation();
         } else if (status == PermissionStatus.denied) {
           // print(
           //     'Permission denied. Show a dialog and again ask for the permission');
@@ -161,6 +162,19 @@ class _HomeState extends State<Home> {
       }
     }
   }
+
+  // initializeBeacon() async {
+  //   try {
+  //     // if you want to manage manual checking about the required permissions
+  //     // await flutterBeacon.initializeScanning;
+
+  //     // or if you want to include automatic checking permission
+  //     await flutterBeacon.initializeAndCheckScanning;
+  //   } on PlatformException catch (e) {
+  //     // ignore: avoid_print
+  //     print(e.message);
+  //   }
+  // }
 
   // askBluetoothPerm() async {
   //   AppSettings.openBluetoothSettings();

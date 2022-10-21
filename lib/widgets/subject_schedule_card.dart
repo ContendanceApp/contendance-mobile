@@ -1,5 +1,6 @@
 import 'package:contendance_app/data/models/subjects_schedules_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constant/theme.dart';
 
@@ -10,7 +11,7 @@ class SubjectScheduleCard extends StatelessWidget {
     this.subjects,
   }) : super(key: key);
 
-  late SubjectsSchedulesData? subjects;
+  late SubjectsScheduleDataGroup? subjects;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +90,9 @@ class SubjectScheduleCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              subjects!.startTime,
+                              DateFormat("HH:mm")
+                                  .format(subjects!.startTime)
+                                  .toString(),
                               style: fontInter.copyWith(
                                 color: colorPrimaryBlue,
                                 fontSize: 14,

@@ -1,18 +1,15 @@
 import 'package:contendance_app/controllers/subject_schedule_controller.dart';
 import 'package:contendance_app/data/models/subjects_schedules_model.dart';
 import 'package:contendance_app/services/schedule_service.dart';
-import 'package:contendance_app/widgets/presence_history_card.dart';
 import 'package:contendance_app/widgets/subject_schedule_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:expandable/expandable.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constant/theme.dart';
 
 import '../widgets/screen_wrapper/stack_screen.dart';
-import '../widgets/subject_card.dart';
 
 class SubjectSchedule extends StatelessWidget {
   final controller = Get.put(SubjectScheduleController());
@@ -74,7 +71,7 @@ class SubjectSchedule extends StatelessWidget {
                           var subjects = snapshot.data?.data[index];
                           return ExpandablePanel(
                             header: Text(
-                              subjects!.days.day,
+                              subjects!.day,
                               style: fontInter.copyWith(
                                 color: colorPrimaryBlack,
                                 fontWeight: fwBold,
@@ -86,9 +83,10 @@ class SubjectSchedule extends StatelessWidget {
                               margin: const EdgeInsets.symmetric(
                                   vertical: paddingBase),
                               child: Column(
-                                children: [
-                                  SubjectScheduleCard(subjects: subjects)
-                                ],
+                                children: subjects.subjectsSchedules
+                                    .map((item) =>
+                                        SubjectScheduleCard(subjects: item))
+                                    .toList(),
                               ),
                             ),
                             builder: (_, collapsed, expanded) => Expandable(

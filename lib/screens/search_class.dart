@@ -122,20 +122,15 @@ class _SearchClassState extends State<SearchClass> {
                 'proximity_uuid': beacon.proximityUUID.toLowerCase(),
               };
 
-              try {
-                await presence.createPresence(body).then((value) =>
-                    Get.offNamed("/success-presence", arguments: value));
-              } catch (e) {
-                Exception(e);
-                Timer.periodic(const Duration(seconds: 4), (timer) {
-                  timeoutSearchClass();
-                });
-              }
+              presence.createPresence(body).then((value) async {
+                await Get.offAllNamed("/success-presence", arguments: value);
+              }).catchError((e) {
+                print("Exception: $e");
+                timeoutSearchClass();
+              });
             } else {
               // if lecturer
-              final response = await findClasses(beacon.proximityUUID)
-                  .then((value) => value);
-
+              final response = await findClasses(beacon.proximityUUID);
               // ignore: unnecessary_null_comparison
               if (response != null) {
                 if (response.data.isNotEmpty) {
@@ -149,6 +144,7 @@ class _SearchClassState extends State<SearchClass> {
             }
           }
         }
+        return;
       } else {
         Timer.periodic(const Duration(seconds: 4), (timer) {
           timeoutSearchClass();
@@ -245,6 +241,6 @@ class _SearchClassState extends State<SearchClass> {
           ),
         );
       },
-    );
+    ).then((value) => Navigator.pop(context));
   }
 }

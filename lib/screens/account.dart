@@ -273,7 +273,7 @@ class _AccountState extends State<Account> {
                             ),
                           ),
                           onTap: () {
-                            Get.offNamed("/account-detail");
+                            Get.toNamed("/account-detail");
                           },
                         ),
                       ),
@@ -334,7 +334,7 @@ class _AccountState extends State<Account> {
                             ),
                           ),
                           onTap: () {
-                            Get.offNamed("/about-app");
+                            Get.toNamed("/about-app");
                           },
                         ),
                       ),

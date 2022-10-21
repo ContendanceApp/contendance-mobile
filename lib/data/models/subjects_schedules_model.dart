@@ -30,29 +30,71 @@ class SubjectsScheduleModel {
 
 class SubjectsSchedulesData {
   SubjectsSchedulesData({
+    required this.day,
+    required this.subjectsSchedules,
+  });
+
+  String day;
+  List<SubjectsScheduleDataGroup> subjectsSchedules;
+
+  factory SubjectsSchedulesData.fromJson(Map<String, dynamic> json) =>
+      SubjectsSchedulesData(
+        day: json["day"],
+        subjectsSchedules: List<SubjectsScheduleDataGroup>.from(
+            json["subjects_schedules"]
+                .map((x) => SubjectsScheduleDataGroup.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "day": day,
+        "subjects_schedules":
+            List<dynamic>.from(subjectsSchedules.map((x) => x.toJson())),
+      };
+}
+
+class SubjectsScheduleDataGroup {
+  SubjectsScheduleDataGroup({
     required this.subjectScheduleId,
+    required this.subjectId,
+    required this.userId,
+    required this.studyGroupId,
+    required this.roomId,
+    required this.dayId,
     required this.startTime,
     required this.finishTime,
-    required this.days,
+    required this.createdAt,
+    required this.updatedAt,
     required this.rooms,
     required this.subjects,
     required this.users,
   });
 
   int subjectScheduleId;
-  String startTime;
-  String finishTime;
-  Days days;
+  int subjectId;
+  int userId;
+  int studyGroupId;
+  int roomId;
+  int dayId;
+  DateTime startTime;
+  DateTime finishTime;
+  DateTime createdAt;
+  DateTime updatedAt;
   Rooms rooms;
   Subjects subjects;
   Users users;
 
-  factory SubjectsSchedulesData.fromJson(Map<String, dynamic> json) =>
-      SubjectsSchedulesData(
+  factory SubjectsScheduleDataGroup.fromJson(Map<String, dynamic> json) =>
+      SubjectsScheduleDataGroup(
         subjectScheduleId: json["subject_schedule_id"],
-        startTime: json["start_time"],
-        finishTime: json["finish_time"],
-        days: Days.fromJson(json["days"]),
+        subjectId: json["subject_id"],
+        userId: json["user_id"],
+        studyGroupId: json["study_group_id"],
+        roomId: json["room_id"],
+        dayId: json["day_id"],
+        startTime: DateTime.parse(json["start_time"]),
+        finishTime: DateTime.parse(json["finish_time"]),
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
         rooms: Rooms.fromJson(json["rooms"]),
         subjects: Subjects.fromJson(json["subjects"]),
         users: Users.fromJson(json["users"]),
@@ -60,28 +102,18 @@ class SubjectsSchedulesData {
 
   Map<String, dynamic> toJson() => {
         "subject_schedule_id": subjectScheduleId,
-        "start_time": startTime,
-        "finish_time": finishTime,
-        "days": days.toJson(),
+        "subject_id": subjectId,
+        "user_id": userId,
+        "study_group_id": studyGroupId,
+        "room_id": roomId,
+        "day_id": dayId,
+        "start_time": startTime.toIso8601String(),
+        "finish_time": finishTime.toIso8601String(),
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
         "rooms": rooms.toJson(),
         "subjects": subjects.toJson(),
         "users": users.toJson(),
-      };
-}
-
-class Days {
-  Days({
-    required this.day,
-  });
-
-  String day;
-
-  factory Days.fromJson(Map<String, dynamic> json) => Days(
-        day: json["day"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "day": day,
       };
 }
 

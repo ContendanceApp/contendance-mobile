@@ -155,6 +155,7 @@ class _ActiveClassState extends State<ActivePresence> {
                         flex: 1,
                         child: Button(
                           paddingY: 14,
+                          paddingX: 0,
                           text: "Lihat Kelas",
                           callback: () async {
                             try {
@@ -319,19 +320,13 @@ class _ActiveClassState extends State<ActivePresence> {
                                     dismissOnTap: false,
                                     maskType: EasyLoadingMaskType.clear);
 
-                                try {
-                                  await presence
-                                      .closePresence(body)
-                                      .then((value) {
-                                    EasyLoading.dismiss();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        "/home",
-                                        (Route<dynamic> route) => false);
-                                  });
-                                } catch (e) {
-                                  throw Exception(e);
-                                }
+                                presence.closePresence(body).then((value) {
+                                  EasyLoading.dismiss();
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      "/home", (Route<dynamic> route) => false);
+                                }).catchError((e) {
+                                  print(e);
+                                });
                               },
                               primary: false,
                               secondary: false,

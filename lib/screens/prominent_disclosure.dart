@@ -22,7 +22,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Use your location",
+                  "Use your bluetooth & location",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: "Inter",
@@ -39,7 +39,7 @@ class ProminentDisclosureLocation extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: paddingXl),
                     child: Text(
-                      "Contendance collects location data to discover room/class with beacon near you even when the app is closed or not in use.",
+                      "Contendance collects bluetooth & location data to discover room/class with beacon near you even when the app is closed or not in use.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: "Inter",

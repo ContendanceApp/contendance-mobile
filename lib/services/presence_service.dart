@@ -28,7 +28,8 @@ class PresenceService {
     if (response.statusCode == 201 || response.statusCode == 200) {
       return SuccessPresenceModel.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('No class opened');
+      throw Exception(
+          'Failed load data with status code ${response.statusCode}');
     }
   }
 

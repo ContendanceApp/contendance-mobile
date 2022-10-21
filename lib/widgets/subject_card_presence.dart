@@ -73,26 +73,29 @@ class SubjectCardPresence extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${schedule.startTime} - ${schedule.finishTime}",
-                              style: fontInter.copyWith(
-                                color: colorPrimaryBlack,
-                                fontSize: 14,
-                                fontWeight: fwBold,
+                        Expanded(
+                          flex: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${schedule.startTime} - ${schedule.finishTime}",
+                                style: fontInter.copyWith(
+                                  color: colorPrimaryBlack,
+                                  fontSize: 14,
+                                  fontWeight: fwBold,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "${schedule.rooms.roomCode} - ${schedule.rooms.name}",
-                              style: fontInter.copyWith(
-                                fontSize: 14,
-                                fontWeight: fwBold,
-                                color: colorPrimaryBlue,
+                              Text(
+                                "${schedule.rooms.roomCode} - ${schedule.rooms.name}",
+                                style: fontInter.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: fwBold,
+                                  color: colorPrimaryBlue,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -123,8 +126,12 @@ class SubjectCardPresence extends StatelessWidget {
       'room_id': roomId,
     };
 
-    await presenceService.openPresence(body).then((value) => Get.offNamed(
-        "/open-presence",
-        arguments: BeaconArgs(beacon: beacon, schedule: value)));
+    presenceService.openPresence(body).then((value) {
+      Get.offAllNamed("/open-presence",
+          arguments: BeaconArgs(beacon: beacon, schedule: value));
+    }).catchError((e) {
+      print("Exception: $e");
+      Get.offAllNamed("/home");
+    });
   }
 }

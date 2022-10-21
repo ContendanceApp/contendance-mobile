@@ -154,50 +154,61 @@ class _AccountDetailState extends State<AccountDetail> {
                     ),
                   ),
                 ),
-          const SizedBox(
-            height: paddingLg,
-          ),
-          Text(
-            "Kelas",
-            style: fontInter.copyWith(
-              fontWeight: fwBold,
-              fontSize: 16,
-              color: colorPrimaryBlack,
-            ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
           userInfo.studyGroups != null
-              ? userInfo.studyGroups?.name != ""
-                  ? Text(
-                      userInfo.studyGroups!.name,
-                      style: fontInter.copyWith(
-                        fontWeight: fwMedium,
-                        fontSize: 16,
-                        color: colorSubText,
-                      ),
-                    )
-                  : SkeletonAnimation(
-                      borderRadius: BorderRadius.circular(8.0),
-                      shimmerColor: Colors.grey[100]!,
-                      child: Container(
-                        height: 25,
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.grey[200],
+              ? userInfo.studyGroups?.name == ""
+                  ? const SizedBox()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: paddingLg,
                         ),
-                      ),
+                        Text(
+                          "Kelas",
+                          style: fontInter.copyWith(
+                            fontWeight: fwBold,
+                            fontSize: 16,
+                            color: colorPrimaryBlack,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 2,
+                        ),
+                        userInfo.studyGroups != null
+                            ? userInfo.studyGroups?.name != ""
+                                ? Text(
+                                    userInfo.studyGroups!.name,
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwMedium,
+                                      fontSize: 16,
+                                      color: colorSubText,
+                                    ),
+                                  )
+                                : SkeletonAnimation(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    shimmerColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 25,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.5,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        color: Colors.grey[200],
+                                      ),
+                                    ),
+                                  )
+                            : Text(
+                                "-",
+                                style: fontInter.copyWith(
+                                  fontWeight: fwMedium,
+                                  fontSize: 16,
+                                  color: colorSubText,
+                                ),
+                              ),
+                      ],
                     )
-              : Text(
-                  "-",
-                  style: fontInter.copyWith(
-                    fontWeight: fwMedium,
-                    fontSize: 16,
-                    color: colorSubText,
-                  ),
-                ),
+              : const SizedBox(),
           const SizedBox(
             height: paddingLg,
           ),

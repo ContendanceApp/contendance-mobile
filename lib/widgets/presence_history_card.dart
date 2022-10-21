@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constant/theme.dart';
 import '../data/models/presence_history_lecturer_model.dart';
@@ -101,8 +102,16 @@ class PresenceHistoryCard extends StatelessWidget {
                             ),
                             Text(
                               historyLecturer != null
-                                  ? historyLecturer!.openTime
-                                  : historyStudent!.presenceTime,
+                                  ? DateFormat("HH:mm")
+                                      .format(DateTime.parse(
+                                              historyLecturer!.openTime)
+                                          .toLocal())
+                                      .toString()
+                                  : DateFormat("HH:mm")
+                                      .format(DateTime.parse(
+                                              historyStudent!.presenceTime)
+                                          .toLocal())
+                                      .toString(),
                               style: fontInter.copyWith(
                                 color: colorPrimaryBlue,
                                 fontSize: 14,

@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         '/about-app': (context) => AboutApp(),
         '/prominent-disclosure-location': (context) =>
             const ProminentDisclosureLocation(),
-        '/detail-class': (context) => DetailClass(),
+        '/detail-class': (context) => const DetailClass(),
         '/class-not-found': (context) => ClassNotFound(),
       },
       builder: EasyLoading.init(),

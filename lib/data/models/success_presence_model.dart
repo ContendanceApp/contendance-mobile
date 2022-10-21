@@ -44,7 +44,7 @@ class SuccessPresenceData {
   int presenceDetailId;
   int presenceId;
   int userId;
-  DateTime presenceTime;
+  String presenceTime;
   String presenceDate;
   bool isInclass;
   bool isAdmited;
@@ -57,7 +57,7 @@ class SuccessPresenceData {
         presenceDetailId: json["presence_detail_id"],
         presenceId: json["presence_id"],
         userId: json["user_id"],
-        presenceTime: DateTime.parse(json["presence_time"]),
+        presenceTime: json["presence_time"],
         presenceDate: json["presence_date"],
         isInclass: json["is_inclass"],
         isAdmited: json["is_admited"],
@@ -70,7 +70,7 @@ class SuccessPresenceData {
         "presence_detail_id": presenceDetailId,
         "presence_id": presenceId,
         "user_id": userId,
-        "presence_time": presenceTime.toIso8601String(),
+        "presence_time": presenceTime,
         "presence_date": presenceDate,
         "is_inclass": isInclass,
         "is_admited": isAdmited,
