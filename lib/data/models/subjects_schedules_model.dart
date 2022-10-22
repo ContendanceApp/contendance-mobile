@@ -83,7 +83,7 @@ class SubjectsScheduleDataGroup {
   Rooms rooms;
   Subjects subjects;
   Users users;
-  StudyGroups studyGroups;
+  StudyGroups? studyGroups;
 
   factory SubjectsScheduleDataGroup.fromJson(Map<String, dynamic> json) =>
       SubjectsScheduleDataGroup(
@@ -100,7 +100,9 @@ class SubjectsScheduleDataGroup {
         rooms: Rooms.fromJson(json["rooms"]),
         subjects: Subjects.fromJson(json["subjects"]),
         users: Users.fromJson(json["users"]),
-        studyGroups: StudyGroups.fromJson(json["study_groups"]),
+        studyGroups: json["study_groups"] == null
+            ? null
+            : StudyGroups.fromJson(json["study_groups"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -117,7 +119,7 @@ class SubjectsScheduleDataGroup {
         "rooms": rooms.toJson(),
         "subjects": subjects.toJson(),
         "users": users.toJson(),
-        "study_groups": studyGroups.toJson(),
+        "study_groups": studyGroups!.toJson(),
       };
 }
 

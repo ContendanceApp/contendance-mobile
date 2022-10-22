@@ -57,14 +57,23 @@ class SubjectScheduleCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(
-                      "${subjects!.subjects.name} - ${subjects!.studyGroups.name}",
-                      style: fontInter.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: colorSubText,
-                      ),
-                    ),
+                    subjects?.studyGroups != null
+                        ? Text(
+                            "${subjects!.subjects.name} - ${subjects!.studyGroups!.name}",
+                            style: fontInter.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: colorSubText,
+                            ),
+                          )
+                        : Text(
+                            subjects!.subjects.name,
+                            style: fontInter.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: colorSubText,
+                            ),
+                          ),
                     const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -267,7 +276,7 @@ class SubjectScheduleCard extends StatelessWidget {
                                           height: 4,
                                         ),
                                         Text(
-                                          "${schedule.studyGroups.name} - ${schedule.studyGroups.year}",
+                                          "${schedule.studyGroups!.name} - ${schedule.studyGroups!.year}",
                                           style: fontInter.copyWith(
                                             fontSize: 16,
                                             fontWeight: fwBold,
