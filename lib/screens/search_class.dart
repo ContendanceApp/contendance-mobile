@@ -93,7 +93,12 @@ class _SearchClassState extends State<SearchClass> {
       rangingBeacon();
     } on PlatformException catch (e) {
       // ignore: avoid_print
-      print(e.message);
+      print("Exception: ${e.message}");
+      if (e.message == "bluetooth disabled") {
+        Timer.periodic(const Duration(seconds: 2), (timer) {
+          timeoutSearchClass();
+        });
+      }
     }
   }
 
@@ -125,6 +130,7 @@ class _SearchClassState extends State<SearchClass> {
               presence.createPresence(body).then((value) async {
                 await Get.offAllNamed("/success-presence", arguments: value);
               }).catchError((e) {
+                // ignore: avoid_print
                 print("Exception: $e");
                 timeoutSearchClass();
               });

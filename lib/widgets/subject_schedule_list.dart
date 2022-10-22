@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../constant/theme.dart';
-import '../data/models/presence_history_model_old.dart';
 
 class SubjectScheduleList extends StatefulWidget {
   const SubjectScheduleList({

@@ -1,11 +1,6 @@
 import 'dart:convert';
 import 'dart:async';
 
-import 'package:contendance_app/data/models/active_presence_model.dart';
-import 'package:contendance_app/data/models/schedule_model.dart';
-import 'package:contendance_app/services/schedule_service.dart';
-import 'package:contendance_app/widgets/skeleton_card_schedule.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +16,10 @@ import 'package:skeleton_text/skeleton_text.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 
+import '../data/models/active_presence_model.dart';
+import '../data/models/schedule_model.dart';
+import '../services/schedule_service.dart';
+import '../widgets/skeleton_card_schedule.dart';
 import '../constant/theme.dart';
 import '../data/models/login_model.dart';
 import '../data/models/login_model.dart' as study_groups;
@@ -130,10 +129,11 @@ class _HomeState extends State<Home> {
   enableBlue() async {
     try {
       // For bluetooth permissions on Android 12+.
-      bool d = await Nearby().checkBluetoothPermission();
+      await Nearby().checkBluetoothPermission();
 // asks for BLUETOOTH_ADVERTISE, BLUETOOTH_CONNECT, BLUETOOTH_SCAN permissions.
       Nearby().askBluetoothPermission();
     } catch (e) {
+      // ignore: avoid_print
       print("Error: $e");
     }
   }

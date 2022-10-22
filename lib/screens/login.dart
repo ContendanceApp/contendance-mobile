@@ -90,14 +90,14 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Masuk Ke akunmu",
+                "Masuk ke akunmu",
                 style: TextStyle(
                   fontWeight: fwBold,
                   fontSize: 20,
                 ),
               ),
               const Text(
-                "Gunakan akun ethol untuk masuk",
+                "Gunakan akun dari instansi anda",
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: 14,

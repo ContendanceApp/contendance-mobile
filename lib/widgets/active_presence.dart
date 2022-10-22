@@ -25,7 +25,7 @@ class ActivePresence extends StatefulWidget {
 
 class _ActiveClassState extends State<ActivePresence> {
   PresenceService presence = PresenceService();
-  ClassroomService classroom_service = ClassroomService();
+  ClassroomService classroomService = ClassroomService();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,8 @@ class _ActiveClassState extends State<ActivePresence> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.activePresence.data.rooms.roomCode,
+                            widget.activePresence.data.subjectsSchedules
+                                .subjects.name,
                             textAlign: TextAlign.left,
                             style: fontInter.copyWith(
                               fontWeight: fwBold,
@@ -91,8 +92,7 @@ class _ActiveClassState extends State<ActivePresence> {
                             height: 4,
                           ),
                           Text(
-                            widget.activePresence.data.subjectsSchedules
-                                .subjects.name,
+                            "${widget.activePresence.data.rooms.name} - ${widget.activePresence.data.rooms.roomCode}",
                             textAlign: TextAlign.left,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -107,14 +107,28 @@ class _ActiveClassState extends State<ActivePresence> {
                           ),
                         ],
                       ),
-                      Text(
-                        "${widget.activePresence.data.subjectsSchedules.startTime} - ${widget.activePresence.data.subjectsSchedules.finishTime}",
-                        textAlign: TextAlign.left,
-                        style: fontInter.copyWith(
-                          fontSize: 14,
-                          fontWeight: fwSemiBold,
-                          color: colorPrimaryBlack,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Waktu Pelaksanaan",
+                            textAlign: TextAlign.left,
+                            style: fontInter.copyWith(
+                              fontSize: 14,
+                              fontWeight: fwSemiBold,
+                              color: colorSubText,
+                            ),
+                          ),
+                          Text(
+                            "${widget.activePresence.data.subjectsSchedules.startTime} - ${widget.activePresence.data.subjectsSchedules.finishTime}",
+                            textAlign: TextAlign.left,
+                            style: fontInter.copyWith(
+                              fontSize: 14,
+                              fontWeight: fwBold,
+                              color: colorPrimaryBlack,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -159,7 +173,7 @@ class _ActiveClassState extends State<ActivePresence> {
                           text: "Lihat Kelas",
                           callback: () async {
                             try {
-                              await classroom_service
+                              await classroomService
                                   .getDetailClass(
                                       widget.activePresence.data.presenceId)
                                   .then((value) => Get.toNamed('/detail-class',
@@ -325,6 +339,7 @@ class _ActiveClassState extends State<ActivePresence> {
                                   Navigator.pushNamedAndRemoveUntil(context,
                                       "/home", (Route<dynamic> route) => false);
                                 }).catchError((e) {
+                                  // ignore: avoid_print
                                   print(e);
                                 });
                               },

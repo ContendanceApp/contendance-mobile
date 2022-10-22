@@ -104,13 +104,6 @@ class SubjectCard extends StatelessWidget {
               color: const Color(0xFFF4F4F4),
               width: 1.0,
               style: BorderStyle.solid),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black.withOpacity(0.05),
-          //     spreadRadius: 2,
-          //     blurRadius: 10,
-          //   )
-          // ],
         ),
       ),
       onTap: () {
@@ -183,7 +176,7 @@ class SubjectCard extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Text(
-                                  "${schedule.subjects.name} - ${schedule.studyGroups.name}",
+                                  schedule.subjects.name,
                                   style: fontInter.copyWith(
                                     fontSize: 18,
                                     fontWeight: fwBold,
@@ -238,7 +231,29 @@ class SubjectCard extends StatelessWidget {
                                           style: fontInter.copyWith(
                                             fontSize: 16,
                                             fontWeight: fwBold,
-                                            color: colorPrimaryBlue,
+                                            color: colorPrimaryBlack,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: paddingBase,
+                                        ),
+                                        Text(
+                                          'Kelas',
+                                          style: fontInter.copyWith(
+                                            color: colorSubText,
+                                            fontSize: 16,
+                                            fontWeight: fwMedium,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 4,
+                                        ),
+                                        Text(
+                                          "${schedule.studyGroups.name} - ${schedule.studyGroups.year}",
+                                          style: fontInter.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: fwBold,
+                                            color: colorPrimaryBlack,
                                           ),
                                         ),
                                       ],

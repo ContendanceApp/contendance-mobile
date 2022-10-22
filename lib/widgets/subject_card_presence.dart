@@ -6,16 +6,23 @@ import 'package:get/get.dart';
 import '../constant/theme.dart';
 import '../screens/open_presence.dart';
 
-class SubjectCardPresence extends StatelessWidget {
-  SubjectCardPresence({
+class SubjectCardPresence extends StatefulWidget {
+  const SubjectCardPresence({
     Key? key,
     required this.schedule,
     required this.beacon,
   }) : super(key: key);
 
-  PresenceService presenceService = PresenceService();
   final FindClassesData schedule;
   final dynamic beacon;
+
+  @override
+  State<SubjectCardPresence> createState() => _SubjectCardPresenceState();
+}
+
+class _SubjectCardPresenceState extends State<SubjectCardPresence> {
+  PresenceService presenceService = PresenceService();
+  bool isPressed = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,87 +31,94 @@ class SubjectCardPresence extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         width: double.infinity,
         padding: const EdgeInsets.all(18),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 70,
-              width: 70,
-              margin: const EdgeInsets.only(right: 8),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "SQA",
-                    textAlign: TextAlign.center,
-                    style: fontInter.copyWith(
-                      fontSize: 14,
-                      fontWeight: fwBold,
-                      color: colorPrimaryBlue,
-                    ),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xFF15AEEF).withOpacity(0.15),
-                borderRadius: const BorderRadius.all(Radius.circular(15)),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      "${schedule.subjects.name} (${schedule.studyGroups.name})",
-                      style: fontInter.copyWith(
-                        fontSize: 16,
-                        fontWeight: fwMedium,
-                        color: colorSubText,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${schedule.startTime} - ${schedule.finishTime}",
-                                style: fontInter.copyWith(
-                                  color: colorPrimaryBlack,
-                                  fontSize: 14,
-                                  fontWeight: fwBold,
-                                ),
-                              ),
-                              Text(
-                                "${schedule.rooms.roomCode} - ${schedule.rooms.name}",
-                                style: fontInter.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: fwBold,
-                                  color: colorPrimaryBlue,
-                                ),
-                              ),
-                            ],
+        child: isPressed
+            ? Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 4,
+                  color: colorPrimaryBlue,
+                ),
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 70,
+                    width: 70,
+                    margin: const EdgeInsets.only(right: 8),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "SQA",
+                          textAlign: TextAlign.center,
+                          style: fontInter.copyWith(
+                            fontSize: 14,
+                            fontWeight: fwBold,
+                            color: colorPrimaryBlue,
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF15AEEF).withOpacity(0.15),
+                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 4),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            "${widget.schedule.subjects.name} (${widget.schedule.studyGroups.name})",
+                            style: fontInter.copyWith(
+                              fontSize: 16,
+                              fontWeight: fwMedium,
+                              color: colorSubText,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${widget.schedule.startTime} - ${widget.schedule.finishTime}",
+                                      style: fontInter.copyWith(
+                                        color: colorPrimaryBlack,
+                                        fontSize: 14,
+                                        fontWeight: fwBold,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${widget.schedule.rooms.roomCode} - ${widget.schedule.rooms.name}",
+                                      style: fontInter.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: fwBold,
+                                        color: colorPrimaryBlue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
         decoration: BoxDecoration(
           color: const Color(0xFFFFFFFF),
           borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -115,7 +129,13 @@ class SubjectCardPresence extends StatelessWidget {
         ),
       ),
       onTap: () {
-        presence(schedule.subjectScheduleId, schedule.roomId, beacon);
+        if (!isPressed) {
+          setState(() {
+            isPressed = true;
+          });
+          presence(widget.schedule.subjectScheduleId, widget.schedule.roomId,
+              widget.beacon);
+        }
       },
     );
   }
@@ -130,6 +150,7 @@ class SubjectCardPresence extends StatelessWidget {
       Get.offAllNamed("/open-presence",
           arguments: BeaconArgs(beacon: beacon, schedule: value));
     }).catchError((e) {
+      // ignore: avoid_print
       print("Exception: $e");
       Get.offAllNamed("/home");
     });

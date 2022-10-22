@@ -44,9 +44,9 @@ class Button extends StatelessWidget {
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 18),
-                    primary: Colors.white,
                     textStyle: fontInter.copyWith(
                       fontSize: fontSize,
                       fontWeight: fwBold,
@@ -63,9 +63,9 @@ class Button extends StatelessWidget {
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 18),
-                    primary: Colors.white,
                     textStyle: fontInter.copyWith(
                       fontSize: fontSize,
                       fontWeight: fwBold,
@@ -85,8 +85,8 @@ class Button extends StatelessWidget {
                     ),
                     child: TextButton(
                       style: TextButton.styleFrom(
+                        foregroundColor: colorPrimaryBlue,
                         padding: const EdgeInsets.symmetric(vertical: 18),
-                        primary: colorPrimaryBlue,
                         textStyle: fontInter.copyWith(
                           fontSize: fontSize,
                           fontWeight: fwBold,
@@ -104,8 +104,8 @@ class Button extends StatelessWidget {
                     ),
                     child: TextButton(
                       style: TextButton.styleFrom(
+                        foregroundColor: colorPrimaryBlue,
                         padding: const EdgeInsets.symmetric(vertical: 18),
-                        primary: colorPrimaryBlue,
                         textStyle: fontInter.copyWith(
                           fontSize: fontSize,
                           fontWeight: fwBold,
@@ -123,11 +123,11 @@ class Button extends StatelessWidget {
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
+                    foregroundColor: fontColor,
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     minimumSize: Size.zero,
                     padding: EdgeInsets.symmetric(
                         vertical: paddingY ?? 18, horizontal: paddingX ?? 40),
-                    primary: fontColor,
                     textStyle: fontInter.copyWith(
                       fontSize: customFontSize ?? fontSize,
                       fontWeight: fwBold,

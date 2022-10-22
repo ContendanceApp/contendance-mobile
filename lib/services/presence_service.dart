@@ -25,8 +25,6 @@ class PresenceService {
       }),
     );
 
-    print(response.body);
-
     if (response.statusCode == 201 || response.statusCode == 200) {
       return SuccessPresenceModel.fromJson(jsonDecode(response.body));
     } else {
@@ -50,8 +48,6 @@ class PresenceService {
         'room_id': body["room_id"]!,
       }),
     );
-
-    print(response.body);
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       return OpenPresenceModel.fromJson(jsonDecode(response.body));

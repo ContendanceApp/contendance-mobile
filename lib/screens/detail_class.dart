@@ -97,42 +97,53 @@ class _DetailClassState extends State<DetailClass> {
                         Expanded(
                           flex: 2,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                args.data.rooms.roomCode,
+                                args.data.subjectsSchedules.subjects.name,
                                 style: TextStyle(
                                   fontFamily: "Inter",
                                   fontSize: 16.0,
                                   fontWeight: fwBold,
-                                  color: const Color(0xFF145AE3),
+                                  color: colorPrimaryBlue,
                                 ),
                               ),
                               Text(
-                                args.data.subjectsSchedules.subjects.name,
+                                "${args.data.rooms.name} - ${args.data.rooms.roomCode}",
                                 textAlign: TextAlign.left,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   overflow: TextOverflow.clip,
                                   fontFamily: "Inter",
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w500,
-                                  color: Color(0xFF64749F),
+                                  color: colorSubText,
                                   height: 1.5,
                                 ),
                               ),
                               const SizedBox(height: 15),
-                              // SizedBox(
-                              //   height: 15,
-                              // ),
-                              Text(
-                                "${args.data.subjectsSchedules.startTime} - ${args.data.subjectsSchedules.finishTime}",
-                                textAlign: TextAlign.left,
-                                style: fontInter.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: fwBold,
-                                  color: colorPrimaryBlack,
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Waktu Pelaksanaan",
+                                    textAlign: TextAlign.left,
+                                    style: fontInter.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: fwSemiBold,
+                                      color: colorSubText,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${args.data.subjectsSchedules.startTime} - ${args.data.subjectsSchedules.finishTime}",
+                                    textAlign: TextAlign.left,
+                                    style: fontInter.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: fwBold,
+                                      color: colorPrimaryBlack,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

@@ -71,7 +71,7 @@ class _UserItemListState extends State<UserItemList> {
             // )
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 16,
         ),
       ],

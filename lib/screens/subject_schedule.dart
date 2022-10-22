@@ -11,6 +11,7 @@ import '../constant/theme.dart';
 
 import '../widgets/screen_wrapper/stack_screen.dart';
 
+// ignore: must_be_immutable
 class SubjectSchedule extends StatelessWidget {
   final controller = Get.put(SubjectScheduleController());
   SubjectSchedule({Key? key}) : super(key: key);
@@ -69,39 +70,42 @@ class SubjectSchedule extends StatelessWidget {
                         itemCount: snapshot.data?.data.length,
                         itemBuilder: (context, index) {
                           var subjects = snapshot.data?.data[index];
-                          return ExpandablePanel(
-                            header: Text(
-                              subjects!.day,
-                              style: fontInter.copyWith(
-                                color: colorPrimaryBlack,
-                                fontWeight: fwBold,
-                                fontSize: 24,
-                              ),
-                            ),
-                            collapsed: const SizedBox(height: 16),
-                            expanded: Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: paddingBase),
-                              child: Column(
-                                children: subjects.subjectsSchedules
-                                    .map((item) =>
-                                        SubjectScheduleCard(subjects: item))
-                                    .toList(),
-                              ),
-                            ),
-                            builder: (_, collapsed, expanded) => Expandable(
-                              collapsed: collapsed,
-                              expanded: expanded,
-                            ),
-                            theme: ExpandableThemeData(
-                              hasIcon: true,
-                              iconPadding: const EdgeInsets.all(0),
-                              animationDuration:
-                                  const Duration(milliseconds: 300),
-                              iconSize: 24,
-                              iconColor: colorPrimaryBlack,
-                            ),
-                          );
+                          return subjects!.subjectsSchedules.isNotEmpty
+                              ? ExpandablePanel(
+                                  header: Text(
+                                    subjects.day,
+                                    style: fontInter.copyWith(
+                                      color: colorPrimaryBlack,
+                                      fontWeight: fwBold,
+                                      fontSize: 24,
+                                    ),
+                                  ),
+                                  collapsed: const SizedBox(height: 16),
+                                  expanded: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: paddingBase),
+                                    child: Column(
+                                      children: subjects.subjectsSchedules
+                                          .map((item) => SubjectScheduleCard(
+                                              subjects: item))
+                                          .toList(),
+                                    ),
+                                  ),
+                                  builder: (_, collapsed, expanded) =>
+                                      Expandable(
+                                    collapsed: collapsed,
+                                    expanded: expanded,
+                                  ),
+                                  theme: ExpandableThemeData(
+                                    hasIcon: true,
+                                    iconPadding: const EdgeInsets.all(0),
+                                    animationDuration:
+                                        const Duration(milliseconds: 300),
+                                    iconSize: 24,
+                                    iconColor: colorPrimaryBlack,
+                                  ),
+                                )
+                              : const SizedBox();
                         },
                       );
                     }

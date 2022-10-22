@@ -67,6 +67,7 @@ class SubjectsScheduleDataGroup {
     required this.rooms,
     required this.subjects,
     required this.users,
+    required this.studyGroups,
   });
 
   int subjectScheduleId;
@@ -82,6 +83,7 @@ class SubjectsScheduleDataGroup {
   Rooms rooms;
   Subjects subjects;
   Users users;
+  StudyGroups studyGroups;
 
   factory SubjectsScheduleDataGroup.fromJson(Map<String, dynamic> json) =>
       SubjectsScheduleDataGroup(
@@ -98,6 +100,7 @@ class SubjectsScheduleDataGroup {
         rooms: Rooms.fromJson(json["rooms"]),
         subjects: Subjects.fromJson(json["subjects"]),
         users: Users.fromJson(json["users"]),
+        studyGroups: StudyGroups.fromJson(json["study_groups"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -114,6 +117,7 @@ class SubjectsScheduleDataGroup {
         "rooms": rooms.toJson(),
         "subjects": subjects.toJson(),
         "users": users.toJson(),
+        "study_groups": studyGroups.toJson(),
       };
 }
 
@@ -138,6 +142,26 @@ class Rooms {
         "name": name,
         "room_code": roomCode,
         "location": location,
+      };
+}
+
+class StudyGroups {
+  StudyGroups({
+    required this.name,
+    required this.year,
+  });
+
+  String name;
+  int year;
+
+  factory StudyGroups.fromJson(Map<String, dynamic> json) => StudyGroups(
+        name: json["name"],
+        year: json["year"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "year": year,
       };
 }
 
