@@ -100,7 +100,7 @@ class SubjectScheduleCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "${DateFormat("HH:mm").format(subjects!.startTime.toLocal()).toString()} - ${DateFormat("HH:mm").format(subjects!.finishTime.toLocal()).toString()}",
+                              "${DateFormat("HH:mm").format(subjects!.startTime).toString()} - ${DateFormat("HH:mm").format(subjects!.finishTime).toString()}",
                               style: fontInter.copyWith(
                                 color: colorPrimaryBlue,
                                 fontSize: 14,
@@ -232,7 +232,7 @@ class SubjectScheduleCard extends StatelessWidget {
                                           height: 4,
                                         ),
                                         Text(
-                                          "${DateFormat("HH:mm").format(schedule.startTime.toLocal()).toString()} - ${DateFormat("HH:mm").format(schedule.finishTime.toLocal()).toString()}",
+                                          "${DateFormat("HH:mm").format(schedule.startTime).toString()} - ${DateFormat("HH:mm").format(schedule.finishTime).toString()}",
                                           style: fontInter.copyWith(
                                             color: colorPrimaryBlack,
                                             fontSize: 16,
