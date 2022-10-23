@@ -84,30 +84,26 @@ class _AccountDetailState extends State<AccountDetail> {
   Widget build(BuildContext context) {
     return StackScreen(
       title: "Detail Akun",
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Nama",
-            style: fontInter.copyWith(
-              fontWeight: fwBold,
-              fontSize: 16,
-              color: colorPrimaryBlack,
-            ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          userInfo.fullname != ""
-              ? Text(
-                  userInfo.fullname,
-                  style: fontInter.copyWith(
-                    fontWeight: fwMedium,
-                    fontSize: 16,
-                    color: colorSubText,
+      child: userInfo.userId == 0
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SkeletonAnimation(
+                  borderRadius: BorderRadius.circular(8.0),
+                  shimmerColor: Colors.grey[100]!,
+                  child: Container(
+                    height: 15,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.grey[200],
+                    ),
                   ),
-                )
-              : SkeletonAnimation(
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SkeletonAnimation(
                   borderRadius: BorderRadius.circular(8.0),
                   shimmerColor: Colors.grey[100]!,
                   child: Container(
@@ -119,30 +115,25 @@ class _AccountDetailState extends State<AccountDetail> {
                     ),
                   ),
                 ),
-          const SizedBox(
-            height: paddingLg,
-          ),
-          Text(
-            "NRP",
-            style: fontInter.copyWith(
-              fontWeight: fwBold,
-              fontSize: 16,
-              color: colorPrimaryBlack,
-            ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          userInfo.sidEid != ""
-              ? Text(
-                  userInfo.sidEid.toString(),
-                  style: fontInter.copyWith(
-                    fontWeight: fwMedium,
-                    fontSize: 16,
-                    color: colorSubText,
+                const SizedBox(
+                  height: paddingLg,
+                ),
+                SkeletonAnimation(
+                  borderRadius: BorderRadius.circular(8.0),
+                  shimmerColor: Colors.grey[100]!,
+                  child: Container(
+                    height: 15,
+                    width: MediaQuery.of(context).size.width * 0.2,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      color: Colors.grey[200],
+                    ),
                   ),
-                )
-              : SkeletonAnimation(
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SkeletonAnimation(
                   borderRadius: BorderRadius.circular(8.0),
                   shimmerColor: Colors.grey[100]!,
                   child: Container(
@@ -154,98 +145,173 @@ class _AccountDetailState extends State<AccountDetail> {
                     ),
                   ),
                 ),
-          userInfo.studyGroups != null
-              ? userInfo.studyGroups?.name == ""
-                  ? const SizedBox()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: paddingLg,
+              ],
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Nama",
+                  style: fontInter.copyWith(
+                    fontWeight: fwBold,
+                    fontSize: 16,
+                    color: colorPrimaryBlack,
+                  ),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                userInfo.fullname != ""
+                    ? Text(
+                        userInfo.fullname,
+                        style: fontInter.copyWith(
+                          fontWeight: fwMedium,
+                          fontSize: 16,
+                          color: colorSubText,
                         ),
-                        Text(
-                          "Kelas",
-                          style: fontInter.copyWith(
-                            fontWeight: fwBold,
-                            fontSize: 16,
-                            color: colorPrimaryBlack,
+                      )
+                    : SkeletonAnimation(
+                        borderRadius: BorderRadius.circular(8.0),
+                        shimmerColor: Colors.grey[100]!,
+                        child: Container(
+                          height: 25,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.grey[200],
                           ),
                         ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        userInfo.studyGroups != null
-                            ? userInfo.studyGroups?.name != ""
-                                ? Text(
-                                    userInfo.studyGroups!.name,
-                                    style: fontInter.copyWith(
-                                      fontWeight: fwMedium,
-                                      fontSize: 16,
-                                      color: colorSubText,
-                                    ),
-                                  )
-                                : SkeletonAnimation(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    shimmerColor: Colors.grey[100]!,
-                                    child: Container(
-                                      height: 25,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.5,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        color: Colors.grey[200],
-                                      ),
-                                    ),
-                                  )
-                            : Text(
-                                "-",
-                                style: fontInter.copyWith(
-                                  fontWeight: fwMedium,
-                                  fontSize: 16,
-                                  color: colorSubText,
-                                ),
-                              ),
-                      ],
-                    )
-              : const SizedBox(),
-          const SizedBox(
-            height: paddingLg,
-          ),
-          Text(
-            "Email",
-            style: fontInter.copyWith(
-              fontWeight: fwBold,
-              fontSize: 16,
-              color: colorPrimaryBlack,
-            ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          userInfo.email != ""
-              ? Text(
-                  userInfo.email,
+                      ),
+                const SizedBox(
+                  height: paddingLg,
+                ),
+                Text(
+                  userInfo.studyGroups != null ? "NRP" : "NIP",
                   style: fontInter.copyWith(
-                    fontWeight: fwMedium,
+                    fontWeight: fwBold,
                     fontSize: 16,
-                    color: colorSubText,
-                  ),
-                )
-              : SkeletonAnimation(
-                  borderRadius: BorderRadius.circular(8.0),
-                  shimmerColor: Colors.grey[100]!,
-                  child: Container(
-                    height: 25,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      color: Colors.grey[200],
-                    ),
+                    color: colorPrimaryBlack,
                   ),
                 ),
-        ],
-      ),
+                const SizedBox(
+                  height: 2,
+                ),
+                userInfo.sidEid != ""
+                    ? Text(
+                        userInfo.sidEid.toString(),
+                        style: fontInter.copyWith(
+                          fontWeight: fwMedium,
+                          fontSize: 16,
+                          color: colorSubText,
+                        ),
+                      )
+                    : SkeletonAnimation(
+                        borderRadius: BorderRadius.circular(8.0),
+                        shimmerColor: Colors.grey[100]!,
+                        child: Container(
+                          height: 25,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.grey[200],
+                          ),
+                        ),
+                      ),
+                userInfo.studyGroups != null
+                    ? userInfo.studyGroups?.name == ""
+                        ? const SizedBox()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(
+                                height: paddingLg,
+                              ),
+                              Text(
+                                "Kelas",
+                                style: fontInter.copyWith(
+                                  fontWeight: fwBold,
+                                  fontSize: 16,
+                                  color: colorPrimaryBlack,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              userInfo.studyGroups != null
+                                  ? userInfo.studyGroups?.name != ""
+                                      ? Text(
+                                          userInfo.studyGroups!.name,
+                                          style: fontInter.copyWith(
+                                            fontWeight: fwMedium,
+                                            fontSize: 16,
+                                            color: colorSubText,
+                                          ),
+                                        )
+                                      : SkeletonAnimation(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          shimmerColor: Colors.grey[100]!,
+                                          child: Container(
+                                            height: 25,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.5,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              color: Colors.grey[200],
+                                            ),
+                                          ),
+                                        )
+                                  : Text(
+                                      "-",
+                                      style: fontInter.copyWith(
+                                        fontWeight: fwMedium,
+                                        fontSize: 16,
+                                        color: colorSubText,
+                                      ),
+                                    ),
+                            ],
+                          )
+                    : const SizedBox(),
+                const SizedBox(
+                  height: paddingLg,
+                ),
+                Text(
+                  "Email",
+                  style: fontInter.copyWith(
+                    fontWeight: fwBold,
+                    fontSize: 16,
+                    color: colorPrimaryBlack,
+                  ),
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                userInfo.email != ""
+                    ? Text(
+                        userInfo.email,
+                        style: fontInter.copyWith(
+                          fontWeight: fwMedium,
+                          fontSize: 16,
+                          color: colorSubText,
+                        ),
+                      )
+                    : SkeletonAnimation(
+                        borderRadius: BorderRadius.circular(8.0),
+                        shimmerColor: Colors.grey[100]!,
+                        child: Container(
+                          height: 25,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.grey[200],
+                          ),
+                        ),
+                      ),
+              ],
+            ),
     );
   }
 }

@@ -41,8 +41,24 @@ class SubjectSchedule extends StatelessWidget {
                 if (state != ConnectionState.done) {
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 100),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
+                    child: Column(
+                      children: [
+                        Center(
+                          child: CircularProgressIndicator(
+                            color: colorPrimaryBlue,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Memuat jadwal...",
+                          style: fontInter.copyWith(
+                            fontWeight: fwSemiBold,
+                            color: colorSubText,
+                          ),
+                        )
+                      ],
                     ),
                   );
                 } else {

@@ -331,8 +331,24 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
             child: userInfo.roleId == 0
                 ? Container(
                     margin: const EdgeInsets.symmetric(vertical: 100),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
+                    child: Column(
+                      children: [
+                        Center(
+                          child: CircularProgressIndicator(
+                            color: colorPrimaryBlue,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          "Memuat riwayat...",
+                          style: fontInter.copyWith(
+                            fontWeight: fwSemiBold,
+                            color: colorSubText,
+                          ),
+                        )
+                      ],
                     ),
                   )
                 : userInfo.roleId == 1
@@ -345,8 +361,24 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                           if (state != ConnectionState.done) {
                             return Container(
                               margin: const EdgeInsets.symmetric(vertical: 100),
-                              child: const Center(
-                                child: CircularProgressIndicator(),
+                              child: Column(
+                                children: [
+                                  Center(
+                                    child: CircularProgressIndicator(
+                                      color: colorPrimaryBlue,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    "Memuat riwayat...",
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwSemiBold,
+                                      color: colorSubText,
+                                    ),
+                                  )
+                                ],
                               ),
                             );
                           } else {
@@ -410,8 +442,24 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                 return Container(
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 100),
-                                  child: const Center(
-                                    child: CircularProgressIndicator(),
+                                  child: Column(
+                                    children: [
+                                      Center(
+                                        child: CircularProgressIndicator(
+                                          color: colorPrimaryBlue,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Text(
+                                        "Memuat riwayat...",
+                                        style: fontInter.copyWith(
+                                          fontWeight: fwSemiBold,
+                                          color: colorSubText,
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 );
                               } else {
