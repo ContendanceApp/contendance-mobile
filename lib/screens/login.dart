@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Container(
             margin: const EdgeInsets.only(top: 16, bottom: 48),
             child: TextFormField(
-              textInputAction: TextInputAction.done,
+              textInputAction: TextInputAction.go,
               obscureText: ishiddenPassword,
               controller: passwordController,
               decoration: InputDecoration(
@@ -233,43 +233,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                 ),
               ),
+              onFieldSubmitted: (value) {
+                loginHandler();
+              },
             ),
           ),
           Button(
             text: "LOGIN",
-            callback: () async {
-              emailController.text.isEmpty
-                  ? setState(() {
-                      _validateEmail = false;
-                    })
-                  : setState(() {
-                      _validateEmail = true;
-                    });
-              passwordController.text.isEmpty
-                  ? setState(() {
-                      _validatePassword = false;
-                    })
-                  : setState(() {
-                      _validatePassword = true;
-                    });
-
-              if (_validateEmail == true && _validatePassword == true) {
-                setState(() {
-                  isClicked = true;
-                });
-                _formKey.currentState!.save();
-                Map<String, String> body = {
-                  'email': emailController.text,
-                  'password': passwordController.text,
-                };
-
-                await login.authLogin(body).then(
-                      (response) => {
-                        _afterLoginHandler(response),
-                      },
-                    );
-              }
-            },
+            callback: loginHandler,
             primary: true,
             secondary: false,
             withChild: !isClicked
@@ -299,6 +270,40 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       ishiddenPassword = !ishiddenPassword;
     });
+  }
+
+  void loginHandler() async {
+    emailController.text.isEmpty
+        ? setState(() {
+            _validateEmail = false;
+          })
+        : setState(() {
+            _validateEmail = true;
+          });
+    passwordController.text.isEmpty
+        ? setState(() {
+            _validatePassword = false;
+          })
+        : setState(() {
+            _validatePassword = true;
+          });
+
+    if (_validateEmail == true && _validatePassword == true) {
+      setState(() {
+        isClicked = true;
+      });
+      _formKey.currentState!.save();
+      Map<String, String> body = {
+        'email': emailController.text,
+        'password': passwordController.text,
+      };
+
+      await login.authLogin(body).then(
+            (response) => {
+              _afterLoginHandler(response),
+            },
+          );
+    }
   }
 
   Future<void> _afterLoginHandler(LoginModel response) async {
