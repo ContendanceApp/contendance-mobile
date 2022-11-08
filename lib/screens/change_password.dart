@@ -359,6 +359,20 @@ class _ChangePasswordState extends State<ChangePassword> {
           content: Text(message),
           backgroundColor: Colors.green,
           duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          shape: ShapeBorder.lerp(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            1,
+          ),
+          margin: const EdgeInsets.all(
+            paddingBase,
+          ),
+          elevation: 10,
         ),
       );
     } else {
@@ -370,6 +384,20 @@ class _ChangePasswordState extends State<ChangePassword> {
           content: Text(message),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          shape: ShapeBorder.lerp(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            1,
+          ),
+          margin: const EdgeInsets.all(
+            paddingBase,
+          ),
+          elevation: 10,
         ),
       );
     }

@@ -321,6 +321,20 @@ class _LoginScreenState extends State<LoginScreen> {
           content: Text(response.message),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          shape: ShapeBorder.lerp(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            1,
+          ),
+          margin: const EdgeInsets.all(
+            paddingBase,
+          ),
+          elevation: 10,
         ),
       );
     }
