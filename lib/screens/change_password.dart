@@ -197,7 +197,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                           height: 8,
                         ),
                         TextFormField(
-                          textInputAction: TextInputAction.next,
+                          textInputAction: TextInputAction.done,
                           obscureText: ishiddenPassword,
                           controller: confirmPasswordController,
                           scrollPadding: EdgeInsets.only(
