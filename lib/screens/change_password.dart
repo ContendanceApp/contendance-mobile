@@ -353,7 +353,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       setState(() {
         isClicked = false;
       });
-      Get.offNamed("/account");
+      Get.back();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message),
