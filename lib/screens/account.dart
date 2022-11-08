@@ -277,6 +277,36 @@ class _AccountState extends State<Account> {
                           },
                         ),
                       ),
+                      Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: paddingBase,
+                              vertical: 10,
+                            ),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset("assets/images/password.svg"),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                Text(
+                                  "Ubah Password",
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwMedium,
+                                    fontSize: 16,
+                                    color: colorPrimaryBlack,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Get.toNamed("/change-password");
+                          },
+                        ),
+                      ),
                       // Material(
                       //   color: Colors.transparent,
                       //   child: InkWell(

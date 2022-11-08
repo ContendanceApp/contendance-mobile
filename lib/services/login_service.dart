@@ -36,7 +36,30 @@ class LoginService {
 
       return response;
     } catch (e) {
-      // throw e;
+      throw Exception(e);
+    }
+  }
+
+  Future<http.Response> changePassword(Map<String, String> body) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString('token')!;
+      final response = await http.post(
+        Uri.parse("$baseUrl/users/change-password"),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': token,
+        },
+        body: jsonEncode(
+          <String, String>{
+            'old_password': body['old_password']!,
+            'new_password': body['new_password']!,
+          },
+        ),
+      );
+
+      return response;
+    } catch (e) {
       throw Exception(e);
     }
   }

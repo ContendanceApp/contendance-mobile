@@ -60,7 +60,7 @@ class PresenceService {
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString("token")!;
     final response = await http.post(
-      Uri.parse("$baseUrl/presences/find"),
+      Uri.parse("$baseUrl/presences/find-classes"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
