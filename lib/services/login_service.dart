@@ -60,7 +60,7 @@ class LoginService {
 
       return response;
     } catch (e) {
-      throw Exception(e);
+      rethrow;
     }
   }
 }

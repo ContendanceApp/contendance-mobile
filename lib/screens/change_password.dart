@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
@@ -20,8 +22,9 @@ class _ChangePasswordState extends State<ChangePassword> {
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   bool ishiddenPassword = true;
-  bool _validateEmail = true;
-  bool _validatePassword = true;
+  bool _validateOldPassword = true;
+  bool _validateNewPassword = true;
+  bool _validateConfirmPassword = true;
   LoginService login = LoginService();
   final _formKey = GlobalKey<FormState>();
   bool isClicked = false;
@@ -61,6 +64,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
@@ -85,12 +89,15 @@ class _ChangePasswordState extends State<ChangePassword> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                "Ubah Password",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: fwBold,
-                  fontSize: 20,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  "Ubah Password",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: fwBold,
+                    fontSize: 20,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -121,9 +128,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                         fontWeight: fwSemiBold,
                         color: colorSubText,
                       ),
-                      errorText: _validateEmail
+                      errorText: _validateOldPassword
                           ? null
-                          : "Password tidak boleh kosong!",
+                          : "Password lama tidak boleh kosong!",
                       focusColor: colorPrimaryBlue,
                       focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
@@ -137,18 +144,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                           color: Color(0xFFD10404),
                         ),
                       ),
-                      suffixIcon: InkWell(
-                        onTap: _togglePasswordView,
-                        child: ishiddenPassword
-                            ? Icon(
-                                Icons.visibility_off_outlined,
-                                color: colorSubText,
-                              )
-                            : const Icon(
-                                Icons.visibility_outlined,
-                                color: Color(0xFF1482E9),
-                              ),
-                      ),
                     ),
                   ),
                   Container(
@@ -159,6 +154,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                         TextFormField(
                           textInputAction: TextInputAction.next,
                           obscureText: ishiddenPassword,
+                          scrollPadding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
                           controller: newPasswordController,
                           decoration: InputDecoration(
                             labelText: 'Masukkan Password Baru',
@@ -172,9 +169,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                               fontWeight: fwSemiBold,
                               color: colorSubText,
                             ),
-                            errorText: _validatePassword
+                            errorText: _validateNewPassword
                                 ? null
-                                : "Password tidak boleh kosong!",
+                                : "Password baru tidak boleh kosong!",
                             focusColor: colorPrimaryBlue,
                             focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
@@ -203,6 +200,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                           textInputAction: TextInputAction.next,
                           obscureText: ishiddenPassword,
                           controller: confirmPasswordController,
+                          scrollPadding: EdgeInsets.only(
+                              bottom: MediaQuery.of(context).viewInsets.bottom),
                           decoration: InputDecoration(
                             labelText: 'Konfirmasi Password Baru',
                             enabledBorder: const OutlineInputBorder(
@@ -215,9 +214,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                               fontWeight: fwSemiBold,
                               color: colorSubText,
                             ),
-                            errorText: _validatePassword
+                            errorText: _validateConfirmPassword
                                 ? null
-                                : "Password tidak boleh kosong!",
+                                : "Password konfirmasi tidak boleh kosong!",
                             focusColor: colorPrimaryBlue,
                             focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(
@@ -263,21 +262,30 @@ class _ChangePasswordState extends State<ChangePassword> {
                       callback: () async {
                         oldPasswordController.text.isEmpty
                             ? setState(() {
-                                _validateEmail = false;
+                                _validateOldPassword = false;
                               })
                             : setState(() {
-                                _validateEmail = true;
+                                _validateOldPassword = true;
                               });
                         newPasswordController.text.isEmpty
                             ? setState(() {
-                                _validatePassword = false;
+                                _validateNewPassword = false;
                               })
                             : setState(() {
-                                _validatePassword = true;
+                                _validateNewPassword = true;
+                              });
+                        confirmPasswordController.text.isEmpty
+                            ? setState(() {
+                                _validateConfirmPassword = false;
+                              })
+                            : setState(() {
+                                _validateConfirmPassword = true;
                               });
 
-                        if (_validateEmail == true &&
-                            _validatePassword == true) {
+                        if (_validateOldPassword &&
+                            _validateNewPassword &&
+                            _validateConfirmPassword &&
+                            isEqual) {
                           setState(() {
                             isClicked = true;
                           });
@@ -287,17 +295,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                             'new_password': newPasswordController.text,
                           };
 
-                          login
-                              .changePassword(body)
-                              .then(
-                                (response) => {
-                                  handleResponse(response),
-                                  print("Response: $response"),
-                                },
-                              )
-                              .catchError((e) {
-                            print("Error: $e");
-                          });
+                          login.changePassword(body).then((response) => {
+                                handleResponse(response),
+                              });
                         }
                       },
                       primary: true,
@@ -321,6 +321,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                             ),
                     ),
                   ),
+                  const SizedBox(
+                    height: 16,
+                  )
                 ],
               ),
             ),
@@ -330,24 +333,22 @@ class _ChangePasswordState extends State<ChangePassword> {
     );
   }
 
-  void _togglePasswordView() {
-    setState(() {
-      ishiddenPassword = !ishiddenPassword;
-    });
-  }
-
   checkNewPassword() {
-    if (newPassword == confirmPassword) {
-      setState(() {
-        isEqual = true;
-      });
+    if (newPassword != "" && confirmPassword != "") {
+      if (newPassword == confirmPassword) {
+        setState(() {
+          isEqual = true;
+        });
+      } else {
+        setState(() {
+          isEqual = false;
+        });
+      }
     }
-    print("New Pass: $newPassword");
-    print("Confirm Pass: $confirmPassword");
-    print("Match Pass: ${confirmPassword == newPassword}");
   }
 
   Future<void> handleResponse(http.Response response) async {
+    String message = jsonDecode(response.body)['message'];
     if (response.statusCode == 200) {
       setState(() {
         isClicked = false;
@@ -355,7 +356,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       Get.offNamed("/account");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(response.toString()),
+          content: Text(message),
           backgroundColor: Colors.green,
           duration: const Duration(seconds: 3),
         ),
@@ -366,7 +367,7 @@ class _ChangePasswordState extends State<ChangePassword> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(response.toString()),
+          content: Text(message),
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 3),
         ),
