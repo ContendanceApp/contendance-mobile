@@ -55,6 +55,9 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.contendance"
         minSdkVersion 21
+        applicationId "com.example.contendance_app"
+        // minSdkVersion flutter.minSdkVersion
+        minSdkVersion 18
         targetSdkVersion flutter.targetSdkVersion
         multiDexEnabled true
     }
