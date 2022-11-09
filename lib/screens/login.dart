@@ -150,116 +150,124 @@ class _LoginScreenState extends State<LoginScreen> {
           // ),
           Form(
             key: _formKey,
-            child: Container(
-              margin: const EdgeInsets.only(top: 40),
-              child: TextFormField(
-                textInputAction: TextInputAction.next,
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFE0E0E0),
-                      width: 1,
-                    ),
-                  ),
-                  labelStyle: TextStyle(
-                    fontWeight: fwSemiBold,
-                    color: colorSubText,
-                  ),
-                  errorText:
-                      _validateEmail ? null : "Email tidak boleh kosong!",
-                  focusColor: colorPrimaryBlue,
-                  focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Color(0xFF1482E9),
-                    ),
-                  ),
-                  errorBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: Color(0xFFD10404),
-                    ),
-                  ),
-                  labelText: 'Email',
-                ),
-              ),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 48),
-            child: TextFormField(
-              textInputAction: TextInputAction.go,
-              obscureText: ishiddenPassword,
-              controller: passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xFFE0E0E0),
-                    width: 1,
-                  ),
-                ),
-                labelStyle: TextStyle(
-                  fontWeight: fwSemiBold,
-                  color: colorSubText,
-                ),
-                errorText:
-                    _validatePassword ? null : "Password tidak boleh kosong!",
-                focusColor: colorPrimaryBlue,
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: Color(0xFF1482E9),
-                  ),
-                ),
-                errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 2,
-                    color: Color(0xFFD10404),
-                  ),
-                ),
-                suffixIcon: InkWell(
-                  onTap: _togglePasswordView,
-                  child: ishiddenPassword
-                      ? Icon(
-                          Icons.visibility_off_outlined,
-                          color: colorSubText,
-                        )
-                      : const Icon(
-                          Icons.visibility_outlined,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 40),
+                  child: TextFormField(
+                    textInputAction: TextInputAction.next,
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFE0E0E0),
+                          width: 1,
+                        ),
+                      ),
+                      labelStyle: TextStyle(
+                        fontWeight: fwSemiBold,
+                        color: colorSubText,
+                      ),
+                      errorText:
+                          _validateEmail ? null : "Email tidak boleh kosong!",
+                      focusColor: colorPrimaryBlue,
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 2,
                           color: Color(0xFF1482E9),
                         ),
-                ),
-              ),
-              onFieldSubmitted: (value) {
-                loginHandler();
-              },
-            ),
-          ),
-          Button(
-            text: "LOGIN",
-            callback: loginHandler,
-            primary: true,
-            secondary: false,
-            withChild: !isClicked
-                ? Text(
-                    'LOGIN',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: fwBold,
-                      color: Colors.white,
-                    ),
-                  )
-                : SizedBox(
-                    width: 15,
-                    height: 15,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 3,
-                      color: colorWhite,
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: Color(0xFFD10404),
+                        ),
+                      ),
+                      labelText: 'Email',
                     ),
                   ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 48),
+                  child: TextFormField(
+                    textInputAction: TextInputAction.go,
+                    obscureText: ishiddenPassword,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFFE0E0E0),
+                          width: 1,
+                        ),
+                      ),
+                      labelStyle: TextStyle(
+                        fontWeight: fwSemiBold,
+                        color: colorSubText,
+                      ),
+                      errorText: _validatePassword
+                          ? null
+                          : "Password tidak boleh kosong!",
+                      focusColor: colorPrimaryBlue,
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: Color(0xFF1482E9),
+                        ),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 2,
+                          color: Color(0xFFD10404),
+                        ),
+                      ),
+                      suffixIcon: InkWell(
+                        onTap: _togglePasswordView,
+                        child: ishiddenPassword
+                            ? Icon(
+                                Icons.visibility_off_outlined,
+                                color: colorSubText,
+                              )
+                            : const Icon(
+                                Icons.visibility_outlined,
+                                color: Color(0xFF1482E9),
+                              ),
+                      ),
+                    ),
+                    onFieldSubmitted: (value) {
+                      loginHandler();
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Button(
+                    text: "LOGIN",
+                    callback: loginHandler,
+                    primary: true,
+                    secondary: false,
+                    withChild: !isClicked
+                        ? Text(
+                            'LOGIN',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: fwBold,
+                              color: Colors.white,
+                            ),
+                          )
+                        : SizedBox(
+                            width: 15,
+                            height: 15,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                              color: colorWhite,
+                            ),
+                          ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
