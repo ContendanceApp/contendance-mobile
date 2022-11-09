@@ -89,7 +89,7 @@ class _SearchClassState extends State<SearchClass> {
       // await flutterBeacon.initializeScanning;
 
       // or if you want to include automatic checking permission
-      await flutterBeacon.initializeAndCheckScanning;
+      // await flutterBeacon.initializeAndCheckScanning;
       rangingBeacon();
     } on PlatformException catch (e) {
       // ignore: avoid_print

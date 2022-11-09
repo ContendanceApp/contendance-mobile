@@ -243,9 +243,7 @@ class _HomeState extends State<Home> {
           isloadSchedule = false;
         });
       }
-    } catch (e) {
-      rethrow;
-    }
+    } catch (e) {}
   }
 
   getActiveClass() async {

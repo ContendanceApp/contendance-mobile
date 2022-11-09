@@ -26,7 +26,7 @@ import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   await initializeDateFormatting('id_ID', null)
       .then((_) => runApp(const MyApp()));
 }
