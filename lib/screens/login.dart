@@ -18,7 +18,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
+  String email = "";
   TextEditingController passwordController = TextEditingController();
   bool ishiddenPassword = true;
   bool _validateEmail = true;
@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   LoginService login = LoginService();
   final _formKey = GlobalKey<FormState>();
   bool isClicked = false;
+  List<String> emailOptions = <String>[];
 
   UserInfo userInfo = UserInfo(
     userId: 0,
@@ -55,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState;
     getToken();
+    getEmailSuggestions();
   }
 
   Future<void> getToken() async {
@@ -63,6 +65,14 @@ class _LoginScreenState extends State<LoginScreen> {
     if (prefs.getString('token') != null) {
       Get.offNamed("/home");
     }
+  }
+
+  void getEmailSuggestions() async {
+    final prefs = await SharedPreferences.getInstance();
+    print(prefs.getStringList('emailSuggestions'));
+    prefs.getStringList('emailSuggestions') != null
+        ? emailOptions = prefs.getStringList('emailSuggestions')!
+        : emailOptions = [];
   }
 
   @override
@@ -152,41 +162,120 @@ class _LoginScreenState extends State<LoginScreen> {
             key: _formKey,
             child: Column(
               children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 40),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFE0E0E0),
-                          width: 1,
-                        ),
-                      ),
-                      labelStyle: TextStyle(
-                        fontWeight: fwSemiBold,
-                        color: colorSubText,
-                      ),
-                      errorText:
-                          _validateEmail ? null : "Email tidak boleh kosong!",
-                      focusColor: colorPrimaryBlue,
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color(0xFF1482E9),
-                        ),
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color(0xFFD10404),
-                        ),
-                      ),
-                      labelText: 'Email',
-                    ),
+                RawAutocomplete(
+                  optionsBuilder: (TextEditingValue textEditingValue) {
+                    if (textEditingValue.text == '') {
+                      return const Iterable<String>.empty();
+                    } else {
+                      List<String> matches = <String>[];
+                      matches.addAll(emailOptions);
+
+                      matches.retainWhere((s) {
+                        return s
+                            .toLowerCase()
+                            .contains(textEditingValue.text.toLowerCase());
+                      });
+                      return matches;
+                    }
+                  },
+                  onSelected: (option) => setState(
+                    () {
+                      email = option.toString();
+                    },
                   ),
+                  fieldViewBuilder: (
+                    BuildContext context,
+                    TextEditingController emailController,
+                    FocusNode focusNode,
+                    VoidCallback onFieldSubmitted,
+                  ) {
+                    return Container(
+                      margin: const EdgeInsets.only(top: 40),
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        controller: emailController,
+                        focusNode: focusNode,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFFE0E0E0),
+                              width: 1,
+                            ),
+                          ),
+                          labelStyle: TextStyle(
+                            fontWeight: fwSemiBold,
+                            color: colorSubText,
+                          ),
+                          errorText: _validateEmail
+                              ? null
+                              : "Email tidak boleh kosong!",
+                          focusColor: colorPrimaryBlue,
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color(0xFF1482E9),
+                            ),
+                          ),
+                          errorBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: Color(0xFFD10404),
+                            ),
+                          ),
+                          labelText: 'Email',
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            email = value;
+                          });
+                          print(value);
+                        },
+                      ),
+                    );
+                  },
+                  optionsViewBuilder: (BuildContext context,
+                      void Function(String) onSelected,
+                      Iterable<String> options) {
+                    return SingleChildScrollView(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 7,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        margin: const EdgeInsets.only(right: 32),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: options.map((opt) {
+                            return InkWell(
+                              onTap: () {
+                                onSelected(opt);
+                              },
+                              child: Card(
+                                elevation: 0,
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(12),
+                                  child: Text(opt),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 16, bottom: 48),
@@ -281,7 +370,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void loginHandler() async {
-    emailController.text.isEmpty
+    email.isEmpty
         ? setState(() {
             _validateEmail = false;
           })
@@ -302,7 +391,7 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       _formKey.currentState!.save();
       Map<String, String> body = {
-        'email': emailController.text,
+        'email': email,
         'password': passwordController.text,
       };
 

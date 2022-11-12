@@ -22,7 +22,20 @@ class LoginService {
     if (response.statusCode == 200) {
       Map<dynamic, dynamic> temp = jsonDecode(response.body);
       final prefs = await SharedPreferences.getInstance();
+      // Add to email suggestion for auto complete login
+      List<String> emailSuggestions =
+          prefs.getStringList('emailSuggestions') == null
+              ? []
+              : prefs.getStringList('emailSuggestions')!;
       await prefs.setString('token', "bearer " + temp['data']['token']);
+      if (emailSuggestions.isNotEmpty) {
+        if (!emailSuggestions.contains(body['email'])) {
+          emailSuggestions.add(body['email']!);
+          await prefs.setStringList('emailSuggestions', emailSuggestions);
+        }
+      } else {
+        await prefs.setStringList('emailSuggestions', [body['email']!]);
+      }
     }
     return LoginModel.fromJson(jsonDecode(response.body));
   }
