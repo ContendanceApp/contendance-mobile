@@ -186,14 +186,14 @@ class _SearchClassState extends State<SearchClass> {
 
   showModalBottom() {
     return showModalBottomSheet(
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
       builder: (builder) {
-        return Container(
-          constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * (3 / 4)),
-          color: Colors.transparent,
-          child: Container(
+        return DraggableScrollableSheet(
+          initialChildSize: 0.5,
+          maxChildSize: 0.9,
+          builder: (context, scrollController) => Container(
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -201,48 +201,58 @@ class _SearchClassState extends State<SearchClass> {
                 topRight: Radius.circular(roundedBase),
               ),
             ),
-            child: Center(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(paddingLg),
-                    child: Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Pilih Mata Kuliah",
-                            style: fontInter.copyWith(
-                              fontWeight: fwBold,
-                              fontSize: 18.0,
-                              color: colorPrimaryBlack,
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * (3 / 4)),
+            child: ListView(
+              controller: scrollController,
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(paddingLg),
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: SingleChildScrollView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Pilih Mata Kuliah",
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwBold,
+                                    fontSize: 18.0,
+                                    color: colorPrimaryBlack,
+                                  ),
+                                ),
+                                Text(
+                                  "Klik kartu matkul yang akan dibuka presensinya",
+                                  style: fontInter.copyWith(
+                                    fontSize: 16.0,
+                                    color: colorSubText,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: paddingXl,
+                                ),
+                                Column(
+                                  children: schedule.data
+                                      .map((item) => SubjectCardPresence(
+                                            schedule: item,
+                                            beacon: beacons,
+                                          ))
+                                      .toList(),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            "Klik kartu matkul yang akan dibuka presensinya",
-                            style: fontInter.copyWith(
-                              fontSize: 16.0,
-                              color: colorSubText,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: paddingXl,
-                          ),
-                          Column(
-                            children: schedule.data
-                                .map((item) => SubjectCardPresence(
-                                      schedule: item,
-                                      beacon: beacons,
-                                    ))
-                                .toList(),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
         );
