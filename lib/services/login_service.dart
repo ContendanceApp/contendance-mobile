@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -8,7 +9,8 @@ import '../data/models/login_model.dart';
 
 class LoginService {
   Future<LoginModel> authLogin(Map<String, String> body) async {
-    final response = await http.post(
+    final response = await http
+        .post(
       Uri.parse("$baseUrl/users/login"),
       headers: headers,
       body: jsonEncode(
@@ -17,6 +19,12 @@ class LoginService {
           'password': body['password']!,
         },
       ),
+    )
+        .timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        throw TimeoutException('Server Timeout! Ulangi lagi');
+      },
     );
 
     if (response.statusCode == 200) {
