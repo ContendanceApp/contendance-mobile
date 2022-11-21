@@ -18,15 +18,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String email = "";
+  final _formKey = GlobalKey<FormState>();
   TextEditingController passwordController = TextEditingController();
+  LoginService login = LoginService();
+  List<String> emailOptions = <String>[];
+  String email = "";
   bool ishiddenPassword = true;
   bool _validateEmail = true;
   bool _validatePassword = true;
-  LoginService login = LoginService();
-  final _formKey = GlobalKey<FormState>();
   bool isClicked = false;
-  List<String> emailOptions = <String>[];
+  bool containsAt = false;
+  bool containsDot = false;
 
   UserInfo userInfo = UserInfo(
     userId: 0,
@@ -69,10 +71,46 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void getEmailSuggestions() async {
     final prefs = await SharedPreferences.getInstance();
-    print(prefs.getStringList('emailSuggestions'));
     prefs.getStringList('emailSuggestions') != null
         ? emailOptions = prefs.getStringList('emailSuggestions')!
         : emailOptions = [];
+  }
+
+  List<String> autocompleteDomain(String email) {
+    List<String> autocompleteOptions = <String>[
+      '...student.pens.ac.id',
+      '...lecturer.pens.ac.id'
+    ];
+
+    if (email.contains("@")) {
+      setState(() {
+        containsAt = true;
+      });
+    } else {
+      setState(() {
+        containsAt = false;
+      });
+    }
+
+    if (email.contains(".") && containsAt) {
+      setState(() {
+        containsDot = true;
+      });
+    } else {
+      setState(() {
+        containsDot = false;
+      });
+    }
+
+    if (containsAt && containsDot) {
+      List<String> tempOptions = <String>[];
+      for (var element in autocompleteOptions) {
+        tempOptions.add(element.replaceAll('...', email));
+      }
+      return tempOptions;
+    } else {
+      return [];
+    }
   }
 
   @override
@@ -170,19 +208,33 @@ class _LoginScreenState extends State<LoginScreen> {
                       List<String> matches = <String>[];
                       matches.addAll(emailOptions);
 
-                      matches.retainWhere((s) {
-                        return s
-                            .toLowerCase()
-                            .contains(textEditingValue.text.toLowerCase());
-                      });
-                      return matches;
+                      // ignore: unnecessary_null_comparison
+                      if (matches != null) {
+                        matches.retainWhere((s) {
+                          return s
+                              .toLowerCase()
+                              .contains(textEditingValue.text.toLowerCase());
+                        });
+
+                        if (matches.isEmpty) {
+                          List<String> suggestions =
+                              autocompleteDomain(textEditingValue.text);
+                          return suggestions;
+                        } else {
+                          return matches;
+                        }
+                      } else {
+                        List<String> suggestions =
+                            autocompleteDomain(textEditingValue.text);
+                        return suggestions;
+                      }
                     }
                   },
-                  onSelected: (option) => setState(
-                    () {
+                  onSelected: (option) {
+                    setState(() {
                       email = option.toString();
-                    },
-                  ),
+                    });
+                  },
                   fieldViewBuilder: (
                     BuildContext context,
                     TextEditingController emailController,
@@ -229,7 +281,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           setState(() {
                             email = value;
                           });
-                          print(value);
                         },
                       ),
                     );
@@ -395,11 +446,39 @@ class _LoginScreenState extends State<LoginScreen> {
         'password': passwordController.text,
       };
 
-      await login.authLogin(body).then(
+      login
+          .authLogin(body)
+          .then(
             (response) => {
               _afterLoginHandler(response),
             },
-          );
+          )
+          .catchError((err) {
+        setState(() {
+          isClicked = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(err),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            shape: ShapeBorder.lerp(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              1,
+            ),
+            margin: const EdgeInsets.all(
+              paddingBase,
+            ),
+            elevation: 10,
+          ),
+        );
+      });
     }
   }
 
