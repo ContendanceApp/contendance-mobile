@@ -39,10 +39,10 @@ class FindClassesData {
     required this.startTime,
     required this.finishTime,
     required this.rooms,
-    required this.days,
     required this.studyGroups,
     required this.subjects,
     required this.users,
+    required this.days,
   });
 
   int subjectScheduleId;
@@ -54,10 +54,10 @@ class FindClassesData {
   String startTime;
   String finishTime;
   Rooms rooms;
-  Days days;
   StudyGroups studyGroups;
-  StudyGroups subjects;
+  Subjects subjects;
   Users users;
+  Days days;
 
   factory FindClassesData.fromJson(Map<String, dynamic> json) =>
       FindClassesData(
@@ -70,10 +70,10 @@ class FindClassesData {
         startTime: json["start_time"],
         finishTime: json["finish_time"],
         rooms: Rooms.fromJson(json["rooms"]),
-        days: Days.fromJson(json["days"]),
         studyGroups: StudyGroups.fromJson(json["study_groups"]),
-        subjects: StudyGroups.fromJson(json["subjects"]),
+        subjects: Subjects.fromJson(json["subjects"]),
         users: Users.fromJson(json["users"]),
+        days: Days.fromJson(json["days"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -86,10 +86,10 @@ class FindClassesData {
         "start_time": startTime,
         "finish_time": finishTime,
         "rooms": rooms.toJson(),
-        "days": days.toJson(),
         "study_groups": studyGroups.toJson(),
         "subjects": subjects.toJson(),
         "users": users.toJson(),
+        "days": days.toJson(),
       };
 }
 
@@ -150,6 +150,26 @@ class StudyGroups {
 
   Map<String, dynamic> toJson() => {
         "name": name,
+      };
+}
+
+class Subjects {
+  Subjects({
+    required this.name,
+    required this.acronym,
+  });
+
+  String name;
+  String acronym;
+
+  factory Subjects.fromJson(Map<String, dynamic> json) => Subjects(
+        name: json["name"],
+        acronym: json["acronym"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "acronym": acronym,
       };
 }
 

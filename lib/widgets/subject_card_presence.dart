@@ -51,7 +51,7 @@ class _SubjectCardPresenceState extends State<SubjectCardPresence> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "SQA",
+                          widget.schedule.subjects.acronym,
                           textAlign: TextAlign.center,
                           style: fontInter.copyWith(
                             fontSize: 14,
