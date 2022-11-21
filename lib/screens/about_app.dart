@@ -28,7 +28,7 @@ class AboutApp extends StatelessWidget {
             height: 4,
           ),
           Text(
-            "4.1.2",
+            "5.0.0",
             textAlign: TextAlign.justify,
             style: fontInter.copyWith(
               fontWeight: fwRegular,
