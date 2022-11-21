@@ -60,6 +60,8 @@ dependencies:
   figma_squircle: ^0.5.3
   get: ^4.6.5
   nearby_connections: ^3.2.0
+  in_app_update: ^4.0.1
+  store_redirect: ^2.0.1
 
 dev_dependencies:
   flutter_test:

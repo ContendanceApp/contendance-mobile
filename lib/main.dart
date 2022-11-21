@@ -1,3 +1,5 @@
+import 'package:contendance_app/screens/update_notice.dart';
+
 import 'screens/about_app.dart';
 import 'screens/account.dart';
 import 'screens/account_detail.dart';
@@ -56,6 +58,7 @@ class MyApp extends StatelessWidget {
         '/detail-class': (context) => const DetailClass(),
         '/class-not-found': (context) => ClassNotFound(),
         '/change-password': (context) => const ChangePassword(),
+        '/update-notice': (context) => const UpdateNotice(),
       },
       builder: EasyLoading.init(),
     );
