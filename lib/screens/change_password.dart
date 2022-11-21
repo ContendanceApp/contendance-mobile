@@ -90,7 +90,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FittedBox(
-                fit: BoxFit.scaleDown,
+                fit: BoxFit.fitWidth,
                 child: Text(
                   "Ubah Password",
                   textAlign: TextAlign.center,

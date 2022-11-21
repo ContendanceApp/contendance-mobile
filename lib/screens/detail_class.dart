@@ -72,12 +72,15 @@ class _DetailClassState extends State<DetailClass> {
                             badgeColor: const Color(0xFF145AE3),
                             borderRadius: BorderRadius.circular(50),
                             position: BadgePosition.topEnd(),
-                            badgeContent: Text(
-                              "Dalam Kelas",
-                              style: fontInter.copyWith(
-                                color: colorWhite,
-                                fontWeight: fwSemiBold,
-                                fontSize: 12,
+                            badgeContent: FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "Dalam Kelas",
+                                style: fontInter.copyWith(
+                                  color: colorWhite,
+                                  fontWeight: fwSemiBold,
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                             child: ClipRRect(

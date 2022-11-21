@@ -123,7 +123,6 @@ class _HomeState extends State<Home> {
     _checkPermission();
     // askBluetoothPerm();
     checkAuth();
-    checkClassStatus();
   }
 
   enableBlue() async {
@@ -369,12 +368,15 @@ class _HomeState extends State<Home> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   userInfo.fullname != ""
-                                      ? Text(
-                                          userInfo.fullname,
-                                          style: fontInter.copyWith(
-                                            fontWeight: fwBold,
-                                            fontSize: 20,
-                                            color: colorWhite,
+                                      ? FittedBox(
+                                          fit: BoxFit.fitWidth,
+                                          child: Text(
+                                            userInfo.fullname,
+                                            style: fontInter.copyWith(
+                                              fontWeight: fwBold,
+                                              fontSize: 20,
+                                              color: colorWhite,
+                                            ),
                                           ),
                                         )
                                       : SkeletonAnimation(
@@ -401,12 +403,15 @@ class _HomeState extends State<Home> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       userInfo.sidEid != ""
-                                          ? Text(
-                                              userInfo.sidEid.toString(),
-                                              style: fontInter.copyWith(
-                                                fontWeight: fwMedium,
-                                                fontSize: 14,
-                                                color: colorSubWhite,
+                                          ? FittedBox(
+                                              fit: BoxFit.fitWidth,
+                                              child: Text(
+                                                userInfo.sidEid.toString(),
+                                                style: fontInter.copyWith(
+                                                  fontWeight: fwMedium,
+                                                  fontSize: 14,
+                                                  color: colorSubWhite,
+                                                ),
                                               ),
                                             )
                                           : SkeletonAnimation(
@@ -437,11 +442,15 @@ class _HomeState extends State<Home> {
                                                   badgeColor: colorWhite,
                                                   borderRadius:
                                                       BorderRadius.circular(50),
-                                                  badgeContent: Text(
-                                                    userInfo.studyGroups!.name,
-                                                    style: fontInter.copyWith(
-                                                      color: colorPrimaryBlue,
-                                                      fontWeight: fwSemiBold,
+                                                  badgeContent: FittedBox(
+                                                    fit: BoxFit.fitWidth,
+                                                    child: Text(
+                                                      userInfo
+                                                          .studyGroups!.name,
+                                                      style: fontInter.copyWith(
+                                                        color: colorPrimaryBlue,
+                                                        fontWeight: fwSemiBold,
+                                                      ),
                                                     ),
                                                   ),
                                                 )
@@ -452,11 +461,14 @@ class _HomeState extends State<Home> {
                                                   badgeColor: colorWhite,
                                                   borderRadius:
                                                       BorderRadius.circular(50),
-                                                  badgeContent: Text(
-                                                    "Dosen",
-                                                    style: fontInter.copyWith(
-                                                      color: colorPrimaryBlue,
-                                                      fontWeight: fwSemiBold,
+                                                  badgeContent: FittedBox(
+                                                    fit: BoxFit.fitWidth,
+                                                    child: Text(
+                                                      "Dosen",
+                                                      style: fontInter.copyWith(
+                                                        color: colorPrimaryBlue,
+                                                        fontWeight: fwSemiBold,
+                                                      ),
                                                     ),
                                                   ),
                                                 )
@@ -501,13 +513,16 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Kelas berlangsung",
-                          textAlign: TextAlign.left,
-                          style: fontInter.copyWith(
-                            fontSize: 14,
-                            fontWeight: fwBold,
-                            color: colorPrimaryBlack,
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            "Kelas berlangsung",
+                            textAlign: TextAlign.left,
+                            style: fontInter.copyWith(
+                              fontSize: 14,
+                              fontWeight: fwBold,
+                              color: colorPrimaryBlack,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 12),
@@ -538,13 +553,16 @@ class _HomeState extends State<Home> {
                                           Container(
                                             margin: const EdgeInsets.only(
                                                 bottom: 15),
-                                            child: Text(
-                                              "Belum memasuki kelas",
-                                              textAlign: TextAlign.center,
-                                              style: fontInter.copyWith(
-                                                fontSize: 16,
-                                                fontWeight: fwBold,
-                                                color: colorSubText,
+                                            child: FittedBox(
+                                              fit: BoxFit.fitWidth,
+                                              child: Text(
+                                                "Belum memasuki kelas",
+                                                textAlign: TextAlign.center,
+                                                style: fontInter.copyWith(
+                                                  fontSize: 16,
+                                                  fontWeight: fwBold,
+                                                  color: colorSubText,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -596,13 +614,16 @@ class _HomeState extends State<Home> {
                                       ? "mahasiswa"
                                       : "dosen"),
                         ),
-                        Text(
-                          "Mata kuliah hari ini",
-                          textAlign: TextAlign.left,
-                          style: fontInter.copyWith(
-                            fontSize: 14,
-                            fontWeight: fwBold,
-                            color: colorPrimaryBlack,
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            "Mata kuliah hari ini",
+                            textAlign: TextAlign.left,
+                            style: fontInter.copyWith(
+                              fontSize: 14,
+                              fontWeight: fwBold,
+                              color: colorPrimaryBlack,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 12),
@@ -629,12 +650,16 @@ class _HomeState extends State<Home> {
                                         const SizedBox(
                                           height: 8,
                                         ),
-                                        Text("Tidak ada matkul hari ini",
-                                            textAlign: TextAlign.center,
-                                            style: fontInter.copyWith(
-                                                fontSize: 16,
-                                                fontWeight: fwSemiBold,
-                                                color: colorSubText)),
+                                        FittedBox(
+                                          fit: BoxFit.fitWidth,
+                                          child: Text(
+                                              "Tidak ada matkul hari ini",
+                                              textAlign: TextAlign.center,
+                                              style: fontInter.copyWith(
+                                                  fontSize: 16,
+                                                  fontWeight: fwSemiBold,
+                                                  color: colorSubText)),
+                                        ),
                                       ],
                                     ),
                                   )
@@ -651,107 +676,6 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  showModalBottom() {
-    return showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (builder) {
-        return Container(
-          height: 300.0,
-          color: Colors.transparent,
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(roundedBase),
-                topRight: Radius.circular(roundedBase),
-              ),
-            ),
-            child: Center(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(40),
-                    child: Align(
-                      alignment: AlignmentDirectional.topStart,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Kelas Tidak Ditemukan!",
-                            textAlign: TextAlign.center,
-                            style: fontInter.copyWith(
-                              fontWeight: fwBold,
-                              fontSize: 18.0,
-                              color: colorPrimaryBlack,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          SvgPicture.asset("assets/images/close-square.svg"),
-                          const SizedBox(
-                            height: 25,
-                          ),
-                          Text(
-                            "Pastikan anda berada pada jangkauan kelas atau ruangan 😉",
-                            textAlign: TextAlign.center,
-                            style: fontInter.copyWith(
-                              fontSize: 16.0,
-                              color: colorSubText,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(paddingBase),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Button(
-                            text: "Tutup",
-                            primary: true,
-                            secondary: false,
-                            callback: () async {
-                              final prefs =
-                                  await SharedPreferences.getInstance();
-                              // await prefs.setString('classStatus', 'found');
-                              final success = await prefs.remove('classStatus');
-                              if (success) {
-                                if (mounted) {
-                                  Get.back();
-                                }
-                              }
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> checkClassStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    if (prefs.getString('classStatus') != null) {
-      if (prefs.getString('classStatus') == "not-found") {
-        await prefs.remove('classStatus');
-        showModalBottom();
-      }
-    }
   }
 
   Future onSelectNotification(String? payload) async {

@@ -53,7 +53,10 @@ class Button extends StatelessWidget {
                     ),
                   ),
                   onPressed: callback,
-                  child: Text(text),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(text),
+                  ),
                 ),
               )
             : Container(
@@ -72,7 +75,11 @@ class Button extends StatelessWidget {
                     ),
                   ),
                   onPressed: callback,
-                  child: withChild ?? Text(text),
+                  child: withChild ??
+                      FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(text),
+                      ),
                 ),
               )
         : secondary
@@ -93,7 +100,10 @@ class Button extends StatelessWidget {
                         ),
                       ),
                       onPressed: callback,
-                      child: Text(text),
+                      child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(text),
+                      ),
                     ),
                   )
                 : Container(
@@ -112,7 +122,11 @@ class Button extends StatelessWidget {
                         ),
                       ),
                       onPressed: callback,
-                      child: withChild ?? Text(text),
+                      child: withChild ??
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(text),
+                          ),
                     ),
                   )
             : Container(
@@ -129,12 +143,16 @@ class Button extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         vertical: paddingY ?? 18, horizontal: paddingX ?? 40),
                     textStyle: fontInter.copyWith(
-                      fontSize: customFontSize ?? fontSize,
+                      fontSize: customFontSize ??
+                          MediaQuery.of(context).size.width * 0.04,
                       fontWeight: fwBold,
                     ),
                   ),
                   onPressed: callback,
-                  child: Text(text),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(text),
+                  ),
                 ),
               );
   }

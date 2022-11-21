@@ -1,3 +1,4 @@
+import 'package:contendance_app/widgets/screen_wrapper/base_white_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,40 +18,31 @@ class SuccessPresence extends StatelessWidget {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as SuccessPresenceModel;
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          "CONTENDANCE",
-          style: fontInter.copyWith(
-            color: colorPrimaryBlue,
-            fontWeight: fwBold,
-            fontSize: 14,
-            letterSpacing: 1,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.white,
+    return BaseWhiteScreen(
       body: SafeArea(
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            //Container for tittle
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.15,
-              child: Column(
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 16),
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 0,
+              ),
+              Column(
                 children: [
-                  Text(
-                    'Presensi Berhasil!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 20.0,
-                      fontWeight: fwBold,
-                      color: colorPrimaryBlack,
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      'Presensi Berhasil!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 20.0,
+                        fontWeight: fwBold,
+                        color: colorPrimaryBlack,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -59,14 +51,17 @@ class SuccessPresence extends StatelessWidget {
                     height: 75,
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    args.data.presences.rooms.name,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 18.0,
-                      fontWeight: fwBold,
-                      color: colorPrimaryBlue,
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      args.data.presences.rooms.name,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: "Inter",
+                        fontSize: 18.0,
+                        fontWeight: fwBold,
+                        color: colorPrimaryBlue,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -78,89 +73,82 @@ class SuccessPresence extends StatelessWidget {
                     borderRadius: BorderRadius.circular(150),
                     padding:
                         const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                    badgeContent: Text(
-                      args.data.presences.rooms.roomCode,
-                      style: fontInter.copyWith(
-                        color: const Color(0xFFFFFFFF).withOpacity(0.9),
-                        fontWeight: FontWeight.w600,
+                    badgeContent: FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        args.data.presences.rooms.roomCode,
+                        style: fontInter.copyWith(
+                          color: const Color(0xFFFFFFFF).withOpacity(0.9),
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
+                  const SizedBox(
+                    height: 36,
+                  ),
                   Column(
-                    children: const <Widget>[
-                      //Icon(Icons.assignment_return),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.35,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: 200,
-                    child: Text(
-                      args.data.presences.subjectsSchedules.subjects.name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: "Inter",
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF64749F),
-                        height: 1.5,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "${args.data.presences.subjectsSchedules.startTime} - ${args.data.presences.subjectsSchedules.finishTime}",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF333333),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        width: 50,
-                        child: Divider(
-                          color: Color(0xFFF4F4F4),
-                          height: 10,
-                          thickness: 2,
+                    children: <Widget>[
+                      FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          args.data.presences.subjectsSchedules.subjects.name,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontFamily: "Inter",
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF64749F),
+                            height: 1.5,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        args.data.presences.users.fullname,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontFamily: "Inter",
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF145AE3),
+                      FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(
+                          "${args.data.presences.subjectsSchedules.startTime} - ${args.data.presences.subjectsSchedules.finishTime}",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontFamily: "Inter",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF333333),
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 4),
+                      Column(
+                        children: [
+                          const SizedBox(
+                            width: 50,
+                            child: Divider(
+                              color: Color(0xFFF4F4F4),
+                              height: 10,
+                              thickness: 2,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              args.data.presences.users.fullname,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontFamily: "Inter",
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF145AE3),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
-                  )
+                  ),
                 ],
               ),
-            ),
-            Positioned(
-              bottom: 50,
-              child: ClipRRect(
+              ClipRRect(
                 borderRadius: BorderRadius.circular(100),
                 child: Stack(
                   children: <Widget>[
@@ -180,30 +168,11 @@ class SuccessPresence extends StatelessWidget {
                       primary: true,
                       secondary: false,
                     ),
-                    // TextButton(
-                    //   style: TextButton.styleFrom(
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 45, vertical: 12),
-                    //     primary: Colors.white,
-                    //     textStyle: fontInter.copyWith(
-                    //       fontSize: 16,
-                    //       fontWeight: fwBold,
-                    //     ),
-                    //   ),
-                    //   onPressed: () async {
-                    //     final prefs = await SharedPreferences.getInstance();
-                    //     final success = await prefs.remove('classStatus');
-                    //     if (success) {
-                    //       Get.offNamed("/home");
-                    //     }
-                    //   },
-                    //   child: const Text('OKE'),
-                    // ),
                   ],
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -218,19 +218,25 @@ class _SearchClassState extends State<SearchClass> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  "Pilih Mata Kuliah",
-                                  style: fontInter.copyWith(
-                                    fontWeight: fwBold,
-                                    fontSize: 18.0,
-                                    color: colorPrimaryBlack,
+                                FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(
+                                    "Pilih Mata Kuliah",
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwBold,
+                                      fontSize: 18.0,
+                                      color: colorPrimaryBlack,
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  "Klik kartu matkul yang akan dibuka presensinya",
-                                  style: fontInter.copyWith(
-                                    fontSize: 16.0,
-                                    color: colorSubText,
+                                FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(
+                                    "Klik kartu matkul yang akan dibuka presensinya",
+                                    style: fontInter.copyWith(
+                                      fontSize: 16.0,
+                                      color: colorSubText,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(

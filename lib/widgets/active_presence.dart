@@ -71,7 +71,6 @@ class _ActiveClassState extends State<ActivePresence> {
                 child: SizedBox(
                   height: 110,
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
@@ -84,22 +83,26 @@ class _ActiveClassState extends State<ActivePresence> {
                             textAlign: TextAlign.left,
                             style: fontInter.copyWith(
                               fontWeight: fwBold,
-                              fontSize: 16.0,
+                              fontSize:
+                                  MediaQuery.of(context).size.width * 0.04,
                               color: colorPrimaryBlue,
                             ),
                           ),
                           const SizedBox(
                             height: 4,
                           ),
-                          Text(
-                            "${widget.activePresence.data.rooms.name} - ${widget.activePresence.data.rooms.roomCode}",
-                            textAlign: TextAlign.left,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: fontInter.copyWith(
-                              fontSize: 14.0,
-                              fontWeight: fwMedium,
-                              color: colorSubText,
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              "${widget.activePresence.data.rooms.name} - ${widget.activePresence.data.rooms.roomCode}",
+                              textAlign: TextAlign.left,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: fontInter.copyWith(
+                                fontSize: 14.0,
+                                fontWeight: fwMedium,
+                                color: colorSubText,
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -110,22 +113,28 @@ class _ActiveClassState extends State<ActivePresence> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Waktu Pelaksanaan",
-                            textAlign: TextAlign.left,
-                            style: fontInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: fwSemiBold,
-                              color: colorSubText,
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              "Waktu Pelaksanaan",
+                              textAlign: TextAlign.left,
+                              style: fontInter.copyWith(
+                                fontSize: 14,
+                                fontWeight: fwSemiBold,
+                                color: colorSubText,
+                              ),
                             ),
                           ),
-                          Text(
-                            "${widget.activePresence.data.subjectsSchedules.startTime} - ${widget.activePresence.data.subjectsSchedules.finishTime}",
-                            textAlign: TextAlign.left,
-                            style: fontInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: fwBold,
-                              color: colorPrimaryBlack,
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              "${widget.activePresence.data.subjectsSchedules.startTime} - ${widget.activePresence.data.subjectsSchedules.finishTime}",
+                              textAlign: TextAlign.left,
+                              style: fontInter.copyWith(
+                                fontSize: 14,
+                                fontWeight: fwBold,
+                                color: colorPrimaryBlack,
+                              ),
                             ),
                           ),
                         ],
@@ -193,40 +202,6 @@ class _ActiveClassState extends State<ActivePresence> {
                     ],
                   )
                 : const SizedBox(),
-            // const SizedBox(
-            //   width: 24,
-            // ),
-            // Expanded(
-            //   flex: 1,
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(50),
-            //       gradient: const LinearGradient(
-            //         begin: Alignment.topRight,
-            //         end: Alignment.bottomLeft,
-            //         colors: [
-            //           Color(0xff15aeef),
-            //           Color(0xff145ae3),
-            //         ],
-            //       ),
-            //     ),
-            //     child: TextButton(
-            //       style: TextButton.styleFrom(
-            //         padding: const EdgeInsets.symmetric(vertical: 12),
-            //         primary: Colors.white,
-            //         textStyle: fontInter.copyWith(
-            //           fontSize: 16,
-            //           fontWeight: FontWeight.fwBold,
-            //         ),
-            //       ),
-            //       onPressed: () {},
-            //       child: const Text(
-            //         "Buka Presensi",
-            //         softWrap: false,
-            //       ),
-            //     ),
-            //   ),
-            // ),
           ),
         ],
       ),
@@ -260,30 +235,39 @@ class _ActiveClassState extends State<ActivePresence> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           widget.roleId == 1
-                              ? Text(
-                                  "Apakah anda yakin keluar kelas?",
-                                  style: fontInter.copyWith(
-                                    fontWeight: fwBold,
-                                    fontSize: 18.0,
-                                    color: colorPrimaryBlack,
+                              ? FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(
+                                    "Apakah anda yakin keluar kelas?",
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwBold,
+                                      fontSize: 18.0,
+                                      color: colorPrimaryBlack,
+                                    ),
                                   ),
                                 )
-                              : Text(
-                                  "Apakah anda yakin ingin menutup presensi?",
-                                  style: fontInter.copyWith(
-                                    fontWeight: fwBold,
-                                    fontSize: 18.0,
-                                    color: colorPrimaryBlack,
+                              : FittedBox(
+                                  fit: BoxFit.fitWidth,
+                                  child: Text(
+                                    "Apakah anda yakin ingin menutup presensi?",
+                                    style: fontInter.copyWith(
+                                      fontWeight: fwBold,
+                                      fontSize: 18.0,
+                                      color: colorPrimaryBlack,
+                                    ),
                                   ),
                                 ),
                           const SizedBox(
                             height: 20,
                           ),
-                          Text(
-                            "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
-                            style: fontInter.copyWith(
-                              fontSize: 16.0,
-                              color: colorSubText,
+                          FittedBox(
+                            fit: BoxFit.fitWidth,
+                            child: Text(
+                              "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
+                              style: fontInter.copyWith(
+                                fontSize: 16.0,
+                                color: colorSubText,
+                              ),
                             ),
                           ),
                         ],

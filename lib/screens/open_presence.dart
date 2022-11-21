@@ -24,15 +24,18 @@ class _OpenPresenceState extends State<OpenPresence> {
     final args = ModalRoute.of(context)!.settings.arguments as BeaconArgs;
     return BaseWhiteScreen(
       body: SafeArea(
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            //Container for tittle
-            Positioned(
-              top: MediaQuery.of(context).size.height * 0.15,
-              child: Column(
-                children: [
-                  Text(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              height: 0,
+            ),
+            Column(
+              children: [
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
                     "Presensi Berhasil Dibuka!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -42,18 +45,21 @@ class _OpenPresenceState extends State<OpenPresence> {
                       color: colorPrimaryBlack,
                     ),
                   ),
-                  const SizedBox(height: 25),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(35),
-                    child: Image.asset(
-                      'assets/images/lab-pens.jpg',
-                      height: 135,
-                      width: 135,
-                      fit: BoxFit.fitHeight,
-                    ),
+                ),
+                const SizedBox(height: 25),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(35),
+                  child: Image.asset(
+                    'assets/images/lab-pens.jpg',
+                    height: 135,
+                    width: 135,
+                    fit: BoxFit.fitHeight,
                   ),
-                  const SizedBox(height: 22),
-                  Text(
+                ),
+                const SizedBox(height: 22),
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
                     "Ruangan ${args.schedule.data.rooms.roomCode}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -63,14 +69,19 @@ class _OpenPresenceState extends State<OpenPresence> {
                       color: colorPrimaryBlue,
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  Badge(
-                    toAnimate: false,
-                    shape: BadgeShape.square,
-                    elevation: 0,
-                    badgeColor: colorPrimaryBlue,
-                    borderRadius: BorderRadius.circular(50),
-                    badgeContent: Text(
+                ),
+                const SizedBox(
+                  height: 36,
+                ),
+                Badge(
+                  toAnimate: false,
+                  shape: BadgeShape.square,
+                  elevation: 0,
+                  badgeColor: colorPrimaryBlue,
+                  borderRadius: BorderRadius.circular(50),
+                  badgeContent: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
                       "Kelas ${args.schedule.data.subjectsSchedules.studyGroups.name}",
                       textAlign: TextAlign.center,
                       style: fontInter.copyWith(
@@ -79,86 +90,87 @@ class _OpenPresenceState extends State<OpenPresence> {
                         color: colorWhite,
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.30,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: 225,
-                    child: Text(
-                      args.schedule.data.subjectsSchedules.subjects.name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: "Inter",
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF64749F),
-                        height: 1.5,
-                      ),
-                    ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "${args.schedule.data.subjectsSchedules.startTime} - ${args.schedule.data.subjectsSchedules.finishTime}",
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontFamily: "Inter",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF333333),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Column(
-                    children: [
-                      const SizedBox(
-                        width: 50,
-                        child: Divider(
-                          color: Color(0xFFF4F4F4),
-                          height: 10,
-                          thickness: 2,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        args.schedule.data.users.fullname,
+                ),
+                const SizedBox(height: 20),
+                Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Text(
+                        args.schedule.data.subjectsSchedules.subjects.name,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontFamily: "Inter",
                           fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF145AE3),
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF64749F),
+                          height: 1.5,
                         ),
                       ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(height: 4),
-            Align(
-              alignment: AlignmentDirectional.bottomCenter,
-              child: Container(
-                margin: const EdgeInsets.symmetric(
-                    horizontal: paddingBase, vertical: paddingXl),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Button(
-                      text: "Kembali ke Beranda",
-                      callback: () => Get.offNamedUntil(
-                        "/home",
-                        (Route<dynamic> route) => false,
-                      ),
-                      primary: true,
-                      secondary: false,
                     ),
+                    const SizedBox(height: 4),
+                    FittedBox(
+                      fit: BoxFit.fitWidth,
+                      child: Text(
+                        "${args.schedule.data.subjectsSchedules.startTime} - ${args.schedule.data.subjectsSchedules.finishTime}",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontFamily: "Inter",
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF333333),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Column(
+                      children: [
+                        const SizedBox(
+                          width: 50,
+                          child: Divider(
+                            color: Color(0xFFF4F4F4),
+                            height: 10,
+                            thickness: 2,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: Text(
+                            args.schedule.data.users.fullname,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontFamily: "Inter",
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF145AE3),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ],
                 ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                  horizontal: paddingBase, vertical: paddingXl),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Button(
+                    text: "Kembali ke Beranda",
+                    callback: () => Get.offNamedUntil(
+                      "/home",
+                      (Route<dynamic> route) => false,
+                    ),
+                    primary: true,
+                    secondary: false,
+                  ),
+                ],
               ),
             ),
           ],
