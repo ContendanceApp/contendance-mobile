@@ -32,17 +32,14 @@ class SuccessPresence extends StatelessWidget {
               ),
               Column(
                 children: [
-                  FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(
-                      'Presensi Berhasil!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: "Inter",
-                        fontSize: 20.0,
-                        fontWeight: fwBold,
-                        color: colorPrimaryBlack,
-                      ),
+                  Text(
+                    'Presensi Berhasil!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontSize: 20.0,
+                      fontWeight: fwBold,
+                      color: colorPrimaryBlack,
                     ),
                   ),
                   const SizedBox(height: 30),

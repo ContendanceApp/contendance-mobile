@@ -19,16 +19,13 @@ class BaseWhiteScreen extends StatelessWidget {
         //   color: Colors.black87,
         //   iconSize: 24,
         // ),
-        title: FittedBox(
-          fit: BoxFit.fitWidth,
-          child: Text(
-            "CONTENDANCE",
-            style: fontInter.copyWith(
-              color: colorPrimaryBlue,
-              fontWeight: fwBold,
-              fontSize: 14,
-              letterSpacing: 1,
-            ),
+        title: Text(
+          "CONTENDANCE",
+          style: fontInter.copyWith(
+            color: colorPrimaryBlue,
+            fontWeight: fwBold,
+            fontSize: 14,
+            letterSpacing: 1,
           ),
         ),
         centerTitle: true,

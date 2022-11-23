@@ -89,15 +89,12 @@ class _ChangePasswordState extends State<ChangePassword> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FittedBox(
-                fit: BoxFit.fitWidth,
-                child: Text(
-                  "Ubah Password",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: fwBold,
-                    fontSize: 20,
-                  ),
+              Text(
+                "Ubah Password",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: fwBold,
+                  fontSize: 20,
                 ),
               ),
               const SizedBox(

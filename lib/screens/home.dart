@@ -442,15 +442,11 @@ class _HomeState extends State<Home> {
                                                   badgeColor: colorWhite,
                                                   borderRadius:
                                                       BorderRadius.circular(50),
-                                                  badgeContent: FittedBox(
-                                                    fit: BoxFit.fitWidth,
-                                                    child: Text(
-                                                      userInfo
-                                                          .studyGroups!.name,
-                                                      style: fontInter.copyWith(
-                                                        color: colorPrimaryBlue,
-                                                        fontWeight: fwSemiBold,
-                                                      ),
+                                                  badgeContent: Text(
+                                                    userInfo.studyGroups!.name,
+                                                    style: fontInter.copyWith(
+                                                      color: colorPrimaryBlue,
+                                                      fontWeight: fwSemiBold,
                                                     ),
                                                   ),
                                                 )
@@ -461,14 +457,11 @@ class _HomeState extends State<Home> {
                                                   badgeColor: colorWhite,
                                                   borderRadius:
                                                       BorderRadius.circular(50),
-                                                  badgeContent: FittedBox(
-                                                    fit: BoxFit.fitWidth,
-                                                    child: Text(
-                                                      "Dosen",
-                                                      style: fontInter.copyWith(
-                                                        color: colorPrimaryBlue,
-                                                        fontWeight: fwSemiBold,
-                                                      ),
+                                                  badgeContent: Text(
+                                                    "Dosen",
+                                                    style: fontInter.copyWith(
+                                                      color: colorPrimaryBlue,
+                                                      fontWeight: fwSemiBold,
                                                     ),
                                                   ),
                                                 )
@@ -614,16 +607,13 @@ class _HomeState extends State<Home> {
                                       ? "mahasiswa"
                                       : "dosen"),
                         ),
-                        FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(
-                            "Mata kuliah hari ini",
-                            textAlign: TextAlign.left,
-                            style: fontInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: fwBold,
-                              color: colorPrimaryBlack,
-                            ),
+                        Text(
+                          "Mata kuliah hari ini",
+                          textAlign: TextAlign.left,
+                          style: fontInter.copyWith(
+                            fontSize: 14,
+                            fontWeight: fwBold,
+                            color: colorPrimaryBlack,
                           ),
                         ),
                         const SizedBox(height: 12),

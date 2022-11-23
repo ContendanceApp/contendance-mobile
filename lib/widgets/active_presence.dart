@@ -113,16 +113,13 @@ class _ActiveClassState extends State<ActivePresence> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Text(
-                              "Waktu Pelaksanaan",
-                              textAlign: TextAlign.left,
-                              style: fontInter.copyWith(
-                                fontSize: 14,
-                                fontWeight: fwSemiBold,
-                                color: colorSubText,
-                              ),
+                          Text(
+                            "Waktu Pelaksanaan",
+                            textAlign: TextAlign.left,
+                            style: fontInter.copyWith(
+                              fontSize: 14,
+                              fontWeight: fwSemiBold,
+                              color: colorSubText,
                             ),
                           ),
                           FittedBox(
@@ -235,39 +232,30 @@ class _ActiveClassState extends State<ActivePresence> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           widget.roleId == 1
-                              ? FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: Text(
-                                    "Apakah anda yakin keluar kelas?",
-                                    style: fontInter.copyWith(
-                                      fontWeight: fwBold,
-                                      fontSize: 18.0,
-                                      color: colorPrimaryBlack,
-                                    ),
+                              ? Text(
+                                  "Apakah anda yakin keluar kelas?",
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwBold,
+                                    fontSize: 18.0,
+                                    color: colorPrimaryBlack,
                                   ),
                                 )
-                              : FittedBox(
-                                  fit: BoxFit.fitWidth,
-                                  child: Text(
-                                    "Apakah anda yakin ingin menutup presensi?",
-                                    style: fontInter.copyWith(
-                                      fontWeight: fwBold,
-                                      fontSize: 18.0,
-                                      color: colorPrimaryBlack,
-                                    ),
+                              : Text(
+                                  "Apakah anda yakin ingin menutup presensi?",
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwBold,
+                                    fontSize: 18.0,
+                                    color: colorPrimaryBlack,
                                   ),
                                 ),
                           const SizedBox(
                             height: 20,
                           ),
-                          FittedBox(
-                            fit: BoxFit.fitWidth,
-                            child: Text(
-                              "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
-                              style: fontInter.copyWith(
-                                fontSize: 16.0,
-                                color: colorSubText,
-                              ),
+                          Text(
+                            "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
+                            style: fontInter.copyWith(
+                              fontSize: 16.0,
+                              color: colorSubText,
                             ),
                           ),
                         ],
