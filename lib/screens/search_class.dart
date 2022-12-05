@@ -1,236 +1,262 @@
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/screens/home.dart';
-import 'package:contendance_app/screens/success_presence.dart';
-import 'package:contendance_app/services/presence_service.dart';
+import 'dart:async';
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'dart:math' as math;
+import 'package:flutter/services.dart';
+
+import 'package:get/get.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constant/theme.dart';
+import '../data/models/find_classes_model.dart';
+import '../widgets/subject_card_presence.dart';
+import '../services/location_service.dart';
+import '../services/presence_service.dart';
+import '../widgets/ripple_animation/ripple_animation.dart';
 
 void main() => runApp(const SearchClass());
 
-class SearchClass extends StatelessWidget {
+class SearchClass extends StatefulWidget {
   const SearchClass({Key? key}) : super(key: key);
+
+  @override
+  State<SearchClass> createState() => _SearchClassState();
+}
+
+class _SearchClassState extends State<SearchClass> {
+  List beacons = [];
+  late FindClassesModel schedule;
+
+  final regions = <Region>[];
+  StreamSubscription<RangingResult>? _streamRanging;
+
+  LocationService locationService = LocationService();
+  PresenceService presence = PresenceService();
+
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  static AndroidInitializationSettings initializationSettingsAndroid =
+      const AndroidInitializationSettings('mipmap/launcher_icon');
+  var initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  @override
+  void initState() {
+    super.initState();
+    initializeBeacon();
+  }
+
+  @override
+  void dispose() {
+    _streamRanging?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // ignore: prefer_const_constructors
       home: RipplesAnimation(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Home(),
-          ),
-        ),
+        onPressed: () {},
         key: null,
         child: Container(),
       ),
     );
   }
-}
 
-class RipplesAnimation extends StatefulWidget {
-  const RipplesAnimation({
-    required Key? key,
-    this.size = 100.0,
-    this.color = const Color(0xFF145AE3),
-    required this.onPressed,
-    required this.child,
-  }) : super(key: key);
-  final double size;
-  final Color color;
-  final Widget child;
-  final VoidCallback onPressed;
-  @override
-  _RipplesAnimationState createState() => _RipplesAnimationState();
-}
-
-class _RipplesAnimationState extends State<RipplesAnimation>
-    with TickerProviderStateMixin {
-  late AnimationController _controller;
-
-  PresenceService presence = PresenceService();
-  String? userId = "1";
-  String? ruanganId = "1";
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1500),
-      vsync: this,
-    )..repeat();
-    checkConnection();
-    // searchingTimer();
-  }
-
-  checkConnection() async {
-    bool result = await InternetConnectionChecker().hasConnection;
-    if (result == true) {
-      doPresence();
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Tidak ada koneksi internet')));
+  timeoutSearchClass() async {
+    if (mounted) {
+      _streamRanging?.cancel();
+      Get.offNamed('/class-not-found');
     }
   }
 
-  doPresence() async {
+  Future<FindClassesModel> findClasses(
+    String proximityUUID,
+  ) async {
+    // If lecturer
     Map<String, String> body = {
-      'userId': userId!,
-      'ruanganId': ruanganId!,
+      'proximity_uuid': proximityUUID.toLowerCase(),
     };
-    await presence.createPresence(body).then((value) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SuccessPresence(presence: value.data),
-        ),
-      );
+    return presence.findClasses(body).then((value) => value);
+  }
+
+  initializeBeacon() async {
+    try {
+      // if you want to manage manual checking about the required permissions
+      // await flutterBeacon.initializeScanning;
+
+      // or if you want to include automatic checking permission
+      await flutterBeacon.initializeAndCheckScanning;
+      rangingBeacon();
+    } on PlatformException catch (e) {
+      // ignore: avoid_print
+      print("Exception: ${e.message}");
+      if (e.message == "bluetooth disabled") {
+        Timer.periodic(const Duration(seconds: 2), (timer) {
+          timeoutSearchClass();
+        });
+      }
+    }
+  }
+
+  rangingBeacon() async {
+    if (Platform.isAndroid) {
+      regions.add(Region(identifier: 'com.beacon'));
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+    int roleId = prefs.getInt('roleId') ?? 0;
+
+    _streamRanging =
+        flutterBeacon.ranging(regions).listen((RangingResult result) async {
+      if (result.beacons.isNotEmpty) {
+        _streamRanging?.cancel();
+        if (mounted) {
+          setState(() {
+            beacons = result.beacons;
+          });
+        }
+        for (var beacon in beacons) {
+          if (mounted) {
+            if (roleId == 1) {
+              // if student
+              Map<String, String> body = {
+                'proximity_uuid': beacon.proximityUUID.toLowerCase(),
+              };
+
+              presence.createPresence(body).then((value) async {
+                await Get.offAllNamed("/success-presence", arguments: value);
+              }).catchError((e) {
+                // ignore: avoid_print
+                print("Exception: $e");
+                timeoutSearchClass();
+              });
+            } else {
+              // if lecturer
+              final response = await findClasses(beacon.proximityUUID);
+              // ignore: unnecessary_null_comparison
+              if (response != null) {
+                if (response.data.isNotEmpty) {
+                  setState(() {
+                    schedule = response;
+                  });
+                  showModalBottom();
+                  return;
+                }
+              }
+            }
+          }
+        }
+        return;
+      } else {
+        Timer.periodic(const Duration(seconds: 4), (timer) {
+          timeoutSearchClass();
+        });
+      }
     });
   }
 
-  // searchingTimer() async {
-  //   var duration = const Duration(seconds: 3);
-  //   return Timer(duration, () {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => const SuccessPresence()),
-  //     );
-  //   });
+  // void _showNotification(
+  //     int id, String? title, String? body, String? payload) async {
+  //   const androidChannelPlatformSpecifics = AndroidNotificationDetails(
+  //       'channelId', 'channelName',
+  //       channelDescription: 'channelDescription',
+  //       importance: Importance.max,
+  //       priority: Priority.high,
+  //       ticker: 'test ticker');
+
+  //   const platformChannelSpecifics =
+  //       NotificationDetails(android: androidChannelPlatformSpecifics);
+
+  //   await flutterLocalNotificationsPlugin
+  //       .show(id, title, body, platformChannelSpecifics, payload: payload);
   // }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  Future onSelectNotification(String? payload) async {
+    if (payload != null) {
+      debugPrint("Notification Payload = $payload");
+    }
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('classStatus', "not-found");
+    await Get.offNamed("/home");
   }
 
-  Widget _ripple() {
-    return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(widget.size),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ScaleTransition(
-              scale: Tween(begin: 0.95, end: 1.0).animate(
-                CurvedAnimation(
-                  parent: _controller,
-                  curve: const PulsateCurve(),
-                ),
+  showModalBottom() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (builder) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.5,
+          maxChildSize: 0.9,
+          builder: (context, scrollController) => Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
               ),
             ),
-            SvgPicture.asset('assets/images/beacon-search.svg', width: 50),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // leading: BackButton(
-        //   color: const Color(0xFF130F26),
-        //   onPressed: () {
-        //     // _goBack(context);
-        //   },
-        // ),
-        automaticallyImplyLeading: false,
-        title: Text(
-          "CONTENDANCE",
-          style: cInter.copyWith(
-            color: cPrimaryBlue,
-            fontWeight: FontWeight.w800,
-            fontSize: 14,
-            letterSpacing: 1,
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * (3 / 4)),
+            child: ListView(
+              controller: scrollController,
+              children: [
+                Center(
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(paddingLg),
+                        child: Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: SingleChildScrollView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Pilih Mata Kuliah",
+                                  style: fontInter.copyWith(
+                                    fontWeight: fwBold,
+                                    fontSize: 18.0,
+                                    color: colorPrimaryBlack,
+                                  ),
+                                ),
+                                Text(
+                                  "Klik kartu matkul yang akan dibuka presensinya",
+                                  style: fontInter.copyWith(
+                                    fontSize: 16.0,
+                                    color: colorSubText,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: paddingXl,
+                                ),
+                                Column(
+                                  children: schedule.data
+                                      .map((item) => SubjectCardPresence(
+                                            schedule: item,
+                                            beacon: beacons,
+                                          ))
+                                      .toList(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          verticalDirection: VerticalDirection.down,
-          children: [
-            Text(
-              "Mencari Kelas ...",
-              style: cInter.copyWith(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: cPrimaryBlack,
-              ),
-            ),
-            Center(
-              child: CustomPaint(
-                painter: CirclePainter(
-                  _controller,
-                  color: widget.color,
-                ),
-                child: SizedBox(
-                  width: widget.size * 4,
-                  height: widget.size * 4,
-                  child: _ripple(),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CirclePainter extends CustomPainter {
-  CirclePainter(
-    this._animation, {
-    required this.color,
-  }) : super(repaint: _animation);
-  final Color color;
-  final Animation<double> _animation;
-  void circle(Canvas canvas, Rect rect, double value) {
-    final double opacity = (1.0 - (value / 4.0)).clamp(0.0, 1.0);
-    final Color _color = color.withOpacity(opacity);
-    final double size = rect.width / 2;
-    final double area = size * size;
-    final double radius = math.sqrt(area * value / 4);
-    final Paint paint = Paint()
-      ..color = _color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1;
-    canvas.drawCircle(rect.center, radius, paint);
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Rect rect = Rect.fromLTRB(0.0, 0.0, size.width, size.height);
-    for (int wave = 3; wave >= 0; wave--) {
-      circle(canvas, rect, wave + _animation.value);
-    }
-  }
-
-  @override
-  bool shouldRepaint(CirclePainter oldDelegate) => true;
-}
-
-class PulsateCurve extends Curve {
-  const PulsateCurve();
-
-  @override
-  double transform(double t) {
-    if (t == 0 || t == 1) {
-      return 0.01;
-    }
-    return math.sin(t * math.pi);
+        );
+      },
+    ).then((value) => Navigator.pop(context));
   }
 }

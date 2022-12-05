@@ -1,4 +1,4 @@
-package com.example.contendance_app
+package com.contendance
 
 import io.flutter.embedding.android.FlutterActivity
 

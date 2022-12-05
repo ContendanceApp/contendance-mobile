@@ -1,28 +1,119 @@
 import 'dart:convert';
-import 'package:contendance_app/data/models/presence.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constant/string.dart';
+import '../data/models/active_presence_model.dart';
+import '../data/models/find_classes_model.dart';
+import '../data/models/open_presence_model.dart';
+import '../data/models/success_presence_model.dart';
 
 class PresenceService {
-  Future<Presences> createPresence(Map<String, String> body) async {
+  Future<SuccessPresenceModel> createPresence(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token")!;
     final response = await http.post(
-      Uri.parse('https://contendance-api.herokuapp.com/api/presensi'),
+      Uri.parse("$baseUrl/presences/create"),
       headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
       },
       body: jsonEncode(<String, String>{
-        'user_id': body["userId"]!,
-        'ruangan_id': body["ruanganId"]!,
+        'proximity_uuid': body["proximity_uuid"]!,
       }),
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      return Presences.fromJson(jsonDecode(response.body));
+      return SuccessPresenceModel.fromJson(jsonDecode(response.body));
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
+      throw Exception(
+          'Failed load data with status code ${response.statusCode}');
+    }
+  }
+
+  Future<OpenPresenceModel> openPresence(Map<String, int> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token")!;
+    final response = await http.post(
+      Uri.parse("$baseUrl/presences/open"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
+      },
+      body: jsonEncode(<String, int>{
+        'subject_schedule_id': body["subject_schedule_id"]!,
+        'room_id': body["room_id"]!,
+      }),
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return OpenPresenceModel.fromJson(jsonDecode(response.body));
+    } else {
       throw Exception('Failed to presence.');
+    }
+  }
+
+  Future<FindClassesModel> findClasses(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token")!;
+    final response = await http.post(
+      Uri.parse("$baseUrl/presences/find-classes"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
+      },
+      body: jsonEncode(<String, String>{
+        'proximity_uuid': body["proximity_uuid"]!,
+      }),
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return FindClassesModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to presence.');
+    }
+  }
+
+  Future<dynamic> closePresence(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token")!;
+    final response = await http.put(
+      Uri.parse("$baseUrl/presences/close"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
+      },
+      body: jsonEncode(<String, String>{
+        'presence_id': body["presence_id"]!,
+      }),
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Failed to close class.');
+    }
+  }
+
+  Future<ActivePresenceModel> activeClass(String token) async {
+    final response = await http.get(
+      Uri.parse("$baseUrl/presences/active"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
+      },
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return ActivePresenceModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('No active class.');
     }
   }
 }

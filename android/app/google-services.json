@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "934368951579",
+    "project_id": "contendance-ea139",
+    "storage_bucket": "contendance-ea139.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934368951579:android:e240f01ca19ca22ae5e7be",
+        "android_client_info": {
+          "package_name": "com.contendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934368951579-evbi7saoqm4if36ar479eoi9pmkv0r8p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.contendance",
+            "certificate_hash": "944c42d26985aad53e922a0ec87dc4ba0c3e57e0"
+          }
+        },
+        {
+          "client_id": "934368951579-o255l9bj8vver7bpdjbvnkofrdlvir8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0GMehMP_e1gWp9uHyN7GCxQ6nWELsNzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934368951579-o255l9bj8vver7bpdjbvnkofrdlvir8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
