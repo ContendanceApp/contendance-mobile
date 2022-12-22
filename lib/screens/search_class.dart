@@ -145,6 +145,8 @@ class _SearchClassState extends State<SearchClass> {
                   });
                   showModalBottom();
                   return;
+                } else {
+                  timeoutSearchClass();
                 }
               }
             }

@@ -1,4 +1,3 @@
-import 'package:contendance_app/services/classroom_services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -6,6 +5,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/helpers/response_helper.dart';
+import '../services/classroom_services.dart';
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 import '../data/models/active_presence_model.dart';
@@ -158,13 +159,14 @@ class _ActiveClassState extends State<ActivePresence> {
                           callback: () async {
                             final prefs = await SharedPreferences.getInstance();
                             await prefs.remove('classStatus');
-                            showModalBottom(context);
+                            confirmClosePresence(context);
                           },
                           primary: false,
                           secondary: false,
                           custom: true,
-                          backgroundColor: colorDanger,
-                          fontColor: colorWhite,
+                          customFontSize: 15,
+                          backgroundColor: colorWhite,
+                          fontColor: colorDanger,
                           borderColor: colorDanger,
                         ),
                       ),
@@ -188,12 +190,8 @@ class _ActiveClassState extends State<ActivePresence> {
                               Exception(e);
                             }
                           },
-                          primary: false,
+                          primary: true,
                           secondary: false,
-                          custom: true,
-                          backgroundColor: colorPrimaryBlue,
-                          fontColor: colorWhite,
-                          borderColor: colorPrimaryBlue,
                         ),
                       ),
                     ],
@@ -205,7 +203,7 @@ class _ActiveClassState extends State<ActivePresence> {
     );
   }
 
-  showModalBottom(BuildContext context) {
+  confirmClosePresence(BuildContext context) {
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
@@ -231,28 +229,19 @@ class _ActiveClassState extends State<ActivePresence> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          widget.roleId == 1
-                              ? Text(
-                                  "Apakah anda yakin keluar kelas?",
-                                  style: fontInter.copyWith(
-                                    fontWeight: fwBold,
-                                    fontSize: 18.0,
-                                    color: colorPrimaryBlack,
-                                  ),
-                                )
-                              : Text(
-                                  "Apakah anda yakin ingin menutup presensi?",
-                                  style: fontInter.copyWith(
-                                    fontWeight: fwBold,
-                                    fontSize: 18.0,
-                                    color: colorPrimaryBlack,
-                                  ),
-                                ),
+                          Text(
+                            "Tutup Presensi?",
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
+                              fontSize: 18.0,
+                              color: colorPrimaryBlack,
+                            ),
+                          ),
                           const SizedBox(
                             height: 20,
                           ),
                           Text(
-                            "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini",
+                            "Setelah menutup presensi, anda tidak dapat membuka kembali presensi ini & mahasiswa tidak dapat melakukan presensi kembali.",
                             style: fontInter.copyWith(
                               fontSize: 16.0,
                               color: colorSubText,
@@ -265,26 +254,27 @@ class _ActiveClassState extends State<ActivePresence> {
                   Align(
                     alignment: AlignmentDirectional.bottomCenter,
                     child: Padding(
-                      padding: const EdgeInsets.all(paddingBase),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: paddingBase),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Expanded(
                             flex: 1,
                             child: Button(
-                              text: "Tidak, batal",
+                              text: "Batal",
                               callback: () => Navigator.pop(context),
                               primary: false,
                               secondary: true,
                             ),
                           ),
                           const SizedBox(
-                            width: paddingLg,
+                            width: paddingBase,
                           ),
                           Expanded(
                             flex: 1,
                             child: Button(
-                              text: "Ya, yakin",
+                              text: "Tutup",
                               callback: () async {
                                 Map<String, String> body = {
                                   'presence_id': widget
@@ -302,14 +292,17 @@ class _ActiveClassState extends State<ActivePresence> {
                                       horizontal: 20, vertical: 15)
                                   ..indicatorColor = colorPrimaryBlue;
                                 EasyLoading.show(
-                                    status: 'Loading...',
+                                    status: 'Menutup Presensi...',
                                     dismissOnTap: false,
                                     maskType: EasyLoadingMaskType.clear);
 
-                                presence.closePresence(body).then((value) {
+                                await presence
+                                    .closePresence(body)
+                                    .then((value) {
                                   EasyLoading.dismiss();
                                   Navigator.pushNamedAndRemoveUntil(context,
                                       "/home", (Route<dynamic> route) => false);
+                                  handleResponse(value, context);
                                 }).catchError((e) {
                                   // ignore: avoid_print
                                   print(e);

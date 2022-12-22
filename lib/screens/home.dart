@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:async';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +18,7 @@ import 'package:skeleton_text/skeleton_text.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:figma_squircle/figma_squircle.dart';
 
+import '../utils/helpers/response_helper.dart';
 import '../data/models/active_presence_model.dart';
 import '../data/models/schedule_model.dart';
 import '../services/schedule_service.dart';
@@ -506,17 +509,48 @@ class _HomeState extends State<Home> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FittedBox(
-                          fit: BoxFit.fitWidth,
-                          child: Text(
-                            "Kelas berlangsung",
-                            textAlign: TextAlign.left,
-                            style: fontInter.copyWith(
-                              fontSize: 14,
-                              fontWeight: fwBold,
-                              color: colorPrimaryBlack,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                "Kelas berlangsung",
+                                textAlign: TextAlign.left,
+                                style: fontInter.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: fwBold,
+                                  color: colorPrimaryBlack,
+                                ),
+                              ),
                             ),
-                          ),
+                            userInfo.roleId == 2 &&
+                                    activePresence.data.presenceId != 0
+                                ? Expanded(
+                                    flex: 0,
+                                    child: Button(
+                                      paddingY: 6,
+                                      paddingX: 8,
+                                      text: "Batalkan Presensi",
+                                      callback: () async {
+                                        final prefs = await SharedPreferences
+                                            .getInstance();
+                                        await prefs.remove('classStatus');
+                                        confirmCancelPresence(context);
+                                      },
+                                      primary: false,
+                                      secondary: false,
+                                      custom: true,
+                                      customFontSize: 14,
+                                      backgroundColor: colorDanger,
+                                      fontColor: colorWhite,
+                                      borderColor: colorDanger,
+                                    ),
+                                  )
+                                : const SizedBox(
+                                    height: 0,
+                                  ),
+                          ],
                         ),
                         const SizedBox(height: 12),
                         isloadActiveClass
@@ -675,5 +709,130 @@ class _HomeState extends State<Home> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('classStatus', "not-found");
     await Get.offNamed("/home");
+  }
+
+  confirmCancelPresence(BuildContext context) {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (builder) {
+        return Container(
+          height: 250.0,
+          color: Colors.transparent,
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(roundedBase),
+                topRight: Radius.circular(roundedBase),
+              ),
+            ),
+            child: Center(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(40),
+                    child: Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Batalkan Presensi?",
+                            style: fontInter.copyWith(
+                              fontWeight: fwBold,
+                              fontSize: 18.0,
+                              color: colorPrimaryBlack,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Membatalkan presensi akan menghapus semua data presensi baik dosen maupun mahasiswa yang telah presensi",
+                            style: fontInter.copyWith(
+                              fontSize: 16.0,
+                              color: colorSubText,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: paddingBase),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Button(
+                              text: "Tidak",
+                              callback: () => Navigator.pop(context),
+                              primary: false,
+                              secondary: true,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: paddingBase,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Button(
+                              text: "Batalkan",
+                              callback: () async {
+                                Map<String, String> body = {
+                                  'presence_id':
+                                      activePresence.data.presenceId.toString(),
+                                };
+
+                                Navigator.pop(context);
+                                EasyLoading.instance
+                                  ..indicatorWidget = SpinKitFoldingCube(
+                                    color: colorSecondaryBlue,
+                                    size: 30.0,
+                                  )
+                                  ..contentPadding = const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 15)
+                                  ..indicatorColor = colorPrimaryBlue;
+                                EasyLoading.show(
+                                    status: 'Membatalkan presensi...',
+                                    dismissOnTap: false,
+                                    maskType: EasyLoadingMaskType.clear);
+
+                                await presence
+                                    .cancelPresence(body)
+                                    .then((value) {
+                                  EasyLoading.dismiss();
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      "/home", (Route<dynamic> route) => false);
+                                  handleResponse(value, context);
+                                }).catchError((e) {
+                                  // ignore: avoid_print
+                                  print(e);
+                                });
+                              },
+                              primary: false,
+                              secondary: false,
+                              custom: true,
+                              backgroundColor: colorDanger,
+                              fontColor: colorWhite,
+                              borderColor: colorDanger,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

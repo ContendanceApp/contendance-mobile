@@ -94,9 +94,48 @@ class PresenceService {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return jsonDecode(response.body);
+      return response;
     } else {
       throw Exception('Failed to close class.');
+    }
+  }
+
+  Future<dynamic> cancelPresence(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token")!;
+    final response = await http.delete(
+      Uri.parse("$baseUrl/presences/cancel/${body["presence_id"]}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
+      },
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return response;
+    } else {
+      throw Exception('Failed to cancel presence!');
+    }
+  }
+
+  Future<dynamic> removeParticipant(Map<String, String> body) async {
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString("token")!;
+    final response = await http.delete(
+      Uri.parse(
+          "$baseUrl/presences-detail/delete/${body["presence_detail_id"]}"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': token,
+      },
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return response;
+    } else {
+      throw Exception('Failed to remove participant!');
     }
   }
 

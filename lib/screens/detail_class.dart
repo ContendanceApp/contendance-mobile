@@ -260,6 +260,7 @@ class _DetailClassState extends State<DetailClass> {
                               ? snapshot.data!.data.users
                                   .map((user) => UserItemList(
                                         user: user,
+                                        detailClass: args,
                                       ))
                                   .toList()
                               : [
