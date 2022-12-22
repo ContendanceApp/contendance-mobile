@@ -104,8 +104,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (containsAt && containsDot) {
       List<String> tempOptions = <String>[];
+      // Get Email Name
+      final emailName = email.split('@').first;
+
+      // Get Subdomain
+      const start = "@";
+      const end = ".";
+      final startIndex = email.indexOf(start);
+      final endIndex = email.indexOf(end, startIndex + start.length);
+      final emailSubdomain =
+          email.substring(startIndex + start.length, endIndex);
+
+      final finalEmail = "$emailName@$emailSubdomain.";
       for (var element in autocompleteOptions) {
-        tempOptions.add(element.replaceAll('...', email));
+        tempOptions.add(element.replaceAll('...', finalEmail));
       }
       return tempOptions;
     } else {
