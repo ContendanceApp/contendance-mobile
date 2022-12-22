@@ -45,8 +45,9 @@ class Button extends StatelessWidget {
                 child: TextButton(
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 18),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: paddingX != null ? paddingX! : 40,
+                        vertical: paddingY != null ? paddingY! : 18),
                     textStyle: fontInter.copyWith(
                       fontSize: fontSize,
                       fontWeight: fwBold,
@@ -67,8 +68,9 @@ class Button extends StatelessWidget {
                 child: TextButton(
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 18),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: paddingX != null ? paddingX! : 40,
+                        vertical: paddingY != null ? paddingY! : 18),
                     textStyle: fontInter.copyWith(
                       fontSize: fontSize,
                       fontWeight: fwBold,
