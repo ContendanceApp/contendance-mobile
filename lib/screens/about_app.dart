@@ -28,7 +28,7 @@ class AboutApp extends StatelessWidget {
             height: 4,
           ),
           Text(
-            "5.0.0",
+            "5.1.0",
             textAlign: TextAlign.justify,
             style: fontInter.copyWith(
               fontWeight: fwRegular,
@@ -52,7 +52,7 @@ class AboutApp extends StatelessWidget {
             height: 4,
           ),
           Text(
-            "A4 WPPL PENS 2022",
+            "A4 WPPL - PENS 2020",
             textAlign: TextAlign.justify,
             style: fontInter.copyWith(
               fontWeight: fwRegular,
