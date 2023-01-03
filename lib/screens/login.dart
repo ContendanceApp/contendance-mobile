@@ -127,301 +127,306 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
-          Text(
-            "CONTENDANCE",
-            style: TextStyle(
-              color: const Color(0xff145ae3),
-              fontSize: 20.0,
-              fontWeight: fwBold,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
             ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Masuk ke akunmu",
-                style: TextStyle(
-                  fontWeight: fwBold,
-                  fontSize: 20,
-                ),
+            Text(
+              "CONTENDANCE",
+              style: TextStyle(
+                color: const Color(0xff145ae3),
+                fontSize: 20.0,
+                fontWeight: fwBold,
               ),
-              const Text(
-                "Gunakan akun dari instansi anda",
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
-          // Container(
-          //   decoration: BoxDecoration(
-          //     borderRadius: const BorderRadius.all(
-          //       Radius.circular(10),
-          //     ),
-          //     gradient: colorGradient,
-          //   ),
-          //   margin: const EdgeInsets.only(top: paddingLg),
-          //   padding: const EdgeInsets.all(paddingLg),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       Text(
-          //         "Akun Demo (Demo Account)",
-          //         style: TextStyle(
-          //           color: colorWhite,
-          //           fontSize: 16.0,
-          //           fontWeight: fwBold,
-          //         ),
-          //       ),
-          //       const SizedBox(
-          //         height: 8,
-          //       ),
-          //       Text(
-          //         "Email: demo@contendance.com",
-          //         style: TextStyle(
-          //           color: colorSubWhite,
-          //           fontSize: 16.0,
-          //         ),
-          //       ),
-          //       const SizedBox(
-          //         height: 4,
-          //       ),
-          //       Text(
-          //         "Password: 12345678",
-          //         style: TextStyle(
-          //           color: colorSubWhite,
-          //           fontSize: 16.0,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          Form(
-            key: _formKey,
-            child: Column(
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RawAutocomplete(
-                  optionsBuilder: (TextEditingValue textEditingValue) {
-                    if (textEditingValue.text == '') {
-                      return const Iterable<String>.empty();
-                    } else {
-                      List<String> matches = <String>[];
-                      matches.addAll(emailOptions);
-
-                      // ignore: unnecessary_null_comparison
-                      if (matches != null) {
-                        matches.retainWhere((s) {
-                          return s
-                              .toLowerCase()
-                              .contains(textEditingValue.text.toLowerCase());
-                        });
-
-                        if (matches.isEmpty) {
-                          List<String> suggestions =
-                              autocompleteDomain(textEditingValue.text);
-                          return suggestions;
-                        } else {
-                          return matches;
-                        }
-                      } else {
-                        List<String> suggestions =
-                            autocompleteDomain(textEditingValue.text);
-                        return suggestions;
-                      }
-                    }
-                  },
-                  onSelected: (option) {
-                    setState(() {
-                      email = option.toString();
-                    });
-                  },
-                  fieldViewBuilder: (
-                    BuildContext context,
-                    TextEditingController emailController,
-                    FocusNode focusNode,
-                    VoidCallback onFieldSubmitted,
-                  ) {
-                    return Container(
-                      margin: const EdgeInsets.only(top: 40),
-                      child: TextFormField(
-                        textInputAction: TextInputAction.next,
-                        controller: emailController,
-                        focusNode: focusNode,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFE0E0E0),
-                              width: 1,
-                            ),
-                          ),
-                          labelStyle: TextStyle(
-                            fontWeight: fwSemiBold,
-                            color: colorSubText,
-                          ),
-                          errorText: _validateEmail
-                              ? null
-                              : "Email tidak boleh kosong!",
-                          focusColor: colorPrimaryBlue,
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color(0xFF1482E9),
-                            ),
-                          ),
-                          errorBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Color(0xFFD10404),
-                            ),
-                          ),
-                          labelText: 'Email',
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            email = value;
-                          });
-                        },
-                      ),
-                    );
-                  },
-                  optionsViewBuilder: (BuildContext context,
-                      void Function(String) onSelected,
-                      Iterable<String> options) {
-                    return SingleChildScrollView(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        margin: const EdgeInsets.only(right: 32),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: options.map((opt) {
-                            return InkWell(
-                              onTap: () {
-                                onSelected(opt);
-                              },
-                              child: Card(
-                                elevation: 0,
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(12),
-                                  child: Text(opt),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 48),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.go,
-                    obscureText: ishiddenPassword,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0xFFE0E0E0),
-                          width: 1,
-                        ),
-                      ),
-                      labelStyle: TextStyle(
-                        fontWeight: fwSemiBold,
-                        color: colorSubText,
-                      ),
-                      errorText: _validatePassword
-                          ? null
-                          : "Password tidak boleh kosong!",
-                      focusColor: colorPrimaryBlue,
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color(0xFF1482E9),
-                        ),
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 2,
-                          color: Color(0xFFD10404),
-                        ),
-                      ),
-                      suffixIcon: InkWell(
-                        onTap: _togglePasswordView,
-                        child: ishiddenPassword
-                            ? Icon(
-                                Icons.visibility_off_outlined,
-                                color: colorSubText,
-                              )
-                            : const Icon(
-                                Icons.visibility_outlined,
-                                color: Color(0xFF1482E9),
-                              ),
-                      ),
-                    ),
-                    onFieldSubmitted: (value) {
-                      loginHandler();
-                    },
+                Text(
+                  "Masuk ke akunmu",
+                  style: TextStyle(
+                    fontWeight: fwBold,
+                    fontSize: 20,
                   ),
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Button(
-                    text: "LOGIN",
-                    callback: loginHandler,
-                    primary: true,
-                    secondary: false,
-                    withChild: !isClicked
-                        ? Text(
-                            'LOGIN',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: fwBold,
-                              color: Colors.white,
-                            ),
-                          )
-                        : SizedBox(
-                            width: 15,
-                            height: 15,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              color: colorWhite,
-                            ),
-                          ),
+                const Text(
+                  "Gunakan akun dari instansi anda",
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 14,
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            // Container(
+            //   decoration: BoxDecoration(
+            //     borderRadius: const BorderRadius.all(
+            //       Radius.circular(10),
+            //     ),
+            //     gradient: colorGradient,
+            //   ),
+            //   margin: const EdgeInsets.only(top: paddingLg),
+            //   padding: const EdgeInsets.all(paddingLg),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         "Akun Demo (Demo Account)",
+            //         style: TextStyle(
+            //           color: colorWhite,
+            //           fontSize: 16.0,
+            //           fontWeight: fwBold,
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         height: 8,
+            //       ),
+            //       Text(
+            //         "Email: demo@contendance.com",
+            //         style: TextStyle(
+            //           color: colorSubWhite,
+            //           fontSize: 16.0,
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         height: 4,
+            //       ),
+            //       Text(
+            //         "Password: 12345678",
+            //         style: TextStyle(
+            //           color: colorSubWhite,
+            //           fontSize: 16.0,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  RawAutocomplete(
+                    optionsBuilder: (TextEditingValue textEditingValue) {
+                      if (textEditingValue.text == '') {
+                        return const Iterable<String>.empty();
+                      } else {
+                        List<String> matches = <String>[];
+                        matches.addAll(emailOptions);
+
+                        // ignore: unnecessary_null_comparison
+                        if (matches != null) {
+                          matches.retainWhere((s) {
+                            return s
+                                .toLowerCase()
+                                .contains(textEditingValue.text.toLowerCase());
+                          });
+
+                          if (matches.isEmpty) {
+                            List<String> suggestions =
+                                autocompleteDomain(textEditingValue.text);
+                            return suggestions;
+                          } else {
+                            return matches;
+                          }
+                        } else {
+                          List<String> suggestions =
+                              autocompleteDomain(textEditingValue.text);
+                          return suggestions;
+                        }
+                      }
+                    },
+                    onSelected: (option) {
+                      setState(() {
+                        email = option.toString();
+                      });
+                    },
+                    fieldViewBuilder: (
+                      BuildContext context,
+                      TextEditingController emailController,
+                      FocusNode focusNode,
+                      VoidCallback onFieldSubmitted,
+                    ) {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 40),
+                        child: TextFormField(
+                          textInputAction: TextInputAction.next,
+                          controller: emailController,
+                          focusNode: focusNode,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            enabledBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFE0E0E0),
+                                width: 1,
+                              ),
+                            ),
+                            labelStyle: TextStyle(
+                              fontWeight: fwSemiBold,
+                              color: colorSubText,
+                            ),
+                            errorText: _validateEmail
+                                ? null
+                                : "Email tidak boleh kosong!",
+                            focusColor: colorPrimaryBlue,
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: Color(0xFF1482E9),
+                              ),
+                            ),
+                            errorBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: Color(0xFFD10404),
+                              ),
+                            ),
+                            labelText: 'Email',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              email = value;
+                            });
+                          },
+                        ),
+                      );
+                    },
+                    optionsViewBuilder: (BuildContext context,
+                        void Function(String) onSelected,
+                        Iterable<String> options) {
+                      return SingleChildScrollView(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 7,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          margin: const EdgeInsets.only(right: 32),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: options.map((opt) {
+                              return InkWell(
+                                onTap: () {
+                                  onSelected(opt);
+                                },
+                                child: Card(
+                                  elevation: 0,
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.all(12),
+                                    child: Text(opt),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 48),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.go,
+                      obscureText: ishiddenPassword,
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFE0E0E0),
+                            width: 1,
+                          ),
+                        ),
+                        labelStyle: TextStyle(
+                          fontWeight: fwSemiBold,
+                          color: colorSubText,
+                        ),
+                        errorText: _validatePassword
+                            ? null
+                            : "Password tidak boleh kosong!",
+                        focusColor: colorPrimaryBlue,
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color(0xFF1482E9),
+                          ),
+                        ),
+                        errorBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: Color(0xFFD10404),
+                          ),
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: _togglePasswordView,
+                          child: ishiddenPassword
+                              ? Icon(
+                                  Icons.visibility_off_outlined,
+                                  color: colorSubText,
+                                )
+                              : const Icon(
+                                  Icons.visibility_outlined,
+                                  color: Color(0xFF1482E9),
+                                ),
+                        ),
+                      ),
+                      onFieldSubmitted: (value) {
+                        loginHandler();
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Button(
+                      text: "LOGIN",
+                      callback: loginHandler,
+                      primary: true,
+                      secondary: false,
+                      withChild: !isClicked
+                          ? Text(
+                              'LOGIN',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: fwBold,
+                                color: Colors.white,
+                              ),
+                            )
+                          : SizedBox(
+                              width: 15,
+                              height: 15,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 3,
+                                color: colorWhite,
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
