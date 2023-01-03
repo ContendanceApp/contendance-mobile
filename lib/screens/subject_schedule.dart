@@ -1,4 +1,3 @@
-import 'package:contendance_app/controllers/subject_schedule_controller.dart';
 import 'package:contendance_app/data/models/subjects_schedules_model.dart';
 import 'package:contendance_app/services/schedule_service.dart';
 import 'package:contendance_app/widgets/subject_schedule_card.dart';
@@ -13,7 +12,6 @@ import '../widgets/screen_wrapper/stack_screen.dart';
 
 // ignore: must_be_immutable
 class SubjectSchedule extends StatelessWidget {
-  final controller = Get.put(SubjectScheduleController());
   SubjectSchedule({Key? key}) : super(key: key);
   ScheduleService scheduleService = ScheduleService();
   late Future<SubjectsScheduleModel> subjectsSchedules;
