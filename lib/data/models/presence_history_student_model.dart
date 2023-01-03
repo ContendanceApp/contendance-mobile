@@ -13,18 +13,22 @@ class PresenceHistoryStudentModel {
   });
 
   String message;
-  List<PresenceHistoryStudentData> data;
+  Map<String, List<PresenceHistoryStudentData>> data;
 
   factory PresenceHistoryStudentModel.fromJson(Map<String, dynamic> json) =>
       PresenceHistoryStudentModel(
         message: json["message"],
-        data: List<PresenceHistoryStudentData>.from(
-            json["data"].map((x) => PresenceHistoryStudentData.fromJson(x))),
+        data: Map.from(json["data"]).map((k, v) =>
+            MapEntry<String, List<PresenceHistoryStudentData>>(
+                k,
+                List<PresenceHistoryStudentData>.from(
+                    v.map((x) => PresenceHistoryStudentData.fromJson(x))))),
       );
 
   Map<String, dynamic> toJson() => {
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": Map.from(data).map((k, v) => MapEntry<String, dynamic>(
+            k, List<dynamic>.from(v.map((x) => x.toJson())))),
       };
 }
 
@@ -43,8 +47,8 @@ class PresenceHistoryStudentData {
   int presenceDetailId;
   int presenceId;
   int userId;
-  String presenceTime;
-  String presenceDate;
+  DateTime presenceTime;
+  DateTime presenceDate;
   bool isInclass;
   bool isAdmited;
   Presences presences;
@@ -54,8 +58,8 @@ class PresenceHistoryStudentData {
         presenceDetailId: json["presence_detail_id"],
         presenceId: json["presence_id"],
         userId: json["user_id"],
-        presenceTime: json["presence_time"],
-        presenceDate: json["presence_date"],
+        presenceTime: DateTime.parse(json["presence_time"]),
+        presenceDate: DateTime.parse(json["presence_date"]),
         isInclass: json["is_inclass"],
         isAdmited: json["is_admited"],
         presences: Presences.fromJson(json["presences"]),
@@ -65,8 +69,9 @@ class PresenceHistoryStudentData {
         "presence_detail_id": presenceDetailId,
         "presence_id": presenceId,
         "user_id": userId,
-        "presence_time": presenceTime,
-        "presence_date": presenceDate,
+        "presence_time": presenceTime.toIso8601String(),
+        "presence_date":
+            "${presenceDate.year.toString().padLeft(4, '0')}-${presenceDate.month.toString().padLeft(2, '0')}-${presenceDate.day.toString().padLeft(2, '0')}",
         "is_inclass": isInclass,
         "is_admited": isAdmited,
         "presences": presences.toJson(),
@@ -80,7 +85,6 @@ class Presences {
     required this.waitingRoom,
     required this.openTime,
     required this.closeTime,
-    required this.presenceDate,
     required this.rooms,
     required this.subjectsSchedules,
   });
@@ -89,8 +93,7 @@ class Presences {
   bool isOpen;
   bool waitingRoom;
   String openTime;
-  dynamic closeTime;
-  String presenceDate;
+  String? closeTime;
   Rooms rooms;
   SubjectsSchedules subjectsSchedules;
 
@@ -99,8 +102,7 @@ class Presences {
         isOpen: json["is_open"],
         waitingRoom: json["waiting_room"],
         openTime: json["open_time"],
-        closeTime: json["close_time"],
-        presenceDate: json["presence_date"],
+        closeTime: json["close_time"] ?? null,
         rooms: Rooms.fromJson(json["rooms"]),
         subjectsSchedules:
             SubjectsSchedules.fromJson(json["subjects_schedules"]),
@@ -111,8 +113,7 @@ class Presences {
         "is_open": isOpen,
         "waiting_room": waitingRoom,
         "open_time": openTime,
-        "close_time": closeTime,
-        "presence_date": presenceDate,
+        "close_time": closeTime ?? null,
         "rooms": rooms.toJson(),
         "subjects_schedules": subjectsSchedules.toJson(),
       };

@@ -13,18 +13,22 @@ class PresenceHistoryLecturerModel {
   });
 
   String message;
-  List<PresenceHistoryLecturerData> data;
+  Map<String, List<PresenceHistoryLecturerData>> data;
 
   factory PresenceHistoryLecturerModel.fromJson(Map<String, dynamic> json) =>
       PresenceHistoryLecturerModel(
         message: json["message"],
-        data: List<PresenceHistoryLecturerData>.from(
-            json["data"].map((x) => PresenceHistoryLecturerData.fromJson(x))),
+        data: Map.from(json["data"]).map((k, v) =>
+            MapEntry<String, List<PresenceHistoryLecturerData>>(
+                k,
+                List<PresenceHistoryLecturerData>.from(
+                    v.map((x) => PresenceHistoryLecturerData.fromJson(x))))),
       );
 
   Map<String, dynamic> toJson() => {
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": Map.from(data).map((k, v) => MapEntry<String, dynamic>(
+            k, List<dynamic>.from(v.map((x) => x.toJson())))),
       };
 }
 
@@ -49,9 +53,9 @@ class PresenceHistoryLecturerData {
   int userId;
   bool isOpen;
   bool waitingRoom;
-  String openTime;
-  String? closeTime;
-  String presenceDate;
+  DateTime openTime;
+  dynamic closeTime;
+  DateTime presenceDate;
   Rooms rooms;
   SubjectsSchedules subjectsSchedules;
 
@@ -63,9 +67,9 @@ class PresenceHistoryLecturerData {
         userId: json["user_id"],
         isOpen: json["is_open"],
         waitingRoom: json["waiting_room"],
-        openTime: json["open_time"],
+        openTime: DateTime.parse(json["open_time"]),
         closeTime: json["close_time"],
-        presenceDate: json["presence_date"],
+        presenceDate: DateTime.parse(json["presence_date"]),
         rooms: Rooms.fromJson(json["rooms"]),
         subjectsSchedules:
             SubjectsSchedules.fromJson(json["subjects_schedules"]),
@@ -78,9 +82,10 @@ class PresenceHistoryLecturerData {
         "user_id": userId,
         "is_open": isOpen,
         "waiting_room": waitingRoom,
-        "open_time": openTime,
+        "open_time": openTime.toIso8601String(),
         "close_time": closeTime,
-        "presence_date": presenceDate,
+        "presence_date":
+            "${presenceDate.year.toString().padLeft(4, '0')}-${presenceDate.month.toString().padLeft(2, '0')}-${presenceDate.day.toString().padLeft(2, '0')}",
         "rooms": rooms.toJson(),
         "subjects_schedules": subjectsSchedules.toJson(),
       };

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:contendance_app/widgets/presence_history_group.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -305,28 +306,6 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
           //     ],
           //   ),
           // ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Hari Ini', //need improve
-                style: fontInter.copyWith(
-                  fontWeight: fwBold,
-                  fontSize: 24,
-                  color: colorPrimaryBlack,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                dayNow, //need improve
-                style: fontInter.copyWith(
-                  fontWeight: fwMedium,
-                  fontSize: 15,
-                  color: colorSubText,
-                ),
-              ),
-            ],
-          ),
           SizedBox(
             child: userInfo.roleId == 0
                 ? Container(
@@ -400,12 +379,25 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                 );
                               } else {
                                 return ListView.builder(
+                                  controller: ScrollController(
+                                    keepScrollOffset: false,
+                                  ),
                                   shrinkWrap: true,
                                   itemCount: snapshot.data?.data.length,
                                   itemBuilder: (context, index) {
-                                    var history = snapshot.data?.data[index];
-                                    return PresenceHistoryCard(
-                                        historyStudent: history!);
+                                    var history =
+                                        snapshot.data!.data.entries.toList();
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        PresenceHistoryGroup(
+                                          presenceDate:
+                                              history[index].key.toString(),
+                                          historyStudent: history[index].value,
+                                        )
+                                      ],
+                                    );
                                   },
                                 );
                               }
@@ -481,17 +473,27 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
                                     );
                                   } else {
                                     return ListView.builder(
-                                      clipBehavior: Clip.none,
                                       controller: ScrollController(
                                         keepScrollOffset: false,
                                       ),
                                       shrinkWrap: true,
                                       itemCount: snapshot.data?.data.length,
                                       itemBuilder: (context, index) {
-                                        var history =
-                                            snapshot.data?.data[index];
-                                        return PresenceHistoryCard(
-                                            historyLecturer: history!);
+                                        var history = snapshot
+                                            .data!.data.entries
+                                            .toList();
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            PresenceHistoryGroup(
+                                              presenceDate:
+                                                  history[index].key.toString(),
+                                              historyLecturer:
+                                                  history[index].value,
+                                            )
+                                          ],
+                                        );
                                       },
                                     );
                                   }
@@ -528,17 +530,4 @@ class _PresenceHistoryStateScreen extends State<PresenceHistoryScreen> {
       ),
     );
   }
-
-  // getPresenceHistory() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   int roleId = prefs.getInt("roleId") ?? 0;
-
-  //   if (roleId == 1) {
-  //     // if student
-  //     presenceHistory.getPresenceHistoryStudent();
-  //   } else {
-  //     // if lecturer
-  //     presenceHistory.getPresenceHistoryLecturer();
-  //   }
-  // }
 }

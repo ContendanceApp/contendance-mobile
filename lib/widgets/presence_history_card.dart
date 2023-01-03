@@ -103,13 +103,15 @@ class PresenceHistoryCard extends StatelessWidget {
                             Text(
                               historyLecturer != null
                                   ? DateFormat("HH:mm")
-                                      .format(DateTime.parse(
-                                              historyLecturer!.openTime)
+                                      .format(DateTime.parse(historyLecturer!
+                                              .openTime
+                                              .toString())
                                           .toLocal())
                                       .toString()
                                   : DateFormat("HH:mm")
-                                      .format(DateTime.parse(
-                                              historyStudent!.presenceTime)
+                                      .format(DateTime.parse(historyStudent!
+                                              .presenceTime
+                                              .toString())
                                           .toLocal())
                                       .toString(),
                               // historyLecturer != null
