@@ -1,9 +1,11 @@
-import 'package:contendance_app/constant/theme.dart';
-import 'package:contendance_app/data/models/presence_history_lecturer_model.dart';
-import 'package:contendance_app/data/models/presence_history_student_model.dart';
-import 'package:contendance_app/widgets/presence_history_card.dart';
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
+
+import '../constant/theme.dart';
+import '../data/models/presence_history_lecturer_model.dart';
+import '../data/models/presence_history_student_model.dart';
+import '../widgets/presence_history_card.dart';
 
 // ignore: must_be_immutable
 class PresenceHistoryGroup extends StatelessWidget {

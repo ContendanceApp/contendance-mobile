@@ -1,9 +1,9 @@
-import 'package:contendance_app/controllers/class_not_found_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../controllers/class_not_found_controller.dart';
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 

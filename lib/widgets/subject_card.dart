@@ -1,6 +1,6 @@
-import 'package:contendance_app/data/models/schedule_model.dart';
 import 'package:flutter/material.dart';
 
+import '../data/models/schedule_model.dart';
 import '../widgets/button.dart';
 import '../constant/theme.dart';
 

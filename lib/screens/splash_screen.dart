@@ -1,10 +1,9 @@
-import 'package:contendance_app/controllers/splash_controller.dart';
-import 'package:get/get.dart';
-
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../controllers/splash_controller.dart';
 import '../constant/theme.dart';
 
 class SplashScreen extends StatelessWidget {

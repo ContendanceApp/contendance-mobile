@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:contendance_app/data/models/schedule_model.dart';
-import 'package:contendance_app/data/models/subjects_schedules_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/models/subjects_schedules_model.dart';
+import '../data/models/schedule_model.dart';
 import '../constant/string.dart';
 
 class ScheduleService {

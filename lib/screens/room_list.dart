@@ -1,7 +1,7 @@
-import 'package:contendance_app/controllers/room_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/room_list_controller.dart';
 import '../widgets/cards_room_builder.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 

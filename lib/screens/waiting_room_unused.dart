@@ -1,8 +1,8 @@
-import 'package:contendance_app/controllers/waiting_room_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../controllers/waiting_room_controller.dart';
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';

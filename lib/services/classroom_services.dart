@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:contendance_app/data/models/detail_class_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/models/detail_class_model.dart';
 import '../data/models/classroom_model.dart';
 import '../constant/string.dart';
 

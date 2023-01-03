@@ -1,7 +1,7 @@
-import 'package:contendance_app/controllers/about_app_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controllers/about_app_controller.dart';
 import '../constant/theme.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 

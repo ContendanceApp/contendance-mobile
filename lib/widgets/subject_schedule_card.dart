@@ -1,8 +1,9 @@
-import 'package:contendance_app/data/models/subjects_schedules_model.dart';
-import 'package:contendance_app/widgets/button.dart';
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
 
+import '../data/models/subjects_schedules_model.dart';
+import '../widgets/button.dart';
 import '../constant/theme.dart';
 
 // ignore: must_be_immutable

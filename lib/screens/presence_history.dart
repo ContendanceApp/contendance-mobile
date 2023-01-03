@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:contendance_app/widgets/presence_history_group.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../widgets/presence_history_group.dart';
 import '../constant/theme.dart';
 import '../data/models/login_model.dart';
 import '../data/models/login_model.dart' as study_groups;
@@ -15,7 +15,6 @@ import '../data/models/presence_history_lecturer_model.dart';
 import '../data/models/presence_history_student_model.dart';
 import '../services/login_service.dart';
 import '../services/presence_history_service.dart';
-import '../widgets/presence_history_card.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 
 class PresenceHistoryScreen extends StatefulWidget {

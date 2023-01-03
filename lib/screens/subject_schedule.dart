@@ -1,13 +1,11 @@
-import 'package:contendance_app/data/models/subjects_schedules_model.dart';
-import 'package:contendance_app/services/schedule_service.dart';
-import 'package:contendance_app/widgets/subject_schedule_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:expandable/expandable.dart';
-import 'package:get/get.dart';
 
 import '../constant/theme.dart';
-
+import '../data/models/subjects_schedules_model.dart';
+import '../services/schedule_service.dart';
+import '../widgets/subject_schedule_card.dart';
 import '../widgets/screen_wrapper/stack_screen.dart';
 
 // ignore: must_be_immutable

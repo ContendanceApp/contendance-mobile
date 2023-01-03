@@ -1,4 +1,3 @@
-import 'package:contendance_app/controllers/change_schedule_screen_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -7,6 +6,7 @@ import 'package:date_format/date_format.dart';
 import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
 
+import '../controllers/change_schedule_screen_controller.dart';
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 import '../widgets/cards_room_builder.dart';

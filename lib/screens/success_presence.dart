@@ -1,10 +1,10 @@
-import 'package:contendance_app/widgets/screen_wrapper/base_white_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart';
 import 'package:get/get.dart';
 
+import '../widgets/screen_wrapper/base_white_screen.dart';
 import '../constant/theme.dart';
 import '../widgets/button.dart';
 import '../data/models/success_presence_model.dart';

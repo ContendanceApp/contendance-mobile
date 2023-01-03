@@ -1,8 +1,9 @@
-import 'package:contendance_app/data/models/find_classes_model.dart';
-import 'package:contendance_app/services/presence_service.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
+import '../services/presence_service.dart';
+import '../data/models/find_classes_model.dart';
 import '../constant/theme.dart';
 import '../screens/open_presence.dart';
 
